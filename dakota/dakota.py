@@ -20,6 +20,8 @@ class Dakota(object):
         self.variable_descriptors = []
 
         self.analysis_driver = None
+        self.parameters_file = 'params.in'
+        self.results_file = 'results.out'
 
         self.n_responses = 0
         self.response_descriptors = []
