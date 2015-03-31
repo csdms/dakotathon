@@ -1,3 +1,4 @@
+
 #! /usr/bin/env python
 """Interface to the Dakota iterative systems analysis toolkit."""
 
@@ -37,3 +38,25 @@ class Dakota(object):
     def write(self):
         """Write a Dakota input file."""
         pass
+
+def get_labels(params_file):
+    """Extract labels from a Dakota parameters file."""
+    labels = []
+    try:
+        with open(params_file, 'r') as fp:
+            for line in fp:
+                if re.search('ASV_', line):
+                    labels.append(''.join(re.findall(':(\S+)', line)))
+    except IOError:
+        return None
+    else:
+        return(labels)
+
+def write_results(results_file, array, labels):
+    """Write a Dakota results file from an input numpy array."""
+    try:
+        with open(results_file, 'w') as fp:
+            for i in range(len(array)):
+                fp.write('{0s}\t{1}\n'.format(array[i], labels[i]))
+    except IOError:
+        raise
