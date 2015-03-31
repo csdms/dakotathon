@@ -46,6 +46,10 @@ class VectorParameterStudy(Dakota):
             fp.write('interface\n')
             fp.write('  fork\n')
             fp.write('  analysis_driver = {!r}\n'.format(self.analysis_driver))
+            fp.write('  analysis_components = {!r}'.format(self.model))
+            for pair in zip(self.response_files, self.response_statistics):
+                fp.write(' \'{0[0]}:{0[1]}\''.format(pair))
+            fp.write('\n')
             fp.write('  parameters_file = {!r}\n'.format(self.parameters_file))
             fp.write('  results_file = {!r}\n'.format(self.results_file))
             fp.write('  work_directory\n')

@@ -9,6 +9,7 @@ class Dakota(object):
 
     def __init__(self):
         """Create a new Dakota experiment with default parameters."""
+        self.model = None
         self.input_file = 'dakota.in'
         self.output_file = 'dakota.out'
         self.data_file = 'dakota.dat'
@@ -19,17 +20,19 @@ class Dakota(object):
         self.n_variables = 0
         self.variable_descriptors = []
 
-        self.analysis_driver = None
+        self.analysis_driver = 'run_model.py'
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
 
         self.n_responses = 0
         self.response_descriptors = []
+        self.response_files = []
+        self.response_statistics = []
 
     def run(self):
         """Run the specified Dakota experiment."""
         print(self.method)
-        print(self.variable_type + " = " + str(self.n_variables))
+        print(self.analysis_driver)
 
     def write(self):
         """Write a Dakota input file."""

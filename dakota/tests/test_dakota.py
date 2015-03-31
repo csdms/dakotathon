@@ -11,7 +11,7 @@ from nose.tools import *
 from dakota.dakota import Dakota
 
 def setup_module():
-    print('Dakota tests:')
+    print('*** Dakota tests')
     global d
     d = Dakota()
 

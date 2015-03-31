@@ -33,14 +33,17 @@ def teardown_module():
 
 def setup():
     """Called at start of any test using it @with_setup()"""
+    v.model = 'hydrotrend'
     v.input_file = input_file
-    v.variable_descriptors = ['v1', 'v2', 'v3']
+    v.variable_descriptors = ['T', 'P']
     v.n_variables = len(v.variable_descriptors)
-    v.initial_point = [0, 0, 0]
-    v.final_point = [5, 10, 15]
+    v.initial_point = [10.0, 1.5]
+    v.final_point = [20.0, 2.5]
     v.analysis_driver = 'run_model.py'
-    v.response_descriptors = ['Foo', 'Bar']
+    v.response_descriptors = ['Qs_median', 'Q_mean']
     v.n_responses = len(v.response_descriptors)
+    v.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
+    v.response_statistics = ['median', 'mean']
 
 def teardown():
     """Called at end of any test using it @with_setup()"""

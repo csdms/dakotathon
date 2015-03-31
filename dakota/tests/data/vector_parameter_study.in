@@ -5,17 +5,18 @@ environment
 
 method
   vector_parameter_study
-    final_point = 5 10 15 
+    final_point = 20.0 2.5 
     num_steps = 0
 
 variables
-  continuous_design = 3
-    initial_point = 0 0 0 
-    descriptors = 'v1' 'v2' 'v3' 
+  continuous_design = 2
+    initial_point = 10.0 1.5 
+    descriptors = 'T' 'P' 
 
 interface
   fork
   analysis_driver = 'run_model.py'
+  analysis_components = 'hydrotrend' 'HYDROASCII.QS:median' 'HYDROASCII.Q:mean'
   parameters_file = 'params.in'
   results_file = 'results.out'
   work_directory
@@ -26,6 +27,6 @@ interface
 
 responses
   response_functions = 2
-    response_descriptors = 'Foo' 'Bar' 
+    response_descriptors = 'Qs_median' 'Q_mean' 
   no_gradients
   no_hessians
