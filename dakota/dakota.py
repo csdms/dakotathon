@@ -1,9 +1,8 @@
-
 #! /usr/bin/env python
 """Interface to the Dakota iterative systems analysis toolkit."""
 
 import subprocess
-
+import re
 
 class Dakota(object):
     """Describe and run a Dakota experiment."""
