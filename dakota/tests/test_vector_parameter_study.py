@@ -16,6 +16,7 @@ from dakota.vector_parameter_study import VectorParameterStudy
 start_dir = os.getcwd()
 data_dir = os.path.join(start_dir, 'tests', 'data')
 input_file = 'dakota.in'
+alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'vector_parameter_study.in')
 
 # Fixtures -------------------------------------------------------------
@@ -28,8 +29,10 @@ def setup_module():
 
 def teardown_module():
     """Called after all tests have completed."""
-    # if os.path.exists(input_file):
-    #     os.remove(input_file)
+    if os.path.exists(input_file):
+        os.remove(input_file)
+    if os.path.exists(alt_input_file):
+        os.remove(alt_input_file)
 
 def setup():
     """Called at start of any test using it @with_setup()"""
@@ -49,8 +52,7 @@ def setup():
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
-    # if os.path.exists(input_file):
-    #     os.remove(input_file)
+    pass
 
 # Tests ----------------------------------------------------------------
 
@@ -58,19 +60,24 @@ def test_run():
     """Test the run method."""
     v.run()
 
-def test_default_write():
-    """Test the write method with default/empty parameters."""
-    v.write()
+def test_create_default_input_file():
+    """Test the create_input_file method with default parameters."""
+    v.create_input_file()
+    assert_true(os.path.exists(input_file))
+
+def test_create_alt_input_file():
+    """Test the create_input_file method with an alternate name."""
+    v.create_input_file(alt_input_file)
+    assert_true(os.path.exists(alt_input_file))
+
+@with_setup(setup, teardown)
+def test_create_input_file():
+    """Test the create_input_file method with experiment parameters."""
+    v.create_input_file()
     assert_true(os.path.exists(input_file))
 
 @with_setup(setup, teardown)
-def test_write():
-    """Test the write method with experiment parameters."""
-    v.write()
-    assert_true(os.path.exists(input_file))
-
-@with_setup(setup, teardown)
-def test_write_contents():
-    """Test write method results versus a known input file."""
-    v.write()
+def test_input_file_contents():
+    """Test create_input_file method results versus a known input file."""
+    v.create_input_file()
     assert_true(filecmp.cmp(known_file, input_file))

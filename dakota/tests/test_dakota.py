@@ -22,6 +22,6 @@ def test_run():
     """Test the run method."""
     d.run()
 
-def test_write():
-    """Test the write method."""
-    d.write()
+def test_create_input_file():
+    """Test the create_input_file method."""
+    d.create_input_file()

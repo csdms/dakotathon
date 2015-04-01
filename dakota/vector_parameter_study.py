@@ -17,15 +17,6 @@ class VectorParameterStudy(Dakota):
         self.interface = 'direct'
         self.analysis_driver = 'rosenbrock'
 
-    def write(self):
-        """Write a Dakota input file."""
-        with open(self.input_file, 'w') as fp:
-            fp.write(self.environment_block())
-            fp.write(self.method_block())
-            fp.write(self.variables_block())
-            fp.write(self.interface_block())
-            fp.write(self.responses_block())
-
     def method_block(self):
         """Define the method block of a Dakota input file."""
         s = 'method\n' \
@@ -49,4 +40,23 @@ class VectorParameterStudy(Dakota):
         for vd in self.variable_descriptors:
             s += ' {!r}'.format(vd)
         s += '\n\n'
+        return(s)
+
+    def interface_block(self):
+        """Define the interface block of a Dakota input file."""
+        s = 'interface\n' \
+            + '  {}\n'.format(self.interface) \
+            + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
+        if self.model is not None:
+            s += '  analysis_components = {!r}'.format(self.model)
+            for pair in zip(self.response_files, self.response_statistics):
+                s += ' \'{0[0]}:{0[1]}\''.format(pair)
+            s += '\n'
+        s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
+             + '  results_file = {!r}\n'.format(self.results_file) \
+             + '  work_directory\n' \
+             + '    named \'run\'\n' \
+             + '    directory_tag\n' \
+             + '    directory_save\n' \
+             + '  file_save\n\n'
         return(s)
