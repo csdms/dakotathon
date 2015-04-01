@@ -14,17 +14,22 @@ class Dakota(object):
         self.output_file = 'dakota.out'
         self.data_file = 'dakota.dat'
 
-        self.method = None
+        self.method = 'vector_parameter_study'
+        self.final_point = [1.1, 1.3]
+        self.initial_point = [-0.3, 0.2]
+        self.n_steps = 10
 
         self.variable_type = 'continuous_design'
-        self.n_variables = 0
-        self.variable_descriptors = []
+        self.n_variables = 2
+        self.variable_descriptors = ['x1', 'x2']
 
-        self.analysis_driver = 'run_model.py'
+        self.interface = 'direct'
+        self.analysis_driver = 'rosenbrock'
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
 
-        self.n_responses = 0
+        self.n_response_functions = 0
+        self.n_objective_functions = 1
         self.response_descriptors = []
         self.response_files = []
         self.response_statistics = []

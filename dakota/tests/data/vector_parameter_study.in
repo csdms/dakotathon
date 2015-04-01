@@ -6,7 +6,7 @@ environment
 method
   vector_parameter_study
     final_point = 20.0 2.5 
-    num_steps = 0
+    num_steps = 6
 
 variables
   continuous_design = 2

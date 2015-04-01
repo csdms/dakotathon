@@ -11,9 +11,11 @@ class VectorParameterStudy(Dakota):
         """Create a new Dakota vector parameter study."""
         Dakota.__init__(self)
         self.method = 'vector_parameter_study'
-        self.initial_point = []
-        self.final_point = []
-        self.n_steps = 0
+        self.initial_point = [-0.3, 0.2]
+        self.final_point = [1.1, 1.3]
+        self.n_steps = 10
+        self.interface = 'direct'
+        self.analysis_driver = 'rosenbrock'
 
     def write(self):
         """Write a Dakota input file."""
@@ -44,7 +46,7 @@ class VectorParameterStudy(Dakota):
             fp.write('\n')
             fp.write('\n')
             fp.write('interface\n')
-            fp.write('  fork\n')
+            fp.write('  {}\n'.format(self.interface))
             fp.write('  analysis_driver = {!r}\n'.format(self.analysis_driver))
             fp.write('  analysis_components = {!r}'.format(self.model))
             for pair in zip(self.response_files, self.response_statistics):
@@ -59,7 +61,10 @@ class VectorParameterStudy(Dakota):
             fp.write('  file_save\n')
             fp.write('\n')
             fp.write('responses\n')
-            fp.write('  response_functions = {}\n'.format(self.n_responses))
+            if self.n_response_functions > 0:
+                fp.write('  response_functions = {}\n'.format(self.n_response_functions))
+            else:
+                fp.write('  objective_functions = {}\n'.format(self.n_objective_functions))
             fp.write('    response_descriptors = ')
             for rd in self.response_descriptors:
                 fp.write('{0!r}{1}'.format(rd, ' '))
