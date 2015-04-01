@@ -46,7 +46,9 @@ class Dakota(object):
 
     def run(self):
         """Run the specified Dakota experiment."""
-        pass
+        r = subprocess.call(['dakota',
+                             '-i', self.input_file,
+                             '-o', self.output_file])
 
     def create_input_file(self, input_file=None):
         """Create a Dakota input file on the file system."""
@@ -99,7 +101,21 @@ class Dakota(object):
         """Define the interface block of a Dakota input file."""
         s = 'interface\n' \
             + '  {}\n'.format(self.interface) \
-            + '  analysis_driver = {!r}\n\n'.format(self.analysis_driver)
+            + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
+        if self.model is not None:
+            s += '  analysis_components = {!r}'.format(self.model)
+            for pair in zip(self.response_files, self.response_statistics):
+                s += ' \'{0[0]}:{0[1]}\''.format(pair)
+            s += '\n'
+        if self.interface is not 'direct':
+            s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
+                 + '  results_file = {!r}\n'.format(self.results_file) \
+                 + '  work_directory\n' \
+                 + '    named \'run\'\n' \
+                 + '    directory_tag\n' \
+                 + '    directory_save\n' \
+                 + '  file_save\n'
+        s += '\n'
         return(s)
 
     def responses_block(self):

@@ -39,17 +39,18 @@ def teardown_module():
         os.remove(input_file)
     if os.path.exists(alt_input_file):
         os.remove(alt_input_file)
+    if os.path.exists(d.output_file):
+        os.remove(d.output_file)
+    if os.path.exists(d.data_file):
+        os.remove(d.data_file)
+    if os.path.exists('dakota.rst'):
+        os.remove('dakota.rst')
 
 # Tests ----------------------------------------------------------------
 
 def test_is_dakota_installed():
     """Test whether Dakota is installed."""
     assert_true(is_dakota_installed)
-
-def test_run():
-    """Test the run method."""
-    print(d.method, d.analysis_driver)
-    d.run()
 
 def test_constructor_alt_input_file():
     """Test calling the constructor with an input file."""
@@ -116,3 +117,12 @@ def test_get_analysis_components_unknown_file():
     """Test get_analysis_components when parameters file not found."""
     assert_is_none(get_analysis_components('foo.in'))
 
+def test_run():
+    """Test the run method."""
+    print(d.method, d.analysis_driver)
+    if not os.path.exists(d.input_file):
+        d.create_input_file('test.in')
+    d.run()
+    assert_true(os.path.exists(d.input_file))
+    assert_true(os.path.exists(d.output_file))
+    assert_true(os.path.exists(d.data_file))

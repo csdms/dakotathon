@@ -33,33 +33,36 @@ def teardown_module():
         os.remove(input_file)
     if os.path.exists(alt_input_file):
         os.remove(alt_input_file)
+    if os.path.exists(v.output_file):
+        os.remove(v.output_file)
+    if os.path.exists(v.data_file):
+        os.remove(v.data_file)
+    if os.path.exists('dakota.rst'):
+        os.remove('dakota.rst')
 
 def setup():
     """Called at start of any test using it @with_setup()"""
-    v.model = 'hydrotrend'
-    v.input_file = input_file
-    v.variable_descriptors = ['T', 'P']
-    v.n_variables = len(v.variable_descriptors)
-    v.initial_point = [10.0, 1.5]
-    v.final_point = [20.0, 2.5]
-    v.n_steps = 6
-    v.interface = 'fork'
-    v.analysis_driver = 'run_model.py'
-    v.response_descriptors = ['Qs_median', 'Q_mean']
-    v.n_responses = len(v.response_descriptors)
-    v.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
-    v.response_statistics = ['median', 'mean']
+    global w
+    w = VectorParameterStudy()
+    w.model = 'hydrotrend'
+    w.input_file = input_file
+    w.variable_descriptors = ['T', 'P']
+    w.n_variables = len(w.variable_descriptors)
+    w.initial_point = [10.0, 1.5]
+    w.final_point = [20.0, 2.5]
+    w.n_steps = 6
+    w.interface = 'fork'
+    w.analysis_driver = 'run_model.py'
+    w.response_descriptors = ['Qs_median', 'Q_mean']
+    w.n_responses = len(w.response_descriptors)
+    w.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
+    w.response_statistics = ['median', 'mean']
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
     pass
 
 # Tests ----------------------------------------------------------------
-
-def test_run():
-    """Test the run method."""
-    print(v.method, v.analysis_driver)
-    v.run()
 
 def test_constructor_alt_input_file():
     """Test calling the constructor with an input file."""
@@ -79,11 +82,21 @@ def test_create_alt_input_file():
 @with_setup(setup, teardown)
 def test_create_input_file():
     """Test the create_input_file method with experiment parameters."""
-    v.create_input_file()
+    w.create_input_file()
     assert_true(os.path.exists(input_file))
 
 @with_setup(setup, teardown)
 def test_input_file_contents():
     """Test create_input_file method results versus a known input file."""
-    v.create_input_file()
+    w.create_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
+
+def test_run():
+    """Test the run method."""
+    print(v.method, v.analysis_driver)
+    if not os.path.exists(v.input_file):
+        v.create_input_file('test.in')
+    v.run()
+    assert_true(os.path.exists(v.input_file))
+    assert_true(os.path.exists(v.output_file))
+    assert_true(os.path.exists(v.data_file))
