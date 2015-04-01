@@ -20,54 +20,33 @@ class VectorParameterStudy(Dakota):
     def write(self):
         """Write a Dakota input file."""
         with open(self.input_file, 'w') as fp:
-            fp.write('# Dakota input file\n')
-            fp.write('environment\n')
-            fp.write('  tabular_data\n')
-            fp.write('    tabular_data_file = {!r}\n'.format(self.data_file))
-            fp.write('\n')
-            fp.write('method\n')
-            fp.write('  {}\n'.format(self.method))
-            fp.write('    final_point = ')
-            for pt in self.final_point:
-                fp.write('{0}{1}'.format(pt, ' '))
-            fp.write('\n')
-            fp.write('    num_steps = {}\n'.format(self.n_steps))
-            fp.write('\n')
-            fp.write('variables\n')
-            fp.write('  {0}{1}{2}\n'.format(self.variable_type, ' = ',
-                                            str(self.n_variables)))
-            fp.write('    initial_point = ')
-            for pt in self.initial_point:
-                fp.write('{0}{1}'.format(pt, ' '))
-            fp.write('\n')
-            fp.write('    descriptors = ')
-            for vd in self.variable_descriptors:
-                fp.write('{0!r}{1}'.format(vd, ' '))
-            fp.write('\n')
-            fp.write('\n')
-            fp.write('interface\n')
-            fp.write('  {}\n'.format(self.interface))
-            fp.write('  analysis_driver = {!r}\n'.format(self.analysis_driver))
-            fp.write('  analysis_components = {!r}'.format(self.model))
-            for pair in zip(self.response_files, self.response_statistics):
-                fp.write(' \'{0[0]}:{0[1]}\''.format(pair))
-            fp.write('\n')
-            fp.write('  parameters_file = {!r}\n'.format(self.parameters_file))
-            fp.write('  results_file = {!r}\n'.format(self.results_file))
-            fp.write('  work_directory\n')
-            fp.write('    named \'run\'\n')
-            fp.write('    directory_tag\n')
-            fp.write('    directory_save\n')
-            fp.write('  file_save\n')
-            fp.write('\n')
-            fp.write('responses\n')
-            if self.n_response_functions > 0:
-                fp.write('  response_functions = {}\n'.format(self.n_response_functions))
-            else:
-                fp.write('  objective_functions = {}\n'.format(self.n_objective_functions))
-            fp.write('    response_descriptors = ')
-            for rd in self.response_descriptors:
-                fp.write('{0!r}{1}'.format(rd, ' '))
-            fp.write('\n')
-            fp.write('  no_gradients\n')
-            fp.write('  no_hessians\n')
+            fp.write(self.environment_block())
+            fp.write(self.method_block())
+            fp.write(self.variables_block())
+            fp.write(self.interface_block())
+            fp.write(self.responses_block())
+
+    def method_block(self):
+        """Define the method block of a Dakota input file."""
+        s = 'method\n' \
+            + '  {}\n'.format(self.method) \
+            + '    final_point ='
+        for pt in self.final_point:
+            s += ' {}'.format(pt)
+        s += ('\n' \
+            + '    num_steps = {}\n\n'.format(self.n_steps))
+        return(s)
+
+    def variables_block(self):
+        """Define the variables block of a Dakota input file."""
+        s = 'variables\n' \
+            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
+            + '    initial_point ='
+        for pt in self.initial_point:
+            s += ' {}'.format(pt)
+        s += '\n' \
+             + '    descriptors ='
+        for vd in self.variable_descriptors:
+            s += ' {!r}'.format(vd)
+        s += '\n\n'
+        return(s)

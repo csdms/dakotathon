@@ -28,8 +28,8 @@ def setup_module():
 
 def teardown_module():
     """Called after all tests have completed."""
-    if os.path.exists(input_file):
-        os.remove(input_file)
+    # if os.path.exists(input_file):
+    #     os.remove(input_file)
 
 def setup():
     """Called at start of any test using it @with_setup()"""
@@ -43,14 +43,14 @@ def setup():
     v.interface = 'fork'
     v.analysis_driver = 'run_model.py'
     v.response_descriptors = ['Qs_median', 'Q_mean']
-    v.n_response_functions = len(v.response_descriptors)
+    v.n_responses = len(v.response_descriptors)
     v.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
     v.response_statistics = ['median', 'mean']
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
-    if os.path.exists(input_file):
-        os.remove(input_file)
+    # if os.path.exists(input_file):
+    #     os.remove(input_file)
 
 # Tests ----------------------------------------------------------------
 

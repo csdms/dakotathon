@@ -5,13 +5,13 @@ environment
 
 method
   vector_parameter_study
-    final_point = 20.0 2.5 
+    final_point = 20.0 2.5
     num_steps = 6
 
 variables
   continuous_design = 2
-    initial_point = 10.0 1.5 
-    descriptors = 'T' 'P' 
+    initial_point = 10.0 1.5
+    descriptors = 'T' 'P'
 
 interface
   fork
@@ -27,6 +27,6 @@ interface
 
 responses
   response_functions = 2
-    response_descriptors = 'Qs_median' 'Q_mean' 
+    response_descriptors = 'Qs_median' 'Q_mean'
   no_gradients
   no_hessians

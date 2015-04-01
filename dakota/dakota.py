@@ -14,23 +14,23 @@ class Dakota(object):
         self.output_file = 'dakota.out'
         self.data_file = 'dakota.dat'
 
-        self.method = 'vector_parameter_study'
-        self.final_point = [1.1, 1.3]
-        self.initial_point = [-0.3, 0.2]
-        self.n_steps = 10
+        self.method = 'multidim_parameter_study'
+        self.partitions = [8, 8]
 
         self.variable_type = 'continuous_design'
         self.n_variables = 2
         self.variable_descriptors = ['x1', 'x2']
+        self.upper_bounds = [2.0, 2.0]
+        self.lower_bounds = [-2.0, -2.0]
 
         self.interface = 'direct'
         self.analysis_driver = 'rosenbrock'
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
 
-        self.n_response_functions = 0
-        self.n_objective_functions = 1
-        self.response_descriptors = []
+        self.n_responses = 1
+        self.is_objective_function = False
+        self.response_descriptors = ['r1']
         self.response_files = []
         self.response_statistics = []
 
@@ -42,6 +42,76 @@ class Dakota(object):
     def write(self):
         """Write a Dakota input file."""
         pass
+
+    def environment_block(self):
+        """Define the environment block of a Dakota input file."""
+        s = '# Dakota input file\n' \
+            + 'environment\n' \
+            + '  tabular_data\n' \
+            + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
+        return(s)
+
+    def method_block(self):
+        """Define the method block of a Dakota input file."""
+        s = 'method\n' \
+            + '  {}\n'.format(self.method) \
+            + '    partitions ='
+        for p in self.partitions:
+            s += ' {}'.format(p)
+        s += '\n\n'
+        return(s)
+
+    def variables_block(self):
+        """Define the variables block of a Dakota input file."""
+        s = 'variables\n' \
+            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
+            + '    upper_bounds ='
+        for b in self.upper_bounds:
+            s += ' {}'.format(b)
+        s += '\n' \
+             + '    lower_bounds ='
+        for b in self.lower_bounds:
+            s += ' {}'.format(b)
+        s += '\n' \
+             + '    descriptors ='
+        for vd in self.variable_descriptors:
+            s += ' {!r}'.format(vd)
+        s += '\n\n'
+        return(s)
+
+    def interface_block(self):
+        """Define the interface block of a Dakota input file."""
+        s = 'interface\n' \
+            + '  {}\n'.format(self.interface) \
+            + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
+        if self.model is not None:
+            s += '  analysis_components = {!r}'.format(self.model)
+            for pair in zip(self.response_files, self.response_statistics):
+                s += ' \'{0[0]}:{0[1]}\''.format(pair)
+            s += '\n'
+        s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
+             + '  results_file = {!r}\n'.format(self.results_file) \
+             + '  work_directory\n' \
+             + '    named \'run\'\n' \
+             + '    directory_tag\n' \
+             + '    directory_save\n' \
+             + '  file_save\n\n'
+        return(s)
+
+    def responses_block(self):
+        """Define the responses block of a Dakota input file."""
+        s = 'responses\n'
+        if self.is_objective_function:
+            s += '  objective_functions = {}\n'.format(self.n_responses)
+        else:
+            s += '  response_functions = {}\n'.format(self.n_responses)
+        s += '    response_descriptors ='
+        for rd in self.response_descriptors:
+            s += ' {!r}'.format(rd)
+        s += '\n' \
+             + '  no_gradients\n' \
+             + '  no_hessians\n'
+        return(s)
 
 def get_labels(params_file):
     """Extract labels from a Dakota parameters file."""
