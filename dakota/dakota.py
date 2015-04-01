@@ -36,8 +36,7 @@ class Dakota(object):
 
     def run(self):
         """Run the specified Dakota experiment."""
-        print(self.method)
-        print(self.analysis_driver)
+        pass
 
     def create_input_file(self, input_file=None):
         """Create a Dakota input file on the file system."""

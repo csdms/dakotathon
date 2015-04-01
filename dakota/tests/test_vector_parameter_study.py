@@ -23,7 +23,7 @@ known_file = os.path.join(data_dir, 'vector_parameter_study.in')
 
 def setup_module():
     """Called before any tests are performed."""
-    print('*** VectorParameterStudy tests')
+    print('\n*** VectorParameterStudy tests')
     global v
     v = VectorParameterStudy()
 
@@ -58,6 +58,7 @@ def teardown():
 
 def test_run():
     """Test the run method."""
+    print(v.method, v.analysis_driver)
     v.run()
 
 def test_create_default_input_file():
