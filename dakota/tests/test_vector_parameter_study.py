@@ -14,7 +14,7 @@ from dakota.vector_parameter_study import VectorParameterStudy
 
 # Global variables
 start_dir = os.getcwd()
-data_dir = os.path.join(start_dir, 'tests', 'data')
+data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
 input_file = 'dakota.in'
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'vector_parameter_study.in')

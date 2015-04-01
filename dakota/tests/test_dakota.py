@@ -15,7 +15,7 @@ from dakota.dakota import is_dakota_installed, Dakota, get_labels, \
 
 # Global variables
 start_dir = os.getcwd()
-data_dir = os.path.join(start_dir, 'tests', 'data')
+data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
 input_file = 'dakota.in'
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')
