@@ -52,3 +52,11 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# Emacs files
+*~
+
+# Dakota output
+*.dat
+*.out
+dakota.rst
