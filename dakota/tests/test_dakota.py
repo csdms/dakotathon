@@ -10,7 +10,8 @@
 import os
 import filecmp
 from nose.tools import *
-from dakota.dakota import Dakota, get_labels, get_analysis_components
+from dakota.dakota import is_dakota_installed, Dakota, get_labels, \
+    get_analysis_components
 
 # Global variables
 start_dir = os.getcwd()
@@ -40,6 +41,10 @@ def teardown_module():
         os.remove(alt_input_file)
 
 # Tests ----------------------------------------------------------------
+
+def test_is_dakota_installed():
+    """Test whether Dakota is installed."""
+    assert_true(is_dakota_installed)
 
 def test_run():
     """Test the run method."""

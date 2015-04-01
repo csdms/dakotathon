@@ -4,6 +4,16 @@
 import subprocess
 import re
 
+
+def is_dakota_installed():
+    """Check whether Dakota is installed and in the execution path."""
+    try:
+        subprocess.call(['dakota', '--version'])
+    except OSError:
+        return False
+    else:
+        return True
+
 class Dakota(object):
     """Describe and run a Dakota experiment."""
 
