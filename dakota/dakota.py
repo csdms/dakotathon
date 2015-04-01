@@ -7,10 +7,10 @@ import re
 class Dakota(object):
     """Describe and run a Dakota experiment."""
 
-    def __init__(self):
+    def __init__(self, input_file='dakota.in'):
         """Create a new Dakota experiment with default parameters."""
         self.model = None
-        self.input_file = 'dakota.in'
+        self.input_file = input_file
         self.output_file = 'dakota.out'
         self.data_file = 'dakota.dat'
 

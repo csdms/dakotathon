@@ -61,6 +61,11 @@ def test_run():
     print(v.method, v.analysis_driver)
     v.run()
 
+def test_constructor_alt_input_file():
+    """Test calling the constructor with an input file."""
+    v1 = VectorParameterStudy(alt_input_file)
+    assert_equal(v1.input_file, alt_input_file)
+
 def test_create_default_input_file():
     """Test the create_input_file method with default parameters."""
     v.create_input_file()

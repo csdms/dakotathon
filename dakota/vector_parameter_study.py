@@ -7,9 +7,9 @@ from .dakota import Dakota
 class VectorParameterStudy(Dakota):
     """Set up a Dakota vector parameter study."""
 
-    def __init__(self):
+    def __init__(self, input_file='dakota.in'):
         """Create a new Dakota vector parameter study."""
-        Dakota.__init__(self)
+        Dakota.__init__(self, input_file)
         self.method = 'vector_parameter_study'
         self.initial_point = [-0.3, 0.2]
         self.final_point = [1.1, 1.3]

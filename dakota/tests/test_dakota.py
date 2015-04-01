@@ -46,6 +46,11 @@ def test_run():
     print(d.method, d.analysis_driver)
     d.run()
 
+def test_constructor_alt_input_file():
+    """Test calling the constructor with an input file."""
+    d1 = Dakota(alt_input_file)
+    assert_equal(d1.input_file, alt_input_file)
+
 def test_create_default_input_file():
     """Test the create_input_file method with default parameters."""
     d.create_input_file()
