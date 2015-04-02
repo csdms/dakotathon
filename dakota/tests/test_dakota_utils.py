@@ -20,6 +20,16 @@ model = 'hydrotrend'
 output_file = 'HYDROASCII.QS'
 response_statistic = 'median'
 
+# Fixtures -------------------------------------------------------------
+
+def setup_module():
+    """Called before any tests are performed."""
+    print('\n*** dakota_utils tests')
+
+def teardown_module():
+    """Called after all tests have completed."""
+    pass
+
 # Tests ----------------------------------------------------------------
 
 def test_is_dakota_installed():
