@@ -12,8 +12,6 @@ class DakotaBase(object):
     def __init__(self):
         """Create a set of default experiment parameters."""
         self.model = None
-        # self.input_file = 'dakota.in'
-        # self.output_file = 'dakota.out'
         self.data_file = 'dakota.dat'
 
         self.method = None
