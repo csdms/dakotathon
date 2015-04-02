@@ -7,17 +7,9 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
-import filecmp
 from nose.tools import *
-from dakota.vector_parameter_study import VectorParameterStudy
+from dakota.vector_parameter_study import VectorParameterStudy, method
 
-# Global variables
-start_dir = os.getcwd()
-data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
-input_file = 'dakota.in'
-alt_input_file = 'alt.in'
-known_file = os.path.join(data_dir, 'vector_parameter_study.in')
 
 # Fixtures -------------------------------------------------------------
 
@@ -29,74 +21,20 @@ def setup_module():
 
 def teardown_module():
     """Called after all tests have completed."""
-    if os.path.exists(input_file):
-        os.remove(input_file)
-    if os.path.exists(alt_input_file):
-        os.remove(alt_input_file)
-    if os.path.exists(v.output_file):
-        os.remove(v.output_file)
-    if os.path.exists(v.data_file):
-        os.remove(v.data_file)
-    if os.path.exists('dakota.rst'):
-        os.remove('dakota.rst')
-
-def setup():
-    """Called at start of any test using it @with_setup()"""
-    global w
-    w = VectorParameterStudy()
-    w.model = 'hydrotrend'
-    w.input_file = input_file
-    w.variable_descriptors = ['T', 'P']
-    w.n_variables = len(w.variable_descriptors)
-    w.initial_point = [10.0, 1.5]
-    w.final_point = [20.0, 2.5]
-    w.n_steps = 6
-    w.interface = 'fork'
-    w.analysis_driver = 'run_model.py'
-    w.response_descriptors = ['Qs_median', 'Q_mean']
-    w.n_responses = len(w.response_descriptors)
-    w.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
-    w.response_statistics = ['median', 'mean']
-
-def teardown():
-    """Called at end of any test using it @with_setup()"""
     pass
 
 # Tests ----------------------------------------------------------------
 
-def test_constructor_alt_input_file():
-    """Test calling the constructor with an input file."""
-    v1 = VectorParameterStudy(alt_input_file)
-    assert_equal(v1.input_file, alt_input_file)
+def test_method_function():
+    """Test the method helper function."""
+    assert_equal(v.__class__, method().__class__)
 
-def test_create_default_input_file():
-    """Test the create_input_file method with default parameters."""
-    v.create_input_file()
-    assert_true(os.path.exists(input_file))
+def test_method_block():
+    """Test type of method_block method results."""
+    s = v.method_block()
+    assert_true(type(s) is str)
 
-def test_create_alt_input_file():
-    """Test the create_input_file method with an alternate name."""
-    v.create_input_file(alt_input_file)
-    assert_true(os.path.exists(alt_input_file))
-
-@with_setup(setup, teardown)
-def test_create_input_file():
-    """Test the create_input_file method with experiment parameters."""
-    w.create_input_file()
-    assert_true(os.path.exists(input_file))
-
-@with_setup(setup, teardown)
-def test_input_file_contents():
-    """Test create_input_file method results versus a known input file."""
-    w.create_input_file()
-    assert_true(filecmp.cmp(known_file, input_file))
-
-def test_run():
-    """Test the run method."""
-    print(v.method, v.analysis_driver)
-    if not os.path.exists(v.input_file):
-        v.create_input_file('test.in')
-    v.run()
-    assert_true(os.path.exists(v.input_file))
-    assert_true(os.path.exists(v.output_file))
-    assert_true(os.path.exists(v.data_file))
+def test_variables_block():
+    """Test type of variables_block method results."""
+    s = v.variables_block()
+    assert_true(type(s) is str)
