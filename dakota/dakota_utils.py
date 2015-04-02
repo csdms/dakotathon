@@ -1,8 +1,24 @@
 #! /usr/bin/env python
 """Helper functions for processing Dakota parameter and results files."""
 
+import subprocess
 import re
 
+
+def is_dakota_installed():
+    """Check whether Dakota is installed and in the execution path.
+    
+    Returns
+    -------
+    bool
+      True if Dakota is callable.
+    """
+    try:
+        subprocess.call(['dakota', '--version'])
+    except OSError:
+        return False
+    else:
+        return True
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
