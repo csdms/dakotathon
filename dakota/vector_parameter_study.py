@@ -42,7 +42,7 @@ class VectorParameterStudy(DakotaBase):
         self.interface = 'direct'
         self.analysis_driver = 'rosenbrock'
         self.n_responses = 1
-        self.autogenerate_descriptors()
+        self.generate_descriptors()
 
     def method_block(self):
         """Define the method block of a Dakota input file for a vector

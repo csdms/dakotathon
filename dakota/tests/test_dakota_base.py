@@ -62,9 +62,9 @@ def test_responses_block():
     s = c.responses_block()
     assert_true(type(s) is str)
 
-def test_autogenerate_descriptors():
-    """Test autogenerate_descriptors method."""
+def test_generate_descriptors():
+    """Test generate_descriptors method."""
     c.n_variables, c.n_responses = 1, 1
-    c.autogenerate_descriptors()
+    c.generate_descriptors()
     assert_true(len(c.variable_descriptors) == 1)
     assert_true(len(c.response_descriptors) == 1)

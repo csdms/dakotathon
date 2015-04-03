@@ -87,7 +87,7 @@ class DakotaBase(object):
              + '  no_hessians\n'
         return(s)
 
-    def autogenerate_descriptors(self):
+    def generate_descriptors(self):
         """Quickly make generic variable and response descriptors."""
         self.variable_descriptors = ['x' + str(i+1) for i in
                                      range(self.n_variables)]
