@@ -18,7 +18,7 @@ def method():
     VectorParameterStudy instance.
 
     >>> import dakota.vector_parameter_study as m
-    >>> v = m.model() # instead of v = m.VectorParameterStudy()
+    >>> v = m.method() # instead of v = m.VectorParameterStudy()
     """
     return VectorParameterStudy()
 
