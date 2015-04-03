@@ -22,8 +22,7 @@ def method():
     Call this function instead of the class constructor to obtain a
     VectorParameterStudy instance:
 
-    >>> import .vector_parameter_study as m
-    >>> v = m.method() # instead of v = m.VectorParameterStudy()
+    >>> v = method() # instead of v = VectorParameterStudy()
 
     """
     return VectorParameterStudy()

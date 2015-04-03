@@ -68,7 +68,7 @@ def get_analysis_components(params_file):
     Extract the analysis components from a Dakota parameters file:
 
     >>> from .tests import data_dir
-    >>> params_file = os.path_join(data_dir, vector_parameter_study_params.in)
+    >>> params_file = os.path_join(data_dir, 'vector_parameter_study_params.in')
     >>> ac = get_analysis_components(params_file)
     >>> ac.pop(0)
     'hydrotrend'
