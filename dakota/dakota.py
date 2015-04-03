@@ -4,6 +4,7 @@
 import os
 import subprocess
 import importlib
+from .dakota_utils import is_dakota_installed
 
 
 class Dakota(object):
@@ -76,6 +77,8 @@ class Dakota(object):
 
     def run(self):
         """Run the Dakota experiment."""
+        if is_dakota_installed() is False:
+            raise OSError('Dakota must be installed and in execution path.')
         if os.path.exists(self.input_file) is False:
             raise IOError('Dakota input file not found.')
         else:
