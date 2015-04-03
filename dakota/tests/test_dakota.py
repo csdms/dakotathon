@@ -11,10 +11,9 @@ import os
 import filecmp
 from nose.tools import *
 from dakota.dakota import Dakota
+from . import start_dir, data_dir
 
 # Global variables
-start_dir = os.getcwd()
-data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
 input_file = 'dakota.in'
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')

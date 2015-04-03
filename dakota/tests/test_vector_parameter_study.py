@@ -9,6 +9,7 @@
 
 from nose.tools import *
 from dakota.vector_parameter_study import VectorParameterStudy, method
+from . import start_dir, data_dir
 
 
 # Fixtures -------------------------------------------------------------

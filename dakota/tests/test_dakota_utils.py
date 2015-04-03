@@ -10,10 +10,9 @@
 import os
 from nose.tools import *
 from dakota.dakota_utils import *
+from . import start_dir, data_dir
 
 # Global variables
-start_dir = os.getcwd()
-data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
 parameters_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
 response_labels = ['Qs_median']
 model = 'hydrotrend'

@@ -9,6 +9,7 @@
 
 from nose.tools import *
 from dakota.dakota_base import DakotaBase
+from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
 
