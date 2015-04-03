@@ -5,7 +5,12 @@ from .dakota_base import DakotaBase
 
 
 def method():
-    """A helper function to return a VectorParameterStudy object.
+    """Call this helper function to create a VectorParameterStudy object.
+
+    Every subclass of DakotaBase implements a **method** function to
+    return an instance of the class stored in the module. This way,
+    only the module name (which matches the Dakota ``method`` keyword)
+    is needed to create an instance of the subclass.
 
     Returns
     -------
@@ -15,10 +20,11 @@ def method():
     Examples
     --------
     Call this function instead of the class constructor to obtain a
-    VectorParameterStudy instance.
+    VectorParameterStudy instance:
 
     >>> import dakota.vector_parameter_study as m
     >>> v = m.method() # instead of v = m.VectorParameterStudy()
+
     """
     return VectorParameterStudy()
 

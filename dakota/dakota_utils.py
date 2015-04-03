@@ -12,6 +12,7 @@ def is_dakota_installed():
     -------
     bool
       True if Dakota is callable.
+
     """
     try:
         subprocess.call(['dakota', '--version'])
@@ -32,6 +33,7 @@ def get_response_descriptors(params_file):
     -------
     list
       A list of response descriptors for the Dakota experiment.
+
     """
     labels = []
     try:
@@ -78,6 +80,7 @@ def get_analysis_components(params_file):
     section of the input file contains the line:
 
       analysis_components = 'hydrotrend' 'HYDROASCII.QS:median'
+
     """
     ac = []
     try:

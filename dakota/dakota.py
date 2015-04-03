@@ -10,7 +10,35 @@ class Dakota(object):
     """Set up and run a Dakota experiment."""
 
     def __init__(self, input_file=None, method=None):
-        """Create a new Dakota experiment."""
+        """Create a new Dakota experiment.
+
+        One of either ``input_file`` or ``method`` is required, and
+        they're exclusive. Use ``input_file`` to run Dakota with an
+        existing input file. Use ``method`` to configure a new
+        experiment and create a new input file.
+
+        Parameters
+        ----------
+        input_file: str
+          The path to a Dakota input file.
+        method : str
+          The desired Dakota method (e.g., `vector_parameter_study` or
+          `polynomial_chaos`) to use in an experiment.
+
+        Examples
+        --------
+        Run a Dakota experiment with an existing input file:
+
+        >>> d = Dakota(input_file='/path/to/dakota.in')
+        >>> d.run()
+
+        Configure and run a vector parameter study experiment:
+
+        >>> d = Dakota(method='vector_parameter_study')
+        >>> d.create_input_file()
+        >>> d.run()
+
+        """
         if [input_file, method].count(None) != 1:
             raise TypeError('Must specify exactly one input file or method.')
 
@@ -24,7 +52,17 @@ class Dakota(object):
             self.method = module.method()
 
     def create_input_file(self, input_file=None):
-        """Create a Dakota input file on the file system."""
+        """Create a Dakota input file on the file system.
+
+        Only instances created with ``method`` can create a new Dakota
+        input file.
+
+        Parameters
+        ----------
+        input_file: str, optional
+          A path/name for a new Dakota input file.
+
+        """
         if hasattr(self, 'method') is False:
             raise TypeError('Instance created with `input_file` is read-only.')
         if input_file is not None:

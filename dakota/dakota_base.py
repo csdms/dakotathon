@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""A base class for all Dakota experiments."""
+"""An abstract base class for all Dakota experiments."""
 
 from abc import ABCMeta, abstractmethod
 
@@ -13,18 +13,14 @@ class DakotaBase(object):
         """Create a set of default experiment parameters."""
         self.model = None
         self.data_file = 'dakota.dat'
-
         self.method = None
-
         self.variable_type = 'continuous_design'
         self.n_variables = 0
         self.variable_descriptors = []
-
         self.interface = 'direct'
         self.analysis_driver = 'rosenbrock'
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
-
         self.n_responses = 0
         self.is_objective_function = False
         self.response_descriptors = []
