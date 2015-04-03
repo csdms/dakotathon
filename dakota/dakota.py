@@ -1,207 +1,88 @@
 #! /usr/bin/env python
 """Interface to the Dakota iterative systems analysis toolkit."""
 
+import os
 import subprocess
-import re
+import importlib
+from .dakota_utils import is_dakota_installed
 
-
-def is_dakota_installed():
-    """Check whether Dakota is installed and in the execution path."""
-    try:
-        subprocess.call(['dakota', '--version'])
-    except OSError:
-        return False
-    else:
-        return True
 
 class Dakota(object):
-    """Describe and run a Dakota experiment."""
+    """Set up and run a Dakota experiment."""
 
-    def __init__(self, input_file='dakota.in'):
-        """Create a new Dakota experiment with default parameters."""
-        self.model = None
-        self.input_file = input_file
+    def __init__(self, input_file=None, method=None):
+        """Create a new Dakota experiment.
+
+        One of either ``input_file`` or ``method`` is required, and
+        they're exclusive. Use ``input_file`` to run Dakota with an
+        existing input file. Use ``method`` to configure a new
+        experiment and create a new input file.
+
+        Parameters
+        ----------
+        input_file: str
+          The path to a Dakota input file.
+        method : str
+          The desired Dakota method (e.g., `vector_parameter_study` or
+          `polynomial_chaos`) to use in an experiment.
+
+        Examples
+        --------
+        Run a Dakota experiment with an existing input file:
+
+        >>> d = Dakota(input_file='/path/to/dakota.in')
+        >>> d.run()
+
+        Configure and run a vector parameter study experiment:
+
+        >>> d = Dakota(method='vector_parameter_study')
+        >>> d.create_input_file()
+        >>> d.run()
+
+        """
+        if [input_file, method].count(None) != 1:
+            raise TypeError('Must specify exactly one input file or method.')
+
+        self.input_file = 'dakota.in'
         self.output_file = 'dakota.out'
-        self.data_file = 'dakota.dat'
 
-        self.method = 'multidim_parameter_study'
-        self.partitions = [8, 8]
-
-        self.variable_type = 'continuous_design'
-        self.n_variables = 2
-        self.variable_descriptors = ['x1', 'x2']
-        self.upper_bounds = [2.0, 2.0]
-        self.lower_bounds = [-2.0, -2.0]
-
-        self.interface = 'direct'
-        self.analysis_driver = 'rosenbrock'
-        self.parameters_file = 'params.in'
-        self.results_file = 'results.out'
-
-        self.n_responses = 1
-        self.is_objective_function = False
-        self.response_descriptors = ['r1']
-        self.response_files = []
-        self.response_statistics = []
-
-    def run(self):
-        """Run the specified Dakota experiment."""
-        r = subprocess.call(['dakota',
-                             '-i', self.input_file,
-                             '-o', self.output_file])
+        if input_file is not None:
+            self.input_file = input_file
+        else:
+            module = importlib.import_module('dakota.' + method)
+            self.method = module.method()
 
     def create_input_file(self, input_file=None):
-        """Create a Dakota input file on the file system."""
+        """Create a Dakota input file on the file system.
+
+        Only instances created with ``method`` can create a new Dakota
+        input file.
+
+        Parameters
+        ----------
+        input_file: str, optional
+          A path/name for a new Dakota input file.
+
+        """
+        if hasattr(self, 'method') is False:
+            raise TypeError('Instance created with `input_file` is read-only.')
         if input_file is not None:
             self.input_file = input_file
         with open(self.input_file, 'w') as fp:
-            fp.write(self.environment_block())
-            fp.write(self.method_block())
-            fp.write(self.variables_block())
-            fp.write(self.interface_block())
-            fp.write(self.responses_block())
+            fp.write(self.method.environment_block())
+            fp.write(self.method.method_block())
+            fp.write(self.method.variables_block())
+            fp.write(self.method.interface_block())
+            fp.write(self.method.responses_block())
 
-    def environment_block(self):
-        """Define the environment block of a Dakota input file."""
-        s = '# Dakota input file\n' \
-            + 'environment\n' \
-            + '  tabular_data\n' \
-            + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
-        return(s)
-
-    def method_block(self):
-        """Define the method block of a Dakota input file."""
-        s = 'method\n' \
-            + '  {}\n'.format(self.method) \
-            + '    partitions ='
-        for p in self.partitions:
-            s += ' {}'.format(p)
-        s += '\n\n'
-        return(s)
-
-    def variables_block(self):
-        """Define the variables block of a Dakota input file."""
-        s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
-            + '    upper_bounds ='
-        for b in self.upper_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    lower_bounds ='
-        for b in self.lower_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    descriptors ='
-        for vd in self.variable_descriptors:
-            s += ' {!r}'.format(vd)
-        s += '\n\n'
-        return(s)
-
-    def interface_block(self):
-        """Define the interface block of a Dakota input file."""
-        s = 'interface\n' \
-            + '  {}\n'.format(self.interface) \
-            + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
-        if self.model is not None:
-            s += '  analysis_components = {!r}'.format(self.model)
-            for pair in zip(self.response_files, self.response_statistics):
-                s += ' \'{0[0]}:{0[1]}\''.format(pair)
-            s += '\n'
-        if self.interface is not 'direct':
-            s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
-                 + '  results_file = {!r}\n'.format(self.results_file) \
-                 + '  work_directory\n' \
-                 + '    named \'run\'\n' \
-                 + '    directory_tag\n' \
-                 + '    directory_save\n' \
-                 + '  file_save\n'
-        s += '\n'
-        return(s)
-
-    def responses_block(self):
-        """Define the responses block of a Dakota input file."""
-        s = 'responses\n'
-        if self.is_objective_function:
-            s += '  objective_functions = {}\n'.format(self.n_responses)
+    def run(self):
+        """Run the Dakota experiment."""
+        if is_dakota_installed() is False:
+            raise OSError('Dakota must be installed and in execution path.')
+        if os.path.exists(self.input_file) is False:
+            raise IOError('Dakota input file not found.')
         else:
-            s += '  response_functions = {}\n'.format(self.n_responses)
-        s += '    response_descriptors ='
-        for rd in self.response_descriptors:
-            s += ' {!r}'.format(rd)
-        s += '\n' \
-             + '  no_gradients\n' \
-             + '  no_hessians\n'
-        return(s)
+            r = subprocess.call(['dakota',
+                                 '-i', self.input_file,
+                                 '-o', self.output_file])
 
-def get_labels(params_file):
-    """Extract labels from a Dakota parameters file."""
-    labels = []
-    try:
-        with open(params_file, 'r') as fp:
-            for line in fp:
-                if re.search('ASV_', line):
-                    labels.append(''.join(re.findall(':(\S+)', line)))
-    except IOError:
-        return None
-    else:
-        return(labels)
-
-def get_analysis_components(params_file):
-    """Extract the analysis components from a Dakota parameters file.
-
-    The analysis components are returned as a list. First is the name
-    of the model being run by Dakota, followed by dicts containing an
-    output file to analyze and the statistic to apply to the file.
-
-    Parameters
-    ----------
-    params_file : str
-      The path to a Dakota parameters file.
-
-    Returns
-    -------
-    list
-      A list of analysis components for the Dakota experiment.
-
-    Examples
-    --------
-    Extract the analysis components from a Dakota parameters file:
-
-    >>> ac = get_analysis_components(params_file)
-    >>> ac.pop(0)
-    'hydrotrend'
-    >>> ac.pop(0)
-    {'file': 'HYDROASCII.QS', 'statistic': 'median'}
-
-    Notes
-    -----
-    The syntax expected by this function is defined in the Dakota
-    input file; e.g., for the example cited above, the 'interface'
-    section of the input file contains the line:
-
-      analysis_components = 'hydrotrend' 'HYDROASCII.QS:median'
-
-    """
-    ac = []
-    try:
-        with open(params_file, 'r') as fp:
-            for line in fp:
-                if re.search('AC_1', line):
-                    ac.append(line.split('AC_1')[0].strip())
-                elif re.search('AC_', line):
-                    parts = re.split(':', re.split('AC_', line)[0])
-                    ac.append({'file':parts[0].strip(),
-                               'statistic':parts[1].strip()})
-    except IOError:
-        return None
-    else:
-        return(ac)    
-
-def write_results(results_file, array, labels):
-    """Write a Dakota results file from an input numpy array."""
-    try:
-        with open(results_file, 'w') as fp:
-            for i in range(len(array)):
-                fp.write('{0s}\t{1}\n'.format(array[i], labels[i]))
-    except IOError:
-        raise
