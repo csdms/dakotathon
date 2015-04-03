@@ -31,13 +31,6 @@ class DakotaBase(object):
         self.response_files = []
         self.response_statistics = []
 
-    def autogenerate_descriptors(self):
-        """Quickly make generic variable and response descriptors."""
-        self.variable_descriptors = ['x' + str(i+1) for i in
-                                     range(self.n_variables)]
-        self.response_descriptors = ['y' + str(i+1) for i in
-                                     range(self.n_responses)]
-
     def environment_block(self):
         """Define the environment block of a Dakota input file."""
         s = '# Dakota input file\n' \
@@ -49,26 +42,14 @@ class DakotaBase(object):
     def method_block(self):
         """Define the method block of a Dakota input file."""
         s = 'method\n' \
-            + '  {}\n'.format(self.method) \
-            + '    partitions ='
-        for p in self.partitions:
-            s += ' {}'.format(p)
-        s += '\n\n'
+            + '  {}\n\n'.format(self.method)
         return(s)
 
     def variables_block(self):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
-            + '    upper_bounds ='
-        for b in self.upper_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    lower_bounds ='
-        for b in self.lower_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    descriptors ='
+            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables)
+        s += '    descriptors ='
         for vd in self.variable_descriptors:
             s += ' {!r}'.format(vd)
         s += '\n\n'
@@ -109,3 +90,10 @@ class DakotaBase(object):
              + '  no_gradients\n' \
              + '  no_hessians\n'
         return(s)
+
+    def autogenerate_descriptors(self):
+        """Quickly make generic variable and response descriptors."""
+        self.variable_descriptors = ['x' + str(i+1) for i in
+                                     range(self.n_variables)]
+        self.response_descriptors = ['y' + str(i+1) for i in
+                                     range(self.n_responses)]
