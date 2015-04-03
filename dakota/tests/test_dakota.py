@@ -10,8 +10,7 @@
 import os
 import filecmp
 from nose.tools import *
-from dakota.dakota import is_dakota_installed, Dakota, get_labels, \
-    get_analysis_components
+from dakota.dakota import Dakota
 
 # Global variables
 start_dir = os.getcwd()
@@ -19,11 +18,6 @@ data_dir = os.path.join(start_dir, 'dakota', 'tests', 'data')
 input_file = 'dakota.in'
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')
-parameters_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
-response_labels = ['Qs_median']
-model = 'hydrotrend'
-output_file = 'HYDROASCII.QS'
-response_statistic = 'median'
 
 # Fixtures -------------------------------------------------------------
 
@@ -48,10 +42,6 @@ def teardown_module():
 
 # Tests ----------------------------------------------------------------
 
-def test_is_dakota_installed():
-    """Test whether Dakota is installed."""
-    assert_true(is_dakota_installed)
-
 def test_constructor_alt_input_file():
     """Test calling the constructor with an input file."""
     d1 = Dakota(alt_input_file)
@@ -71,51 +61,6 @@ def test_input_file_contents():
     """Test create_input_file method results versus a known input file."""
     d.create_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
-
-def test_environment_block():
-    """Test type of environment_block method results."""
-    s = d.environment_block()
-    assert_true(type(s) is str)
-
-def test_method_block():
-    """Test type of method_block method results."""
-    s = d.method_block()
-    assert_true(type(s) is str)
-
-def test_variables_block():
-    """Test type of variables_block method results."""
-    s = d.variables_block()
-    assert_true(type(s) is str)
-
-def test_interface_block():
-    """Test type of interface_block method results."""
-    s = d.interface_block()
-    assert_true(type(s) is str)
-
-def test_responses_block():
-    """Test type of responses_block method results."""
-    s = d.responses_block()
-    assert_true(type(s) is str)
-
-def test_get_labels():
-    """Test the get_labels function."""
-    assert_equal(response_labels, get_labels(parameters_file))
-
-def test_get_labels_unknown_file():
-    """Test get_labels when parameters file not found."""
-    assert_is_none(get_labels('foo.in'))
-
-def test_get_analysis_components():
-    """Test the get_analysis_components function."""
-    ac = get_analysis_components(parameters_file)
-    assert_equal(model, ac.pop(0))
-    response = ac.pop(0)
-    assert_equal(response['file'], output_file)
-    assert_equal(response['statistic'], response_statistic)
-
-def test_get_analysis_components_unknown_file():
-    """Test get_analysis_components when parameters file not found."""
-    assert_is_none(get_analysis_components('foo.in'))
 
 def test_run():
     """Test the run method."""
