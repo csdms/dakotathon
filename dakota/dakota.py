@@ -28,16 +28,14 @@ class Dakota(object):
 
         Examples
         --------
-        Run a Dakota experiment with an existing input file:
+        Create a Dakota experiment from an existing input file:
 
         >>> d = Dakota(input_file='/path/to/dakota.in')
-        >>> d.run()
 
-        Configure and run a vector parameter study experiment:
+        Configure a vector parameter study experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
         >>> d.create_input_file()
-        >>> d.run()
 
         """
         if [input_file, method].count(None) != 1:
