@@ -16,7 +16,7 @@ from . import start_dir, data_dir
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** VectorParameterStudy tests')
+    print('\n*** ' + __name__)
     global v
     v = VectorParameterStudy()
 

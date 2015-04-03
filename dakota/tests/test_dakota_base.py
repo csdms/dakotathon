@@ -22,7 +22,7 @@ class Concrete(DakotaBase):
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** DakotaBase tests')
+    print('\n*** ' + __name__)
     global c
     c = Concrete()
 
