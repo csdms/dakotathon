@@ -7,17 +7,23 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
-import filecmp
 from nose.tools import *
 from dakota.dakota_base import DakotaBase
 
+# Helpers --------------------------------------------------------------
+
+class Concrete(DakotaBase):
+    """A subclass of DakotaBase used for testing."""
+    def __init__(self):
+        DakotaBase.__init__(self)
 
 # Fixtures -------------------------------------------------------------
 
 def setup_module():
     """Called before any tests are performed."""
     print('\n*** DakotaBase tests')
+    global c
+    c = Concrete()
 
 def teardown_module():
     """Called after all tests have completed."""
@@ -29,3 +35,35 @@ def teardown_module():
 def test_instantiate():
     """Test whether DakotaBase fails to instantiate."""
     d = DakotaBase()
+
+def test_environment_block():
+    """Test type of environment_block method results."""
+    s = c.environment_block()
+    assert_true(type(s) is str)
+
+def test_method_block():
+    """Test type of method_block method results."""
+    s = c.method_block()
+    assert_true(type(s) is str)
+
+def test_variables_block():
+    """Test type of variables_block method results."""
+    s = c.variables_block()
+    assert_true(type(s) is str)
+
+def test_interface_block():
+    """Test type of interface_block method results."""
+    s = c.interface_block()
+    assert_true(type(s) is str)
+
+def test_responses_block():
+    """Test type of responses_block method results."""
+    s = c.responses_block()
+    assert_true(type(s) is str)
+
+def test_autogenerate_descriptors():
+    """Test autogenerate_descriptors method."""
+    c.n_variables, c.n_responses = 1, 1
+    c.autogenerate_descriptors()
+    assert_true(len(c.variable_descriptors) == 1)
+    assert_true(len(c.response_descriptors) == 1)
