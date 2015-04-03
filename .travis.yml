@@ -1,0 +1,14 @@
+language: python
+
+python:
+  - "2.7"
+
+os:
+  - linux
+
+install:
+  - sudo apt-get update -qq
+  - sudo apt-get install python-scipy
+
+script:
+  - nosetests --with-doctest
