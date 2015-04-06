@@ -45,8 +45,12 @@ class VectorParameterStudy(DakotaBase):
         self.generate_descriptors()
 
     def method_block(self):
-        """Define the method block of a Dakota input file for a vector
-        parameter study.
+        """Define a vector parameter study method block for a Dakota input file.
+
+        See Also
+        --------
+        dakota.methods.base.DakotaBase.method_block
+
         """
         s = 'method\n' \
             + '  {}\n'.format(self.method) \
@@ -58,8 +62,12 @@ class VectorParameterStudy(DakotaBase):
         return(s)
 
     def variables_block(self):
-        """Define the variables block of a Dakota input file for a vector
-        parameter study.
+        """Define a vector parameter study variables block for a Dakota input file.
+
+        See Also
+        --------
+        dakota.methods.base.DakotaBase.variables_block
+
         """
         s = 'variables\n' \
             + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
