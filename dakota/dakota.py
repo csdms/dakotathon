@@ -80,7 +80,7 @@ class Dakota(object):
         if os.path.exists(self.input_file) is False:
             raise IOError('Dakota input file not found.')
         else:
-            r = subprocess.call(['dakota',
-                                 '-i', self.input_file,
-                                 '-o', self.output_file])
+            subprocess.call(['dakota',
+                             '-i', self.input_file,
+                             '-o', self.output_file])
 
