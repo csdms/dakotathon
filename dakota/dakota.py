@@ -4,7 +4,8 @@
 import os
 import subprocess
 import importlib
-from .dakota_utils import is_dakota_installed
+from .utils import is_dakota_installed
+from . import method_path
 
 
 class Dakota(object):
@@ -47,7 +48,7 @@ class Dakota(object):
         if input_file is not None:
             self.input_file = input_file
         else:
-            module = importlib.import_module('dakota.' + method)
+            module = importlib.import_module(method_path + method)
             self.method = module.method()
 
     def create_input_file(self, input_file=None):
@@ -80,7 +81,7 @@ class Dakota(object):
         if os.path.exists(self.input_file) is False:
             raise IOError('Dakota input file not found.')
         else:
-            r = subprocess.call(['dakota',
-                                 '-i', self.input_file,
-                                 '-o', self.output_file])
+            subprocess.call(['dakota',
+                             '-i', self.input_file,
+                             '-o', self.output_file])
 

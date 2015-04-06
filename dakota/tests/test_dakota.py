@@ -11,7 +11,7 @@ import os
 import filecmp
 from nose.tools import *
 from dakota.dakota import Dakota
-from dakota.dakota_utils import is_dakota_installed
+from dakota.utils import is_dakota_installed
 from . import start_dir, data_dir
 
 # Global variables

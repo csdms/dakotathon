@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 """Implementation of a Dakota vector parameter study."""
 
-from .dakota_base import DakotaBase
+from .base import DakotaBase
 
 
 def method():
