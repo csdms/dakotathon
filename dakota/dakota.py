@@ -5,6 +5,7 @@ import os
 import subprocess
 import importlib
 from .utils import is_dakota_installed
+from . import method_path
 
 
 class Dakota(object):
@@ -47,7 +48,7 @@ class Dakota(object):
         if input_file is not None:
             self.input_file = input_file
         else:
-            module = importlib.import_module('dakota.' + method)
+            module = importlib.import_module(method_path + method)
             self.method = module.method()
 
     def create_input_file(self, input_file=None):

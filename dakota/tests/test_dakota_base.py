@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for dakota.base module.
+# Tests for dakota.methods.base module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import *
-from dakota.base import DakotaBase
+from dakota.methods.base import DakotaBase
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
