@@ -9,6 +9,7 @@ from . import methods_path
 
 
 class Dakota(object):
+
     """Set up and run a Dakota experiment."""
 
     def __init__(self, input_file=None, method=None):

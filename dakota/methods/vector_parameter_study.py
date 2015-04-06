@@ -28,6 +28,7 @@ def method():
     return VectorParameterStudy()
 
 class VectorParameterStudy(DakotaBase):
+
     """Define parameters for a Dakota vector parameter study."""
 
     def __init__(self):

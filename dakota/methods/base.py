@@ -5,7 +5,9 @@ from abc import ABCMeta, abstractmethod
 
 
 class DakotaBase(object):
+
     """Describe features common to all Dakota experiments."""
+
     __metaclass__ = ABCMeta
 
     @abstractmethod
