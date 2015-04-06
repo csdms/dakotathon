@@ -105,6 +105,6 @@ def write_results(results_file, array, labels):
     try:
         with open(results_file, 'w') as fp:
             for i in range(len(array)):
-                fp.write('{0s}\t{1}\n'.format(array[i], labels[i]))
+                fp.write('{0}\t{1}\n'.format(array[i], labels[i]))
     except IOError:
         raise
