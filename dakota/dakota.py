@@ -4,7 +4,7 @@
 import os
 import subprocess
 import importlib
-from .dakota_utils import is_dakota_installed
+from .utils import is_dakota_installed
 
 
 class Dakota(object):

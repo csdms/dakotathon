@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for dakota.dakota_utils module.
+# Tests for dakota.utils module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import *
-from dakota.dakota_utils import *
+from dakota.utils import *
 from . import start_dir, data_dir
 
 # Global variables
