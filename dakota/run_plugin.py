@@ -29,7 +29,7 @@ import sys
 import os
 import importlib
 from .utils import get_analysis_components
-from . import components_path
+from . import plugins_path
 
 def main():
     """Sets up component inputs, runs component, gathers output."""
@@ -45,7 +45,7 @@ def main():
     # the component (CSDMS terminology) to call.
     component = ac.pop(0)
     try:
-        module = importlib.import_module(components_path + component)
+        module = importlib.import_module(plugins_path + component)
     except ImportError:
         raise
     if module.is_installed():
