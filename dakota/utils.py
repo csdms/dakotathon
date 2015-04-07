@@ -135,7 +135,7 @@ def write_results(results_file, values, labels):
     """
     try:
         with open(results_file, 'w') as fp:
-            for i in range(len(array)):
+            for i in range(len(values)):
                 fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
     except IOError:
         raise
