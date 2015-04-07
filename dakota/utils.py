@@ -44,7 +44,7 @@ def get_response_descriptors(params_file):
     except IOError:
         return None
     else:
-        return(labels)
+        return labels
 
 def get_analysis_components(params_file):
     """Extract the analysis components from a Dakota parameters file.
@@ -98,13 +98,44 @@ def get_analysis_components(params_file):
     except IOError:
         return None
     else:
-        return(ac)    
+        return ac
 
-def write_results(results_file, array, labels):
-    """Write a Dakota results file from an input numpy array."""
+def compute_statistic(statistic, array):
+    """Compute the statistic used in a Dakota response function.
+
+    Parameters
+    ----------
+    statistic : str
+      A string with the name of the statistic to compute ('mean',
+      'median', etc.).
+    array : array_like
+      A numpy array.
+
+    Returns
+    -------
+    float
+      The value of the computed statistic.
+
+    """
+    import numpy as np
+    return eval('np.' + statistic + '(array)')
+
+def write_results(results_file, values, labels):
+    """Write a Dakota results file from a set of input values.
+
+    Parameters
+    ----------
+    results_file : str
+      The path to a Dakota results file.
+    values : array_like
+      A list or array of numeric values.
+    labels : str
+      A list of labels to attach to the values.
+
+    """
     try:
         with open(results_file, 'w') as fp:
             for i in range(len(array)):
-                fp.write('{0}\t{1}\n'.format(array[i], labels[i]))
+                fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
     except IOError:
         raise
