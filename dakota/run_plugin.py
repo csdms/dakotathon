@@ -1,10 +1,9 @@
 #!/usr/bin/env python
 """Brokers communication between Dakota and a component through files.
 
-This module provides a generic *analysis driver* for a Dakota
-experiment. At each evaluation step, Dakota calls this module as an
-executable script with the names of the parameters file and the
-results file as arguments.
+This console script provides a generic *analysis driver* for a Dakota
+experiment. At each evaluation step, Dakota calls this script with the
+names of the parameters file and the results file as arguments.
 
 The parameters file provides information on the current Dakota
 evaluation step, including the names and values of model variables and
@@ -31,15 +30,12 @@ import importlib
 from .utils import get_analysis_components
 from . import plugins_path
 
-def main():
+
+def run_plugin(params_file, results_file):
     """Sets up component inputs, runs component, gathers output."""
 
-    # References to files passed by Dakota.
-    params_file = sys.argv[1]
-    results_file = sys.argv[2]
-
     # Retrieve the analysis components passed into the Dakota parameters file.
-    ac = get_analysis_components(sys.argv[1])
+    ac = get_analysis_components(params_file)
 
     # The first analysis component (Dakota terminology) is the name of
     # the component (CSDMS terminology) to call.
@@ -58,7 +54,7 @@ def main():
 
     # Set up the simulation, taking information from the parameters
     # file created by Dakota.
-    start_dir = os.path.dirname(os.path.realpath(__file__))
+    start_dir = os.path.dirname(os.getcwd()) # Needs to be a parameter
     component.setup(start_dir, params_file)
 
     # Call the component, calculate the response statistic for the
@@ -66,6 +62,22 @@ def main():
     component.call()
     component.calculate()
     component.write(params_file, results_file)
+
+def main():
+    import argparse
+    from . import __version__, plugin_script
+
+    parser = argparse.ArgumentParser(
+        description="A generic analysis driver for a Dakota experiment.")
+    parser.add_argument("parameters_file",
+                        help="parameters file from Dakota")
+    parser.add_argument("results_file",
+                        help="results file to Dakota")
+    parser.add_argument('--version', action='version',
+                        version=plugin_script + ' ' + __version__)
+    args = parser.parse_args()
+
+    run_plugin(args.parameters_file, args.results_file)
 
 if __name__ == '__main__':
     main()
