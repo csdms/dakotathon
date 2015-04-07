@@ -54,14 +54,9 @@ def main():
         raise NameError('Component cannot be created.')
 
     # The file and statistic used in each Dakota response.
-    files, statistics = [], []
-    for response in ac:
-        files.append(response['file'])
-        statistics.append(response['statistic'])
-    component.output_files = files 
-    component.response_statistic = statistics 
+    component.response_functions = ac
 
-    # Set up the model run, taking information from the parameters
+    # Set up the simulation, taking information from the parameters
     # file created by Dakota.
     start_dir = os.path.dirname(os.path.realpath(__file__))
     component.setup(start_dir, params_file)
