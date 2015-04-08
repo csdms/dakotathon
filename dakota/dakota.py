@@ -37,7 +37,7 @@ class Dakota(object):
         Configure a vector parameter study experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.create_input_file()
+        >>> d.write_input_file()
 
         """
         if [input_file, method].count(None) != 1:
@@ -52,7 +52,7 @@ class Dakota(object):
             module = importlib.import_module(methods_path + method)
             self.method = module.method()
 
-    def create_input_file(self, input_file=None):
+    def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
 
         Only instances created with ``method`` can create a new Dakota

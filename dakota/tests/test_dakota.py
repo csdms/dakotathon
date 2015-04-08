@@ -62,27 +62,27 @@ def test_init_method_parameter_unknown_module():
     d = Dakota(method='foo')
 
 @raises(TypeError)
-def test_create_input_file_with_input_file():
-    """Test create_input_file fails when instanced with input file."""
+def test_write_input_file_with_input_file():
+    """Test write_input_file fails when instanced with input file."""
     d = Dakota(input_file='foo.in')
-    d.create_input_file()
+    d.write_input_file()
 
-def test_create_input_file_with_method_default_name():
-    """Test create_input_file works when instanced with method."""
+def test_write_input_file_with_method_default_name():
+    """Test write_input_file works when instanced with method."""
     d = Dakota(method='vector_parameter_study')
-    d.create_input_file()
+    d.write_input_file()
     assert_true(os.path.exists(d.input_file))
 
-def test_create_input_file_with_method_new_name():
-    """Test create_input_file works when instanced with method and new name."""
+def test_write_input_file_with_method_new_name():
+    """Test write_input_file works when instanced with method and new name."""
     d = Dakota(method='vector_parameter_study')
-    d.create_input_file(input_file=alt_input_file)
+    d.write_input_file(input_file=alt_input_file)
     assert_true(os.path.exists(d.input_file))
 
 def test_input_file_contents():
-    """Test create_input_file results versus a known input file."""
+    """Test write_input_file results versus a known input file."""
     d = Dakota(method='vector_parameter_study')
-    d.create_input_file()
+    d.write_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
 
 def test_run_with_input_file():
