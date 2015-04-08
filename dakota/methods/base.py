@@ -13,7 +13,7 @@ class DakotaBase(object):
     @abstractmethod
     def __init__(self):
         """Create a set of default experiment parameters."""
-        self.model = None
+        self.component = None
         self.data_file = 'dakota.dat'
         self.method = None
         self.variable_type = 'continuous_design'
@@ -58,8 +58,8 @@ class DakotaBase(object):
         s = 'interface\n' \
             + '  {}\n'.format(self.interface) \
             + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
-        if self.model is not None:
-            s += '  analysis_components = {!r}'.format(self.model)
+        if self.component is not None:
+            s += '  analysis_components = {!r}'.format(self.component)
             for pair in zip(self.response_files, self.response_statistics):
                 s += ' \'{0[0]}:{0[1]}\''.format(pair)
             s += '\n'

@@ -15,7 +15,7 @@ from . import start_dir, data_dir
 # Global variables
 parameters_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
 response_labels = ['Qs_median']
-model = 'hydrotrend'
+component = 'hydrotrend'
 output_file = 'HYDROASCII.QS'
 response_statistic = 'median'
 
@@ -48,7 +48,7 @@ def test_get_response_descriptors_unknown_file():
 def test_get_analysis_components():
     """Test the get_analysis_components function."""
     ac = get_analysis_components(parameters_file)
-    assert_equal(model, ac.pop(0))
+    assert_equal(component, ac.pop(0))
     response = ac.pop(0)
     assert_equal(response['file'], output_file)
     assert_equal(response['statistic'], response_statistic)
