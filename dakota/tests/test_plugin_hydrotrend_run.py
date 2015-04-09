@@ -59,13 +59,14 @@ def setup():
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
-    for dname in glob.glob('run.*'):
-        shutil.rmtree(dname)
-    for dname in glob.glob('HYDRO_*'):
-        shutil.rmtree(dname)
-    for fname in ['dakota.' + ext for ext in ['dat', 'in', 'out', 'rst']]:
-        os.remove(fname)
-    os.remove(config_file)
+    if is_dakota_installed():
+        for dname in glob.glob('run.*'):
+            shutil.rmtree(dname)
+        for dname in glob.glob('HYDRO_*'):
+            shutil.rmtree(dname)
+        for fname in ['dakota.' + ext for ext in ['dat', 'in', 'out', 'rst']]:
+            os.remove(fname)
+        os.remove(config_file)
 
 def teardown_module():
     """Called after all tests have completed."""
