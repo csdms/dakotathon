@@ -27,19 +27,20 @@ the results file, ending the Dakota evaluation step.
 import sys
 import os
 import importlib
-from .utils import get_analysis_components
+from .utils import get_configuration_filename, get_configuration
 from . import plugins_path
 
 
 def run_plugin(params_file, results_file):
     """Sets up component inputs, runs component, gathers output."""
 
-    # Retrieve the analysis components passed into the Dakota parameters file.
-    ac = get_analysis_components(params_file)
+    # Extract the name of the run configuration file from the Dakota
+    # parameters file and load its contents.
+    config_file = get_configuration_filename(params_file)
+    config = get_configuration(config_file)
 
-    # The first analysis component (Dakota terminology) is the name of
-    # the component (CSDMS terminology) to call.
-    component = ac.pop(0)
+    # Load the component to call.
+    component = config.keys()[0]
     try:
         module = importlib.import_module(plugins_path + component)
     except ImportError:
@@ -49,16 +50,10 @@ def run_plugin(params_file, results_file):
     else:
         raise NameError('Component cannot be created.')
 
-    # The file and statistic used in each Dakota response.
-    component.response_functions = ac
-
-    # Set up the simulation, taking information from the parameters
-    # file created by Dakota.
-    start_dir = os.path.dirname(os.getcwd()) # Needs to be a parameter
-    component.setup(start_dir, params_file)
-
-    # Call the component, calculate the response statistic for the
-    # experiment, then write the output to the Dakota results file.
+    # Set up the simulation, call the component, calculate the
+    # response statistic for the simulation, write the output to the
+    # Dakota results file.
+    component.setup(config, params_file)
     component.call()
     component.calculate()
     component.write(params_file, results_file)
