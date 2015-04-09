@@ -62,3 +62,17 @@ def test_get_configuration_unknown_file():
     """Test get_configuration when config file not found."""
     assert_is_none(get_configuration('foo.yaml'))
 
+def test_compute_statistic():
+    """Test the compute_statistic function."""
+    stat = 'mean'
+    arr = range(6)
+    assert_equal(2.5, compute_statistic(stat, arr))
+
+@raises(AttributeError)
+def test_compute_statistic_unknown_statistic():
+    """Test the compute_statistic function fails with an unknown statistic."""
+    stat = 'foo'
+    arr = range(6)
+    r = compute_statistic(stat, arr)
+
+
