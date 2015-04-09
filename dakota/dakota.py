@@ -55,8 +55,6 @@ class Dakota(object):
 
     def write_configuration_file(self):
         """Dump settings to a YAML configuration file."""
-        if hasattr(self, 'method') is False:
-            raise TypeError('Instance created with `input_file` is read-only.')
         responses = []
         for f,s in zip(self.method.response_files,
                        self.method.response_statistics):
@@ -69,9 +67,8 @@ class Dakota(object):
                       'responses': responses
                   }
               }
-        fp = file(self.method.configuration_file, 'w')
-        yaml.dump(config, fp, default_flow_style=False)
-        fp.close()
+        with open(self.method.configuration_file, 'w') as fp:
+            yaml.dump(config, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
