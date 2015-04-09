@@ -1,0 +1,8 @@
+hydrotrend:
+  input_files:
+  - /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO0.HYPS
+  responses:
+  - HYDROASCII.QS: median
+  - HYDROASCII.Q: mean
+  run_directory: /Users/mpiper/projects/dakota/dakota/tests
+  template_file: /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO.IN.tmpl
