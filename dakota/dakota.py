@@ -4,6 +4,7 @@
 import os
 import subprocess
 import importlib
+import yaml
 from .utils import is_dakota_installed
 from . import methods_path
 
@@ -54,6 +55,8 @@ class Dakota(object):
 
     def write_configuration_file(self):
         """Dump settings to a YAML configuration file."""
+        if hasattr(self, 'method') is False:
+            raise TypeError('Instance created with `input_file` is read-only.')
         responses = []
         for f,s in zip(self.method.response_files,
                        self.method.response_statistics):

@@ -3,6 +3,7 @@
 
 import subprocess
 import re
+import yaml
 
 
 def is_dakota_installed():
