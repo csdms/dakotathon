@@ -8,7 +8,8 @@ os:
 
 install:
   - sudo apt-get update -qq
-  - pip install -r requirements.txt --use-mirrors
+  - sudo apt-get install python-scipy
+  - sudo apt-get install python-yaml
   - python setup.py install
 
 script:
