@@ -52,6 +52,24 @@ class Dakota(object):
             module = importlib.import_module(methods_path + method)
             self.method = module.method()
 
+    def write_configuration_file(self):
+        """Dump settings to a YAML configuration file."""
+        responses = []
+        for f,s in zip(self.method.response_files,
+                       self.method.response_statistics):
+            responses.append({f:s})
+        config = {self.method.component:
+                  {
+                      'run_directory': self.method.run_directory,
+                      'template_file': self.method.template_file,
+                      'input_files': self.method.input_files,
+                      'responses': responses
+                  }
+              }
+        fp = file(self.method.configuration_file, 'w')
+        yaml.dump(config, fp, default_flow_style=False)
+        fp.close()
+
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
 

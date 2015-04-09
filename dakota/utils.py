@@ -100,6 +100,19 @@ def get_analysis_components(params_file):
     else:
         return ac
 
+def get_configuration(config_file):
+    """Load settings from a YAML configuration file.
+
+    Returns
+    -------
+    dict
+      Configuration settings in a dict.
+
+    """
+    with open(config_file, 'r') as fp:
+        cfg = yaml.load(fp)
+    return cfg
+
 def compute_statistic(statistic, array):
     """Compute the statistic used in a Dakota response function.
 
