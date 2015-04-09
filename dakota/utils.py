@@ -3,6 +3,7 @@
 
 import subprocess
 import re
+import yaml
 
 
 def is_dakota_installed():
@@ -44,14 +45,10 @@ def get_response_descriptors(params_file):
     except IOError:
         return None
     else:
-        return(labels)
+        return labels
 
-def get_analysis_components(params_file):
-    """Extract the analysis components from a Dakota parameters file.
-
-    The analysis components are returned as a list. First is the name
-    of the model being run by Dakota, followed by dicts containing an
-    output file to analyze and the statistic to apply to the file.
+def get_configuration_filename(params_file):
+    """Extract the configuration filename from a Dakota parameters file.
 
     Parameters
     ----------
@@ -60,51 +57,69 @@ def get_analysis_components(params_file):
 
     Returns
     -------
-    list
-      A list of analysis components for the Dakota experiment.
-
-    Examples
-    --------
-    Extract the analysis components from a Dakota parameters file:
-
-    >>> import os
-    >>> from .tests import data_dir
-    >>> params_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
-    >>> ac = get_analysis_components(params_file)
-    >>> ac.pop(0)
-    'hydrotrend'
-    >>> ac.pop(0)
-    {'file': 'HYDROASCII.QS', 'statistic': 'median'}
-
-    Notes
-    -----
-    The syntax expected by this function is defined in the Dakota
-    input file; e.g., for the example cited above, the 'interface'
-    section of the input file contains the line:
-
-      analysis_components = 'hydrotrend' 'HYDROASCII.QS:median'
+    str
+      The name of the configuration file for the Dakota experiment.
 
     """
-    ac = []
     try:
         with open(params_file, 'r') as fp:
             for line in fp:
                 if re.search('AC_1', line):
-                    ac.append(line.split('AC_1')[0].strip())
-                elif re.search('AC_', line):
-                    parts = re.split(':', re.split('AC_', line)[0])
-                    ac.append({'file':parts[0].strip(),
-                               'statistic':parts[1].strip()})
+                    return line.split('AC_1')[0].strip()
     except IOError:
         return None
-    else:
-        return(ac)    
 
-def write_results(results_file, array, labels):
-    """Write a Dakota results file from an input numpy array."""
+def get_configuration(config_file):
+    """Load settings from a YAML configuration file.
+
+    Returns
+    -------
+    dict
+      Configuration settings in a dict.
+
+    """
+    try:
+        with open(config_file, 'r') as fp:
+            return yaml.load(fp)
+    except IOError:
+        return None
+
+def compute_statistic(statistic, array):
+    """Compute the statistic used in a Dakota response function.
+
+    Parameters
+    ----------
+    statistic : str
+      A string with the name of the statistic to compute ('mean',
+      'median', etc.).
+    array : array_like
+      A numpy array.
+
+    Returns
+    -------
+    float
+      The value of the computed statistic.
+
+    """
+    import numpy as np
+    return eval('np.' + statistic + '(array)')
+
+def write_results(results_file, values, labels):
+    """Write a Dakota results file from a set of input values.
+
+    Parameters
+    ----------
+    results_file : str
+      The path to a Dakota results file.
+    values : array_like
+      A list or array of numeric values.
+    labels : str
+      A list of labels to attach to the values.
+
+    """
     try:
         with open(results_file, 'w') as fp:
-            for i in range(len(array)):
-                fp.write('{0}\t{1}\n'.format(array[i], labels[i]))
+            for i in range(len(values)):
+                fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
     except IOError:
         raise

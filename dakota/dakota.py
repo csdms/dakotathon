@@ -4,11 +4,13 @@
 import os
 import subprocess
 import importlib
+import yaml
 from .utils import is_dakota_installed
-from . import method_path
+from . import methods_path
 
 
 class Dakota(object):
+
     """Set up and run a Dakota experiment."""
 
     def __init__(self, input_file=None, method=None):
@@ -36,7 +38,7 @@ class Dakota(object):
         Configure a vector parameter study experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.create_input_file()
+        >>> d.write_input_file()
 
         """
         if [input_file, method].count(None) != 1:
@@ -48,10 +50,27 @@ class Dakota(object):
         if input_file is not None:
             self.input_file = input_file
         else:
-            module = importlib.import_module(method_path + method)
+            module = importlib.import_module(methods_path + method)
             self.method = module.method()
 
-    def create_input_file(self, input_file=None):
+    def write_configuration_file(self):
+        """Dump settings to a YAML configuration file."""
+        responses = []
+        for f,s in zip(self.method.response_files,
+                       self.method.response_statistics):
+            responses.append({f:s})
+        config = {self.method.component:
+                  {
+                      'run_directory': self.method.run_directory,
+                      'template_file': self.method.template_file,
+                      'input_files': self.method.input_files,
+                      'responses': responses
+                  }
+              }
+        with open(self.method.configuration_file, 'w') as fp:
+            yaml.dump(config, fp, default_flow_style=False)
+
+    def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
 
         Only instances created with ``method`` can create a new Dakota

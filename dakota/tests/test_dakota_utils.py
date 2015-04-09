@@ -14,10 +14,9 @@ from . import start_dir, data_dir
 
 # Global variables
 parameters_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
-response_labels = ['Qs_median']
-model = 'hydrotrend'
-output_file = 'HYDROASCII.QS'
-response_statistic = 'median'
+response_labels = ['Qs_median', 'Q_mean']
+config_file = os.path.join(data_dir, 'config.yaml')
+component = 'hydrotrend'
 
 # Fixtures -------------------------------------------------------------
 
@@ -45,14 +44,35 @@ def test_get_response_descriptors_unknown_file():
     """Test get_response_descriptors when parameters file not found."""
     assert_is_none(get_response_descriptors('foo.in'))
 
-def test_get_analysis_components():
-    """Test the get_analysis_components function."""
-    ac = get_analysis_components(parameters_file)
-    assert_equal(model, ac.pop(0))
-    response = ac.pop(0)
-    assert_equal(response['file'], output_file)
-    assert_equal(response['statistic'], response_statistic)
+def test_get_configuration_filename():
+    """Test the get_configuration_filename function."""
+    config_filename = get_configuration_filename(parameters_file)
+    assert_equal(os.path.basename(config_file), config_filename)
 
-def test_get_analysis_components_unknown_file():
-    """Test get_analysis_components when parameters file not found."""
-    assert_is_none(get_analysis_components('foo.in'))
+def test_get_configuration_filename_unknown_file():
+    """Test get_configuration_filename when parameters file not found."""
+    assert_is_none(get_configuration_filename('foo.in'))
+
+def test_get_configuration():
+    """Test the get_configuration function."""
+    config = get_configuration(config_file)
+    assert_equal(component, config.keys()[0])
+
+def test_get_configuration_unknown_file():
+    """Test get_configuration when config file not found."""
+    assert_is_none(get_configuration('foo.yaml'))
+
+def test_compute_statistic():
+    """Test the compute_statistic function."""
+    stat = 'mean'
+    arr = range(6)
+    assert_equal(2.5, compute_statistic(stat, arr))
+
+@raises(AttributeError)
+def test_compute_statistic_unknown_statistic():
+    """Test the compute_statistic function fails with an unknown statistic."""
+    stat = 'foo'
+    arr = range(6)
+    r = compute_statistic(stat, arr)
+
+

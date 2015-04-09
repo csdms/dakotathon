@@ -6,17 +6,17 @@ environment
 method
   vector_parameter_study
     final_point = 20.0 2.5
-    num_steps = 6
+    num_steps = 5
 
 variables
   continuous_design = 2
     initial_point = 10.0 1.5
-    descriptors = 'T' 'P'
+    descriptors = 'starting_mean_annual_temperature' 'total_annual_precipitation'
 
 interface
   fork
-  analysis_driver = 'run_model.py'
-  analysis_components = 'hydrotrend' 'HYDROASCII.QS:median' 'HYDROASCII.Q:mean'
+  analysis_driver = 'dakota_run_plugin'
+  analysis_components = 'config.yaml'
   parameters_file = 'params.in'
   results_file = 'results.out'
   work_directory

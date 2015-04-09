@@ -1,3 +1,8 @@
 """Interface to the Dakota iterative systems toolkit."""
 
-method_path = 'dakota.methods.'
+__version__ = '0.1'
+
+methods_path = 'dakota.methods.'
+plugins_path = 'dakota.plugins.'
+
+plugin_script = 'dakota_run_plugin'

@@ -5,13 +5,19 @@ from abc import ABCMeta, abstractmethod
 
 
 class DakotaBase(object):
+
     """Describe features common to all Dakota experiments."""
+
     __metaclass__ = ABCMeta
 
     @abstractmethod
     def __init__(self):
         """Create a set of default experiment parameters."""
-        self.model = None
+        self.component = None
+        self.configuration_file = 'config.yaml'
+        self.run_directory = '.'
+        self.template_file = None
+        self.input_files = []
         self.data_file = 'dakota.dat'
         self.method = None
         self.variable_type = 'continuous_design'
@@ -56,11 +62,8 @@ class DakotaBase(object):
         s = 'interface\n' \
             + '  {}\n'.format(self.interface) \
             + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
-        if self.model is not None:
-            s += '  analysis_components = {!r}'.format(self.model)
-            for pair in zip(self.response_files, self.response_statistics):
-                s += ' \'{0[0]}:{0[1]}\''.format(pair)
-            s += '\n'
+        if self.component is not None:
+            s += '  analysis_components = {!r}\n'.format(self.configuration_file)
         if self.interface is not 'direct':
             s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
                  + '  results_file = {!r}\n'.format(self.results_file) \
