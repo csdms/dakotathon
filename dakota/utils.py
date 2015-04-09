@@ -78,9 +78,11 @@ def get_configuration(config_file):
       Configuration settings in a dict.
 
     """
-    with open(config_file, 'r') as fp:
-        cfg = yaml.load(fp)
-    return cfg
+    try:
+        with open(config_file, 'r') as fp:
+            return yaml.load(fp)
+    except IOError:
+        return None
 
 def compute_statistic(statistic, array):
     """Compute the statistic used in a Dakota response function.
