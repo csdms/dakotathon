@@ -31,7 +31,7 @@ def component():
     Call this function instead of the class constructor to obtain a
     HydroTrend instance:
 
-    >>> h = m.component() # instead of h = m.HydroTrend()
+    >>> h = component() # instead of h = HydroTrend()
 
     """
     return HydroTrend()
@@ -78,7 +78,6 @@ class HydroTrend(object):
         if os.path.exists(self.output_dir) is False:
             os.mkdir(self.output_dir, 0755)
 
-        # shutil.copy(self.input_template, os.curdir)
         subprocess.call(['dprepro', params_file, \
                          self.input_template, \
                          self.input_file])
