@@ -39,6 +39,7 @@ class Dakota(object):
         """
         self.input_file = 'dakota.in'
         self.output_file = 'dakota.out'
+        self.method = None
 
         if method is not None:
             module = importlib.import_module(methods_path + method)
