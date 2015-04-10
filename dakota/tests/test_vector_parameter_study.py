@@ -7,10 +7,12 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
+import os
 from nose.tools import *
 from dakota.methods.vector_parameter_study import VectorParameterStudy, method
 from . import start_dir, data_dir
 
+config_file = os.path.join(data_dir, 'hydrotrend_config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
@@ -29,6 +31,17 @@ def teardown_module():
 def test_method_function():
     """Test the method helper function."""
     assert_equal(v.__class__, method().__class__)
+
+def test_init_no_params():
+    """Test creating an instance with no parameters."""
+    v1 = VectorParameterStudy()
+    assert_is_instance(v1, VectorParameterStudy)
+
+def test_init_from_file_like():
+    """Test creating an instance from a config file."""
+    with open(config_file, 'r') as fp:
+        v1 = VectorParameterStudy.from_file_like(fp.read())
+    assert_is_instance(v1, VectorParameterStudy)
 
 def test_method_block():
     """Test type of method_block method results."""

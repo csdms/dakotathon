@@ -1,0 +1,31 @@
+---
+method: vector_parameter_study
+component: hydrotrend
+configuration_file: ~
+run_directory: /Users/mpiper/projects/dakota/dakota/tests
+template_file: /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO.IN.tmpl
+input_files:
+  - /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO0.HYPS
+data_file: dakota.dat
+variable_type: continuous_design
+variable_descriptors:
+  - starting_mean_annual_temperature
+  - total_annual_precipitation
+initial_point:
+  - 10.0
+  - 1.5
+final_point:
+  - 20.0
+  - 2.5
+n_steps: 5
+interface: fork
+analysis_driver: dakota_run_plugin
+response_descriptors:
+  - Qs_median
+  - Q_mean
+response_files:
+  - HYDROASCII.QS
+  - HYDROASCII.Q
+response_statistics:
+  - median
+  - mean
