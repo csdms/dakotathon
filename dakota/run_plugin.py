@@ -24,8 +24,6 @@ the results file, ending the Dakota evaluation step.
 
 """
 
-import sys
-import os
 import importlib
 from .utils import get_configuration_filename, get_configuration
 from . import plugins_path
@@ -33,9 +31,6 @@ from . import plugins_path
 
 def run_plugin(params_file, results_file):
     """Sets up component inputs, runs component, gathers output."""
-
-    # Extract the name of the run configuration file from the Dakota
-    # parameters file and load its contents.
     config_file = get_configuration_filename(params_file)
     config = get_configuration(config_file)
 
@@ -59,6 +54,7 @@ def run_plugin(params_file, results_file):
     component.write(params_file, results_file)
 
 def main():
+    """Define the console script dakota_run_plugin."""
     import argparse
     from . import __version__, plugin_script
 
