@@ -69,7 +69,7 @@ class VectorParameterStudy(DakotaBase):
         """
         s = 'variables\n' \
             + '  {0} = {1}\n'.format(self.variable_type, 
-                                     len(self.variable_descriptors) \
+                                     len(self.variable_descriptors)) \
             + '    initial_point ='
         for pt in self.initial_point:
             s += ' {}'.format(pt)
