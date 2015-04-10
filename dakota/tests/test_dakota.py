@@ -53,6 +53,11 @@ def test_init_method_parameter_unknown_module():
     """Test constructor with method parameter fails with unknown module."""
     d = Dakota(method='foo')
 
+def test_init_from_file_like():
+    """Test from_file_like class method."""
+    d = Dakota.from_file_like('foo.yaml')
+    assert_is_instance(d, Dakota)
+
 def test_write_configuration_file():
     """Test write_configuration_file produces config file."""
     d = Dakota(method='vector_parameter_study')

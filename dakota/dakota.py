@@ -45,6 +45,32 @@ class Dakota(object):
             module = importlib.import_module(methods_path + method)
             self.method = module.method()
 
+    @classmethod
+    def from_file_like(cls, file_like):
+        """Create a Dakota instance from a file-like object.
+
+        Parameters
+        ----------
+        file_like : file_like
+            Input parameter file.
+
+        Returns
+        -------
+        Dakota
+            A new Dakota instance.
+
+        """
+        # config = yaml.load(file_like)
+        # config = utils.get_configuration(file_like) # better!
+        # method = config['method']
+        # v = method.__class__.from_file_like(config)
+        # cls.method = v # no - need class attribute
+        # method = 'vector_parameter_study'
+        # module = importlib.import_module(methods_path + method)
+        # v = module.method()
+        # cls.method = v
+        return cls()
+
     def write_configuration_file(self):
         """Dump settings to a YAML configuration file."""
         responses = []
