@@ -11,27 +11,35 @@ class DakotaBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self):
+    def __init__(self, component=None, template_file=None,
+                 method=None, configuration_file='config.yaml',
+                 run_directory='.', input_files=[],
+                 data_file='dakota.dat',
+                 variable_type='continous_design',
+                 variable_descriptors=[], interface='direct',
+                 analysis_driver='rosenbrock',
+                 is_objective_function=False, response_descriptors=[],
+                 response_files=[], response_statistics=[], **kwargs):
         """Create a set of default experiment parameters."""
-        self.component = None
-        self.configuration_file = 'config.yaml'
-        self.run_directory = '.'
-        self.template_file = None
-        self.input_files = []
-        self.data_file = 'dakota.dat'
-        self.method = None
-        self.variable_type = 'continuous_design'
-        self.n_variables = 0
-        self.variable_descriptors = []
-        self.interface = 'direct'
-        self.analysis_driver = 'rosenbrock'
+        self.component = component
+        self.configuration_file = configuration_file
+        self.run_directory = run_directory
+        self.template_file = template_file
+        self.input_files = input_files
+        self.data_file = data_file
+        self.method = method
+        self.variable_type = variable_type
+        self.variable_descriptors = variable_descriptors
+        self.n_variables = len(self.variable_descriptors)
+        self.interface = interface
+        self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
-        self.n_responses = 0
-        self.is_objective_function = False
-        self.response_descriptors = []
-        self.response_files = []
-        self.response_statistics = []
+        self.is_objective_function = is_objective_function
+        self.response_descriptors = response_descriptors
+        self.n_responses = len(self.response_descriptors)
+        self.response_files = response_files
+        self.response_statistics = response_statistics
 
     def environment_block(self):
         """Define the environment block of a Dakota input file."""
