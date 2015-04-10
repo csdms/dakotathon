@@ -61,9 +61,3 @@ def test_responses_block():
     """Test type of responses_block method results."""
     s = c.responses_block()
     assert_true(type(s) is str)
-
-def test_generate_descriptors():
-    """Test generate_descriptors method."""
-    c.generate_descriptors()
-    assert_true(len(c.variable_descriptors) == 1)
-    assert_true(len(c.response_descriptors) == 1)

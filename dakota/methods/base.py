@@ -15,7 +15,7 @@ class DakotaBase(object):
                  method=None, configuration_file='config.yaml',
                  run_directory='.', input_files=[],
                  data_file='dakota.dat',
-                 variable_type='continous_design',
+                 variable_type='continuous_design',
                  variable_descriptors=[], interface='direct',
                  analysis_driver='rosenbrock',
                  is_objective_function=False, response_descriptors=[],
@@ -97,10 +97,3 @@ class DakotaBase(object):
              + '  no_gradients\n' \
              + '  no_hessians\n'
         return(s)
-
-    def generate_descriptors(self):
-        """Quickly make generic variable and response descriptors."""
-        self.variable_descriptors = ['x' + str(i+1) for i in
-                                     range(len(self.variable_descriptors))]
-        self.response_descriptors = ['y' + str(i+1) for i in
-                                     range(len(self.response_descriptors))]
