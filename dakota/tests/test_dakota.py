@@ -38,19 +38,9 @@ def teardown_module():
 
 # Tests ----------------------------------------------------------------
 
-@raises(TypeError)
 def test_init_no_parameters():
     """Test constructor fails with no parameters."""
     d = Dakota()
-
-@raises(TypeError)
-def test_init_two_parameters():
-    """Test constructor fails with two parameters."""
-    d = Dakota(input_file='foo.in', method='bar')
-
-def test_init_input_file_parameter():
-    """Test constructor with input_file parameter."""
-    d = Dakota(input_file='foo.in')
     assert_is_instance(d, Dakota)
 
 def test_init_method_parameter():
@@ -92,30 +82,12 @@ def test_input_file_contents():
     d.write_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
 
-def test_run_with_input_file():
-    """Test run method with an input file."""
-    if is_dakota_installed():
-        d = Dakota(input_file=known_file)
-        d.run()
-        assert_true(os.path.exists(d.input_file))
-        assert_true(os.path.exists(d.output_file))
-        assert_true(os.path.exists(data_file))
-
-def test_run_without_input_file1():
-    """Test run method fails without an input file."""
-    if is_dakota_installed():
-        try:
-            d = Dakota(input_file='xyz.in')
-            d.run()
-        except IOError:
-            pass
-
-def test_run_without_input_file2():
-    """Test run method fails with method set and no input file."""
+def test_run_without_input_file():
+    """Test run method fails with no input file."""
     if is_dakota_installed():
         if os.path.exists(input_file): os.remove(input_file)
         try:
-            d = Dakota(method='vector_parameter_study')
+            d = Dakota()
             d.run()
         except IOError:
             pass

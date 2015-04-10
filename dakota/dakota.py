@@ -13,43 +13,34 @@ class Dakota(object):
 
     """Set up and run a Dakota experiment."""
 
-    def __init__(self, input_file=None, method=None):
+    def __init__(self, method=None):
         """Create a new Dakota experiment.
 
-        One of either ``input_file`` or ``method`` is required, and
-        they're exclusive. Use ``input_file`` to run Dakota with an
-        existing input file. Use ``method`` to configure a new
-        experiment and create a new input file.
+        Called with no parameters, a Dakota experiment with basic
+        defaults (the `rosenbrock` example) is created. Use ``method``
+        to set the Dakota analysis method in a new experiment.
 
         Parameters
         ----------
-        input_file: str
-          The path to a Dakota input file.
         method : str
           The desired Dakota method (e.g., `vector_parameter_study` or
           `polynomial_chaos`) to use in an experiment.
 
         Examples
         --------
-        Create a Dakota experiment from an existing input file:
+        Create a generic Dakota experiment:
 
-        >>> d = Dakota(input_file='/path/to/dakota.in')
+        >>> d = Dakota()
 
-        Configure a vector parameter study experiment:
+        Create a vector parameter study experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.write_input_file()
 
         """
-        if [input_file, method].count(None) != 1:
-            raise TypeError('Must specify exactly one input file or method.')
-
         self.input_file = 'dakota.in'
         self.output_file = 'dakota.out'
 
-        if input_file is not None:
-            self.input_file = input_file
-        else:
+        if method is not None:
             module = importlib.import_module(methods_path + method)
             self.method = module.method()
 
@@ -73,17 +64,19 @@ class Dakota(object):
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
 
-        Only instances created with ``method`` can create a new Dakota
-        input file.
-
         Parameters
         ----------
         input_file: str, optional
           A path/name for a new Dakota input file.
 
+        Examples
+        --------
+        Make an input file for a vector parameter study experiment:
+
+        >>> d = Dakota(method='vector_parameter_study')
+        >>> d.write_input_file()
+
         """
-        if hasattr(self, 'method') is False:
-            raise TypeError('Instance created with `input_file` is read-only.')
         if input_file is not None:
             self.input_file = input_file
         with open(self.input_file, 'w') as fp:
