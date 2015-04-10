@@ -38,10 +38,8 @@ class VectorParameterStudy(DakotaBase):
         self.initial_point = [-0.3, 0.2]
         self.final_point = [1.1, 1.3]
         self.n_steps = 10
-        self.n_variables = len(self.initial_point)
         self.interface = 'direct'
         self.analysis_driver = 'rosenbrock'
-        self.n_responses = 1
         self.generate_descriptors()
 
     def method_block(self):
@@ -70,7 +68,8 @@ class VectorParameterStudy(DakotaBase):
 
         """
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
+            + '  {0} = {1}\n'.format(self.variable_type, 
+                                     len(self.variable_descriptors) \
             + '    initial_point ='
         for pt in self.initial_point:
             s += ' {}'.format(pt)

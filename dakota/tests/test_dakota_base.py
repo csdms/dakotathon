@@ -64,7 +64,6 @@ def test_responses_block():
 
 def test_generate_descriptors():
     """Test generate_descriptors method."""
-    c.n_variables, c.n_responses = 1, 1
     c.generate_descriptors()
     assert_true(len(c.variable_descriptors) == 1)
     assert_true(len(c.response_descriptors) == 1)

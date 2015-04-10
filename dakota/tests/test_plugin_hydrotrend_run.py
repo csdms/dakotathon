@@ -44,14 +44,12 @@ def setup():
         v.input_files = [os.path.join(data_dir, hypsometry_file)]
         v.variable_descriptors = ['starting_mean_annual_temperature',
                                   'total_annual_precipitation']
-        v.n_variables = len(v.variable_descriptors)
         v.initial_point = [10.0, 1.5]
         v.final_point = [20.0, 2.5]
         v.n_steps = 5
         v.interface = 'fork'
         v.analysis_driver = analysis_driver
         v.response_descriptors = ['Qs_median', 'Q_mean']
-        v.n_responses = len(v.response_descriptors)
         v.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
         v.response_statistics = ['median', 'mean']
         d.write_configuration_file()
