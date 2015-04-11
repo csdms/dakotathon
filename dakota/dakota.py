@@ -41,8 +41,9 @@ class Dakota(object):
         self.output_file = 'dakota.out'
 
         if method is not None:
-            module = importlib.import_module(methods_path + method)
-            self.method = module.method()
+            _module = importlib.import_module(methods_path + method)
+            _class = getattr(_module, _module._classname)
+            self.method = _class()
         else:
             self.method = None
 

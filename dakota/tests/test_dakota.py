@@ -39,7 +39,7 @@ def teardown_module():
 # Tests ----------------------------------------------------------------
 
 def test_init_no_parameters():
-    """Test constructor fails with no parameters."""
+    """Test constructor with no parameters."""
     d = Dakota()
     assert_is_instance(d, Dakota)
 

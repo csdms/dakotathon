@@ -63,8 +63,8 @@ def teardown():
         for dname in glob.glob('HYDRO_*'):
             shutil.rmtree(dname)
         for fname in ['dakota.' + ext for ext in ['dat', 'in', 'out', 'rst']]:
-            os.remove(fname)
-        os.remove(config_file)
+            if os.path.exists(fname): os.remove(fname)
+        if os.path.exists(config_file): os.remove(config_file)
 
 def teardown_module():
     """Called after all tests have completed."""

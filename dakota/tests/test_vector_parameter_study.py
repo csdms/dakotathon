@@ -9,8 +9,11 @@
 
 import os
 from nose.tools import *
-from dakota.methods.vector_parameter_study import VectorParameterStudy, method
+from dakota.methods.vector_parameter_study import VectorParameterStudy
 from . import start_dir, data_dir
+
+
+# Global variables -----------------------------------------------------
 
 config_file = os.path.join(data_dir, 'hydrotrend_config.yaml')
 
@@ -27,10 +30,6 @@ def teardown_module():
     pass
 
 # Tests ----------------------------------------------------------------
-
-def test_method_function():
-    """Test the method helper function."""
-    assert_equal(v.__class__, method().__class__)
 
 def test_init_no_params():
     """Test creating an instance with no parameters."""

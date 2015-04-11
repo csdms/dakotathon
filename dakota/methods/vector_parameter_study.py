@@ -5,28 +5,7 @@ import yaml
 from .base import DakotaBase
 
 
-def method():
-    """Call this helper function to create a VectorParameterStudy object.
-
-    Every subclass of DakotaBase implements a **method** function to
-    return an instance of the class stored in the module. This way,
-    only the module name (which matches the Dakota ``method`` keyword)
-    is needed to create an instance of the subclass.
-
-    Returns
-    -------
-    object
-      An instance of VectorParameterStudy.
-
-    Examples
-    --------
-    Call this function instead of the class constructor to obtain a
-    VectorParameterStudy instance:
-
-    >>> v = method() # instead of v = VectorParameterStudy()
-
-    """
-    return VectorParameterStudy()
+_classname = 'VectorParameterStudy'
 
 class VectorParameterStudy(DakotaBase):
 
