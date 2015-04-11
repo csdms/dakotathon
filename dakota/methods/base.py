@@ -2,6 +2,8 @@
 """An abstract base class for all Dakota experiments."""
 
 from abc import ABCMeta, abstractmethod
+import types
+import yaml
 
 
 class DakotaBase(object):
@@ -38,6 +40,29 @@ class DakotaBase(object):
         self.response_descriptors = response_descriptors
         self.response_files = response_files
         self.response_statistics = response_statistics
+
+    @classmethod
+    def from_file_like(cls, file_like):
+        """Create a DakotaBase instance from a file-like object.
+
+        Parameters
+        ----------
+        file_like : file_like
+            Input parameter file.
+
+        Returns
+        -------
+        DakotaBase
+            A new DakotaBase instance.
+
+        """
+        config = {}
+        if isinstance(file_like, types.StringTypes):
+            with open(file_like, 'r') as fp:
+                config = yaml.load(fp.read())
+        else:
+            config = yaml.load(file_like)
+        return cls(**config)
 
     def environment_block(self):
         """Define the environment block of a Dakota input file."""

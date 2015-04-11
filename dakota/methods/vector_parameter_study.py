@@ -1,8 +1,6 @@
 #! /usr/bin/env python
 """Implementation of a Dakota vector parameter study."""
 
-import types
-import yaml
 from .base import DakotaBase
 
 
@@ -23,29 +21,6 @@ class VectorParameterStudy(DakotaBase):
         self.final_point = final_point
         self.n_steps = n_steps
         self.response_descriptors = response_descriptors
-
-    @classmethod
-    def from_file_like(cls, file_like):
-        """Create a VectorParameterStudy instance from a file-like object.
-
-        Parameters
-        ----------
-        file_like : file_like
-            Input parameter file.
-
-        Returns
-        -------
-        VectorParameterStudy
-            A new VectorParameterStudy instance.
-
-        """
-        config = {}
-        if isinstance(file_like, types.StringTypes):
-            with open(file_like, 'r') as fp:
-                config = yaml.load(fp.read())
-        else:
-            config = yaml.load(file_like)
-        return cls(**config)
 
     def method_block(self):
         """Define a vector parameter study method block for a Dakota input file.

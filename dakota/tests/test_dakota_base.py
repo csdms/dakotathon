@@ -14,9 +14,12 @@ from . import start_dir, data_dir
 # Helpers --------------------------------------------------------------
 
 class Concrete(DakotaBase):
+
     """A subclass of DakotaBase used for testing."""
+
     def __init__(self):
         DakotaBase.__init__(self)
+
     def method_block(self):
         pass
 
