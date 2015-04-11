@@ -5,6 +5,7 @@ import os
 import shutil
 import subprocess
 import numpy as np
+from .base import PluginBase
 from dakota.utils import get_response_descriptors, write_results, \
     compute_statistic
 
@@ -20,12 +21,13 @@ def is_installed():
     else:
         return True
 
-class HydroTrend(object):
+class HydroTrend(PluginBase):
 
     """Represent a HydroTrend simulation in a Dakota experiment."""
 
     def __init__(self):
         """Define default files and directories."""
+        PluginBase.__init__(self)
         self.input_dir = 'HYDRO_IN'
         self.output_dir = 'HYDRO_OUTPUT'
         self.input_file = 'HYDRO.IN'
