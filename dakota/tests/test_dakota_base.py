@@ -17,6 +17,8 @@ class Concrete(DakotaBase):
     """A subclass of DakotaBase used for testing."""
     def __init__(self):
         DakotaBase.__init__(self)
+    def method_block(self):
+        pass
 
 # Fixtures -------------------------------------------------------------
 
@@ -45,7 +47,7 @@ def test_environment_block():
 def test_method_block():
     """Test type of method_block method results."""
     s = c.method_block()
-    assert_true(type(s) is str)
+    assert_is_none(s)
 
 def test_variables_block():
     """Test type of variables_block method results."""

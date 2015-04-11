@@ -47,6 +47,7 @@ class DakotaBase(object):
             + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
         return(s)
 
+    @abstractmethod
     def method_block(self):
         """Define the method block of a Dakota input file."""
         s = 'method\n' \
