@@ -34,14 +34,10 @@ def run_plugin(params_file, results_file):
     config_file = get_configuration_filename(params_file)
     config = get_configuration(config_file)
 
-    # Load the component to call.
-    component = config.keys()[0]
-    try:
-        module = importlib.import_module(plugins_path + component)
-    except ImportError:
-        raise
-    if module.is_installed():
-        component = module.component()
+    _module = importlib.import_module(plugins_path + config.keys()[0])
+    if _module.is_installed():
+        _class = getattr(_module, _module._classname)
+        component = _class()
     else:
         raise NameError('Component cannot be created.')
 

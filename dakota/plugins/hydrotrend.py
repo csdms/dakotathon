@@ -9,6 +9,8 @@ from dakota.utils import get_response_descriptors, write_results, \
     compute_statistic
 
 
+_classname = 'HydroTrend'
+
 def is_installed():
     """Check whether HydroTrend is in the execution path."""
     try:
@@ -17,24 +19,6 @@ def is_installed():
         return False
     else:
         return True
-
-def component():
-    """Call this helper function to create a HydroTrend object.
-
-    Returns
-    -------
-    object
-      An instance of HydroTrend.
-
-    Examples
-    --------
-    Call this function instead of the class constructor to obtain a
-    HydroTrend instance:
-
-    >>> h = component() # instead of h = HydroTrend()
-
-    """
-    return HydroTrend()
 
 class HydroTrend(object):
 

@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import *
-from dakota.plugins.hydrotrend import HydroTrend, component
+from dakota.plugins.hydrotrend import HydroTrend
 from . import start_dir, data_dir
 
 
@@ -35,10 +35,6 @@ def teardown_module():
     pass
 
 # Tests ----------------------------------------------------------------
-
-def test_component_function():
-    """Test the component helper function."""
-    assert_equal(h.__class__, component().__class__)
 
 @raises(TypeError)
 def test_load_zero_arguments():
