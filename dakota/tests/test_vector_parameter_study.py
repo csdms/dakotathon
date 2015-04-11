@@ -36,10 +36,15 @@ def test_init_no_params():
     v1 = VectorParameterStudy()
     assert_is_instance(v1, VectorParameterStudy)
 
-def test_init_from_file_like():
+def test_init_from_file_like1():
     """Test creating an instance from a config file."""
+    v1 = VectorParameterStudy.from_file_like(config_file)
+    assert_is_instance(v1, VectorParameterStudy)
+
+def test_init_from_file_like2():
+    """Test creating an instance from an open config file object."""
     with open(config_file, 'r') as fp:
-        v1 = VectorParameterStudy.from_file_like(fp.read())
+        v1 = VectorParameterStudy.from_file_like(fp)
     assert_is_instance(v1, VectorParameterStudy)
 
 def test_method_block():

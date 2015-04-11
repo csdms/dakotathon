@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 """Implementation of a Dakota vector parameter study."""
 
+import types
 import yaml
 from .base import DakotaBase
 
@@ -38,7 +39,12 @@ class VectorParameterStudy(DakotaBase):
             A new VectorParameterStudy instance.
 
         """
-        config = yaml.load(file_like)
+        config = {}
+        if isinstance(file_like, types.StringTypes):
+            with open(file_like, 'r') as fp:
+                config = yaml.load(fp.read())
+        else:
+            config = yaml.load(file_like)
         return cls(**config)
 
     def method_block(self):

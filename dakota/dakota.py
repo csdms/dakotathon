@@ -4,6 +4,7 @@
 import os
 import subprocess
 import importlib
+import types
 import yaml
 from .utils import is_dakota_installed
 from . import methods_path
@@ -62,7 +63,12 @@ class Dakota(object):
             A new Dakota instance.
 
         """
-        config = yaml.load(file_like)
+        config = {}
+        if isinstance(file_like, types.StringTypes):
+            with open(file_like, 'r') as fp:
+                config = yaml.load(fp.read())
+        else:
+            config = yaml.load(file_like)
         return cls(**config)
 
     def write_configuration_file(self):

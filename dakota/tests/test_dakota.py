@@ -62,6 +62,17 @@ def test_init_from_file_like():
         d = Dakota.from_file_like(fp)
     assert_is_instance(d, Dakota)
 
+def test_init_from_file_like1():
+    """Test creating an instance from a config file."""
+    d = Dakota.from_file_like(config_file1)
+    assert_is_instance(d, Dakota)
+
+def test_init_from_file_like2():
+    """Test creating an instance from an open config file object."""
+    with open(config_file1, 'r') as fp:
+        d = Dakota.from_file_like(fp)
+    assert_is_instance(d, Dakota)
+
 def test_write_configuration_file():
     """Test write_configuration_file produces config file."""
     d = Dakota(method='vector_parameter_study')
