@@ -13,7 +13,7 @@ class Dakota(object):
 
     """Set up and run a Dakota experiment."""
 
-    def __init__(self, method=None):
+    def __init__(self, method=None, **kwargs):
         """Create a new Dakota experiment.
 
         Called with no parameters, a Dakota experiment with basic
@@ -43,7 +43,7 @@ class Dakota(object):
         if method is not None:
             _module = importlib.import_module(methods_path + method)
             _class = getattr(_module, _module._classname)
-            self.method = _class()
+            self.method = _class(**kwargs)
         else:
             self.method = None
 
@@ -62,16 +62,8 @@ class Dakota(object):
             A new Dakota instance.
 
         """
-        # config = yaml.load(file_like)
-        # config = utils.get_configuration(file_like) # better!
-        # method = config['method']
-        # v = method.__class__.from_file_like(config)
-        # cls.method = v # no - need class attribute
-        # method = 'vector_parameter_study'
-        # module = importlib.import_module(methods_path + method)
-        # v = module.method()
-        # cls.method = v
-        return cls()
+        config = yaml.load(file_like)
+        return cls(**config)
 
     def write_configuration_file(self):
         """Dump settings to a YAML configuration file."""
