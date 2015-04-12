@@ -47,8 +47,8 @@ def get_response_descriptors(params_file):
     else:
         return labels
 
-def get_configuration_filename(params_file):
-    """Extract the configuration filename from a Dakota parameters file.
+def get_configuration_file(params_file):
+    """Extract the configuration filepath from a Dakota parameters file.
 
     Parameters
     ----------
@@ -58,7 +58,7 @@ def get_configuration_filename(params_file):
     Returns
     -------
     str
-      The name of the configuration file for the Dakota experiment.
+      The path to the configuration file for the Dakota experiment.
 
     """
     try:
