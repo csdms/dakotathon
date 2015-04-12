@@ -1,8 +1,33 @@
-hydrotrend:
-  input_files:
-  - /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO0.HYPS
-  responses:
-  - HYDROASCII.QS: median
-  - HYDROASCII.Q: mean
-  run_directory: /Users/mpiper/projects/dakota/dakota/tests
-  template_file: /Users/mpiper/projects/dakota/dakota/tests/data/HYDRO.IN.tmpl
+analysis_driver: dakota_run_plugin
+component: hydrotrend
+configuration_file: /Users/mpiper/projects/mdpiper/dakota/dakota/config.yaml
+data_file: dakota.dat
+final_point:
+- 20.0
+- 2.5
+initial_point:
+- 10.0
+- 1.5
+input_files:
+- /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO0.HYPS
+interface: fork
+is_objective_function: false
+method: vector_parameter_study
+n_steps: 5
+parameters_file: params.in
+response_descriptors:
+- Qs_median
+- Q_mean
+response_files:
+- HYDROASCII.QS
+- HYDROASCII.Q
+response_statistics:
+- median
+- mean
+results_file: results.out
+run_directory: /Users/mpiper/projects/mdpiper/dakota/dakota
+template_file: /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO.IN.tmpl
+variable_descriptors:
+- starting_mean_annual_temperature
+- total_annual_precipitation
+variable_type: continuous_design

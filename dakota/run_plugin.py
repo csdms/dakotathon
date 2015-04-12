@@ -25,16 +25,16 @@ the results file, ending the Dakota evaluation step.
 """
 
 import importlib
-from .utils import get_configuration_filename, get_configuration
+from .utils import get_configuration_file, get_configuration
 from . import plugins_path
 
 
 def run_plugin(params_file, results_file):
     """Sets up component inputs, runs component, gathers output."""
-    config_file = get_configuration_filename(params_file)
+    config_file = get_configuration_file(params_file)
     config = get_configuration(config_file)
 
-    _module = importlib.import_module(plugins_path + config.keys()[0])
+    _module = importlib.import_module(plugins_path + config['component'])
     if _module.is_installed():
         _class = getattr(_module, _module._classname)
         component = _class()
@@ -44,7 +44,7 @@ def run_plugin(params_file, results_file):
     # Set up the simulation, call the component, calculate the
     # response statistic for the simulation, write the output to the
     # Dakota results file.
-    component.setup(config, params_file)
+    component.setup(config)
     component.call()
     component.calculate()
     component.write(params_file, results_file)

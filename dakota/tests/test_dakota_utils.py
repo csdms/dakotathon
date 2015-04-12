@@ -44,19 +44,19 @@ def test_get_response_descriptors_unknown_file():
     """Test get_response_descriptors when parameters file not found."""
     assert_is_none(get_response_descriptors('foo.in'))
 
-def test_get_configuration_filename():
-    """Test the get_configuration_filename function."""
-    config_filename = get_configuration_filename(parameters_file)
-    assert_equal(os.path.basename(config_file), config_filename)
+def test_get_configuration_file():
+    """Test the get_configuration_file function."""
+    config_file = get_configuration_file(parameters_file)
+    assert_equal(os.path.basename(config_file), config_file)
 
-def test_get_configuration_filename_unknown_file():
-    """Test get_configuration_filename when parameters file not found."""
-    assert_is_none(get_configuration_filename('foo.in'))
+def test_get_configuration_file_unknown_file():
+    """Test get_configuration_file when parameters file not found."""
+    assert_is_none(get_configuration_file('foo.in'))
 
 def test_get_configuration():
     """Test the get_configuration function."""
     config = get_configuration(config_file)
-    assert_equal(component, config.keys()[0])
+    assert_equal(component, config['component'])
 
 def test_get_configuration_unknown_file():
     """Test get_configuration when config file not found."""

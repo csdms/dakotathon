@@ -71,22 +71,27 @@ class Dakota(object):
             config = yaml.load(file_like)
         return cls(**config)
 
-    def write_configuration_file(self):
-        """Dump settings to a YAML configuration file."""
-        responses = []
-        for f,s in zip(self.method.response_files,
-                       self.method.response_statistics):
-            responses.append({f:s})
-        config = {self.method.component:
-                  {
-                      'run_directory': self.method.run_directory,
-                      'template_file': self.method.template_file,
-                      'input_files': self.method.input_files,
-                      'responses': responses
-                  }
-              }
+    def write_configuration_file(self, config_file=None):
+        """Dump settings to a YAML configuration file.
+
+        Parameters
+        ----------
+        config_file: str, optional
+          A path/name for a new configuration file.
+
+        Examples
+        --------
+        Make a configuration file for a vector parameter study
+        experiment:
+
+        >>> d = Dakota(method='vector_parameter_study')
+        >>> d.write_configuration_file('config.yaml')
+
+        """
+        if config_file is not None:
+            self.method.configuration_file = config_file
         with open(self.method.configuration_file, 'w') as fp:
-            yaml.dump(config, fp, default_flow_style=False)
+            yaml.dump(self.method.__dict__, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.

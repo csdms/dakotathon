@@ -23,10 +23,8 @@ input_file, \
     restart_file = ['dakota.' + ext for ext in ('in','out','dat','rst')]
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')
-config_file = 'config.yaml'
-config_file1 = os.path.join(data_dir, 'hydrotrend_config.yaml')
-tmp_files = [input_file, alt_input_file, output_file, data_file, \
-             restart_file, config_file]
+config_file = os.path.join(data_dir, 'config.yaml')
+tmp_files = [input_file, alt_input_file, output_file, data_file, restart_file]
 
 # Fixtures -------------------------------------------------------------
 
@@ -56,20 +54,14 @@ def test_init_method_parameter_unknown_module():
     """Test constructor with method parameter fails with unknown module."""
     d = Dakota(method='foo')
 
-def test_init_from_file_like():
-    """Test from_file_like class method."""
-    with open(config_file1, 'r') as fp:
-        d = Dakota.from_file_like(fp)
-    assert_is_instance(d, Dakota)
-
 def test_init_from_file_like1():
     """Test creating an instance from a config file."""
-    d = Dakota.from_file_like(config_file1)
+    d = Dakota.from_file_like(config_file)
     assert_is_instance(d, Dakota)
 
 def test_init_from_file_like2():
     """Test creating an instance from an open config file object."""
-    with open(config_file1, 'r') as fp:
+    with open(config_file, 'r') as fp:
         d = Dakota.from_file_like(fp)
     assert_is_instance(d, Dakota)
 

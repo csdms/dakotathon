@@ -27,8 +27,9 @@ class HydroTrend(PluginBase):
 
     def __init__(self, input_dir='HYDRO_IN',
                  output_dir='HYDRO_OUTPUT', input_file='HYDRO.IN',
-                 input_template='HYDRO.IN.tmpl', hypsometry_file='HYDRO0.HYPS',
-                 response_functions=[], response_values=[], **kwargs ):
+                 input_template='HYDRO.IN.tmpl',
+                 hypsometry_file='HYDRO0.HYPS', response_files=[],
+                 response_statistics=[], **kwargs ):
         """Define default files and directories."""
         PluginBase.__init__(self, **kwargs)
         self.input_dir = input_dir
@@ -36,10 +37,11 @@ class HydroTrend(PluginBase):
         self.input_file = input_file
         self.input_template = input_template
         self.hypsometry_file = hypsometry_file
-        self.response_functions = response_functions
-        self.response_values = response_values
+        self.response_files = response_files
+        self.response_statistics = response_statistics
+        self.response_values = []
 
-    def setup(self, config, params_file):
+    def setup(self, config):
         """Configure HydroTrend inputs.
 
         Use the Dakota parsing utility ``dprepro`` to incorporate
@@ -50,24 +52,20 @@ class HydroTrend(PluginBase):
         ----------
         config : dict
           Stores configuration settings for a Dakota experiment.
-        params_file : str
-          The path to a Dakota parameters file.
 
         """
-        component = config.keys()[0]
-        self.input_template = config[component]['template_file']
-        self.hypsometry_file = config[component]['input_files'][0]
-        self.response_functions = config[component]['responses']
-        start_dir = config[component]['run_directory']
+        # component = config.keys()[0]
+        self.input_template = config['template_file']
+        self.hypsometry_file = config['input_files'][0]
 
-        self.input_dir = os.path.join(start_dir, 'HYDRO_IN')
-        self.output_dir = os.path.join(start_dir, 'HYDRO_OUTPUT')
+        self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
+        self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
         if os.path.exists(self.input_dir) is False:
             os.mkdir(self.input_dir, 0755)
         if os.path.exists(self.output_dir) is False:
             os.mkdir(self.output_dir, 0755)
 
-        subprocess.call(['dprepro', params_file, \
+        subprocess.call(['dprepro', config['parameters_file'], \
                          self.input_template, \
                          self.input_file])
         shutil.copy(self.input_file, self.input_dir)
@@ -102,7 +100,7 @@ class HydroTrend(PluginBase):
 
     def calculate(self):
         """Calculate Dakota response functions."""
-        for response in self.response_functions:
+        for rfile, rstat in zip(self.response_files, self.response_statistics):
             rfile = response.keys()[0]
             rstat = response.values()[0]
             shutil.copy(os.path.join(self.output_dir, rfile), os.curdir)
@@ -112,7 +110,6 @@ class HydroTrend(PluginBase):
                 self.response_values.append(val)
             else:
                 self.response_values.append(float('nan'))
-
 
     def write(self, params_file, results_file):
         """Write the Dakota results file.
