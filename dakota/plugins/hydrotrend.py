@@ -25,16 +25,19 @@ class HydroTrend(PluginBase):
 
     """Represent a HydroTrend simulation in a Dakota experiment."""
 
-    def __init__(self):
+    def __init__(self, input_dir='HYDRO_IN',
+                 output_dir='HYDRO_OUTPUT', input_file='HYDRO.IN',
+                 input_template='HYDRO.IN.tmpl', hypsometry_file='HYDRO0.HYPS',
+                 response_functions=[], response_values=[], **kwargs ):
         """Define default files and directories."""
-        PluginBase.__init__(self)
-        self.input_dir = 'HYDRO_IN'
-        self.output_dir = 'HYDRO_OUTPUT'
-        self.input_file = 'HYDRO.IN'
-        self.input_template = 'HYDRO.IN.tmpl'
-        self.hypsometry_file = 'HYDRO0.HYPS'
-        self.response_functions = []
-        self.response_values = []
+        PluginBase.__init__(self, **kwargs)
+        self.input_dir = input_dir
+        self.output_dir = output_dir
+        self.input_file = input_file
+        self.input_template = input_template
+        self.hypsometry_file = hypsometry_file
+        self.response_functions = response_functions
+        self.response_values = response_values
 
     def setup(self, config, params_file):
         """Configure HydroTrend inputs.
