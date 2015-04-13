@@ -7,15 +7,16 @@ names of the parameters file and the results file as arguments.
 
 The parameters file provides information on the current Dakota
 evaluation step, including the names and values of model variables and
-their responses. It also includes, as *analysis components*, a set of
-user values configured for this analysis driver: the name of the BMI
-component to call, the output file(s) to examine, and the statistic to
-apply to the output file(s).
+their responses. It also includes, as the *analysis component*, the
+name of a configuration file that stores information about the setup
+of the experiment, including the name of the BMI component to call,
+input files, output file(s) to examine, and the statistic to apply to
+the output file(s).
 
 Once the BMI component is identified, an interface is instantiated,
 which performs three steps: preprocessing, execution, and
-postprocessing. In the preprocessing step, information from the Dakota
-parameters file is transferred to the component. Next, in the
+postprocessing. In the preprocessing step, information from the
+configuration file is transferred to the component. Next, in the
 execution step, the component is called, using the information passed
 from Dakota. In the final step, output from the component is read, and
 a single statistic (e.g., mean, median, max, etc.) is applied to
