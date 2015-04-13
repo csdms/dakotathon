@@ -15,13 +15,13 @@ class DakotaBase(object):
     @abstractmethod
     def __init__(self, component=None, template_file=None,
                  method=None, configuration_file='config.yaml',
-                 run_directory='.', input_files=[],
+                 run_directory='.', input_files=None,
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=[], interface='direct',
+                 variable_descriptors=None, interface='direct',
                  analysis_driver='rosenbrock',
-                 is_objective_function=False, response_descriptors=[],
-                 response_files=[], response_statistics=[], **kwargs):
+                 is_objective_function=False, response_descriptors=None,
+                 response_files=None, response_statistics=None, **kwargs):
         """Create a set of default experiment parameters."""
         self.component = component
         self.configuration_file = configuration_file
@@ -31,13 +31,15 @@ class DakotaBase(object):
         self.data_file = data_file
         self.method = method
         self.variable_type = variable_type
-        self.variable_descriptors = variable_descriptors
+        self.variable_descriptors = [] if variable_descriptors is None \
+                                    else variable_descriptors
         self.interface = interface
         self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
         self.is_objective_function = is_objective_function
-        self.response_descriptors = response_descriptors
+        self.response_descriptors = [] if response_descriptors is None \
+                                    else response_descriptors
         self.response_files = response_files
         self.response_statistics = response_statistics
 
