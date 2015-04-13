@@ -120,6 +120,7 @@ class Dakota(object):
 
     def run(self):
         """Run the Dakota experiment."""
-        subprocess.call(['dakota',
-                         '-i', self.input_file,
-                         '-o', self.output_file])
+        subprocess.check_output(['dakota',
+                                 '-i', self.input_file,
+                                 '-o', self.output_file],
+                                stderr=subprocess.STDOUT)
