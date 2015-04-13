@@ -1,12 +1,10 @@
 #! /usr/bin/env python
 """Interface to the Dakota iterative systems analysis toolkit."""
 
-import os
 import subprocess
 import importlib
 import types
 import yaml
-from .utils import is_dakota_installed
 from . import methods_path
 
 
