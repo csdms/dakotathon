@@ -28,8 +28,8 @@ class HydroTrend(PluginBase):
     def __init__(self, input_dir='HYDRO_IN',
                  output_dir='HYDRO_OUTPUT', input_file='HYDRO.IN',
                  input_template='HYDRO.IN.tmpl',
-                 hypsometry_file='HYDRO0.HYPS', response_files=[],
-                 response_statistics=[], **kwargs):
+                 hypsometry_file='HYDRO0.HYPS', output_files=[],
+                 output_statistics=[], **kwargs):
         """Define default files and directories."""
         PluginBase.__init__(self, **kwargs)
         self.input_dir = input_dir
@@ -37,9 +37,9 @@ class HydroTrend(PluginBase):
         self.input_file = input_file
         self.input_template = input_template
         self.hypsometry_file = hypsometry_file
-        self.response_files = response_files
-        self.response_statistics = response_statistics
-        self.response_values = []
+        self.output_files = output_files
+        self.output_statistics = output_statistics
+        self.output_values = []
 
     def setup(self, config):
         """Configure HydroTrend inputs.
@@ -57,6 +57,8 @@ class HydroTrend(PluginBase):
         """
         self.input_template = config['template_file']
         self.hypsometry_file = config['input_files'][0]
+        self.output_files = config['response_files']
+        self.output_statistics = config['response_statistics']
 
         self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
         self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
@@ -99,15 +101,15 @@ class HydroTrend(PluginBase):
             return(series)
 
     def calculate(self):
-        """Calculate Dakota response functions."""
-        for rfile, rstat in zip(self.response_files, self.response_statistics):
+        """Calculate Dakota output functions."""
+        for rfile, rstat in zip(self.output_files, self.output_statistics):
             shutil.copy(os.path.join(self.output_dir, rfile), os.curdir)
             series = self.load(rfile)
             if series is not None:
                 val = compute_statistic(rstat, series)
-                self.response_values.append(val)
+                self.output_values.append(val)
             else:
-                self.response_values.append(float('nan'))
+                self.output_values.append(float('nan'))
 
     def write(self, params_file, results_file):
         """Write the Dakota results file.
@@ -121,4 +123,4 @@ class HydroTrend(PluginBase):
 
         """
         labels = get_response_descriptors(params_file)
-        write_results(results_file, self.response_values, labels)
+        write_results(results_file, self.output_values, labels)
