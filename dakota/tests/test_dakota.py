@@ -9,6 +9,7 @@
 
 import os
 import filecmp
+from subprocess import CalledProcessError
 from nose.tools import *
 from dakota.dakota import Dakota
 from dakota.utils import is_dakota_installed
@@ -95,5 +96,5 @@ def test_run_without_input_file():
         try:
             d = Dakota()
             d.run()
-        except IOError:
+        except CalledProcessError:
             pass
