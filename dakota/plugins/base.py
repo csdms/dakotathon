@@ -16,8 +16,19 @@ class PluginBase(object):
         pass
 
     @abstractmethod
-    def setup(self):
-        """Configure component inputs."""
+    def setup(self, config):
+        """Configure component inputs.
+
+        Sets attributes using information from the run configuration
+        file. The Dakota parsing utility ``dprepro`` reads parameters
+        from Dakota to create a new input file from a template.
+
+        Parameters
+        ----------
+        config : dict
+          Stores configuration settings for a Dakota experiment.
+
+        """
         pass
 
     @abstractmethod
@@ -26,8 +37,20 @@ class PluginBase(object):
         pass
 
     @abstractmethod
-    def load(self):
-        """Read data from a component output file."""
+    def load(self, output_file):
+        """Read data from a component output file.
+
+        Parameters
+        ----------
+        output_file : str
+          The path to a component output file.
+
+        Returns
+        -------
+        array_like
+          A numpy array, or None on an error.
+
+        """
         pass
 
     @abstractmethod
@@ -36,6 +59,15 @@ class PluginBase(object):
         pass
 
     @abstractmethod
-    def write(self):
-        """Write a Dakota results file."""
+    def write(self, params_file, results_file):
+        """Write a Dakota results file.
+
+        Parameters
+        ----------
+        params_file : str
+          A Dakota parameters file.
+        results_file : str
+          A Dakota results file.
+
+        """
         pass
