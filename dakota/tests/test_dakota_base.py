@@ -14,9 +14,14 @@ from . import start_dir, data_dir
 # Helpers --------------------------------------------------------------
 
 class Concrete(DakotaBase):
+
     """A subclass of DakotaBase used for testing."""
+
     def __init__(self):
         DakotaBase.__init__(self)
+
+    def method_block(self):
+        pass
 
 # Fixtures -------------------------------------------------------------
 
@@ -45,7 +50,7 @@ def test_environment_block():
 def test_method_block():
     """Test type of method_block method results."""
     s = c.method_block()
-    assert_true(type(s) is str)
+    assert_is_none(s)
 
 def test_variables_block():
     """Test type of variables_block method results."""
@@ -61,10 +66,3 @@ def test_responses_block():
     """Test type of responses_block method results."""
     s = c.responses_block()
     assert_true(type(s) is str)
-
-def test_generate_descriptors():
-    """Test generate_descriptors method."""
-    c.n_variables, c.n_responses = 1, 1
-    c.generate_descriptors()
-    assert_true(len(c.variable_descriptors) == 1)
-    assert_true(len(c.response_descriptors) == 1)

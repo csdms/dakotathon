@@ -9,21 +9,23 @@
 
 import os
 import filecmp
+from subprocess import CalledProcessError
 from nose.tools import *
 from dakota.dakota import Dakota
 from dakota.utils import is_dakota_installed
 from . import start_dir, data_dir
 
-# Global variables
+
+# Global variables -----------------------------------------------------
+
 input_file, \
     output_file, \
     data_file, \
     restart_file = ['dakota.' + ext for ext in ('in','out','dat','rst')]
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')
-config_file = 'config.yaml'
-tmp_files = [input_file, alt_input_file, output_file, data_file, \
-             restart_file, config_file]
+config_file = os.path.join(data_dir, 'config.yaml')
+tmp_files = [input_file, alt_input_file, output_file, data_file, restart_file]
 
 # Fixtures -------------------------------------------------------------
 
@@ -38,19 +40,9 @@ def teardown_module():
 
 # Tests ----------------------------------------------------------------
 
-@raises(TypeError)
 def test_init_no_parameters():
-    """Test constructor fails with no parameters."""
+    """Test constructor with no parameters."""
     d = Dakota()
-
-@raises(TypeError)
-def test_init_two_parameters():
-    """Test constructor fails with two parameters."""
-    d = Dakota(input_file='foo.in', method='bar')
-
-def test_init_input_file_parameter():
-    """Test constructor with input_file parameter."""
-    d = Dakota(input_file='foo.in')
     assert_is_instance(d, Dakota)
 
 def test_init_method_parameter():
@@ -63,16 +55,21 @@ def test_init_method_parameter_unknown_module():
     """Test constructor with method parameter fails with unknown module."""
     d = Dakota(method='foo')
 
+def test_init_from_file_like1():
+    """Test creating an instance from a config file."""
+    d = Dakota.from_file_like(config_file)
+    assert_is_instance(d, Dakota)
+
+def test_init_from_file_like2():
+    """Test creating an instance from an open config file object."""
+    with open(config_file, 'r') as fp:
+        d = Dakota.from_file_like(fp)
+    assert_is_instance(d, Dakota)
+
 def test_write_configuration_file():
     """Test write_configuration_file produces config file."""
     d = Dakota(method='vector_parameter_study')
     d.write_configuration_file()
-
-@raises(TypeError)
-def test_write_input_file_with_input_file():
-    """Test write_input_file fails when instanced with input file."""
-    d = Dakota(input_file='foo.in')
-    d.write_input_file()
 
 def test_write_input_file_with_method_default_name():
     """Test write_input_file works when instanced with method."""
@@ -92,30 +89,12 @@ def test_input_file_contents():
     d.write_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
 
-def test_run_with_input_file():
-    """Test run method with an input file."""
-    if is_dakota_installed():
-        d = Dakota(input_file=known_file)
-        d.run()
-        assert_true(os.path.exists(d.input_file))
-        assert_true(os.path.exists(d.output_file))
-        assert_true(os.path.exists(data_file))
-
-def test_run_without_input_file1():
-    """Test run method fails without an input file."""
-    if is_dakota_installed():
-        try:
-            d = Dakota(input_file='xyz.in')
-            d.run()
-        except IOError:
-            pass
-
-def test_run_without_input_file2():
-    """Test run method fails with method set and no input file."""
+def test_run_without_input_file():
+    """Test run method fails with no input file."""
     if is_dakota_installed():
         if os.path.exists(input_file): os.remove(input_file)
         try:
-            d = Dakota(method='vector_parameter_study')
+            d = Dakota()
             d.run()
-        except IOError:
+        except CalledProcessError:
             pass

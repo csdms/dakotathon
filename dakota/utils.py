@@ -47,8 +47,8 @@ def get_response_descriptors(params_file):
     else:
         return labels
 
-def get_configuration_filename(params_file):
-    """Extract the configuration filename from a Dakota parameters file.
+def get_configuration_file(params_file):
+    """Extract the configuration filepath from a Dakota parameters file.
 
     Parameters
     ----------
@@ -58,7 +58,7 @@ def get_configuration_filename(params_file):
     Returns
     -------
     str
-      The name of the configuration file for the Dakota experiment.
+      The path to the configuration file for the Dakota experiment.
 
     """
     try:
@@ -93,7 +93,7 @@ def compute_statistic(statistic, array):
       A string with the name of the statistic to compute ('mean',
       'median', etc.).
     array : array_like
-      A numpy array.
+      An array data structure, such as a numpy array.
 
     Returns
     -------
@@ -102,7 +102,7 @@ def compute_statistic(statistic, array):
 
     """
     import numpy as np
-    return eval('np.' + statistic + '(array)')
+    return np.__getattribute__(statistic)(array)
 
 def write_results(results_file, values, labels):
     """Write a Dakota results file from a set of input values.

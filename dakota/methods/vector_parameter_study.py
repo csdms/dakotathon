@@ -4,45 +4,23 @@
 from .base import DakotaBase
 
 
-def method():
-    """Call this helper function to create a VectorParameterStudy object.
-
-    Every subclass of DakotaBase implements a **method** function to
-    return an instance of the class stored in the module. This way,
-    only the module name (which matches the Dakota ``method`` keyword)
-    is needed to create an instance of the subclass.
-
-    Returns
-    -------
-    object
-      An instance of VectorParameterStudy.
-
-    Examples
-    --------
-    Call this function instead of the class constructor to obtain a
-    VectorParameterStudy instance:
-
-    >>> v = method() # instead of v = VectorParameterStudy()
-
-    """
-    return VectorParameterStudy()
+classname = 'VectorParameterStudy'
 
 class VectorParameterStudy(DakotaBase):
 
     """Define parameters for a Dakota vector parameter study."""
 
-    def __init__(self):
+    def __init__(self, variable_descriptors=('x1', 'x2'),
+                 initial_point=(-0.3, 0.2), final_point=(1.1, 1.3), n_steps=10,
+                 response_descriptors=('y1',), **kwargs):
         """Create a new Dakota vector parameter study."""
-        DakotaBase.__init__(self)
+        DakotaBase.__init__(self, **kwargs)
         self.method = 'vector_parameter_study'
-        self.initial_point = [-0.3, 0.2]
-        self.final_point = [1.1, 1.3]
-        self.n_steps = 10
-        self.n_variables = len(self.initial_point)
-        self.interface = 'direct'
-        self.analysis_driver = 'rosenbrock'
-        self.n_responses = 1
-        self.generate_descriptors()
+        self.variable_descriptors = variable_descriptors
+        self.initial_point = initial_point
+        self.final_point = final_point
+        self.n_steps = n_steps
+        self.response_descriptors = response_descriptors
 
     def method_block(self):
         """Define a vector parameter study method block for a Dakota input file.
@@ -70,7 +48,8 @@ class VectorParameterStudy(DakotaBase):
 
         """
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables) \
+            + '  {0} = {1}\n'.format(self.variable_type, 
+                                     len(self.variable_descriptors)) \
             + '    initial_point ='
         for pt in self.initial_point:
             s += ' {}'.format(pt)

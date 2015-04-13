@@ -2,6 +2,8 @@
 """An abstract base class for all Dakota experiments."""
 
 from abc import ABCMeta, abstractmethod
+import types
+import yaml
 
 
 class DakotaBase(object):
@@ -11,27 +13,58 @@ class DakotaBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self):
+    def __init__(self, component=None, template_file=None,
+                 method=None, configuration_file='config.yaml',
+                 run_directory='.', input_files=None,
+                 data_file='dakota.dat',
+                 variable_type='continuous_design',
+                 variable_descriptors=None, interface='direct',
+                 analysis_driver='rosenbrock',
+                 is_objective_function=False, response_descriptors=None,
+                 response_files=None, response_statistics=None, **kwargs):
         """Create a set of default experiment parameters."""
-        self.component = None
-        self.configuration_file = 'config.yaml'
-        self.run_directory = '.'
-        self.template_file = None
-        self.input_files = []
-        self.data_file = 'dakota.dat'
-        self.method = None
-        self.variable_type = 'continuous_design'
-        self.n_variables = 0
-        self.variable_descriptors = []
-        self.interface = 'direct'
-        self.analysis_driver = 'rosenbrock'
+        self.component = component
+        self.configuration_file = configuration_file
+        self.run_directory = run_directory
+        self.template_file = template_file
+        self.input_files = input_files
+        self.data_file = data_file
+        self.method = method
+        self.variable_type = variable_type
+        self.variable_descriptors = [] if variable_descriptors is None \
+                                    else variable_descriptors
+        self.interface = interface
+        self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
-        self.n_responses = 0
-        self.is_objective_function = False
-        self.response_descriptors = []
-        self.response_files = []
-        self.response_statistics = []
+        self.is_objective_function = is_objective_function
+        self.response_descriptors = [] if response_descriptors is None \
+                                    else response_descriptors
+        self.response_files = response_files
+        self.response_statistics = response_statistics
+
+    @classmethod
+    def from_file_like(cls, file_like):
+        """Create a DakotaBase instance from a file-like object.
+
+        Parameters
+        ----------
+        file_like : file_like
+            Input parameter file.
+
+        Returns
+        -------
+        DakotaBase
+            A new DakotaBase instance.
+
+        """
+        config = {}
+        if isinstance(file_like, types.StringTypes):
+            with open(file_like, 'r') as fp:
+                config = yaml.load(fp.read())
+        else:
+            config = yaml.load(file_like)
+        return cls(**config)
 
     def environment_block(self):
         """Define the environment block of a Dakota input file."""
@@ -41,6 +74,7 @@ class DakotaBase(object):
             + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
         return(s)
 
+    @abstractmethod
     def method_block(self):
         """Define the method block of a Dakota input file."""
         s = 'method\n' \
@@ -50,7 +84,8 @@ class DakotaBase(object):
     def variables_block(self):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, self.n_variables)
+            + ' {0} = {1}\n'.format(self.variable_type,
+                                    len(self.variable_descriptors))
         s += '    descriptors ='
         for vd in self.variable_descriptors:
             s += ' {!r}'.format(vd)
@@ -77,11 +112,12 @@ class DakotaBase(object):
 
     def responses_block(self):
         """Define the responses block of a Dakota input file."""
+        n_responses = len(self.response_descriptors)
         s = 'responses\n'
         if self.is_objective_function:
-            s += '  objective_functions = {}\n'.format(self.n_responses)
+            s += '  objective_functions = {}\n'.format(n_responses)
         else:
-            s += '  response_functions = {}\n'.format(self.n_responses)
+            s += '  response_functions = {}\n'.format(n_responses)
         s += '    response_descriptors ='
         for rd in self.response_descriptors:
             s += ' {!r}'.format(rd)
@@ -89,10 +125,3 @@ class DakotaBase(object):
              + '  no_gradients\n' \
              + '  no_hessians\n'
         return(s)
-
-    def generate_descriptors(self):
-        """Quickly make generic variable and response descriptors."""
-        self.variable_descriptors = ['x' + str(i+1) for i in
-                                     range(self.n_variables)]
-        self.response_descriptors = ['y' + str(i+1) for i in
-                                     range(self.n_responses)]
