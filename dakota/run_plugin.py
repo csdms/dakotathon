@@ -36,7 +36,7 @@ def run_plugin(params_file, results_file):
 
     _module = importlib.import_module(plugins_path + config['component'])
     if _module.is_installed():
-        _class = getattr(_module, _module._classname)
+        _class = getattr(_module, _module.classname)
         component = _class()
     else:
         raise NameError('Component cannot be created.')

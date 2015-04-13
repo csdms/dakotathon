@@ -4,7 +4,7 @@
 from .base import DakotaBase
 
 
-_classname = 'VectorParameterStudy'
+classname = 'VectorParameterStudy'
 
 class VectorParameterStudy(DakotaBase):
 

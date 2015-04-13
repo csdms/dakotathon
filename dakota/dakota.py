@@ -41,7 +41,7 @@ class Dakota(object):
 
         if method is not None:
             _module = importlib.import_module(methods_path + method)
-            _class = getattr(_module, _module._classname)
+            _class = getattr(_module, _module.classname)
             self.method = _class(**kwargs)
         else:
             self.method = None

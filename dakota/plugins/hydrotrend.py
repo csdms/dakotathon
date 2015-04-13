@@ -10,7 +10,7 @@ from dakota.utils import get_response_descriptors, write_results, \
     compute_statistic
 
 
-_classname = 'HydroTrend'
+classname = 'HydroTrend'
 
 def is_installed():
     """Check whether HydroTrend is in the execution path."""
