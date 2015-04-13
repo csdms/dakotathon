@@ -93,7 +93,7 @@ def compute_statistic(statistic, array):
       A string with the name of the statistic to compute ('mean',
       'median', etc.).
     array : array_like
-      A numpy array.
+      An array data structure, such as a numpy array.
 
     Returns
     -------
@@ -102,7 +102,7 @@ def compute_statistic(statistic, array):
 
     """
     import numpy as np
-    return eval('np.' + statistic + '(array)')
+    return np.__getattribute__(statistic)(array)
 
 def write_results(results_file, values, labels):
     """Write a Dakota results file from a set of input values.

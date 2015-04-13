@@ -75,4 +75,11 @@ def test_compute_statistic_unknown_statistic():
     arr = range(6)
     r = compute_statistic(stat, arr)
 
+@raises(TypeError)
+def test_compute_statistic_nonumeric_array():
+    """Test the compute_statistic function fails with a nonumeric array."""
+    stat = 'mean'
+    arr = ['hi', 'there']
+    r = compute_statistic(stat, arr)
+
 
