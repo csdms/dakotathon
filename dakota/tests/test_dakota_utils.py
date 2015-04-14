@@ -13,7 +13,7 @@ from dakota.utils import *
 from . import start_dir, data_dir
 
 # Global variables
-parameters_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
+parameters_file = os.path.join(data_dir, 'params.in')
 response_labels = ['Qs_median', 'Q_mean']
 config_file = os.path.join(data_dir, 'config.yaml')
 component = 'hydrotrend'

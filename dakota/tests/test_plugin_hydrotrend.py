@@ -18,7 +18,7 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 config_file = os.path.join(data_dir, 'config.yaml')
-params_file = os.path.join(data_dir, 'vector_parameter_study_params.in')
+params_file = os.path.join(data_dir, 'params.in')
 known_results_file = os.path.join(data_dir, 'results.out')
 results_file = 'results.out'
 
