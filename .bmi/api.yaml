@@ -1,0 +1,10 @@
+name: DakotaPy
+language: python
+
+package: dakota
+class: BmiDakota
+
+build:
+  brew:
+    formula: csdms/tools/dakota
+    options: "--HEAD"

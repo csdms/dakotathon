@@ -5,6 +5,7 @@ import subprocess
 import importlib
 import types
 import yaml
+from .methods.vector_parameter_study import VectorParameterStudy
 from . import methods_path
 
 
@@ -16,14 +17,15 @@ class Dakota(object):
         """Create a new Dakota experiment.
 
         Called with no parameters, a Dakota experiment with basic
-        defaults (the `rosenbrock` example) is created. Use ``method``
-        to set the Dakota analysis method in a new experiment.
+        defaults (a vector parameter study with the built-in
+        `rosenbrock` example) is created. Use ``method`` to set the
+        Dakota analysis method in a new experiment.
 
         Parameters
         ----------
         method : str
-          The desired Dakota method (e.g., `vector_parameter_study` or
-          `polynomial_chaos`) to use in an experiment.
+          The desired Dakota method (e.g., `vector_parameter_study`,
+          `polynomial_chaos`, etc.) to use in an experiment.
 
         Examples
         --------
@@ -44,7 +46,7 @@ class Dakota(object):
             _class = getattr(_module, _module.classname)
             self.method = _class(**kwargs)
         else:
-            self.method = None
+            self.method = VectorParameterStudy()
 
     @classmethod
     def from_file_like(cls, file_like):

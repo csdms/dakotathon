@@ -25,7 +25,8 @@ input_file, \
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'dakota.in')
 config_file = os.path.join(data_dir, 'config.yaml')
-tmp_files = [input_file, alt_input_file, output_file, data_file, restart_file]
+tmp_files = [input_file, alt_input_file, output_file, data_file, \
+             restart_file, 'config.yaml']
 
 # Fixtures -------------------------------------------------------------
 
@@ -70,6 +71,7 @@ def test_write_configuration_file():
     """Test write_configuration_file produces config file."""
     d = Dakota(method='vector_parameter_study')
     d.write_configuration_file()
+    assert_true(os.path.exists(d.method.configuration_file))
 
 def test_write_input_file_with_method_default_name():
     """Test write_input_file works when instanced with method."""
@@ -89,8 +91,17 @@ def test_input_file_contents():
     d.write_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
 
-def test_run_without_input_file():
-    """Test run method fails with no input file."""
+def test_default_run_with_input_file():
+    """Test default object run method with input file."""
+    if is_dakota_installed():
+        d = Dakota()
+        d.write_input_file()
+        d.run()
+        assert_true(os.path.exists(d.output_file))
+        assert_true(os.path.exists(d.method.data_file))
+
+def test_default_run_without_input_file():
+    """Test default object run method fails with no input file."""
     if is_dakota_installed():
         if os.path.exists(input_file): os.remove(input_file)
         try:

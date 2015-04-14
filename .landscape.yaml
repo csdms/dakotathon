@@ -1,4 +1,5 @@
 ignore-patterns:
   - ez_setup.py
   - setup.py
+strictness: medium
 doc-warnings: True
