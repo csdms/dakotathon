@@ -3,6 +3,8 @@ import os
 import yaml
 from nose.tools import *
 from dakota.bmi_dakota import BmiDakota
+from dakota.utils import is_dakota_installed
+
 
 config_val = {'method': 'vector_parameter_study', 'component': 'hydrotrend'}
 input_file, \
@@ -56,15 +58,17 @@ def test_initialize_from_file():
     assert_true(os.path.exists(input_file))
 
 def test_update():
-    model = BmiDakota()
-    model.initialize()
-    model.update()
-    assert_true(os.path.exists(input_file))
-    assert_true(os.path.exists(output_file))
-    assert_true(os.path.exists(data_file))
+    if is_dakota_installed():
+        model = BmiDakota()
+        model.initialize()
+        model.update()
+        assert_true(os.path.exists(input_file))
+        assert_true(os.path.exists(output_file))
+        assert_true(os.path.exists(data_file))
 
 def test_finalize():
-    model = BmiDakota()
-    model.initialize()
-    model.update()
-    model.finalize()
+    if is_dakota_installed():
+        model = BmiDakota()
+        model.initialize()
+        model.update()
+        model.finalize()
