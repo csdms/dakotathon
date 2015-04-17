@@ -8,7 +8,7 @@ import yaml
 
 def is_dakota_installed():
     """Check whether Dakota is installed and in the execution path.
-    
+
     Returns
     -------
     bool
@@ -21,6 +21,7 @@ def is_dakota_installed():
         return False
     else:
         return True
+
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
@@ -47,6 +48,7 @@ def get_response_descriptors(params_file):
     else:
         return labels
 
+
 def get_configuration_file(params_file):
     """Extract the configuration filepath from a Dakota parameters file.
 
@@ -69,6 +71,7 @@ def get_configuration_file(params_file):
     except IOError:
         return None
 
+
 def get_configuration(config_file):
     """Load settings from a YAML configuration file.
 
@@ -83,6 +86,7 @@ def get_configuration(config_file):
             return yaml.load(fp)
     except IOError:
         return None
+
 
 def compute_statistic(statistic, array):
     """Compute the statistic used in a Dakota response function.
@@ -103,6 +107,7 @@ def compute_statistic(statistic, array):
     """
     import numpy as np
     return np.__getattribute__(statistic)(array)
+
 
 def write_results(results_file, values, labels):
     """Write a Dakota results file from a set of input values.

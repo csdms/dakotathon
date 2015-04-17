@@ -19,11 +19,13 @@ config_file = os.path.join(data_dir, 'config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
+
 def setup_module():
     """Called before any tests are performed."""
     print('\n*** ' + __name__)
     global v
     v = VectorParameterStudy()
+
 
 def teardown_module():
     """Called after all tests have completed."""
@@ -31,15 +33,18 @@ def teardown_module():
 
 # Tests ----------------------------------------------------------------
 
+
 def test_init_no_params():
     """Test creating an instance with no parameters."""
     v1 = VectorParameterStudy()
     assert_is_instance(v1, VectorParameterStudy)
 
+
 def test_init_from_file_like1():
     """Test creating an instance from a config file."""
     v1 = VectorParameterStudy.from_file_like(config_file)
     assert_is_instance(v1, VectorParameterStudy)
+
 
 def test_init_from_file_like2():
     """Test creating an instance from an open config file object."""
@@ -47,10 +52,12 @@ def test_init_from_file_like2():
         v1 = VectorParameterStudy.from_file_like(fp)
     assert_is_instance(v1, VectorParameterStudy)
 
+
 def test_method_block():
     """Test type of method_block method results."""
     s = v.method_block()
     assert_true(type(s) is str)
+
 
 def test_variables_block():
     """Test type of variables_block method results."""

@@ -12,6 +12,7 @@ from dakota.utils import get_response_descriptors, write_results, \
 
 classname = 'HydroTrend'
 
+
 def is_installed():
     """Check whether HydroTrend is in the execution path."""
     try:
@@ -20,6 +21,7 @@ def is_installed():
         return False
     else:
         return True
+
 
 class HydroTrend(PluginBase):
 
@@ -67,16 +69,16 @@ class HydroTrend(PluginBase):
         if os.path.exists(self.output_dir) is False:
             os.mkdir(self.output_dir, 0755)
 
-        subprocess.call(['dprepro', config['parameters_file'], \
-                         self.input_template, \
+        subprocess.call(['dprepro', config['parameters_file'],
+                         self.input_template,
                          self.input_file])
         shutil.copy(self.input_file, self.input_dir)
         shutil.copy(self.hypsometry_file, self.input_dir)
 
     def call(self):
         """Invoke HydroTrend through the shell."""
-        subprocess.call(['hydrotrend', \
-                         '--in-dir', self.input_dir, \
+        subprocess.call(['hydrotrend',
+                         '--in-dir', self.input_dir,
                          '--out-dir', self.output_dir])
 
     def load(self, output_file):
@@ -91,7 +93,7 @@ class HydroTrend(PluginBase):
         -------
         array_like
           A numpy array, or None on an error.
-        
+
         """
         try:
             series = np.loadtxt(output_file, skiprows=2)

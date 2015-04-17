@@ -3,6 +3,7 @@
 
 from .dakota import Dakota
 
+
 class BmiDakota(object):
 
     """Perform a Dakota experiment on a component."""

@@ -50,6 +50,7 @@ def run_plugin(params_file, results_file):
     component.calculate()
     component.write(params_file, results_file)
 
+
 def main():
     """Define the console script dakota_run_plugin."""
     import argparse
