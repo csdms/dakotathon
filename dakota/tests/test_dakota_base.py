@@ -7,7 +7,7 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-from nose.tools import *
+from nose.tools import raises, assert_true, assert_is_none
 from dakota.methods.base import DakotaBase
 from . import start_dir, data_dir
 

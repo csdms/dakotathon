@@ -9,7 +9,7 @@
 
 import os
 import filecmp
-from nose.tools import *
+from nose.tools import raises, with_setup, assert_is_none, assert_true
 from dakota.plugins.hydrotrend import HydroTrend
 from dakota.utils import get_configuration
 from . import start_dir, data_dir

@@ -8,11 +8,12 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import *
+from nose.tools import raises, assert_equal, assert_false, assert_is_none
 from dakota.utils import *
 from . import start_dir, data_dir
 
-# Global variables
+# Global variables -----------------------------------------------------
+
 parameters_file = os.path.join(data_dir, 'params.in')
 response_labels = ['Qs_median', 'Q_mean']
 config_file = os.path.join(data_dir, 'config.yaml')

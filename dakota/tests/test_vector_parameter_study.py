@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import *
+from nose.tools import assert_is_instance, assert_true
 from dakota.methods.vector_parameter_study import VectorParameterStudy
 from . import start_dir, data_dir
 

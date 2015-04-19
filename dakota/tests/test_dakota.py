@@ -10,7 +10,7 @@
 import os
 import filecmp
 from subprocess import CalledProcessError
-from nose.tools import *
+from nose.tools import assert_is_instance, assert_true, raises
 from dakota.dakota import Dakota
 from dakota.utils import is_dakota_installed
 from . import start_dir, data_dir

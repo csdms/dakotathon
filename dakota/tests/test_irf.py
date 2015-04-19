@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import yaml
-from nose.tools import *
+from nose.tools import assert_is, assert_true, assert_equal, with_setup
 from dakota.bmi_dakota import BmiDakota
 from dakota.utils import is_dakota_installed
 
