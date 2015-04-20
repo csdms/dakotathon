@@ -20,9 +20,10 @@ class Concrete(DakotaBase):
 
     def __init__(self):
         DakotaBase.__init__(self)
+        self.variable_descriptors = ['x0', 'x1']
 
     def method_block(self):
-        pass
+        return DakotaBase.method_block(self)
 
 # Fixtures -------------------------------------------------------------
 
@@ -56,7 +57,7 @@ def test_environment_block():
 def test_method_block():
     """Test type of method_block method results."""
     s = c.method_block()
-    assert_is_none(s)
+    assert_true(type(s) is str)
 
 
 def test_variables_block():
