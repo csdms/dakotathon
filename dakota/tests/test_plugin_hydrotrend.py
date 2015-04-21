@@ -9,6 +9,9 @@
 
 import os
 import filecmp
+import tempfile
+import numpy as np
+from numpy.testing import assert_almost_equal
 from nose.tools import raises, with_setup, assert_is_none, assert_true
 from dakota.plugins.hydrotrend import HydroTrend
 from dakota.utils import get_configuration
@@ -49,6 +52,17 @@ def teardown_module():
         os.remove(results_file)
 
 # Tests ----------------------------------------------------------------
+
+
+@with_setup(setup, teardown)
+def test_load():
+    """Tests load() with a text file."""
+    with tempfile.NamedTemporaryFile('w', delete=False) as fp:
+        fp.write('h1\nh2\n0\n1\n2\n')
+        output_file = fp.name
+    r = h.load(output_file)
+    assert_almost_equal(r, np.arange(3, dtype=float))
+    os.remove(output_file)
 
 
 @raises(TypeError)
