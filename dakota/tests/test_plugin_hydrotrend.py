@@ -8,12 +8,13 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
+import shutil
 import filecmp
 import tempfile
 import numpy as np
 from numpy.testing import assert_almost_equal
-from nose.tools import raises, with_setup, assert_is_none, assert_true
-from dakota.plugins.hydrotrend import HydroTrend
+from nose.tools import raises, with_setup, assert_is, assert_true
+from dakota.plugins.hydrotrend import HydroTrend, is_installed
 from dakota.utils import get_configuration
 from . import start_dir, data_dir
 
@@ -32,7 +33,7 @@ def setup_module():
     """Called before any tests are performed."""
     print('\n*** ' + __name__)
     global config
-    config = get_configuration(params_file)
+    config = get_configuration(config_file)
 
 
 def setup():
@@ -43,15 +44,45 @@ def setup():
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
-    pass
+    if os.path.exists(results_file):
+        os.remove(results_file)
+    if os.path.exists(h.input_dir):
+        shutil.rmtree(h.input_dir)
+    if os.path.exists(h.output_dir):
+        shutil.rmtree(h.output_dir)
 
 
 def teardown_module():
     """Called after all tests have completed."""
-    if os.path.exists(results_file):
-        os.remove(results_file)
+    pass
 
 # Tests ----------------------------------------------------------------
+
+
+@with_setup(setup, teardown)
+def test_setup_files():
+    """Tests setup_files() against the sample configuration file."""
+    r = h.setup_files(config)
+    assert_is(h.input_template, config['template_file'])
+    assert_is(h.hypsometry_file, config['input_files'][0])
+    assert_is(h.output_files, config['response_files'])
+    assert_is(h.output_statistics, config['response_statistics'])
+
+
+@with_setup(setup, teardown)
+def test_setup_directories():
+    """Tests setup_directories() against the sample configuration file."""
+    r = h.setup_directories(config)
+    assert_true(os.path.exists(h.input_dir))
+    assert_true(os.path.exists(h.output_dir))
+
+
+@with_setup(setup, teardown)
+def test_call_without_setup():
+    """Tests that call() fails without input/output directories."""
+    if is_installed():
+        r = h.call()
+        assert_is(r, None)
 
 
 @with_setup(setup, teardown)
@@ -76,12 +107,12 @@ def test_load_zero_arguments():
 def test_load_does_not_exist():
     """Tests load() when a nonexistent output file is defined."""
     r = h.load('vfnqeubnuen.f')
-    assert_is_none(r)
+    assert_is(r, None)
 
 
 @with_setup(setup, teardown)
 def test_write():
     """Test the write method output versus a known results file."""
     h.output_values = [1.0, 2.0]
-    labels = h.write(params_file, results_file)
+    h.write(params_file, results_file)
     assert_true(filecmp.cmp(known_results_file, results_file))

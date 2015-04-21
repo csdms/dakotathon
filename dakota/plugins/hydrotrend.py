@@ -57,23 +57,43 @@ class HydroTrend(PluginBase):
           Stores configuration settings for a Dakota experiment.
 
         """
+        self.setup_files(config)
+        self.setup_directories(config)
+        subprocess.call(['dprepro', config['parameters_file'],
+                         self.input_template,
+                         self.input_file])
+        shutil.copy(self.input_file, self.input_dir)
+        shutil.copy(self.hypsometry_file, self.input_dir)
+
+    def setup_files(self, config):
+        """Configure HydroTrend input and output files.
+
+        Parameters
+        ----------
+        config : dict
+          Configuration settings for a Dakota experiment.
+
+        """
         self.input_template = config['template_file']
         self.hypsometry_file = config['input_files'][0]
         self.output_files = config['response_files']
         self.output_statistics = config['response_statistics']
 
+    def setup_directories(self, config):
+        """Configure HydroTrend input and output directories.
+
+        Parameters
+        ----------
+        config : dict
+          Configuration settings for a Dakota experiment.
+
+        """
         self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
         self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
         if os.path.exists(self.input_dir) is False:
             os.mkdir(self.input_dir, 0755)
         if os.path.exists(self.output_dir) is False:
             os.mkdir(self.output_dir, 0755)
-
-        subprocess.call(['dprepro', config['parameters_file'],
-                         self.input_template,
-                         self.input_file])
-        shutil.copy(self.input_file, self.input_dir)
-        shutil.copy(self.hypsometry_file, self.input_dir)
 
     def call(self):
         """Invoke HydroTrend through the shell."""
