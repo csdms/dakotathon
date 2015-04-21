@@ -21,6 +21,7 @@ from . import start_dir, data_dir
 
 # Global variables -----------------------------------------------------
 
+run_dir = os.getcwd()
 config_file = os.path.join(data_dir, 'config.yaml')
 params_file = os.path.join(data_dir, 'params.in')
 known_results_file = os.path.join(data_dir, 'results.out')
@@ -32,14 +33,13 @@ results_file = 'results.out'
 def setup_module():
     """Called before any tests are performed."""
     print('\n*** ' + __name__)
-    global config
-    config = get_configuration(config_file)
 
 
 def setup():
     """Called at start of any test using it @with_setup()"""
-    global h
+    global h, config
     h = HydroTrend()
+    config = get_configuration(config_file)
 
 
 def teardown():
@@ -72,6 +72,7 @@ def test_setup_files():
 @with_setup(setup, teardown)
 def test_setup_directories():
     """Tests setup_directories() against the sample configuration file."""
+    config['run_directory'] = run_dir
     r = h.setup_directories(config)
     assert_true(os.path.exists(h.input_dir))
     assert_true(os.path.exists(h.output_dir))
