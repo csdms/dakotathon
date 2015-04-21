@@ -122,9 +122,6 @@ def write_results(results_file, values, labels):
       A list of labels to attach to the values.
 
     """
-    try:
-        with open(results_file, 'w') as fp:
-            for i in range(len(values)):
-                fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
-    except IOError:
-        raise
+    with open(results_file, 'w') as fp:
+        for i in range(len(values)):
+            fp.write('{0}\t{1}\n'.format(values[i], labels[i]))

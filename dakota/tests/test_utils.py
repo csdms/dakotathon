@@ -15,6 +15,7 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 parameters_file = os.path.join(data_dir, 'params.in')
+results_file = 'results.out'
 response_labels = ['Qs_median', 'Q_mean']
 config_file = os.path.join(data_dir, 'config.yaml')
 component = 'hydrotrend'
@@ -29,7 +30,8 @@ def setup_module():
 
 def teardown_module():
     """Called after all tests have completed."""
-    pass
+    if os.path.exists(results_file):
+        os.remove(results_file)
 
 # Tests ----------------------------------------------------------------
 
@@ -94,3 +96,10 @@ def test_compute_statistic_nonumeric_array():
     stat = 'mean'
     arr = ['hi', 'there']
     r = compute_statistic(stat, arr)
+
+@raises(TypeError)
+def test_write_results_scalar_input():
+    """Test the write_results function fails with scalar inputs."""
+    values = 1.0
+    labels = 'foo'
+    r = write_results(results_file, values, labels)
