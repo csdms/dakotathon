@@ -63,13 +63,10 @@ def get_configuration_file(params_file):
       The path to the configuration file for the Dakota experiment.
 
     """
-    try:
-        with open(params_file, 'r') as fp:
-            for line in fp:
-                if re.search('AC_1', line):
-                    return line.split('AC_1')[0].strip()
-    except IOError:
-        return None
+    with open(params_file, 'r') as fp:
+        for line in fp:
+            if re.search('AC_1', line):
+                return line.split('AC_1')[0].strip()
 
 
 def get_configuration(config_file):
@@ -81,11 +78,8 @@ def get_configuration(config_file):
       Configuration settings in a dict.
 
     """
-    try:
-        with open(config_file, 'r') as fp:
-            return yaml.load(fp)
-    except IOError:
-        return None
+    with open(config_file, 'r') as fp:
+        return yaml.load(fp)
 
 
 def compute_statistic(statistic, array):

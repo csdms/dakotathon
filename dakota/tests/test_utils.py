@@ -59,9 +59,10 @@ def test_get_configuration_file():
     assert_equal(os.path.basename(config_file), config_file)
 
 
+@raises(IOError)
 def test_get_configuration_file_unknown_file():
     """Test get_configuration_file when parameters file not found."""
-    assert_is_none(get_configuration_file('foo.in'))
+    get_configuration_file('foo.in')
 
 
 def test_get_configuration():
@@ -70,9 +71,10 @@ def test_get_configuration():
     assert_equal(component, config['component'])
 
 
+@raises(IOError)
 def test_get_configuration_unknown_file():
     """Test get_configuration when config file not found."""
-    assert_is_none(get_configuration('foo.yaml'))
+    get_configuration('foo.yaml')
 
 
 def test_compute_statistic():
