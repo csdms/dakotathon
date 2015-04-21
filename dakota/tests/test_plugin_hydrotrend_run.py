@@ -11,7 +11,7 @@ import os
 import shutil
 import glob
 from nose.tools import with_setup, assert_true
-from dakota.dakota import Dakota
+from dakota.core import Dakota
 from dakota.plugins.hydrotrend import is_installed as is_hydrotrend_installed
 from dakota.utils import is_dakota_installed
 from . import start_dir, data_dir
