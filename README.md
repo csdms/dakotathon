@@ -5,7 +5,7 @@
 # CSDMS Dakota interface
 
 The CSDMS Dakota interface provides
-a [Basic Modeling Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
+a [Basic Model Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
 and API for the [Dakota](https://dakota.sandia.gov/)
 iterative systems analysis toolkit.
 This is currently alpha-level software
