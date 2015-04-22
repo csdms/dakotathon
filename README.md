@@ -47,7 +47,7 @@ build HydroTrend from source:
 
 Import the CSDMS Dakota interface into a Python session with:
 
-	>>> from dakota.dakota import Dakota
+	>>> from dakota.core import Dakota
 
 Create a `Dakota` instance,
 specifying the Dakota analysis method:
