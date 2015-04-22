@@ -8,7 +8,7 @@ import yaml
 
 def is_dakota_installed():
     """Check whether Dakota is installed and in the execution path.
-    
+
     Returns
     -------
     bool
@@ -21,6 +21,7 @@ def is_dakota_installed():
         return False
     else:
         return True
+
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
@@ -47,6 +48,7 @@ def get_response_descriptors(params_file):
     else:
         return labels
 
+
 def get_configuration_file(params_file):
     """Extract the configuration filepath from a Dakota parameters file.
 
@@ -61,13 +63,11 @@ def get_configuration_file(params_file):
       The path to the configuration file for the Dakota experiment.
 
     """
-    try:
-        with open(params_file, 'r') as fp:
-            for line in fp:
-                if re.search('AC_1', line):
-                    return line.split('AC_1')[0].strip()
-    except IOError:
-        return None
+    with open(params_file, 'r') as fp:
+        for line in fp:
+            if re.search('AC_1', line):
+                return line.split('AC_1')[0].strip()
+
 
 def get_configuration(config_file):
     """Load settings from a YAML configuration file.
@@ -78,11 +78,9 @@ def get_configuration(config_file):
       Configuration settings in a dict.
 
     """
-    try:
-        with open(config_file, 'r') as fp:
-            return yaml.load(fp)
-    except IOError:
-        return None
+    with open(config_file, 'r') as fp:
+        return yaml.load(fp)
+
 
 def compute_statistic(statistic, array):
     """Compute the statistic used in a Dakota response function.
@@ -104,6 +102,7 @@ def compute_statistic(statistic, array):
     import numpy as np
     return np.__getattribute__(statistic)(array)
 
+
 def write_results(results_file, values, labels):
     """Write a Dakota results file from a set of input values.
 
@@ -117,9 +116,6 @@ def write_results(results_file, values, labels):
       A list of labels to attach to the values.
 
     """
-    try:
-        with open(results_file, 'w') as fp:
-            for i in range(len(values)):
-                fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
-    except IOError:
-        raise
+    with open(results_file, 'w') as fp:
+        for i in range(len(values)):
+            fp.write('{0}\t{1}\n'.format(values[i], labels[i]))

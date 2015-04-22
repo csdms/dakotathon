@@ -6,6 +6,7 @@ from .base import DakotaBase
 
 classname = 'VectorParameterStudy'
 
+
 class VectorParameterStudy(DakotaBase):
 
     """Define parameters for a Dakota vector parameter study."""
@@ -35,8 +36,8 @@ class VectorParameterStudy(DakotaBase):
             + '    final_point ='
         for pt in self.final_point:
             s += ' {}'.format(pt)
-        s += ('\n' \
-            + '    num_steps = {}\n\n'.format(self.n_steps))
+        s += '\n' \
+            + '    num_steps = {}\n\n'.format(self.n_steps)
         return(s)
 
     def variables_block(self):
@@ -48,7 +49,7 @@ class VectorParameterStudy(DakotaBase):
 
         """
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variable_type, 
+            + '  {0} = {1}\n'.format(self.variable_type,
                                      len(self.variable_descriptors)) \
             + '    initial_point ='
         for pt in self.initial_point:

@@ -10,8 +10,8 @@
 import os
 import shutil
 import glob
-from nose.tools import *
-from dakota.dakota import Dakota
+from nose.tools import with_setup, assert_true
+from dakota.core import Dakota
 from dakota.plugins.hydrotrend import is_installed as is_hydrotrend_installed
 from dakota.utils import is_dakota_installed
 from . import start_dir, data_dir
@@ -25,13 +25,16 @@ existing_config_file = os.path.join(data_dir, 'config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
+
 def setup_module():
     """Called before any tests are performed."""
     print('\n*** ' + __name__)
 
+
 def setup():
     """Called at start of any test using it @with_setup()"""
     pass
+
 
 def teardown():
     """Called at end of any test using it @with_setup()"""
@@ -41,14 +44,18 @@ def teardown():
         for dname in glob.glob('HYDRO_*'):
             shutil.rmtree(dname)
         for fname in ['dakota.' + ext for ext in ['dat', 'in', 'out', 'rst']]:
-            if os.path.exists(fname): os.remove(fname)
-        if os.path.exists(config_file): os.remove(config_file)
+            if os.path.exists(fname):
+                os.remove(fname)
+        if os.path.exists(config_file):
+            os.remove(config_file)
+
 
 def teardown_module():
     """Called after all tests have completed."""
     pass
 
 # Tests ----------------------------------------------------------------
+
 
 @with_setup(setup, teardown)
 def test_run_by_setting_attributes():
@@ -75,6 +82,7 @@ def test_run_by_setting_attributes():
         d.run()
         assert_true(os.path.exists(d.input_file))
         assert_true(os.path.exists(d.output_file))
+
 
 @with_setup(setup, teardown)
 def test_run_from_config_file():
