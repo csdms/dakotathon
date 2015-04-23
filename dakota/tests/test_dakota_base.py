@@ -80,6 +80,63 @@ def test_set_input_files_fails_if_scalar():
     c.input_files = input_file
 
 
+def test_get_response_descriptors():
+    """Test getting the response_descriptors property."""
+    assert_equal(c.response_descriptors, tuple())
+
+
+def test_set_response_descriptors():
+    """Test setting the response_descriptors property."""
+    desc = ['Qs_median']
+    c.response_descriptors = desc
+    assert_equal(c.response_descriptors, desc)
+
+
+@raises(TypeError)
+def test_set_response_descriptors_fails_if_scalar():
+    """Test that the response_descriptors property fails with scalar string."""
+    desc = 'Qs_median'
+    c.response_descriptors = desc
+
+
+def test_get_response_files():
+    """Test getting the response_files property."""
+    assert_equal(c.response_files, tuple())
+
+
+def test_set_response_files():
+    """Test setting the response_files property."""
+    files = ['HYDROASCII.QS']
+    c.response_files = files
+    assert_equal(c.response_files, files)
+
+
+@raises(TypeError)
+def test_set_response_files_fails_if_scalar():
+    """Test that the response_files property fails with scalar string."""
+    files = 'HYDROASCII.QS'
+    c.response_files = files
+
+
+def test_get_response_statistics():
+    """Test getting the response_statistics property."""
+    assert_equal(c.response_statistics, tuple())
+
+
+def test_set_response_statistics():
+    """Test setting the response_statistics property."""
+    stats = ['median']
+    c.response_statistics = stats
+    assert_equal(c.response_statistics, stats)
+
+
+@raises(TypeError)
+def test_set_response_statistics_fails_if_scalar():
+    """Test that the response_statistics property fails with scalar string."""
+    stats = 'median'
+    c.response_statistics = stats
+
+
 def test_environment_block():
     """Test type of environment_block method results."""
     s = c.environment_block()
@@ -106,5 +163,12 @@ def test_interface_block():
 
 def test_responses_block():
     """Test type of responses_block method results."""
+    s = c.responses_block()
+    assert_true(type(s) is str)
+
+
+def test_responses_block_with_objective_function():
+    """Test type of responses_block method results."""
+    c.is_objective_function = True
     s = c.responses_block()
     assert_true(type(s) is str)
