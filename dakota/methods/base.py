@@ -22,7 +22,7 @@ class DakotaBase(object):
                  input_files=None,
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=None,
+                 variable_descriptors=(),
                  interface='direct',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
@@ -39,8 +39,7 @@ class DakotaBase(object):
         self.data_file = data_file
         self.method = method
         self.variable_type = variable_type
-        self.variable_descriptors = [] if variable_descriptors is None \
-                                    else variable_descriptors
+        self._variable_descriptors = variable_descriptors
         self.interface = interface
         self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
@@ -49,6 +48,25 @@ class DakotaBase(object):
         self._response_descriptors = response_descriptors
         self.response_files = response_files
         self.response_statistics = response_statistics
+
+    @property
+    def variable_descriptors(self):
+        """Labels attached to Dakota variables."""
+        return self._variable_descriptors
+
+    @variable_descriptors.setter
+    def variable_descriptors(self, value):
+        """Set labels for Dakota variables.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new variables labels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Descriptor must be a tuple or a list")
+        self._variable_descriptors = value
 
     @property
     def response_descriptors(self):
