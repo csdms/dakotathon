@@ -19,7 +19,7 @@ class DakotaBase(object):
                  method=None,
                  configuration_file='config.yaml',
                  run_directory='.',
-                 input_files=None,
+                 input_files=(),
                  data_file='dakota.dat',
                  variable_type='continuous_design',
                  variable_descriptors=(),
@@ -48,6 +48,25 @@ class DakotaBase(object):
         self._response_descriptors = response_descriptors
         self._response_files = response_files
         self._response_statistics = response_statistics
+
+    @property
+    def input_files(self):
+        """Input files used by component."""
+        return self._input_files
+
+    @input_files.setter
+    def input_files(self, value):
+        """Set input files used by component.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new input files.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Input files must be a tuple or a list")
+        self._input_files = value
 
     @property
     def variable_descriptors(self):
