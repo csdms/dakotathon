@@ -11,17 +11,59 @@ class VectorParameterStudy(DakotaBase):
 
     """Define parameters for a Dakota vector parameter study."""
 
-    def __init__(self, variable_descriptors=('x1', 'x2'),
-                 initial_point=(-0.3, 0.2), final_point=(1.1, 1.3), n_steps=10,
-                 response_descriptors=('y1',), **kwargs):
+    def __init__(self,
+                 variable_descriptors=('x1', 'x2'),
+                 initial_point=(-0.3, 0.2),
+                 final_point=(1.1, 1.3),
+                 n_steps=10,
+                 response_descriptors=('y1',),
+                 **kwargs):
         """Create a new Dakota vector parameter study."""
         DakotaBase.__init__(self, **kwargs)
         self.method = 'vector_parameter_study'
         self.variable_descriptors = variable_descriptors
-        self.initial_point = initial_point
-        self.final_point = final_point
+        self._initial_point = initial_point
+        self._final_point = final_point
         self.n_steps = n_steps
         self.response_descriptors = response_descriptors
+
+    @property
+    def initial_point(self):
+        """Start points used by study variables."""
+        return self._initial_point
+
+    @initial_point.setter
+    def initial_point(self, value):
+        """Set start points used by study variables.
+
+        Parameters
+        ----------
+        value : list or tuple of numbers
+          The new initial points.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Initial points must be a tuple or a list")
+        self._initial_point = value
+
+    @property
+    def final_point(self):
+        """End points used by study variables."""
+        return self._final_point
+
+    @final_point.setter
+    def final_point(self, value):
+        """Set end points used by study variables.
+
+        Parameters
+        ----------
+        value : list or tuple of numbers
+          The new final points.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Final points must be a tuple or a list")
+        self._final_point = value
 
     def method_block(self):
         """Define a vector parameter study method block for a Dakota input file.
