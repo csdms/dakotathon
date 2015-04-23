@@ -2,6 +2,7 @@
 """An abstract base class for all Dakota experiments."""
 
 from abc import ABCMeta, abstractmethod
+import os
 import types
 import yaml
 
@@ -15,10 +16,10 @@ class DakotaBase(object):
     @abstractmethod
     def __init__(self,
                  component=None,
-                 template_file=None,
                  method=None,
-                 configuration_file='config.yaml',
-                 run_directory='.',
+                 configuration_file=os.path.abspath('config.yaml'),
+                 run_directory=os.getcwd(),
+                 template_file=None,
                  input_files=(),
                  data_file='dakota.dat',
                  variable_type='continuous_design',
@@ -32,8 +33,8 @@ class DakotaBase(object):
                  **kwargs):
         """Create a set of default experiment parameters."""
         self.component = component
-        self.configuration_file = configuration_file
-        self.run_directory = run_directory
+        self._run_directory = run_directory
+        self._configuration_file = configuration_file
         self.template_file = template_file
         self.input_files = input_files
         self.data_file = data_file
@@ -48,6 +49,44 @@ class DakotaBase(object):
         self._response_descriptors = response_descriptors
         self._response_files = response_files
         self._response_statistics = response_statistics
+
+    @property
+    def run_directory(self):
+        """The run directory path."""
+        return self._run_directory
+
+    @run_directory.setter
+    def run_directory(self, value):
+        """Set the run directory path.
+
+        Parameters
+        ----------
+        value : str
+          The new run directory path.
+
+        """
+        if not os.path.isabs(value):
+            value = os.path.abspath(value)
+        self._run_directory = value
+
+    @property
+    def configuration_file(self):
+        """The configuration file path."""
+        return self._configuration_file
+
+    @configuration_file.setter
+    def configuration_file(self, value):
+        """Set the configuration file path.
+
+        Parameters
+        ----------
+        value : str
+          The new file path.
+
+        """
+        if not os.path.isabs(value):
+            value = os.path.abspath(value)
+        self._configuration_file = value
 
     @property
     def input_files(self):
