@@ -90,8 +90,13 @@ class Dakota(object):
         """
         if config_file is not None:
             self.method.configuration_file = config_file
+        props = self.method.__dict__.copy()
+        for key in props:
+            if key.startswith('_'):
+                new_key = key.lstrip('_')
+                props[new_key] = props.pop(key)
         with open(self.method.configuration_file, 'w') as fp:
-            yaml.dump(self.method.__dict__, fp, default_flow_style=False)
+            yaml.dump(props, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.

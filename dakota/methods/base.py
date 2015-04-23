@@ -2,6 +2,7 @@
 """An abstract base class for all Dakota experiments."""
 
 from abc import ABCMeta, abstractmethod
+import os
 import types
 import yaml
 
@@ -13,35 +14,174 @@ class DakotaBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, component=None, template_file=None,
-                 method=None, configuration_file='config.yaml',
-                 run_directory='.', input_files=None,
+    def __init__(self,
+                 component=None,
+                 method=None,
+                 configuration_file=os.path.abspath('config.yaml'),
+                 run_directory=os.getcwd(),
+                 template_file=None,
+                 input_files=(),
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=None, interface='direct',
+                 variable_descriptors=(),
+                 interface='direct',
                  analysis_driver='rosenbrock',
-                 is_objective_function=False, response_descriptors=None,
-                 response_files=None, response_statistics=None, **kwargs):
+                 is_objective_function=False,
+                 response_descriptors=(),
+                 response_files=(),
+                 response_statistics=(),
+                 **kwargs):
         """Create a set of default experiment parameters."""
         self.component = component
-        self.configuration_file = configuration_file
-        self.run_directory = run_directory
+        self._run_directory = run_directory
+        self._configuration_file = configuration_file
         self.template_file = template_file
         self.input_files = input_files
         self.data_file = data_file
         self.method = method
         self.variable_type = variable_type
-        self.variable_descriptors = [] if variable_descriptors is None \
-                                    else variable_descriptors
+        self._variable_descriptors = variable_descriptors
         self.interface = interface
         self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
         self.is_objective_function = is_objective_function
-        self.response_descriptors = [] if response_descriptors is None \
-                                    else response_descriptors
-        self.response_files = response_files
-        self.response_statistics = response_statistics
+        self._response_descriptors = response_descriptors
+        self._response_files = response_files
+        self._response_statistics = response_statistics
+
+    @property
+    def run_directory(self):
+        """The run directory path."""
+        return self._run_directory
+
+    @run_directory.setter
+    def run_directory(self, value):
+        """Set the run directory path.
+
+        Parameters
+        ----------
+        value : str
+          The new run directory path.
+
+        """
+        if not os.path.isabs(value):
+            value = os.path.abspath(value)
+        self._run_directory = value
+
+    @property
+    def configuration_file(self):
+        """The configuration file path."""
+        return self._configuration_file
+
+    @configuration_file.setter
+    def configuration_file(self, value):
+        """Set the configuration file path.
+
+        Parameters
+        ----------
+        value : str
+          The new file path.
+
+        """
+        if not os.path.isabs(value):
+            value = os.path.abspath(value)
+        self._configuration_file = value
+
+    @property
+    def input_files(self):
+        """Input files used by component."""
+        return self._input_files
+
+    @input_files.setter
+    def input_files(self, value):
+        """Set input files used by component.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new input files.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Input files must be a tuple or a list")
+        self._input_files = value
+
+    @property
+    def variable_descriptors(self):
+        """Labels attached to Dakota variables."""
+        return self._variable_descriptors
+
+    @variable_descriptors.setter
+    def variable_descriptors(self, value):
+        """Set labels for Dakota variables.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new variables labels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Descriptor must be a tuple or a list")
+        self._variable_descriptors = value
+
+    @property
+    def response_descriptors(self):
+        """Labels attached to Dakota responses."""
+        return self._response_descriptors
+
+    @response_descriptors.setter
+    def response_descriptors(self, value):
+        """Set labels for Dakota responses.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new response labels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Descriptor must be a tuple or a list")
+        self._response_descriptors = value
+
+    @property
+    def response_files(self):
+        """Model output files used in Dakota responses."""
+        return self._response_files
+
+    @response_files.setter
+    def response_files(self, value):
+        """Set model output files for Dakota responses.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new response files.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Response files must be a tuple or a list")
+        self._response_files = value
+
+    @property
+    def response_statistics(self):
+        """Model output statistics used in Dakota responses."""
+        return self._response_statistics
+
+    @response_statistics.setter
+    def response_statistics(self, value):
+        """Set model output statistics for Dakota responses.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new response statistics.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Response statistics must be a tuple or a list")
+        self._response_statistics = value
 
     @classmethod
     def from_file_like(cls, file_like):

@@ -75,7 +75,7 @@ class HydroTrend(PluginBase):
 
         """
         self.input_template = config['template_file']
-        self.hypsometry_file = config['input_files'][0]
+        self.hypsometry_file, = config['input_files']
         self.output_files = config['response_files']
         self.output_statistics = config['response_statistics']
 
