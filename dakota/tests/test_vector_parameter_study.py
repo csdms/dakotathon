@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import assert_is_instance, assert_true
+from nose.tools import raises, assert_is_instance, assert_true, assert_equal
 from dakota.methods.vector_parameter_study import VectorParameterStudy
 from . import start_dir, data_dir
 
@@ -51,6 +51,44 @@ def test_init_from_file_like2():
     with open(config_file, 'r') as fp:
         v1 = VectorParameterStudy.from_file_like(fp)
     assert_is_instance(v1, VectorParameterStudy)
+
+
+def test_get_initial_point():
+    """Test getting the initial_point property."""
+    assert_true(type(v.initial_point) is tuple)
+
+
+def test_set_initial_point():
+    """Test setting the initial_point property."""
+    point = (42,)
+    v.initial_point = point
+    assert_equal(v.initial_point, point)
+
+
+@raises(TypeError)
+def test_set_initial_point_fails_if_scalar():
+    """Test that the initial_point property fails with scalar."""
+    point = 42
+    v.initial_point = point
+
+
+def test_get_final_point():
+    """Test getting the final_point property."""
+    assert_true(type(v.final_point) is tuple)
+
+
+def test_set_final_point():
+    """Test setting the final_point property."""
+    point = (42,)
+    v.final_point = point
+    assert_equal(v.final_point, point)
+
+
+@raises(TypeError)
+def test_set_final_point_fails_if_scalar():
+    """Test that the final_point property fails with scalar."""
+    point = 42
+    v.final_point = point
 
 
 def test_method_block():
