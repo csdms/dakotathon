@@ -13,15 +13,23 @@ class DakotaBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, component=None, template_file=None,
-                 method=None, configuration_file='config.yaml',
-                 run_directory='.', input_files=None,
+    def __init__(self,
+                 component=None,
+                 template_file=None,
+                 method=None,
+                 configuration_file='config.yaml',
+                 run_directory='.',
+                 input_files=None,
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=None, interface='direct',
+                 variable_descriptors=None,
+                 interface='direct',
                  analysis_driver='rosenbrock',
-                 is_objective_function=False, response_descriptors=None,
-                 response_files=None, response_statistics=None, **kwargs):
+                 is_objective_function=False,
+                 response_descriptors=(),
+                 response_files=None,
+                 response_statistics=None,
+                 **kwargs):
         """Create a set of default experiment parameters."""
         self.component = component
         self.configuration_file = configuration_file
@@ -38,10 +46,28 @@ class DakotaBase(object):
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
         self.is_objective_function = is_objective_function
-        self.response_descriptors = [] if response_descriptors is None \
-                                    else response_descriptors
+        self._response_descriptors = response_descriptors
         self.response_files = response_files
         self.response_statistics = response_statistics
+
+    @property
+    def response_descriptors(self):
+        """Labels attached to Dakota responses."""
+        return self._response_descriptors
+
+    @response_descriptors.setter
+    def response_descriptors(self, value):
+        """Set labels for Dakota responses.
+
+        Parameters
+        ----------
+        value : list or tuple of str
+          The new response labels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Descriptor must be a tuple or a list")
+        self._response_descriptors = value
 
     @classmethod
     def from_file_like(cls, file_like):
