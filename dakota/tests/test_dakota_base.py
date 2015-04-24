@@ -61,6 +61,18 @@ def test_set_run_directory():
     assert_equal(c.run_directory, run_dir)
 
 
+def test_get_template_file():
+    """Test getting the template_file property."""
+    assert_is_none(c.template_file)
+
+
+def test_set_template_file():
+    """Test setting the template_file property."""
+    template_file = 'foo.tmpl'
+    c.template_file = template_file
+    assert_equal(os.path.basename(c.template_file), template_file)
+
+
 def test_get_input_files():
     """Test getting the input_files property."""
     assert_equal(c.input_files, tuple())
