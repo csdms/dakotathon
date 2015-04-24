@@ -92,6 +92,25 @@ def test_set_input_files_fails_if_scalar():
     c.input_files = input_file
 
 
+def test_get_variable_descriptors():
+    """Test getting the variable_descriptors property."""
+    assert_true(type(c.variable_descriptors) is list)
+
+
+def test_set_variable_descriptors():
+    """Test setting the variable_descriptors property."""
+    desc = ['x1']
+    c.variable_descriptors = desc
+    assert_equal(c.variable_descriptors, desc)
+
+
+@raises(TypeError)
+def test_set_variable_descriptors_fails_if_scalar():
+    """Test that the variable_descriptors property fails with scalar string."""
+    desc = 'x1'
+    c.variable_descriptors = desc
+
+
 def test_get_response_descriptors():
     """Test getting the response_descriptors property."""
     assert_equal(c.response_descriptors, tuple())
