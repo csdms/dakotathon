@@ -80,9 +80,9 @@ def test_get_input_files():
 
 def test_set_input_files():
     """Test setting the input_files property."""
-    input_file = ['foo.in']
-    c.input_files = input_file
-    assert_equal(c.input_files, input_file)
+    for input_file in [['foo.in'], ('foo.in',)]:
+        c.input_files = input_file
+        assert_equal(c.input_files, input_file)
 
 
 @raises(TypeError)
@@ -99,9 +99,9 @@ def test_get_variable_descriptors():
 
 def test_set_variable_descriptors():
     """Test setting the variable_descriptors property."""
-    desc = ['x1']
-    c.variable_descriptors = desc
-    assert_equal(c.variable_descriptors, desc)
+    for desc in [['x1'], ('x1',)]:
+        c.variable_descriptors = desc
+        assert_equal(c.variable_descriptors, desc)
 
 
 @raises(TypeError)
@@ -118,9 +118,9 @@ def test_get_response_descriptors():
 
 def test_set_response_descriptors():
     """Test setting the response_descriptors property."""
-    desc = ['Qs_median']
-    c.response_descriptors = desc
-    assert_equal(c.response_descriptors, desc)
+    for desc in [['Qs_median'], ('Qs_median',)]:
+        c.response_descriptors = desc
+        assert_equal(c.response_descriptors, desc)
 
 
 @raises(TypeError)
@@ -137,9 +137,9 @@ def test_get_response_files():
 
 def test_set_response_files():
     """Test setting the response_files property."""
-    files = ['HYDROASCII.QS']
-    c.response_files = files
-    assert_equal(c.response_files, files)
+    for files in [['HYDROASCII.QS'], ('HYDROASCII.QS',)]:
+        c.response_files = files
+        assert_equal(c.response_files, files)
 
 
 @raises(TypeError)
@@ -156,9 +156,9 @@ def test_get_response_statistics():
 
 def test_set_response_statistics():
     """Test setting the response_statistics property."""
-    stats = ['median']
-    c.response_statistics = stats
-    assert_equal(c.response_statistics, stats)
+    for stats in [['median'], ('median',)]:
+        c.response_statistics = stats
+        assert_equal(c.response_statistics, stats)
 
 
 @raises(TypeError)
