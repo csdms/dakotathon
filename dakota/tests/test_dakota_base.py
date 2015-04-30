@@ -61,6 +61,18 @@ def test_set_run_directory():
     assert_equal(c.run_directory, run_dir)
 
 
+def test_get_template_file():
+    """Test getting the template_file property."""
+    assert_is_none(c.template_file)
+
+
+def test_set_template_file():
+    """Test setting the template_file property."""
+    template_file = 'foo.tmpl'
+    c.template_file = template_file
+    assert_equal(os.path.basename(c.template_file), template_file)
+
+
 def test_get_input_files():
     """Test getting the input_files property."""
     assert_equal(c.input_files, tuple())
@@ -68,9 +80,9 @@ def test_get_input_files():
 
 def test_set_input_files():
     """Test setting the input_files property."""
-    input_file = ['foo.in']
-    c.input_files = input_file
-    assert_equal(c.input_files, input_file)
+    for input_file in [['foo.in'], ('foo.in',)]:
+        c.input_files = input_file
+        assert_equal(c.input_files, input_file)
 
 
 @raises(TypeError)
@@ -80,6 +92,25 @@ def test_set_input_files_fails_if_scalar():
     c.input_files = input_file
 
 
+def test_get_variable_descriptors():
+    """Test getting the variable_descriptors property."""
+    assert_true(type(c.variable_descriptors) is list)
+
+
+def test_set_variable_descriptors():
+    """Test setting the variable_descriptors property."""
+    for desc in [['x1'], ('x1',)]:
+        c.variable_descriptors = desc
+        assert_equal(c.variable_descriptors, desc)
+
+
+@raises(TypeError)
+def test_set_variable_descriptors_fails_if_scalar():
+    """Test that the variable_descriptors property fails with scalar string."""
+    desc = 'x1'
+    c.variable_descriptors = desc
+
+
 def test_get_response_descriptors():
     """Test getting the response_descriptors property."""
     assert_equal(c.response_descriptors, tuple())
@@ -87,9 +118,9 @@ def test_get_response_descriptors():
 
 def test_set_response_descriptors():
     """Test setting the response_descriptors property."""
-    desc = ['Qs_median']
-    c.response_descriptors = desc
-    assert_equal(c.response_descriptors, desc)
+    for desc in [['Qs_median'], ('Qs_median',)]:
+        c.response_descriptors = desc
+        assert_equal(c.response_descriptors, desc)
 
 
 @raises(TypeError)
@@ -106,9 +137,9 @@ def test_get_response_files():
 
 def test_set_response_files():
     """Test setting the response_files property."""
-    files = ['HYDROASCII.QS']
-    c.response_files = files
-    assert_equal(c.response_files, files)
+    for files in [['HYDROASCII.QS'], ('HYDROASCII.QS',)]:
+        c.response_files = files
+        assert_equal(c.response_files, files)
 
 
 @raises(TypeError)
@@ -125,9 +156,9 @@ def test_get_response_statistics():
 
 def test_set_response_statistics():
     """Test setting the response_statistics property."""
-    stats = ['median']
-    c.response_statistics = stats
-    assert_equal(c.response_statistics, stats)
+    for stats in [['median'], ('median',)]:
+        c.response_statistics = stats
+        assert_equal(c.response_statistics, stats)
 
 
 @raises(TypeError)

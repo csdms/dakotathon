@@ -35,7 +35,7 @@ class DakotaBase(object):
         self.component = component
         self._run_directory = run_directory
         self._configuration_file = configuration_file
-        self.template_file = template_file
+        self._template_file = template_file
         self.input_files = input_files
         self.data_file = data_file
         self.method = method
@@ -87,6 +87,26 @@ class DakotaBase(object):
         if not os.path.isabs(value):
             value = os.path.abspath(value)
         self._configuration_file = value
+
+    @property
+    def template_file(self):
+        """The template file path."""
+        return self._template_file
+
+    @template_file.setter
+    def template_file(self, value):
+        """Set the template file path.
+
+        Parameters
+        ----------
+        value : str
+          The new file path.
+
+        """
+        if value is not None:
+            if not os.path.isabs(value):
+                value = os.path.abspath(value)
+        self._template_file = value
 
     @property
     def input_files(self):
