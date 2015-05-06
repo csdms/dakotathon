@@ -88,8 +88,10 @@ class HydroTrend(PluginBase):
           Configuration settings for a Dakota experiment.
 
         """
-        self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
-        self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
+        # self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
+        # self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
+        self.input_dir = os.path.join('..', 'HYDRO_IN')
+        self.output_dir = os.path.join('..', 'HYDRO_OUTPUT')
         if os.path.exists(self.input_dir) is False:
             os.mkdir(self.input_dir, 0755)
         if os.path.exists(self.output_dir) is False:
