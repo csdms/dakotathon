@@ -25,6 +25,7 @@ class DakotaBase(object):
                  variable_type='continuous_design',
                  variable_descriptors=(),
                  interface='direct',
+                 id_interface='Python',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
                  response_descriptors=(),
@@ -42,6 +43,7 @@ class DakotaBase(object):
         self.variable_type = variable_type
         self._variable_descriptors = variable_descriptors
         self.interface = interface
+        self.id_interface = id_interface
         self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
@@ -255,6 +257,7 @@ class DakotaBase(object):
     def interface_block(self):
         """Define the interface block of a Dakota input file."""
         s = 'interface\n' \
+            + '  id_interface = {!r}\n'.format(self.id_interface) \
             + '  {}\n'.format(self.interface) \
             + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
         if self.component is not None:
