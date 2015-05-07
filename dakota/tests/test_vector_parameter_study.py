@@ -15,7 +15,7 @@ from . import start_dir, data_dir
 
 # Global variables -----------------------------------------------------
 
-config_file = os.path.join(data_dir, 'config.yaml')
+config_file = os.path.join(data_dir, 'default_vps_config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
