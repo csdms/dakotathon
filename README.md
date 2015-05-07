@@ -55,9 +55,11 @@ specifying the Dakota analysis method:
 	>>> d = Dakota(method='vector_parameter_study')
 
 Currently,
-one Dakota method,
-[vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.0/html-ref/method-vector_parameter_study.html),
-is supported.
+two Dakota methods,
+[vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
+and
+[centered parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html),
+are supported.
 
 To run a sample case,
 create an input file

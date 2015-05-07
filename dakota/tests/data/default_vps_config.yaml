@@ -1,0 +1,27 @@
+analysis_driver: rosenbrock
+component: null
+configuration_file: /Users/mpiper/scratch/default_config.yaml
+data_file: dakota.dat
+final_point: !!python/tuple
+- 1.1
+- 1.3
+initial_point: !!python/tuple
+- -0.3
+- 0.2
+input_files: !!python/tuple []
+interface: direct
+is_objective_function: false
+method: vector_parameter_study
+n_steps: 10
+parameters_file: params.in
+response_descriptors: !!python/tuple
+- y1
+response_files: !!python/tuple []
+response_statistics: !!python/tuple []
+results_file: results.out
+run_directory: /Users/mpiper/scratch
+template_file: null
+variable_descriptors: !!python/tuple
+- x1
+- x2
+variable_type: continuous_design

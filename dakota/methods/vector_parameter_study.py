@@ -18,7 +18,26 @@ class VectorParameterStudy(DakotaBase):
                  n_steps=10,
                  response_descriptors=('y1',),
                  **kwargs):
-        """Create a new Dakota vector parameter study."""
+        """Create a new Dakota vector parameter study.
+
+        Parameters
+        ----------
+        variable_descriptors, response_descriptors : array_like of str
+          Names used for input and output variables.
+        initial_point : array_like of float
+          Start point for the parameter study.
+        final_point : array_like of float
+          End point for the parameter study.
+        n_steps : int
+          Number of steps along vector.
+
+        Examples
+        --------
+        Create a default vector parameter study experiment:
+
+        >>> v = VectorParameterStudy()
+
+        """
         DakotaBase.__init__(self, **kwargs)
         self.method = 'vector_parameter_study'
         self.variable_descriptors = variable_descriptors
