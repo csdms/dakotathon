@@ -14,6 +14,7 @@ variables
     descriptors = 'x1' 'x2'
 
 interface
+  id_interface = 'Python'
   direct
   analysis_driver = 'rosenbrock'
 
