@@ -39,7 +39,7 @@ class CenteredParameterStudy(DakotaBase):
 
         """
         DakotaBase.__init__(self, **kwargs)
-        self.method = 'centered_parameter_study'
+        self.method = self.__module__.rsplit('.')[-1]
         self.variable_descriptors = variable_descriptors
         self._initial_point = initial_point
         self._steps_per_variable = steps_per_variable
