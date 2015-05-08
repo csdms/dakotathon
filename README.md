@@ -50,25 +50,29 @@ Import the CSDMS Dakota interface into a Python session with:
 	>>> from dakota.core import Dakota
 
 Create a `Dakota` instance,
-specifying the Dakota analysis method:
+specifying a Dakota analysis method:
 
 	>>> d = Dakota(method='vector_parameter_study')
 
 Currently,
-two Dakota methods,
-[vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
-and
-[centered parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html),
+three Dakota methods
+
+* [vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
+* [centered parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html)
+* [multidim parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-multidim_parameter_study.html)
+
 are supported.
 
 To run a sample case,
 create an input file
-from the default vector parameter study values
+from the default vector parameter study
 and call Dakota:
 
 	>>> d.write_input_file()
 	>>> d.run()
 
-Dakota output is written to two files
-in the current directory,
-**dakota.out** and **dakota.dat**.
+Dakota output is written to two files,
+**dakota.out** (run information)
+and
+**dakota.dat** (tabular output),
+in the current directory.
