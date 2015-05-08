@@ -39,7 +39,7 @@ class VectorParameterStudy(DakotaBase):
 
         """
         DakotaBase.__init__(self, **kwargs)
-        self.method = 'vector_parameter_study'
+        self.method = self.__module__.rsplit('.')[-1]
         self.variable_descriptors = variable_descriptors
         self._initial_point = initial_point
         self._final_point = final_point
