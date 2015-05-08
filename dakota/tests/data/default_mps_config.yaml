@@ -1,0 +1,30 @@
+analysis_driver: rosenbrock
+component: null
+configuration_file: /Users/mpiper/scratch/default_mps_config.yaml
+data_file: dakota.dat
+id_interface: Python
+input_files: !!python/tuple []
+interface: direct
+is_objective_function: false
+lower_bounds: !!python/tuple
+- -2.0
+- -2.0
+method: centered_parameter_study
+parameters_file: params.in
+partitions: !!python/tuple
+- 10
+- 8
+response_descriptors: !!python/tuple
+- y1
+response_files: !!python/tuple []
+response_statistics: !!python/tuple []
+results_file: results.out
+run_directory: /Users/mpiper/scratch
+template_file: null
+upper_bounds: !!python/tuple
+- 2.0
+- 2.0
+variable_descriptors: !!python/tuple
+- x1
+- x2
+variable_type: continuous_design
