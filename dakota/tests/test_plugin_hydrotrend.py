@@ -117,3 +117,17 @@ def test_write():
     h.output_values = [1.0, 2.0]
     h.write(params_file, results_file)
     assert_true(filecmp.cmp(known_results_file, results_file))
+
+
+def test_write_tmpl_file():
+    """Test the write_tmpl_file method matches a known tmpl file."""
+    known_tmpl_file = os.path.join(data_dir, 'HYDRO.IN.tmpl')
+    base_tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
+    base_input_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
+    parameter_names = ['starting_mean_annual_temperature',
+                       'total_annual_precipitation']
+    tmpl_file = HydroTrend.write_tmpl_file(base_tmpl_file,
+                                           base_input_file,
+                                           parameter_names)
+    assert_true(filecmp.cmp(known_tmpl_file, tmpl_file))
+    os.remove(tmpl_file)

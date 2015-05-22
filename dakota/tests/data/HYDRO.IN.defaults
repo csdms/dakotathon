@@ -5,8 +5,8 @@ ON				2) Write output to ASCII files (ON/OFF)
 0 365 d		5) Start year; no. of years to run; averaging interval: D,M,S or Y
 4				6) Number of suspended sed. grain sizes to simulate (max 10)
 .2 .2 .25 .35	7) Proportion of sediment in each grain size (sum=1)
-{starting_mean_annual_temperature} 0.0 0.55 8) Yrly Tbar: start (C), change/yr (C/a), std dev
-{total_annual_precipitation} 0.0 0.3 9) Yrly P sum: start (m/a), change/yr (m/a/a), std. dev (m).
+14.26 0.0 0.55  8) Yrly Tbar: start (C), change/yr (C/a), std dev
+1.59 0.0 0.3 9) Yrly P sum: start (m/a), change/yr (m/a/a), std. dev (m).
 1. 1.9 7	10) Rain: Mass Balance Coef, Distribution Exp, Distribution Range
 1.1		11) Constant annual base flow (m^3/s)
 Jan  19.14  1.05 103.91 62.07 12-23) monthly climate variables
