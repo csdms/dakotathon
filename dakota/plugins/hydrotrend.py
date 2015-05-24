@@ -149,8 +149,8 @@ class HydroTrend(PluginBase):
         labels = get_response_descriptors(params_file)
         write_results(results_file, self.output_values, labels)
 
-    @classmethod
-    def write_tmpl_file(cls, base_tmpl_file, base_input_file, parameter_names):
+    @staticmethod
+    def write_tmpl_file(base_tmpl_file, base_input_file, parameter_names):
         """Create a template HydroTrend input file used by Dakota.
 
         The tmpl file is a HydroTrend input file, but with the
