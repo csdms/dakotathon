@@ -4,8 +4,8 @@ Dakota analysis methods
 Python wrappers for Dakota analysis methods.
 
 
-Base class
-----------
+Methods base class
+------------------
 
 .. automodule:: dakota.methods.base
     :members:
