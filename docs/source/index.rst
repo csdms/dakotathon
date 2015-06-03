@@ -3,14 +3,20 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to csdms-dakota's documentation!
+The CSDMS Dakota Interface
 ========================================
 
-Contents:
+:Release: |release|
+:Date: |today|
+
+
+Contents
+========
 
 .. toctree::
    :maxdepth: 2
 
+   Dakota class definition <dakota.core>
 
 
 Indices and tables
