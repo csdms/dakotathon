@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""Interface to the Dakota iterative systems analysis toolkit."""
+"""A Python Interface to the Dakota iterative systems analysis toolkit."""
 
 import subprocess
 import importlib
@@ -11,10 +11,10 @@ from . import methods_path
 
 class Dakota(object):
 
-    """Set up and run a Dakota experiment."""
+    """Configure and run a Dakota experiment."""
 
     def __init__(self, method=None, **kwargs):
-        """Create a new Dakota experiment.
+        """Create a new `Dakota` instance.
 
         Called with no parameters, a Dakota experiment with basic
         defaults (a vector parameter study with the built-in
@@ -55,7 +55,7 @@ class Dakota(object):
         Parameters
         ----------
         file_like : file_like
-            Input parameter file.
+            A configuration file or file-like object.
 
         Returns
         -------
@@ -111,7 +111,7 @@ class Dakota(object):
         Make an input file for a vector parameter study experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.write_input_file()
+        >>> d.write_input_file('dakota.in')
 
         """
         if input_file is not None:
