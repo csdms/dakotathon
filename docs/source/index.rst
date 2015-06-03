@@ -18,6 +18,7 @@ Contents
 
    Dakota class <dakota.core>
    Dakota analysis methods <analysis_methods>
+   Component plugins <component_plugins>
    The `dakota_run_plugin` console script <dakota.run_plugin>
    Utilities and helper functions <dakota.utils>
 
