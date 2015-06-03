@@ -17,6 +17,8 @@ Contents
    :maxdepth: 2
 
    Dakota class definition <dakota.core>
+   Utilities and helper functions <dakota.utils>
+   Run_plugin console script <dakota.run_plugin>
 
 
 Indices and tables
