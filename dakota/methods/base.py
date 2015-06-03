@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""An abstract base class for all Dakota experiments."""
+"""An abstract base class for all Dakota analysis methods."""
 
 from abc import ABCMeta, abstractmethod
 import os
@@ -9,7 +9,7 @@ import yaml
 
 class DakotaBase(object):
 
-    """Describe features common to all Dakota experiments."""
+    """Describe features common to all Dakota analysis methods."""
 
     __metaclass__ = ABCMeta
 
