@@ -16,10 +16,10 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   Dakota class definition <dakota.core>
+   Dakota class <dakota.core>
+   Dakota analysis methods <analysis_methods>
+   The `dakota_run_plugin` console script <dakota.run_plugin>
    Utilities and helper functions <dakota.utils>
-   Run_plugin console script <dakota.run_plugin>
-   Dakota analysis methods <dakota.methods>
 
 
 Indices and tables
