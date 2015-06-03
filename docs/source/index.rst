@@ -9,6 +9,10 @@ The CSDMS Dakota Interface
 :Release: |release|
 :Date: |today|
 
+The CSDMS Dakota interface provides a Python API 
+for the `Dakota <https://dakota.sandia.gov/>`_
+iterative systems analysis toolkit.
+
 
 Contents
 ========
