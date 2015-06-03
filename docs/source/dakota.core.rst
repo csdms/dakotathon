@@ -1,5 +1,5 @@
-dakota.core module
-==================
+Dakota class definition
+=======================
 
 .. automodule:: dakota.core
     :members:
