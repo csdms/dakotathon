@@ -1,28 +1,6 @@
 #!/usr/bin/env python
-"""Brokers communication between Dakota and a component through files.
-
-This console script provides a generic *analysis driver* for a Dakota
-experiment. At each evaluation step, Dakota calls this script with the
-names of the parameters file and the results file as arguments.
-
-The parameters file provides information on the current Dakota
-evaluation step, including the names and values of model variables and
-their responses. It also includes, as the *analysis component*, the
-name of a configuration file that stores information about the setup
-of the experiment, including the name of the BMI component to call,
-input files, output file(s) to examine, and the statistic to apply to
-the output file(s).
-
-Once the BMI component is identified, an interface is instantiated,
-which performs three steps: preprocessing, execution, and
-postprocessing. In the preprocessing step, information from the
-configuration file is transferred to the component. Next, in the
-execution step, the component is called, using the information passed
-from Dakota. In the final step, output from the component is read, and
-a single statistic (e.g., mean, median, max, etc.) is applied to
-it. This number, one for each response, is returned to Dakota through
-the results file, ending the Dakota evaluation step.
-
+"""Defines the `dakota_run_plugin` script to broker communication
+between Dakota and a component through files.
 """
 
 import importlib
@@ -31,7 +9,43 @@ from . import plugins_path
 
 
 def run_plugin(params_file, results_file):
-    """Sets up component inputs, runs component, gathers output."""
+    """Set up component inputs, run component, gather output.
+
+    Parameters
+    ----------
+    params_file : str
+      The path to the parameters file created by Dakota.
+    results_file : str
+      The path the results file returned to Dakota.
+
+    Notes
+    -----
+    This console script provides a generic *analysis driver* for a
+    Dakota experiment. At each evaluation step, Dakota calls this
+    script with two arguments, the names of the parameters and results files:
+
+    1. The parameters file provides information on the current Dakota
+       evaluation step, including the names and values of model
+       variables and their responses. It also includes, as the
+       *analysis component*, the name of a configuration file that
+       stores information about the setup of the experiment, including
+       the name of the model to call, input files, output file(s) to
+       examine, and the statistic to apply to the output file(s).
+
+    2. The results file contains model output values in a format
+       specified by the Dakota documentation.
+
+    Once the model is identified, an interface is created to perform
+    three steps: preprocessing, execution, and postprocessing. In the
+    preprocessing step, information from the configuration file is
+    transferred to the component. In the execution step, the component
+    is called, using the information passed from Dakota. In the
+    postprocessing step, output from the component is read, and a
+    single statistic (e.g., mean, median, max, etc.) is applied to
+    it. This number, one for each response, is returned to Dakota
+    through the results file, ending the Dakota evaluation step.
+
+    """
     config_file = get_configuration_file(params_file)
     config = get_configuration(config_file)
 
@@ -52,7 +66,7 @@ def run_plugin(params_file, results_file):
 
 
 def main():
-    """Define the console script dakota_run_plugin."""
+    """Handle arguments to the `dakota_run_plugin` console script."""
     import argparse
     from . import __version__, plugin_script
 
