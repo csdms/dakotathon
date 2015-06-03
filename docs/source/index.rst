@@ -19,6 +19,7 @@ Contents
    Dakota class definition <dakota.core>
    Utilities and helper functions <dakota.utils>
    Run_plugin console script <dakota.run_plugin>
+   Dakota analysis methods <dakota.methods>
 
 
 Indices and tables
