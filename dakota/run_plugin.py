@@ -1,7 +1,5 @@
 #!/usr/bin/env python
-"""Defines the `dakota_run_plugin` script to broker communication
-between Dakota and a component through files.
-"""
+"""Defines the `dakota_run_plugin` console script."""
 
 import importlib
 from .utils import get_configuration_file, get_configuration
@@ -9,7 +7,7 @@ from . import plugins_path
 
 
 def run_plugin(params_file, results_file):
-    """Set up component inputs, run component, gather output.
+    """Brokers communication between Dakota and a model through files.
 
     Parameters
     ----------
