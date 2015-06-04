@@ -9,22 +9,22 @@
 
 import os
 from nose.tools import raises, assert_true, assert_is_none, assert_equal
-from dakota.methods.base import DakotaBase
+from dakota.methods.base import MethodsBase
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
 
 
-class Concrete(DakotaBase):
+class Concrete(MethodsBase):
 
-    """A subclass of DakotaBase used for testing."""
+    """A subclass of MethodsBase used for testing."""
 
     def __init__(self):
-        DakotaBase.__init__(self)
+        MethodsBase.__init__(self)
         self.variable_descriptors = ['x0', 'x1']
 
     def method_block(self):
-        return DakotaBase.method_block(self)
+        return MethodsBase.method_block(self)
 
 # Fixtures -------------------------------------------------------------
 
@@ -45,8 +45,8 @@ def teardown_module():
 
 @raises(TypeError)
 def test_instantiate():
-    """Test whether DakotaBase fails to instantiate."""
-    d = DakotaBase()
+    """Test whether MethodsBase fails to instantiate."""
+    d = MethodsBase()
 
 
 def test_get_run_directory():

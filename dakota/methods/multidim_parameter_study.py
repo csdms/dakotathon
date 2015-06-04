@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of a Dakota multidim parameter study."""
 
-from .base import DakotaBase
+from .base import MethodsBase
 
 
 classname = 'MultidimParameterStudy'
 
 
-class MultidimParameterStudy(DakotaBase):
+class MultidimParameterStudy(MethodsBase):
 
     """Define parameters for a Dakota multidim parameter study."""
 
@@ -39,7 +39,7 @@ class MultidimParameterStudy(DakotaBase):
         >>> m = MultidimParameterStudy()
 
         """
-        DakotaBase.__init__(self, **kwargs)
+        MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self.variable_descriptors = variable_descriptors
         self._lower_bounds = lower_bounds
@@ -109,7 +109,7 @@ class MultidimParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.method_block
+        dakota.methods.base.MethodsBase.method_block
 
         """
         s = 'method\n' \
@@ -125,7 +125,7 @@ class MultidimParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.variables_block
+        dakota.methods.base.MethodsBase.variables_block
 
         """
         s = 'variables\n' \

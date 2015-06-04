@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of a Dakota centered parameter study."""
 
-from .base import DakotaBase
+from .base import MethodsBase
 
 
 classname = 'CenteredParameterStudy'
 
 
-class CenteredParameterStudy(DakotaBase):
+class CenteredParameterStudy(MethodsBase):
 
     """Define parameters for a Dakota centered parameter study."""
 
@@ -38,7 +38,7 @@ class CenteredParameterStudy(DakotaBase):
         >>> c = CenteredParameterStudy()
 
         """
-        DakotaBase.__init__(self, **kwargs)
+        MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self.variable_descriptors = variable_descriptors
         self._initial_point = initial_point
@@ -108,7 +108,7 @@ class CenteredParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.method_block
+        dakota.methods.base.MethodsBase.method_block
 
         """
         s = 'method\n' \
@@ -128,7 +128,7 @@ class CenteredParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.variables_block
+        dakota.methods.base.MethodsBase.variables_block
 
         """
         s = 'variables\n' \

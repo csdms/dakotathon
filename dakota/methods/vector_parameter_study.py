@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of a Dakota vector parameter study."""
 
-from .base import DakotaBase
+from .base import MethodsBase
 
 
 classname = 'VectorParameterStudy'
 
 
-class VectorParameterStudy(DakotaBase):
+class VectorParameterStudy(MethodsBase):
 
     """Define parameters for a Dakota vector parameter study."""
 
@@ -38,7 +38,7 @@ class VectorParameterStudy(DakotaBase):
         >>> v = VectorParameterStudy()
 
         """
-        DakotaBase.__init__(self, **kwargs)
+        MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self.variable_descriptors = variable_descriptors
         self._initial_point = initial_point
@@ -89,7 +89,7 @@ class VectorParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.method_block
+        dakota.methods.base.MethodsBase.method_block
 
         """
         s = 'method\n' \
@@ -106,7 +106,7 @@ class VectorParameterStudy(DakotaBase):
 
         See Also
         --------
-        dakota.methods.base.DakotaBase.variables_block
+        dakota.methods.base.MethodsBase.variables_block
 
         """
         s = 'variables\n' \
