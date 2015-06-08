@@ -23,7 +23,7 @@ class Dakota(object):
 
         Parameters
         ----------
-        method : str
+        method : str, optional
           The desired Dakota method (e.g., `vector_parameter_study`,
           `polynomial_chaos`, etc.) to use in an experiment.
 
