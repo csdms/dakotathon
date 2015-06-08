@@ -108,7 +108,7 @@ class CenteredParameterStudy(MethodsBase):
 
         See Also
         --------
-        dakota.methods.base.MethodsBase.method_block
+        csdms.dakota.methods.base.MethodsBase.method_block
 
         """
         s = 'method\n' \
@@ -128,7 +128,7 @@ class CenteredParameterStudy(MethodsBase):
 
         See Also
         --------
-        dakota.methods.base.MethodsBase.variables_block
+        csdms.dakota.methods.base.MethodsBase.variables_block
 
         """
         s = 'variables\n' \
