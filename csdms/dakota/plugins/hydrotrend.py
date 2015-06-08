@@ -6,7 +6,7 @@ import shutil
 import subprocess
 import numpy as np
 from .base import PluginBase
-from dakota.utils import get_response_descriptors, write_results, \
+from csdms.dakota.utils import get_response_descriptors, write_results, \
     compute_statistic
 
 

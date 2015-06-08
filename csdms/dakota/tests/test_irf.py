@@ -2,8 +2,8 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from dakota.bmi_dakota import BmiDakota
-from dakota.utils import is_dakota_installed
+from csdms.dakota.bmi_dakota import BmiDakota
+from csdms.dakota.utils import is_dakota_installed
 
 
 config_val = {'method': 'vector_parameter_study', 'component': 'hydrotrend'}

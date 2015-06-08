@@ -6,7 +6,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import raises, assert_is_none
-from dakota.plugins.base import PluginBase
+from csdms.dakota.plugins.base import PluginBase
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
