@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
-from dakota.methods.centered_parameter_study import CenteredParameterStudy
+from csdms.dakota.methods.centered_parameter_study import CenteredParameterStudy
 from . import start_dir, data_dir
 
 

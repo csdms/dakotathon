@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
-from dakota.methods.vector_parameter_study import VectorParameterStudy
+from csdms.dakota.methods.vector_parameter_study import VectorParameterStudy
 from . import start_dir, data_dir
 
 

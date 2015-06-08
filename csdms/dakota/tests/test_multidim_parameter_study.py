@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
-from dakota.methods.multidim_parameter_study import MultidimParameterStudy
+from csdms.dakota.methods.multidim_parameter_study import MultidimParameterStudy
 from . import start_dir, data_dir
 
 

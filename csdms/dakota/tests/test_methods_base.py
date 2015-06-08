@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import raises, assert_true, assert_is_none, assert_equal
-from dakota.methods.base import MethodsBase
+from csdms.dakota.methods.base import MethodsBase
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
