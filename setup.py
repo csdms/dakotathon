@@ -4,9 +4,7 @@ use_setuptools()
 from setuptools import setup, find_packages
 from csdms.dakota import __version__, plugin_script
 
-package_name = 'csdms.dakota'
-
-setup(name=package_name,
+setup(name='csdms-dakota',
       version=__version__,
       author='Mark Piper',
       author_email='mark.piper@colorado.edu',
@@ -17,7 +15,7 @@ setup(name=package_name,
       packages=find_packages(exclude=['*.tests']),
       entry_points={
           'console_scripts': [
-              plugin_script + ' = ' + package_name + '.run_plugin:main'
+              plugin_script + ' = csdms.dakota.run_plugin:main'
           ]
       }
 )
