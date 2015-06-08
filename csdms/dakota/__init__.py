@@ -1,6 +1,6 @@
-"""Interface to the Dakota iterative systems toolkit."""
+"""A Python interface to the Dakota iterative systems analysis toolkit."""
 
-__version__ = '0.1'
+__version__ = '0.2'
 
 methods_path = 'dakota.methods.'
 plugins_path = 'dakota.plugins.'
