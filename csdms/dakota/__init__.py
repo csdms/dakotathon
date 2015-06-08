@@ -2,7 +2,7 @@
 
 __version__ = '0.2'
 
-methods_path = 'dakota.methods.'
-plugins_path = 'dakota.plugins.'
+methods_path = 'csdms.dakota.methods.'
+plugins_path = 'csdms.dakota.plugins.'
 
 plugin_script = 'dakota_run_plugin'
