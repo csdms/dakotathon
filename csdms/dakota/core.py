@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""A Python Interface to the Dakota iterative systems analysis toolkit."""
+"""A Python interface to the Dakota iterative systems analysis toolkit."""
 
 import subprocess
 import importlib
