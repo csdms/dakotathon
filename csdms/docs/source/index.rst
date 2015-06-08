@@ -20,11 +20,11 @@ Contents
 .. toctree::
    :maxdepth: 2
 
-   Dakota class <dakota.core>
+   Dakota class <csdms.dakota.core>
    Dakota analysis methods <analysis_methods>
    Component plugins <component_plugins>
-   The `dakota_run_plugin` console script <dakota.run_plugin>
-   Utilities and helper functions <dakota.utils>
+   The `dakota_run_plugin` console script <csdms.dakota.run_plugin>
+   Utilities and helper functions <csdms.dakota.utils>
 
 
 Indices and tables

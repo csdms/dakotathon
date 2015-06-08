@@ -1,7 +1,7 @@
 Dakota utilities
 ================
 
-.. automodule:: dakota.utils
+.. automodule:: csdms.dakota.utils
     :members:
     :undoc-members:
     :show-inheritance:
