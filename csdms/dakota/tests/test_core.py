@@ -11,8 +11,8 @@ import os
 import filecmp
 from subprocess import CalledProcessError
 from nose.tools import assert_is_instance, assert_true, raises
-from dakota.core import Dakota
-from dakota.utils import is_dakota_installed
+from csdms.dakota.core import Dakota
+from csdms.dakota.utils import is_dakota_installed
 from . import start_dir, data_dir
 
 

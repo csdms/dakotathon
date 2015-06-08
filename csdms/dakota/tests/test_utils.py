@@ -9,7 +9,7 @@
 
 import os
 from nose.tools import raises, assert_equal, assert_false, assert_is_none
-from dakota.utils import *
+from csdms.dakota.utils import *
 from . import start_dir, data_dir
 
 # Global variables -----------------------------------------------------
