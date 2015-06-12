@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/csdms/dakota.svg?branch=master)](https://travis-ci.org/csdms/dakota)
 [![Code Health](https://landscape.io/github/csdms/dakota/master/landscape.svg?style=flat)](https://landscape.io/github/csdms/dakota/master)
 [![Coverage Status](https://coveralls.io/repos/csdms/dakota/badge.svg?branch=master)](https://coveralls.io/r/csdms/dakota?branch=master)
+[![Documentation Status](https://readthedocs.org/projects/csdms-dakota/badge/?version=latest)](https://readthedocs.org/projects/csdms-dakota/?badge=latest)
 
 # CSDMS Dakota interface
 
