@@ -9,6 +9,16 @@ from .methods.vector_parameter_study import VectorParameterStudy
 from . import methods_path
 
 
+def is_installed():
+    """Check whether Dakota is installed and in the execution path."""
+    try:
+        subprocess.check_call(['dakota', '--version'])
+    except subprocess.CalledProcessError:
+        return False
+    else:
+        return True
+
+
 class Dakota(object):
 
     """Configure and run a Dakota experiment."""
