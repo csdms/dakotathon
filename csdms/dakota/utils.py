@@ -18,7 +18,7 @@ def is_dakota_installed():
     """
     try:
         subprocess.check_call(['dakota', '--version'])
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, OSError):
         return False
     else:
         return True
