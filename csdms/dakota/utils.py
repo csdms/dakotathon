@@ -16,12 +16,11 @@ def is_dakota_installed():
 
     """
     try:
-        subprocess.call(['dakota', '--version'])
-    except OSError:
+        subprocess.check_call(['dakota', '--version'])
+    except subprocess.CalledProcessError:
         return False
     else:
         return True
-
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
