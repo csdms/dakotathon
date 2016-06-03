@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 """Helper functions for processing Dakota parameter and results files."""
 
+import os
 import subprocess
 import re
 import yaml
@@ -21,6 +22,20 @@ def is_dakota_installed():
         return False
     else:
         return True
+
+def which(prog, env=None):
+    prog = os.environ.get(env or prog.upper(), prog)
+
+    try:
+        prog = subprocess.check_output(['which', prog],
+                                       stderr=open('/dev/null', 'w')).strip()
+    except subprocess.CalledProcessError:
+        return None
+    else:
+        return prog
+
+def which_dakota():
+    return which('dakota')
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
