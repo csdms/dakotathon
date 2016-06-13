@@ -6,7 +6,9 @@ import importlib
 import types
 import yaml
 from .methods.vector_parameter_study import VectorParameterStudy
-from . import methods_path
+
+
+_methods_path = 'csdms.dakota.methods.'
 
 
 class Dakota(object):
@@ -42,7 +44,7 @@ class Dakota(object):
         self.output_file = 'dakota.out'
 
         if method is not None:
-            _module = importlib.import_module(methods_path + method)
+            _module = importlib.import_module(_methods_path + method)
             _class = getattr(_module, _module.classname)
             self.method = _class(**kwargs)
         else:

@@ -3,7 +3,10 @@
 
 import importlib
 from .utils import get_configuration_file, get_configuration
-from . import plugins_path
+
+
+plugin_script = 'dakota_run_plugin'
+_plugins_path = 'csdms.dakota.plugins.'
 
 
 def run_plugin(params_file, results_file):
@@ -47,7 +50,7 @@ def run_plugin(params_file, results_file):
     config_file = get_configuration_file(params_file)
     config = get_configuration(config_file)
 
-    _module = importlib.import_module(plugins_path + config['component'])
+    _module = importlib.import_module(_plugins_path + config['component'])
     if _module.is_installed():
         _class = getattr(_module, _module.classname)
         component = _class()
@@ -66,7 +69,7 @@ def run_plugin(params_file, results_file):
 def main():
     """Handle arguments to the `dakota_run_plugin` console script."""
     import argparse
-    from . import __version__, plugin_script
+    from . import __version__
 
     parser = argparse.ArgumentParser(
         description="A generic analysis driver for a Dakota experiment.")
