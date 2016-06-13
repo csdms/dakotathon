@@ -58,8 +58,9 @@ def test_which_dakota():
 
 def test_add_dyld_library_path():
     """Test the 'add_dyld_library_path' function."""
-    if 'TRAVIS' not in os.environ:
-        r = add_dyld_library_path()
+    r = add_dyld_library_path()
+    if 'TRAVIS' in os.environ:
+        assert_is_none(r)
 
 
 def test_get_response_descriptors():
