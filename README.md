@@ -77,3 +77,16 @@ Dakota output is written to two files,
 and
 **dakota.dat** (tabular output),
 in the current directory.
+
+### Note
+
+If you're using Anaconda IPython on Mac OS X,
+include the `DYLD_LIBRARY_PATH` environment variable
+in your session before calling the `run` method above:
+
+```python
+In [1]: from csdms.dakota.utils import add_dyld_library_path
+In [2]: add_dyld_library_path()
+```
+
+See https://github.com/csdms/dakota/issues/17 for more information.
