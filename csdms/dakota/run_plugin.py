@@ -5,8 +5,8 @@ import importlib
 from .utils import get_configuration_file, get_configuration
 
 
+plugin_script = 'dakota_run_plugin'
 _plugins_path = 'csdms.dakota.plugins.'
-_plugin_script = 'dakota_run_plugin'
 
 
 def run_plugin(params_file, results_file):
@@ -78,7 +78,7 @@ def main():
     parser.add_argument("results_file",
                         help="results file to Dakota")
     parser.add_argument('--version', action='version',
-                        version=_plugin_script + ' ' + __version__)
+                        version=plugin_script + ' ' + __version__)
     args = parser.parse_args()
 
     run_plugin(args.parameters_file, args.results_file)
