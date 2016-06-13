@@ -61,6 +61,18 @@ def which_dakota():
     return which('dakota')
 
 
+def add_dyld_library_path():
+    """Add the `DYLD_LIBRARY_PATH` environment variable for Dakota."""
+    try:
+        dakota_exe = which_dakota()
+        dakota_dir = os.path.dirname(os.path.dirname(dakota_exe))
+        os.environ['DYLD_LIBRARY_PATH'] = os.path.join(dakota_dir, 'bin') \
+                                          + os.path.pathsep \
+                                          + os.path.join(dakota_dir, 'lib')
+    except AttributeError:
+        return None
+
+
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
 

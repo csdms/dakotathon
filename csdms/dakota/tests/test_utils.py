@@ -50,8 +50,15 @@ def test_which():
 
 
 def test_which_dakota():
-    """Test the 'which_dakota function.'"""
+    """Test the 'which_dakota' function."""
     r = which_dakota()
+    if 'TRAVIS' in os.environ:
+        assert_is_none(r)
+
+
+def test_add_dyld_library_path():
+    """Test the 'add_dyld_library_path' function."""
+    r = add_dyld_library_path()
     if 'TRAVIS' in os.environ:
         assert_is_none(r)
 
