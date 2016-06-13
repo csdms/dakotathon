@@ -23,7 +23,22 @@ def is_dakota_installed():
     else:
         return True
 
+
 def which(prog, env=None):
+    """Call the OS `which` function.
+
+    Parameters
+    ----------
+    prog : str
+      The command name.
+    env : str, optional
+      An environment variable.
+
+    Returns
+    -------
+    The path to the command, or None if the command is not found.
+
+    """
     prog = os.environ.get(env or prog.upper(), prog)
 
     try:
@@ -34,8 +49,17 @@ def which(prog, env=None):
     else:
         return prog
 
+
 def which_dakota():
+    """Locate the Dakota executable.
+
+    Returns
+    -------
+    The path to the Dakota executable, or None if Dakota is not found.
+
+    """
     return which('dakota')
+
 
 def get_response_descriptors(params_file):
     """Extract response descriptors from a Dakota parameters file.
