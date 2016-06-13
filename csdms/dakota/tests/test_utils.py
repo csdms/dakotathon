@@ -8,7 +8,8 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import raises, assert_equal, assert_false, assert_is_none
+from nose.tools import (raises, assert_equal, assert_false,
+                        assert_is_none)
 from csdms.dakota.utils import *
 from . import start_dir, data_dir
 
@@ -41,6 +42,18 @@ def test_is_dakota_installed():
     r = is_dakota_installed()
     if 'TRAVIS' in os.environ:
         assert_false(r)
+
+
+def test_which():
+    """Test the 'which' function."""
+    r = which('python')
+
+
+def test_which_dakota():
+    """Test the 'which_dakota function.'"""
+    r = which_dakota()
+    if 'TRAVIS' in os.environ:
+        assert_is_none(r)
 
 
 def test_get_response_descriptors():
