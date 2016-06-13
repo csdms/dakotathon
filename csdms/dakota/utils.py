@@ -42,7 +42,7 @@ def which(prog, env=None):
     prog = os.environ.get(env or prog.upper(), prog)
 
     try:
-        prog = subprocess.check_output(['which', prog],
+        prog = subprocess.check_output(['/usr/bin/which', prog],
                                        stderr=open('/dev/null', 'w')).strip()
     except subprocess.CalledProcessError:
         return None
