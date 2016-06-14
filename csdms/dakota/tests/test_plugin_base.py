@@ -5,8 +5,11 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-from nose.tools import raises, assert_is_none
-from csdms.dakota.plugins.base import PluginBase
+import os
+import filecmp
+from nose.tools import raises, assert_is_none, assert_true
+from csdms.dakota.plugins.base import (PluginBase, write_dflt_file,
+                                       write_dtmpl_file)
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
@@ -85,3 +88,27 @@ def test_write():
     """Test type of write method results."""
     s = c.write()
     assert_is_none(s)
+
+
+def test_write_dflt_file():
+    """Test the 'write_dflt_file' function versus a known dflt file."""
+    known_dflt_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
+    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
+    parameters_file = os.path.join(data_dir, 'parameters.yaml')
+    dflt_file = write_dflt_file(tmpl_file, parameters_file)
+    assert_true(len(known_dflt_file), len(dflt_file))
+    os.remove(dflt_file)
+
+
+def test_write_dtmpl_file():
+    """Test the 'write_dtmpl_file' function against a known dtmpl file."""
+    known_dtmpl_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
+    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
+    base_input_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
+    parameter_names = ['starting_mean_annual_temperature',
+                       'total_annual_precipitation']
+    dtmpl_file = write_dtmpl_file(tmpl_file,
+                                  base_input_file,
+                                  parameter_names)
+    assert_true(filecmp.cmp(known_dtmpl_file, dtmpl_file))
+    os.remove(dtmpl_file)

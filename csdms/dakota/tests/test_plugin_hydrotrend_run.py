@@ -66,7 +66,7 @@ def test_run_by_setting_attributes():
         v = d.method
         v.component = 'hydrotrend'
         v.run_directory = run_dir
-        v.template_file = os.path.join(data_dir, 'HYDRO.IN.tmpl')
+        v.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
         v.input_files = [os.path.join(data_dir, 'HYDRO0.HYPS')]
         v.variable_descriptors = ['starting_mean_annual_temperature',
                                   'total_annual_precipitation']
@@ -91,7 +91,7 @@ def test_run_from_config_file():
     if is_dakota_installed() and is_hydrotrend_installed():
         d = Dakota.from_file_like(existing_config_file)
         d.method.run_directory = run_dir
-        d.method.template_file = os.path.join(data_dir, 'HYDRO.IN.tmpl')
+        d.method.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
         d.method.input_files = [os.path.join(data_dir, 'HYDRO0.HYPS')]
         d.write_configuration_file(config_file)
         d.write_input_file()
