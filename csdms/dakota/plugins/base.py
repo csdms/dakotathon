@@ -3,10 +3,56 @@
 
 import os
 import re
+import yaml
 from abc import ABCMeta, abstractmethod
 
 
-def write_dtmpl_file(base_tmpl_file, dflt_input_file, parameter_names):
+def write_dflt_file(tmpl_file, parameters_file):
+    """Create a component input file populated with default values.
+
+    Parameters
+    ----------
+    tmpl_file : str
+      The path to the CSDMS template file defined for the component.
+    parameters_file : str
+      The path to the CSDMS parameters file defined for the component.
+
+    Returns
+    -------
+    str or None
+      The path to the new dflt file, or None on an error.
+
+    """
+    with open(tmpl_file, 'r') as fp:
+        template = fp.read().split('\n')
+
+    with open(parameters_file, 'r') as fp:
+        parameters = yaml.safe_load(fp)
+
+    parameters['run_duration'] = {'value':{'default':'1'}}
+
+    defaults = template
+    for p_name in parameters.keys():
+        p_default = str(parameters[p_name]['value']['default'])
+        for i, line_tmpl in enumerate(template):
+            if re.search(p_name, line_tmpl):
+                line_dflt = defaults[i]
+                line_tmpl_split = line_tmpl.strip().split()
+                line_dflt_split = line_dflt.strip().split()
+                for j, item in enumerate(line_tmpl_split):
+                    if item.startswith('{' + p_name):
+                        line_dflt_split[j] = p_default
+                defaults[i] = ' '.join(line_dflt_split)
+
+    base_input_file, ext = os.path.splitext(tmpl_file)
+    dflt_file = base_input_file + '.dflt'
+    with open(dflt_file, 'w') as ofp:
+        ofp.write('\n'.join(defaults))
+
+    return dflt_file
+
+
+def write_dtmpl_file(tmpl_file, dflt_input_file, parameter_names):
     """Create a template input file for use by Dakota.
 
     In the CSDMS framework, the tmpl file is an input file for a
@@ -19,7 +65,7 @@ def write_dtmpl_file(base_tmpl_file, dflt_input_file, parameter_names):
 
     Parameters
     ----------
-    base_tmpl_file : str
+    tmpl_file : str
       The path to the CSDMS template file defined for the component.
     dflt_input_file : str
       An input file that contains the default parameter values for a
@@ -34,7 +80,7 @@ def write_dtmpl_file(base_tmpl_file, dflt_input_file, parameter_names):
       The path to the new dtmpl file, or None on an error.
 
     """
-    with open(base_tmpl_file, 'r') as fp:
+    with open(tmpl_file, 'r') as fp:
         txt_base_tmpl = fp.read().split('\n')
     with open(dflt_input_file, 'r') as fp:
         txt_dflt_input = fp.read().split('\n')
@@ -50,7 +96,7 @@ def write_dtmpl_file(base_tmpl_file, dflt_input_file, parameter_names):
                         line_input_split[j] = '{' + p_name + '}'
                 txt_dflt_input[i] = ' '.join(line_input_split)
 
-    input_file, ext = os.path.splitext(base_tmpl_file)
+    input_file, ext = os.path.splitext(tmpl_file)
     dtmpl_file = input_file + '.dtmpl'
     with open(dtmpl_file, 'w') as fp:
         fp.write('\n'.join(txt_dflt_input))
