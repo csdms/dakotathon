@@ -29,7 +29,7 @@ def write_dflt_file(tmpl_file, parameters_file):
     with open(parameters_file, 'r') as fp:
         parameters = yaml.safe_load(fp)
 
-    parameters['run_duration'] = {'value':{'default':'1'}}
+    parameters['_run_duration'] = {'value':{'default':'1'}}
 
     defaults = template
     for p_name in parameters.keys():
