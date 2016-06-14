@@ -14,7 +14,6 @@ import tempfile
 import numpy as np
 from numpy.testing import assert_almost_equal
 from nose.tools import raises, with_setup, assert_is, assert_true
-from csdms.dakota.plugins.base import write_dflt_file, write_dtmpl_file
 from csdms.dakota.plugins.hydrotrend import HydroTrend, is_installed
 from csdms.dakota.utils import get_configuration
 from . import start_dir, data_dir
@@ -118,27 +117,3 @@ def test_write():
     h.output_values = [1.0, 2.0]
     h.write(params_file, results_file)
     assert_true(filecmp.cmp(known_results_file, results_file))
-
-
-def test_write_dflt_file():
-    """Test the 'write_dflt_file' function versus a known dflt file."""
-    known_dflt_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
-    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
-    parameters_file = os.path.join(data_dir, 'parameters.yaml')
-    dflt_file = write_dflt_file(tmpl_file, parameters_file)
-    assert_true(len(known_dflt_file), len(dflt_file))
-    os.remove(dflt_file)
-
-
-def test_write_tmpl_file():
-    """Test the write_tmpl_file method matches a known tmpl file."""
-    known_tmpl_file = os.path.join(data_dir, 'HYDRO.IN.tmpl')
-    base_tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
-    base_input_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
-    parameter_names = ['starting_mean_annual_temperature',
-                       'total_annual_precipitation']
-    tmpl_file = write_dtmpl_file(base_tmpl_file,
-                                 base_input_file,
-                                 parameter_names)
-    assert_true(filecmp.cmp(known_tmpl_file, tmpl_file))
-    os.remove(tmpl_file)
