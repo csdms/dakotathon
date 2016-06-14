@@ -29,23 +29,20 @@ def write_dflt_file(tmpl_file, parameters_file):
     with open(parameters_file, 'r') as fp:
         parameters = yaml.safe_load(fp)
 
-    parameters['_run_duration'] = {'value':{'default':'1'}}
+    parameters['_run_duration'] = {'value': {'default': '1'}}
 
     defaults = template
     for p_name in parameters.keys():
         p_default = str(parameters[p_name]['value']['default'])
         for i, line_tmpl in enumerate(template):
             if re.search(p_name, line_tmpl):
-                line_dflt = defaults[i]
-                line_tmpl_split = line_tmpl.strip().split()
-                line_dflt_split = line_dflt.strip().split()
-                for j, item in enumerate(line_tmpl_split):
+                line_dflt_split = defaults[i].strip().split()
+                for j, item in enumerate(line_tmpl.strip().split()):
                     if item.startswith('{' + p_name):
                         line_dflt_split[j] = p_default
                 defaults[i] = ' '.join(line_dflt_split)
 
-    base_input_file, ext = os.path.splitext(tmpl_file)
-    dflt_file = base_input_file + '.dflt'
+    dflt_file = os.path.splitext(tmpl_file)[0] + '.dflt'
     with open(dflt_file, 'w') as ofp:
         ofp.write('\n'.join(defaults))
 
@@ -88,16 +85,13 @@ def write_dtmpl_file(tmpl_file, dflt_input_file, parameter_names):
     for p_name in parameter_names:
         for i, line_tmpl in enumerate(txt_base_tmpl):
             if re.search(p_name, line_tmpl):
-                line_input = txt_dflt_input[i]
-                line_tmpl_split = line_tmpl.strip().split()
-                line_input_split = line_input.strip().split()
-                for j, item in enumerate(line_tmpl_split):
+                line_input_split = txt_dflt_input[i].strip().split()
+                for j, item in enumerate(line_tmpl.strip().split()):
                     if item.startswith('{' + p_name):
                         line_input_split[j] = '{' + p_name + '}'
                 txt_dflt_input[i] = ' '.join(line_input_split)
 
-    input_file, ext = os.path.splitext(tmpl_file)
-    dtmpl_file = input_file + '.dtmpl'
+    dtmpl_file = os.path.splitext(tmpl_file)[0] + '.dtmpl'
     with open(dtmpl_file, 'w') as fp:
         fp.write('\n'.join(txt_dflt_input))
 
