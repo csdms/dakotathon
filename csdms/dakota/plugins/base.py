@@ -1,60 +1,61 @@
 #! /usr/bin/env python
 """An abstract base class for all Dakota component plugins."""
 
+import os
+import re
 from abc import ABCMeta, abstractmethod
 
 
-def write_tmpl_file(base_tmpl_file, base_input_file, parameter_names):
-    """Create a template HydroTrend input file used by Dakota.
+def write_dtmpl_file(base_tmpl_file, dflt_input_file, parameter_names):
+    """Create a template input file for use by Dakota.
 
-    The tmpl file is a HydroTrend input file, but with the
-    parameters used by Dakota replaced with their descriptors set
-    in the Dakota input file. The tmpl file is written to the
-    current directory.
+    In the CSDMS framework, the tmpl file is an input file for a
+    component, but with the parameter values replaced by
+    `{parameter_name}`. Dakota uses the same idea. This function
+    creates a Dakota dtmpl file from a CSDMS component tmpl file. Only
+    the parameters used by Dakota are left in the tmpl format; the
+    remainder are populated with default values for the component. The
+    dtmpl file is written to the current directory.
 
     Parameters
     ----------
     base_tmpl_file : str
-      The path to the template file defined for the HydroTrend
+      The path to the CSDMS template file defined for the component.
+    dflt_input_file : str
+      An input file that contains the default parameter values for a
       component.
-    base_input_file : str
-      A HydroTrend input file that contains parameter values for a
-      HydroTrend simulation.
     parameter_names : list of str
-      A list of HydroTrend parameter names (standard names) that
-      will be evaluated by Dakota.
+      A list of parameter names for the component to be evaluated by
+      Dakota.
 
     Returns
     -------
     str or None
-      The path to the new tmpl file, or None on an error.
+      The path to the new dtmpl file, or None on an error.
 
     """
-    import re
-
     with open(base_tmpl_file, 'r') as fp:
         txt_base_tmpl = fp.read().split('\n')
-    with open(base_input_file, 'r') as fp:
-        txt_base_input = fp.read().split('\n')
-
-    if len(txt_base_tmpl) != len(txt_base_input):
-        raise
+    with open(dflt_input_file, 'r') as fp:
+        txt_dflt_input = fp.read().split('\n')
 
     for p_name in parameter_names:
         for i, line_tmpl in enumerate(txt_base_tmpl):
             if re.search(p_name, line_tmpl):
-                line_input = txt_base_input[i]
+                line_input = txt_dflt_input[i]
                 line_tmpl_split = line_tmpl.strip().split()
                 line_input_split = line_input.strip().split()
                 for j, item in enumerate(line_tmpl_split):
                     if item.startswith('{' + p_name):
                         line_input_split[j] = '{' + p_name + '}'
-                txt_base_input[i] = ' '.join(line_input_split)
+                txt_dflt_input[i] = ' '.join(line_input_split)
 
-    tmpl_file = 'HYDRO.IN.tmpl'
-    with open(tmpl_file, 'w') as fp:
-        fp.write('\n'.join(txt_base_input))
-        return tmpl_file
+    input_file, ext = os.path.splitext(base_tmpl_file)
+    dtmpl_file = input_file + '.dtmpl'
+    with open(dtmpl_file, 'w') as fp:
+        fp.write('\n'.join(txt_dflt_input))
+
+    return dtmpl_file
 
 
 class PluginBase(object):
