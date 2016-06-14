@@ -26,7 +26,7 @@ response_statistics:
 - mean
 results_file: results.out
 run_directory: /Users/mpiper/projects/mdpiper/dakota/dakota
-template_file: /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO.IN.tmpl
+template_file: /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO.IN.dtmpl
 variable_descriptors:
 - starting_mean_annual_temperature
 - total_annual_precipitation

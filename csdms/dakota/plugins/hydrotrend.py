@@ -29,7 +29,7 @@ class HydroTrend(PluginBase):
 
     def __init__(self, input_dir='HYDRO_IN',
                  output_dir='HYDRO_OUTPUT', input_file='HYDRO.IN',
-                 input_template='HYDRO.IN.tmpl',
+                 input_template='HYDRO.IN.dtmpl',
                  hypsometry_file='HYDRO0.HYPS', output_files=None,
                  output_statistics=None, **kwargs):
         """Define default files and directories."""

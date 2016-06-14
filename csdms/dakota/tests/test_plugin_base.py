@@ -100,15 +100,15 @@ def test_write_dflt_file():
     os.remove(dflt_file)
 
 
-def test_write_tmpl_file():
-    """Test the write_tmpl_file method matches a known tmpl file."""
-    known_tmpl_file = os.path.join(data_dir, 'HYDRO.IN.tmpl')
-    base_tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
+def test_write_dtmpl_file():
+    """Test the 'write_dtmpl_file' function against a known dtmpl file."""
+    known_dtmpl_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
+    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
     base_input_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
     parameter_names = ['starting_mean_annual_temperature',
                        'total_annual_precipitation']
-    tmpl_file = write_dtmpl_file(base_tmpl_file,
-                                 base_input_file,
-                                 parameter_names)
-    assert_true(filecmp.cmp(known_tmpl_file, tmpl_file))
-    os.remove(tmpl_file)
+    dtmpl_file = write_dtmpl_file(tmpl_file,
+                                  base_input_file,
+                                  parameter_names)
+    assert_true(filecmp.cmp(known_dtmpl_file, dtmpl_file))
+    os.remove(dtmpl_file)
