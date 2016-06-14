@@ -42,7 +42,7 @@ def write_dflt_file(tmpl_file, parameters_file):
                         line_dflt_split[j] = p_default
                 defaults[i] = ' '.join(line_dflt_split)
 
-    dflt_file = os.path.splitext(tmpl_file)[0] + '.dflt'
+    dflt_file = os.path.splitext(os.path.basename(tmpl_file))[0] + '.dflt'
     with open(dflt_file, 'w') as ofp:
         ofp.write('\n'.join(defaults))
 
@@ -91,7 +91,7 @@ def write_dtmpl_file(tmpl_file, dflt_input_file, parameter_names):
                         line_input_split[j] = '{' + p_name + '}'
                 txt_dflt_input[i] = ' '.join(line_input_split)
 
-    dtmpl_file = os.path.splitext(tmpl_file)[0] + '.dtmpl'
+    dtmpl_file = os.path.splitext(os.path.basename(tmpl_file))[0] + '.dtmpl'
     with open(dtmpl_file, 'w') as fp:
         fp.write('\n'.join(txt_dflt_input))
 
