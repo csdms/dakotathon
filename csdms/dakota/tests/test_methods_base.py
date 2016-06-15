@@ -80,15 +80,18 @@ def test_get_input_files():
 
 def test_set_input_files():
     """Test setting the input_files property."""
-    for input_file in [['foo.in'], ('foo.in',)]:
+    for input_file in ['foo.in', ['foo.in'], ('foo.in',)]:
         c.input_files = input_file
-        assert_equal(c.input_files, input_file)
+        if type(input_file) is not str:
+            input_file = input_file[0]
+        pathified_input_file = os.path.abspath(input_file)
+        assert_equal(c.input_files, (pathified_input_file,))
 
 
 @raises(TypeError)
 def test_set_input_files_fails_if_scalar():
-    """Test that the input_files property fails with scalar string."""
-    input_file = 'foo.in'
+    """Test that the input_files property fails with a non-string scalar."""
+    input_file = 42
     c.input_files = input_file
 
 

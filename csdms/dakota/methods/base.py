@@ -118,7 +118,7 @@ class MethodsBase(object):
 
     @property
     def input_files(self):
-        """Input files used by component."""
+        """A tuple of input files used by the component."""
         return self._input_files
 
     @input_files.setter
@@ -127,13 +127,18 @@ class MethodsBase(object):
 
         Parameters
         ----------
-        value : list or tuple of str
-          The new input files.
+        value : str or list or tuple of str
+          The new input file(s).
 
         """
+        input_files = []
+        if type(value) is str:
+            value = [value]
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Input files must be a tuple or a list")
-        self._input_files = value
+            raise TypeError("Input files must be a string, tuple or list")
+        for item in value:
+            input_files.append(os.path.abspath(item))
+        self._input_files = tuple(input_files)
 
     @property
     def variable_descriptors(self):
