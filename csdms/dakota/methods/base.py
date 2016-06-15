@@ -25,7 +25,7 @@ class MethodsBase(object):
                  variable_type='continuous_design',
                  variable_descriptors=(),
                  interface='direct',
-                 id_interface='Python',
+                 id_interface='CSDMS',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
                  response_descriptors=(),
