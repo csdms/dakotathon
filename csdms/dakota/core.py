@@ -125,6 +125,21 @@ class Dakota(object):
             fp.write(self.method.interface_block())
             fp.write(self.method.responses_block())
 
+    def setup(self):
+        """Write the Dakota configuration and input files.
+
+        Examples
+        --------
+        As a convenience, make a configuration file and an input file
+        for an experiment in one step:
+
+        >>> d = Dakota(method='vector_parameter_study')
+        >>> d.setup()
+
+        """
+        self.write_configuration_file()
+        self.write_input_file()
+
     def run(self):
         """Run the Dakota experiment."""
         subprocess.check_output(['dakota',
