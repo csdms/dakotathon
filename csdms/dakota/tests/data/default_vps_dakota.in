@@ -14,7 +14,7 @@ variables
     descriptors = 'x1' 'x2'
 
 interface
-  id_interface = 'Python'
+  id_interface = 'CSDMS'
   direct
   analysis_driver = 'rosenbrock'
 
