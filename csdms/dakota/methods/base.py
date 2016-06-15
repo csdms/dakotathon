@@ -52,6 +52,12 @@ class MethodsBase(object):
         self._response_files = response_files
         self._response_statistics = response_statistics
 
+        if self.component is not None:
+            if self.analysis_driver == 'rosenbrock':
+                self.analysis_driver = 'dakota_run_plugin'
+            if self.interface == 'direct':
+                self.interface = 'fork'
+
     @property
     def run_directory(self):
         """The run directory path."""
