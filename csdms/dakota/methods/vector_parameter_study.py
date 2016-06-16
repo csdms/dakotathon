@@ -16,13 +16,13 @@ class VectorParameterStudy(MethodsBase):
                  initial_point=(-0.3, 0.2),
                  final_point=(1.1, 1.3),
                  n_steps=10,
-                 response_descriptors=('y1',),
+                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota vector parameter study.
 
         Parameters
         ----------
-        variables, response_descriptors : array_like of str
+        variables, responses : array_like of str
           Names used for input and output variables.
         initial_point : array_like of float
           Start point for the parameter study.
@@ -44,7 +44,7 @@ class VectorParameterStudy(MethodsBase):
         self._initial_point = initial_point
         self._final_point = final_point
         self.n_steps = n_steps
-        self.response_descriptors = response_descriptors
+        self.responses = responses
 
     @property
     def initial_point(self):

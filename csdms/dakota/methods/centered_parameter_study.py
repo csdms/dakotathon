@@ -16,13 +16,13 @@ class CenteredParameterStudy(MethodsBase):
                  initial_point=(0.0, 0.0),
                  steps_per_variable=(5, 4),
                  step_vector=(0.4, 0.5),
-                 response_descriptors=('y1',),
+                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota centered parameter study.
 
         Parameters
         ----------
-        variables, response_descriptors : array_like of str
+        variables, responses : array_like of str
           Names used for input and output variables.
         initial_point : array_like of float
           Start point (the center) for the parameter study.
@@ -44,7 +44,7 @@ class CenteredParameterStudy(MethodsBase):
         self._initial_point = initial_point
         self._steps_per_variable = steps_per_variable
         self._step_vector = step_vector
-        self.response_descriptors = response_descriptors
+        self.responses = responses
 
     @property
     def initial_point(self):

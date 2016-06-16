@@ -16,13 +16,13 @@ class MultidimParameterStudy(MethodsBase):
                  lower_bounds=(-2.0, -2.0),
                  upper_bounds=(2.0, 2.0),
                  partitions=(10, 8),
-                 response_descriptors=('y1',),
+                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota multidim parameter study.
 
         Parameters
         ----------
-        variables, response_descriptors : array_like of str
+        variables, responses : array_like of str
           Names used for input and output variables.
         lower_bounds : array_like of float
           Minimum allowable parameter values.
@@ -45,7 +45,7 @@ class MultidimParameterStudy(MethodsBase):
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
         self._partitions = partitions
-        self.response_descriptors = response_descriptors
+        self.responses = responses
 
     @property
     def lower_bounds(self):

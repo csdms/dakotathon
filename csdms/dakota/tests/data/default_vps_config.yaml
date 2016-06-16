@@ -14,7 +14,7 @@ is_objective_function: false
 method: vector_parameter_study
 n_steps: 10
 parameters_file: params.in
-response_descriptors: !!python/tuple
+responses: !!python/tuple
 - y1
 response_files: !!python/tuple []
 response_statistics: !!python/tuple []

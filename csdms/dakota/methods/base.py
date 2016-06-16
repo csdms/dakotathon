@@ -28,7 +28,7 @@ class MethodsBase(object):
                  id_interface='CSDMS',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
-                 response_descriptors=(),
+                 responses=(),
                  response_files=(),
                  response_statistics=(),
                  **kwargs):
@@ -48,7 +48,7 @@ class MethodsBase(object):
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
         self.is_objective_function = is_objective_function
-        self._response_descriptors = response_descriptors
+        self._responses = responses
         self._response_files = response_files
         self._response_statistics = response_statistics
 
@@ -160,12 +160,12 @@ class MethodsBase(object):
         self._variables = value
 
     @property
-    def response_descriptors(self):
+    def responses(self):
         """Labels attached to Dakota responses."""
-        return self._response_descriptors
+        return self._responses
 
-    @response_descriptors.setter
-    def response_descriptors(self, value):
+    @responses.setter
+    def responses(self, value):
         """Set labels for Dakota responses.
 
         Parameters
@@ -176,7 +176,7 @@ class MethodsBase(object):
         """
         if not isinstance(value, (tuple, list)):
             raise TypeError("Descriptor must be a tuple or a list")
-        self._response_descriptors = value
+        self._responses = value
 
     @property
     def response_files(self):
@@ -286,14 +286,14 @@ class MethodsBase(object):
 
     def responses_block(self):
         """Define the responses block of a Dakota input file."""
-        n_responses = len(self.response_descriptors)
+        n_responses = len(self.responses)
         s = 'responses\n'
         if self.is_objective_function:
             s += '  objective_functions = {}\n'.format(n_responses)
         else:
             s += '  response_functions = {}\n'.format(n_responses)
         s += '    response_descriptors ='
-        for rd in self.response_descriptors:
+        for rd in self.responses:
             s += ' {!r}'.format(rd)
         s += '\n' \
              + '  no_gradients\n' \

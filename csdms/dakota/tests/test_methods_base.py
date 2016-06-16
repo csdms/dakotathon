@@ -114,23 +114,23 @@ def test_set_variables_fails_if_scalar():
     c.variables = desc
 
 
-def test_get_response_descriptors():
-    """Test getting the response_descriptors property."""
-    assert_equal(c.response_descriptors, tuple())
+def test_get_responses():
+    """Test getting the responses property."""
+    assert_equal(c.responses, tuple())
 
 
-def test_set_response_descriptors():
-    """Test setting the response_descriptors property."""
+def test_set_responses():
+    """Test setting the responses property."""
     for desc in [['Qs_median'], ('Qs_median',)]:
-        c.response_descriptors = desc
-        assert_equal(c.response_descriptors, desc)
+        c.responses = desc
+        assert_equal(c.responses, desc)
 
 
 @raises(TypeError)
-def test_set_response_descriptors_fails_if_scalar():
-    """Test that the response_descriptors property fails with scalar string."""
+def test_set_responses_fails_if_scalar():
+    """Test that the responses property fails with scalar string."""
     desc = 'Qs_median'
-    c.response_descriptors = desc
+    c.responses = desc
 
 
 def test_get_response_files():
