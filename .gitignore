@@ -60,3 +60,6 @@ target/
 *.dat
 *.out
 dakota.rst
+
+# Jupyter Notebook
+.ipynb_checkpoints
