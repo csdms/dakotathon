@@ -23,7 +23,7 @@ class MethodsBase(object):
                  input_files=(),
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=(),
+                 variables=(),
                  interface='direct',
                  id_interface='CSDMS',
                  analysis_driver='rosenbrock',
@@ -41,7 +41,7 @@ class MethodsBase(object):
         self.data_file = data_file
         self.method = method
         self.variable_type = variable_type
-        self._variable_descriptors = variable_descriptors
+        self._variables = variables
         self.interface = interface
         self.id_interface = id_interface
         self.analysis_driver = analysis_driver
@@ -141,12 +141,12 @@ class MethodsBase(object):
         self._input_files = tuple(input_files)
 
     @property
-    def variable_descriptors(self):
+    def variables(self):
         """Labels attached to Dakota variables."""
-        return self._variable_descriptors
+        return self._variables
 
-    @variable_descriptors.setter
-    def variable_descriptors(self, value):
+    @variables.setter
+    def variables(self, value):
         """Set labels for Dakota variables.
 
         Parameters
@@ -157,7 +157,7 @@ class MethodsBase(object):
         """
         if not isinstance(value, (tuple, list)):
             raise TypeError("Descriptor must be a tuple or a list")
-        self._variable_descriptors = value
+        self._variables = value
 
     @property
     def response_descriptors(self):
@@ -258,9 +258,9 @@ class MethodsBase(object):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
             + ' {0} = {1}\n'.format(self.variable_type,
-                                    len(self.variable_descriptors))
+                                    len(self.variables))
         s += '    descriptors ='
-        for vd in self.variable_descriptors:
+        for vd in self.variables:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

@@ -68,8 +68,8 @@ def test_run_by_setting_attributes():
         v.run_directory = run_dir
         v.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
         v.input_files = [os.path.join(data_dir, 'HYDRO0.HYPS')]
-        v.variable_descriptors = ['starting_mean_annual_temperature',
-                                  'total_annual_precipitation']
+        v.variables = ['starting_mean_annual_temperature',
+                       'total_annual_precipitation']
         v.initial_point = [10.0, 1.5]
         v.final_point = [20.0, 2.5]
         v.n_steps = 5

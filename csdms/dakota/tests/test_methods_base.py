@@ -21,7 +21,7 @@ class Concrete(MethodsBase):
 
     def __init__(self):
         MethodsBase.__init__(self)
-        self.variable_descriptors = ['x0', 'x1']
+        self.variables = ['x0', 'x1']
 
     def method_block(self):
         return MethodsBase.method_block(self)
@@ -95,23 +95,23 @@ def test_set_input_files_fails_if_scalar():
     c.input_files = input_file
 
 
-def test_get_variable_descriptors():
-    """Test getting the variable_descriptors property."""
-    assert_true(type(c.variable_descriptors) is list)
+def test_get_variables():
+    """Test getting the variables property."""
+    assert_true(type(c.variables) is list)
 
 
-def test_set_variable_descriptors():
-    """Test setting the variable_descriptors property."""
+def test_set_variables():
+    """Test setting the variables property."""
     for desc in [['x1'], ('x1',)]:
-        c.variable_descriptors = desc
-        assert_equal(c.variable_descriptors, desc)
+        c.variables = desc
+        assert_equal(c.variables, desc)
 
 
 @raises(TypeError)
-def test_set_variable_descriptors_fails_if_scalar():
-    """Test that the variable_descriptors property fails with scalar string."""
+def test_set_variables_fails_if_scalar():
+    """Test that the variables property fails with scalar string."""
     desc = 'x1'
-    c.variable_descriptors = desc
+    c.variables = desc
 
 
 def test_get_response_descriptors():

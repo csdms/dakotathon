@@ -12,7 +12,7 @@ class CenteredParameterStudy(MethodsBase):
     """Define parameters for a Dakota centered parameter study."""
 
     def __init__(self,
-                 variable_descriptors=('x1', 'x2'),
+                 variables=('x1', 'x2'),
                  initial_point=(0.0, 0.0),
                  steps_per_variable=(5, 4),
                  step_vector=(0.4, 0.5),
@@ -22,7 +22,7 @@ class CenteredParameterStudy(MethodsBase):
 
         Parameters
         ----------
-        variable_descriptors, response_descriptors : array_like of str
+        variables, response_descriptors : array_like of str
           Names used for input and output variables.
         initial_point : array_like of float
           Start point (the center) for the parameter study.
@@ -40,7 +40,7 @@ class CenteredParameterStudy(MethodsBase):
         """
         MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
-        self.variable_descriptors = variable_descriptors
+        self.variables = variables
         self._initial_point = initial_point
         self._steps_per_variable = steps_per_variable
         self._step_vector = step_vector
@@ -133,13 +133,13 @@ class CenteredParameterStudy(MethodsBase):
         """
         s = 'variables\n' \
             + '  {0} = {1}\n'.format(self.variable_type,
-                                     len(self.variable_descriptors)) \
+                                     len(self.variables)) \
             + '    initial_point ='
         for pt in self.initial_point:
             s += ' {}'.format(pt)
         s += '\n' \
              + '    descriptors ='
-        for vd in self.variable_descriptors:
+        for vd in self.variables:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

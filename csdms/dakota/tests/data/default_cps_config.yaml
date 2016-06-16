@@ -23,7 +23,7 @@ steps_per_variable: !!python/tuple
 - 5
 - 4
 template_file: null
-variable_descriptors: !!python/tuple
+variables: !!python/tuple
 - x1
 - x2
 variable_type: continuous_design

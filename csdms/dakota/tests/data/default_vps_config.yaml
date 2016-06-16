@@ -21,7 +21,7 @@ response_statistics: !!python/tuple []
 results_file: results.out
 run_directory: /Users/mpiper/scratch
 template_file: null
-variable_descriptors: !!python/tuple
+variables: !!python/tuple
 - x1
 - x2
 variable_type: continuous_design
