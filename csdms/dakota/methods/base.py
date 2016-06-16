@@ -151,12 +151,14 @@ class MethodsBase(object):
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : str or list or tuple of str
           The new variables labels.
 
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Descriptor must be a tuple or a list")
+            raise TypeError("Descriptors must be a string, tuple or list")
         self._variables = value
 
     @property
@@ -170,12 +172,14 @@ class MethodsBase(object):
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : a str or list or tuple of str
           The new response labels.
 
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Descriptor must be a tuple or a list")
+            raise TypeError("Descriptors must be a string, tuple or list")
         self._responses = value
 
     @property

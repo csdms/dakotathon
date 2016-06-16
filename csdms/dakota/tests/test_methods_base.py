@@ -107,11 +107,11 @@ def test_set_variables():
         assert_equal(c.variables, desc)
 
 
-@raises(TypeError)
-def test_set_variables_fails_if_scalar():
-    """Test that the variables property fails with scalar string."""
-    desc = 'x1'
-    c.variables = desc
+# @raises(TypeError)
+# def test_set_variables_fails_if_scalar():
+#     """Test that the variables property fails with scalar string."""
+#     desc = 'x1'
+#     c.variables = desc
 
 
 def test_get_responses():
@@ -126,11 +126,11 @@ def test_set_responses():
         assert_equal(c.responses, desc)
 
 
-@raises(TypeError)
-def test_set_responses_fails_if_scalar():
-    """Test that the responses property fails with scalar string."""
-    desc = 'Qs_median'
-    c.responses = desc
+# @raises(TypeError)
+# def test_set_responses_fails_if_scalar():
+#     """Test that the responses property fails with scalar string."""
+#     desc = 'Qs_median'
+#     c.responses = desc
 
 
 def test_get_response_files():
