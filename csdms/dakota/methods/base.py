@@ -25,7 +25,7 @@ class MethodsBase(object):
                  variable_type='continuous_design',
                  variable_descriptors=(),
                  interface='direct',
-                 id_interface='Python',
+                 id_interface='CSDMS',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
                  response_descriptors=(),
@@ -51,6 +51,12 @@ class MethodsBase(object):
         self._response_descriptors = response_descriptors
         self._response_files = response_files
         self._response_statistics = response_statistics
+
+        if self.component is not None:
+            if self.analysis_driver == 'rosenbrock':
+                self.analysis_driver = 'dakota_run_plugin'
+            if self.interface == 'direct':
+                self.interface = 'fork'
 
     @property
     def run_directory(self):
@@ -112,7 +118,7 @@ class MethodsBase(object):
 
     @property
     def input_files(self):
-        """Input files used by component."""
+        """A tuple of input files used by the component."""
         return self._input_files
 
     @input_files.setter
@@ -121,13 +127,18 @@ class MethodsBase(object):
 
         Parameters
         ----------
-        value : list or tuple of str
-          The new input files.
+        value : str or list or tuple of str
+          The new input file(s).
 
         """
+        input_files = []
+        if type(value) is str:
+            value = [value]
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Input files must be a tuple or a list")
-        self._input_files = value
+            raise TypeError("Input files must be a string, tuple or list")
+        for item in value:
+            input_files.append(os.path.abspath(item))
+        self._input_files = tuple(input_files)
 
     @property
     def variable_descriptors(self):

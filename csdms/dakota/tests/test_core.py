@@ -104,6 +104,14 @@ def test_input_file_contents():
     assert_true(filecmp.cmp(known_file, input_file))
 
 
+def test_setup():
+    d = Dakota(method='vector_parameter_study')
+    d.write_configuration_file()
+    d.write_input_file()
+    assert_true(os.path.exists(d.method.configuration_file))
+    assert_true(filecmp.cmp(known_file, input_file))
+
+
 def test_default_run_with_input_file():
     """Test default object run method with input file."""
     if is_dakota_installed():
