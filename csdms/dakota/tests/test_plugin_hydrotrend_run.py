@@ -62,24 +62,18 @@ def teardown_module():
 def test_run_by_setting_attributes():
     """Test running a HydroTrend simulation."""
     if is_dakota_installed() and is_hydrotrend_installed():
-        d = Dakota(method='vector_parameter_study')
-        v = d.method
-        v.component = 'hydrotrend'
-        v.run_directory = run_dir
-        v.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
-        v.input_files = [os.path.join(data_dir, 'HYDRO0.HYPS')]
-        v.variables = ['starting_mean_annual_temperature',
-                       'total_annual_precipitation']
-        v.initial_point = [10.0, 1.5]
-        v.final_point = [20.0, 2.5]
-        v.n_steps = 5
-        v.interface = 'fork'
-        v.analysis_driver = 'dakota_run_plugin'
-        v.response_descriptors = ['Qs_median', 'Q_mean']
-        v.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
-        v.response_statistics = ['median', 'mean']
-        d.write_configuration_file(config_file)
-        d.write_input_file()
+        d = Dakota(method='vector_parameter_study', component='hydrotrend')
+        d.method.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
+        d.method.input_files = [os.path.join(data_dir, 'HYDRO0.HYPS')]
+        d.method.variables = ['starting_mean_annual_temperature',
+                              'total_annual_precipitation']
+        d.method.initial_point = [10.0, 1.5]
+        d.method.final_point = [20.0, 2.5]
+        d.method.n_steps = 5
+        d.method.response_descriptors = ['Qs_median', 'Q_mean']
+        d.method.response_files = ['HYDROASCII.QS', 'HYDROASCII.Q']
+        d.method.response_statistics = ['median', 'mean']
+        d.setup()
         d.run()
         assert_true(os.path.exists(d.input_file))
         assert_true(os.path.exists(d.output_file))
