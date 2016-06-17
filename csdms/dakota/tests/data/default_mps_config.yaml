@@ -14,7 +14,7 @@ parameters_file: params.in
 partitions: !!python/tuple
 - 10
 - 8
-response_descriptors: !!python/tuple
+responses: !!python/tuple
 - y1
 response_files: !!python/tuple []
 response_statistics: !!python/tuple []
@@ -24,7 +24,7 @@ template_file: null
 upper_bounds: !!python/tuple
 - 2.0
 - 2.0
-variable_descriptors: !!python/tuple
+variables: !!python/tuple
 - x1
 - x2
 variable_type: continuous_design

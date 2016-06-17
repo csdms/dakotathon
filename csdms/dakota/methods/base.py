@@ -23,12 +23,12 @@ class MethodsBase(object):
                  input_files=(),
                  data_file='dakota.dat',
                  variable_type='continuous_design',
-                 variable_descriptors=(),
+                 variables=(),
                  interface='direct',
                  id_interface='CSDMS',
                  analysis_driver='rosenbrock',
                  is_objective_function=False,
-                 response_descriptors=(),
+                 responses=(),
                  response_files=(),
                  response_statistics=(),
                  **kwargs):
@@ -41,14 +41,14 @@ class MethodsBase(object):
         self.data_file = data_file
         self.method = method
         self.variable_type = variable_type
-        self._variable_descriptors = variable_descriptors
+        self._variables = variables
         self.interface = interface
         self.id_interface = id_interface
         self.analysis_driver = analysis_driver
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
         self.is_objective_function = is_objective_function
-        self._response_descriptors = response_descriptors
+        self._responses = responses
         self._response_files = response_files
         self._response_statistics = response_statistics
 
@@ -73,9 +73,7 @@ class MethodsBase(object):
           The new run directory path.
 
         """
-        if not os.path.isabs(value):
-            value = os.path.abspath(value)
-        self._run_directory = value
+        self._run_directory = os.path.abspath(value)
 
     @property
     def configuration_file(self):
@@ -141,42 +139,46 @@ class MethodsBase(object):
         self._input_files = tuple(input_files)
 
     @property
-    def variable_descriptors(self):
+    def variables(self):
         """Labels attached to Dakota variables."""
-        return self._variable_descriptors
+        return self._variables
 
-    @variable_descriptors.setter
-    def variable_descriptors(self, value):
+    @variables.setter
+    def variables(self, value):
         """Set labels for Dakota variables.
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : str or list or tuple of str
           The new variables labels.
 
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Descriptor must be a tuple or a list")
-        self._variable_descriptors = value
+            raise TypeError("Descriptors must be a string, tuple or list")
+        self._variables = value
 
     @property
-    def response_descriptors(self):
+    def responses(self):
         """Labels attached to Dakota responses."""
-        return self._response_descriptors
+        return self._responses
 
-    @response_descriptors.setter
-    def response_descriptors(self, value):
+    @responses.setter
+    def responses(self, value):
         """Set labels for Dakota responses.
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : a str or list or tuple of str
           The new response labels.
 
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Descriptor must be a tuple or a list")
-        self._response_descriptors = value
+            raise TypeError("Descriptors must be a string, tuple or list")
+        self._responses = value
 
     @property
     def response_files(self):
@@ -258,9 +260,9 @@ class MethodsBase(object):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
             + ' {0} = {1}\n'.format(self.variable_type,
-                                    len(self.variable_descriptors))
+                                    len(self.variables))
         s += '    descriptors ='
-        for vd in self.variable_descriptors:
+        for vd in self.variables:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)
@@ -286,14 +288,14 @@ class MethodsBase(object):
 
     def responses_block(self):
         """Define the responses block of a Dakota input file."""
-        n_responses = len(self.response_descriptors)
+        n_responses = len(self.responses)
         s = 'responses\n'
         if self.is_objective_function:
             s += '  objective_functions = {}\n'.format(n_responses)
         else:
             s += '  response_functions = {}\n'.format(n_responses)
         s += '    response_descriptors ='
-        for rd in self.response_descriptors:
+        for rd in self.responses:
             s += ' {!r}'.format(rd)
         s += '\n' \
              + '  no_gradients\n' \

@@ -12,17 +12,17 @@ class MultidimParameterStudy(MethodsBase):
     """Define parameters for a Dakota multidim parameter study."""
 
     def __init__(self,
-                 variable_descriptors=('x1', 'x2'),
+                 variables=('x1', 'x2'),
                  lower_bounds=(-2.0, -2.0),
                  upper_bounds=(2.0, 2.0),
                  partitions=(10, 8),
-                 response_descriptors=('y1',),
+                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota multidim parameter study.
 
         Parameters
         ----------
-        variable_descriptors, response_descriptors : array_like of str
+        variables, responses : array_like of str
           Names used for input and output variables.
         lower_bounds : array_like of float
           Minimum allowable parameter values.
@@ -41,11 +41,11 @@ class MultidimParameterStudy(MethodsBase):
         """
         MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
-        self.variable_descriptors = variable_descriptors
+        self.variables = variables
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
         self._partitions = partitions
-        self.response_descriptors = response_descriptors
+        self.responses = responses
 
     @property
     def lower_bounds(self):
@@ -130,7 +130,7 @@ class MultidimParameterStudy(MethodsBase):
         """
         s = 'variables\n' \
             + '  {0} = {1}\n'.format(self.variable_type,
-                                     len(self.variable_descriptors)) \
+                                     len(self.variables)) \
             + '    lower_bounds ='
         for b_lo in self.lower_bounds:
             s += ' {}'.format(b_lo)
@@ -140,7 +140,7 @@ class MultidimParameterStudy(MethodsBase):
             s += ' {}'.format(b_hi)
         s += '\n' \
              + '    descriptors ='
-        for vd in self.variable_descriptors:
+        for vd in self.variables:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

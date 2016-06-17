@@ -12,17 +12,17 @@ class VectorParameterStudy(MethodsBase):
     """Define parameters for a Dakota vector parameter study."""
 
     def __init__(self,
-                 variable_descriptors=('x1', 'x2'),
+                 variables=('x1', 'x2'),
                  initial_point=(-0.3, 0.2),
                  final_point=(1.1, 1.3),
                  n_steps=10,
-                 response_descriptors=('y1',),
+                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota vector parameter study.
 
         Parameters
         ----------
-        variable_descriptors, response_descriptors : array_like of str
+        variables, responses : array_like of str
           Names used for input and output variables.
         initial_point : array_like of float
           Start point for the parameter study.
@@ -40,11 +40,11 @@ class VectorParameterStudy(MethodsBase):
         """
         MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
-        self.variable_descriptors = variable_descriptors
+        self.variables = variables
         self._initial_point = initial_point
         self._final_point = final_point
         self.n_steps = n_steps
-        self.response_descriptors = response_descriptors
+        self.responses = responses
 
     @property
     def initial_point(self):
@@ -111,13 +111,13 @@ class VectorParameterStudy(MethodsBase):
         """
         s = 'variables\n' \
             + '  {0} = {1}\n'.format(self.variable_type,
-                                     len(self.variable_descriptors)) \
+                                     len(self.variables)) \
             + '    initial_point ='
         for pt in self.initial_point:
             s += ' {}'.format(pt)
         s += '\n' \
              + '    descriptors ='
-        for vd in self.variable_descriptors:
+        for vd in self.variables:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

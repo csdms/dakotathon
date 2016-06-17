@@ -14,14 +14,14 @@ is_objective_function: false
 method: vector_parameter_study
 n_steps: 10
 parameters_file: params.in
-response_descriptors: !!python/tuple
+responses: !!python/tuple
 - y1
 response_files: !!python/tuple []
 response_statistics: !!python/tuple []
 results_file: results.out
 run_directory: /Users/mpiper/scratch
 template_file: null
-variable_descriptors: !!python/tuple
+variables: !!python/tuple
 - x1
 - x2
 variable_type: continuous_design
