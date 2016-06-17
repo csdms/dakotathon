@@ -107,11 +107,18 @@ def test_set_variables():
         assert_equal(c.variables, desc)
 
 
-# @raises(TypeError)
-# def test_set_variables_fails_if_scalar():
-#     """Test that the variables property fails with scalar string."""
-#     desc = 'x1'
-#     c.variables = desc
+@raises(TypeError)
+def test_set_variables_fails_if_scalar():
+    """Test that the variables property fails with a non-string scalar."""
+    desc = 42
+    c.variables = desc
+
+
+def test_set_variables_string_to_tuple():
+    """Test that a string is converted to a tuple."""
+    desc = 'x1'
+    c.variables = desc
+    assert_true(type(c.variables) is tuple)
 
 
 def test_get_responses():
@@ -126,11 +133,18 @@ def test_set_responses():
         assert_equal(c.responses, desc)
 
 
-# @raises(TypeError)
-# def test_set_responses_fails_if_scalar():
-#     """Test that the responses property fails with scalar string."""
-#     desc = 'Qs_median'
-#     c.responses = desc
+@raises(TypeError)
+def test_set_responses_fails_if_scalar():
+    """Test that the responses property fails with a non-string scalar."""
+    desc = 42
+    c.responses = desc
+
+
+def test_set_responses_string_to_tuple():
+    """Test that a string is converted to a tuple."""
+    desc = 'x1'
+    c.responses = desc
+    assert_true(type(c.responses) is tuple)
 
 
 def test_get_response_files():

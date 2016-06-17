@@ -73,9 +73,7 @@ class MethodsBase(object):
           The new run directory path.
 
         """
-        if not os.path.isabs(value):
-            value = os.path.abspath(value)
-        self._run_directory = value
+        self._run_directory = os.path.abspath(value)
 
     @property
     def configuration_file(self):
