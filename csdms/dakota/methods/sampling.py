@@ -172,8 +172,10 @@ class Sampling(MethodsBase):
         csdms.dakota.methods.base.MethodsBase.variables_block
 
         """
-        s = 'variables\n' \
-            + '  {0} = {1}'.format(self.variable_type,
+        s = 'variables\n'
+        if 'uncertain' not in self.variable_type:
+            s += '  active all\n'
+        s += '  {0} = {1}'.format(self.variable_type,
                                    len(self.variables))
         s += '\n' \
              + '    lower_bounds ='
