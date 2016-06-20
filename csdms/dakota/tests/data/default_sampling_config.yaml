@@ -1,0 +1,30 @@
+analysis_driver: rosenbrock
+component: null
+configuration_file: /Users/mpiper/scratch/config.yaml
+data_file: dakota.dat
+id_interface: CSDMS
+input_files: !!python/tuple []
+interface: direct
+is_objective_function: false
+lower_bounds: !!python/tuple
+- -1.0
+- -1.0
+method: sampling
+parameters_file: params.in
+response_files: !!python/tuple []
+response_statistics: !!python/tuple []
+responses: !!python/tuple
+- y1
+results_file: results.out
+run_directory: /Users/mpiper/scratch
+sample_type: lhs
+samples: 10
+seed: null
+template_file: null
+upper_bounds: !!python/tuple
+- 1.0
+- 1.0
+variable_type: uniform_uncertain
+variables: !!python/tuple
+- x1
+- x2
