@@ -38,3 +38,12 @@ Vector parameter study
     :members:
     :undoc-members:
     :show-inheritance:
+
+
+Sampling
+----------------------
+
+.. automodule:: csdms.dakota.methods.sampling
+    :members:
+    :undoc-members:
+    :show-inheritance:
