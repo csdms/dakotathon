@@ -14,6 +14,7 @@ class BmiDakota(Bmi):
     def __init__(self):
         """Create a BmiDakota instance."""
         self._model = None
+        self._time = 0.0
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -34,6 +35,7 @@ class BmiDakota(Bmi):
     def update(self):
         """Run Dakota."""
         self._model.run()
+        self._time += self.get_time_step()
 
     def finalize(self):
         """Remove the Dakota instance."""
@@ -42,3 +44,19 @@ class BmiDakota(Bmi):
     def get_component_name(self):
         """Name of the component."""
         return self._name
+
+    def get_start_time(self):
+        """Start time of model."""
+        return 0.0
+
+    def get_end_time(self):
+        """End time of model."""
+        return 1.0
+
+    def get_current_time(self):
+        """Current time of model."""
+        return self._time
+
+    def get_time_step(self):
+        """Time step of model."""
+        return 1.0
