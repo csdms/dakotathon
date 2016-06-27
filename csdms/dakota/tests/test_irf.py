@@ -2,7 +2,7 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi_dakota import BmiDakota
+from csdms.dakota import BmiDakota
 from csdms.dakota.utils import is_dakota_installed
 
 
@@ -30,6 +30,28 @@ def test_component_name():
     name = model.get_component_name()
     assert_equal(name, 'Dakota')
     assert_is(model.get_component_name(), name)
+
+
+def test_start_time():
+    model = BmiDakota()
+    model.initialize()
+    assert_equal(model.get_start_time(), 0.0)
+
+
+def test_end_time():
+    model = BmiDakota()
+    model.initialize()
+    assert_equal(model.get_end_time(), 1.0)
+
+
+def test_current_time():
+    model = BmiDakota()
+    assert_equal(model.get_current_time(), 0.0)
+
+
+def test_time_step():
+    model = BmiDakota()
+    assert_equal(model.get_time_step(), 1.0)
 
 
 @with_setup(setup, teardown)
