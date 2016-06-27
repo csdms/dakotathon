@@ -2,3 +2,4 @@ numpy
 #scipy
 PyYAML
 nose
+basic-modeling-interface

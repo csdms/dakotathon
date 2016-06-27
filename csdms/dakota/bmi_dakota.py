@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 """Basic Model Interface for the Dakota iterative systems analysis toolkit."""
 
+from basic_modeling_interface import Bmi
 from .core import Dakota
 
 
-class BmiDakota(object):
+class BmiDakota(Bmi):
 
     """Perform a Dakota experiment on a component."""
 
