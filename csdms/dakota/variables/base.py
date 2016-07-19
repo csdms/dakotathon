@@ -12,8 +12,7 @@ class VariableBase(object):
     @abstractmethod
     def __init__(self,
                  variables='continuous_design',
-                 descriptors=(),
-                 **kwargs):
+                 descriptors=()):
         """Create a set of default experiment parameters."""
         self.variables = variables
         self._descriptors = descriptors
