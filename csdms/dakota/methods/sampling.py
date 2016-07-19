@@ -12,28 +12,20 @@ class Sampling(MethodsBase):
     """Define parameters for a Dakota experiment using the sampling method."""
 
     def __init__(self,
-                 variables=('x1', 'x2'),
                  samples=10,
                  sample_type='random',
                  seed=None,
-                 lower_bounds=(-1.0, -1.0),
-                 upper_bounds=(1.0, 1.0),
-                 responses=('y1',),
                  **kwargs):
         """Create a new Dakota sampling study.
 
         Parameters
         ----------
-        variables, responses : array_like of str
-          Names used for input and output variables.
         samples: int
           The number of randomly chosen values at which to execute a model.
         sample_type: str
           Technique for choosing samples, `random` or `lhs`.
         seed: int
           The seed for the random number generator.
-        lower_bounds, upper_bounds: array_like of float
-          Minimum and maximum values of a variable.
 
         Examples
         --------
@@ -44,13 +36,9 @@ class Sampling(MethodsBase):
         """
         MethodsBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
-        self.variables = variables
         self._samples = samples
         self._sample_type = sample_type
         self._seed = seed
-        self._lower_bounds = lower_bounds
-        self._upper_bounds = upper_bounds
-        self.responses = responses
 
     @property
     def samples(self):
@@ -109,44 +97,6 @@ class Sampling(MethodsBase):
             raise TypeError("Seed must be an int")
         self._seed = value
 
-    @property
-    def lower_bounds(self):
-        """Minimum values of study variables."""
-        return self._lower_bounds
-
-    @lower_bounds.setter
-    def lower_bounds(self, value):
-        """Set minimum values of study variables.
-
-        Parameters
-        ----------
-        value : list or tuple of numbers
-          The minimum values.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Lower bounds must be a tuple or a list")
-        self._lower_bounds = value
-
-    @property
-    def upper_bounds(self):
-        """Maximum values of study variables."""
-        return self._upper_bounds
-
-    @upper_bounds.setter
-    def upper_bounds(self, value):
-        """Set maximum values of study variables.
-
-        Parameters
-        ----------
-        value : list or tuple of numbers
-          The maximum values.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Upper bounds must be a tuple or a list")
-        self._upper_bounds = value
-
     def method_block(self):
         """Define the method block for a sampling experiment.
 
@@ -162,32 +112,4 @@ class Sampling(MethodsBase):
         if self.seed is not None:
             s += '    seed = {}\n'.format(self.seed)
         s += '\n'
-        return(s)
-
-    def variables_block(self):
-        """Define the variables block for a sampling experiment.
-
-        See Also
-        --------
-        csdms.dakota.methods.base.MethodsBase.variables_block
-
-        """
-        s = 'variables\n'
-        if 'uncertain' not in self.variable_type:
-            s += '  active all\n'
-        s += '  {0} = {1}'.format(self.variable_type,
-                                   len(self.variables))
-        s += '\n' \
-             + '    lower_bounds ='
-        for b in self.lower_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    upper_bounds ='
-        for b in self.upper_bounds:
-            s += ' {}'.format(b)
-        s += '\n' \
-             + '    descriptors ='
-        for vd in self.variables:
-            s += ' {!r}'.format(vd)
-        s += '\n\n'
         return(s)
