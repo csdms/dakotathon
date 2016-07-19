@@ -83,7 +83,7 @@ class CenteredParameterStudy(MethodsBase):
 
         """
         s = 'method\n' \
-            + '  {}\n'.format(self.name) \
+            + '  {}\n'.format(self.method) \
             + '    steps_per_variable ='
         for step in self.steps_per_variable:
             s += ' {}'.format(step)

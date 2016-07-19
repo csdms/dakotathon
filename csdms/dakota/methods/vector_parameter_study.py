@@ -64,7 +64,7 @@ class VectorParameterStudy(MethodsBase):
 
         """
         s = 'method\n' \
-            + '  {}\n'.format(self.name) \
+            + '  {}\n'.format(self.method) \
             + '    final_point ='
         for pt in self.final_point:
             s += ' {}'.format(pt)
