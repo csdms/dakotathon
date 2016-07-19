@@ -85,11 +85,9 @@ class ContinuousDesign(VariableBase):
             raise TypeError("Upper bounds must be a tuple or a list")
         self._upper_bounds = value
 
-    def variables_block(self):
+    def __str__(self):
         """Define the variables block for continous design variables."""
-        s = 'variables\n'
-        s += '  {0} = {1}'.format(self.variables,
-                                   len(self.descriptors))
+        s = VariableBase.__str__(self)
         if self.initial_point is not None:
             s += '\n' \
                  + '    initial_point ='
@@ -105,9 +103,5 @@ class ContinuousDesign(VariableBase):
                  + '    upper_bounds ='
             for b in self.upper_bounds:
                 s += ' {}'.format(b)
-        s += '\n' \
-             + '    descriptors ='
-        for vd in self.descriptors:
-            s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

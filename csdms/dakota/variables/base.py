@@ -39,8 +39,7 @@ class VariableBase(object):
             raise TypeError("Descriptors must be a string, tuple or list")
         self._descriptors = value
 
-    @abstractmethod
-    def variables_block(self):
+    def __str__(self):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
             + ' {0} = {1}\n'.format(self.variables,
@@ -48,5 +47,4 @@ class VariableBase(object):
         s += '    descriptors ='
         for vd in self.descriptors:
             s += ' {!r}'.format(vd)
-        s += '\n\n'
         return(s)
