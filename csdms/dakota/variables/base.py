@@ -11,20 +11,20 @@ class VariableBase(object):
 
     @abstractmethod
     def __init__(self,
-                 variable_type='continuous_design',
-                 variables=(),
+                 variables='continuous_design',
+                 descriptors=(),
                  **kwargs):
         """Create a set of default experiment parameters."""
-        self.variable_type = variable_type
-        self._variables = variables
+        self.variables = variables
+        self._descriptors = descriptors
 
     @property
-    def variables(self):
+    def descriptors(self):
         """Labels attached to Dakota variables."""
-        return self._variables
+        return self._descriptors
 
-    @variables.setter
-    def variables(self, value):
+    @descriptors.setter
+    def descriptors(self, value):
         """Set labels for Dakota variables.
 
         Parameters
@@ -37,16 +37,16 @@ class VariableBase(object):
             value = (value,)
         if not isinstance(value, (tuple, list)):
             raise TypeError("Descriptors must be a string, tuple or list")
-        self._variables = value
+        self._descriptors = value
 
     @abstractmethod
     def variables_block(self):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
-            + ' {0} = {1}\n'.format(self.variable_type,
-                                    len(self.variables))
+            + ' {0} = {1}\n'.format(self.variables,
+                                    len(self.descriptors))
         s += '    descriptors ='
-        for vd in self.variables:
+        for vd in self.descriptors:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)

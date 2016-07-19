@@ -11,7 +11,7 @@ class ContinuousDesign(VariableBase):
     """Define attributes for Dakota continous design variables."""
 
     def __init__(self,
-                 variables=('x1', 'x2'),
+                 descriptors=('x1', 'x2'),
                  initial_point=None,
                  lower_bounds=None,
                  upper_bounds=None,
@@ -19,12 +19,13 @@ class ContinuousDesign(VariableBase):
                  scales=None,
                  **kwargs):
         VariableBase.__init__(self, **kwargs)
-        self.variables = variables
+        self.variables = self.__module__.rsplit('.')[-1]
+        self._descriptors = descriptors
         self._initial_point = initial_point
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
 
-        if initial_point is None and lower_bounds is None and
+        if initial_point is None and lower_bounds is None and \
             upper_bounds is None: self._initial_point = (0.0, 0.0)
 
     @property
@@ -87,8 +88,8 @@ class ContinuousDesign(VariableBase):
     def variables_block(self):
         """Define the variables block for continous design variables."""
         s = 'variables\n'
-        s += '  {0} = {1}'.format(self.variable_type,
-                                   len(self.variables))
+        s += '  {0} = {1}'.format(self.variables,
+                                   len(self.descriptors))
         if self.initial_point is not None:
             s += '\n' \
                  + '    initial_point ='
@@ -106,7 +107,7 @@ class ContinuousDesign(VariableBase):
                 s += ' {}'.format(b)
         s += '\n' \
              + '    descriptors ='
-        for vd in self.variables:
+        for vd in self.descriptors:
             s += ' {!r}'.format(vd)
         s += '\n\n'
         return(s)
