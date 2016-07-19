@@ -52,16 +52,16 @@ class MultidimParameterStudy(MethodsBase):
             raise TypeError("Partitions must be a tuple or a list")
         self._partitions = value
 
-    def method_block(self):
+    def __str__(self):
         """Define a multidim parameter study method block.
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.method_block
+        csdms.dakota.methods.base.MethodsBase.__str__
 
         """
-        s = 'method\n' \
-            + '  {}\n'.format(self.method) \
+        s = MethodsBase.__str__(self)
+        s += '\n' \
             + '    partitions ='
         for p in self.partitions:
             s += ' {}'.format(p)

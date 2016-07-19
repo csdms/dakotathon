@@ -55,16 +55,16 @@ class VectorParameterStudy(MethodsBase):
             raise TypeError("Final points must be a tuple or a list")
         self._final_point = value
 
-    def method_block(self):
+    def __str__(self):
         """Define a vector parameter study method block for a Dakota input file.
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.method_block
+        csdms.dakota.methods.base.MethodsBase.__str__
 
         """
-        s = 'method\n' \
-            + '  {}\n'.format(self.method) \
+        s = MethodsBase.__str__(self)
+        s += '\n' \
             + '    final_point ='
         for pt in self.final_point:
             s += ' {}'.format(pt)

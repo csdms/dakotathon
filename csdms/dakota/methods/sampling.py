@@ -97,18 +97,18 @@ class Sampling(MethodsBase):
             raise TypeError("Seed must be an int")
         self._seed = value
 
-    def method_block(self):
+    def __str__(self):
         """Define the method block for a sampling experiment.
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.method_block
+        csdms.dakota.methods.base.MethodsBase.__str__
 
         """
-        s = 'method\n' \
-            + '  {}\n'.format(self.method) \
-            + '    sample_type = {}\n'.format(self.sample_type) \
-            + '    samples = {}\n'.format(self.samples)
+        s = MethodsBase.__str__(self)
+        s += '\n' \
+             + '    sample_type = {}\n'.format(self.sample_type) \
+             + '    samples = {}\n'.format(self.samples)
         if self.seed is not None:
             s += '    seed = {}\n'.format(self.seed)
         s += '\n'

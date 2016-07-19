@@ -47,9 +47,8 @@ class MethodsBase(object):
             config = yaml.load(file_like)
         return cls(**config)
 
-    @abstractmethod
-    def method_block(self):
-        """Define the method block of a Dakota input file."""
+    def __str__(self):
+        """Define the preamble of the Dakota input file method block."""
         s = 'method\n' \
-            + '  {}\n\n'.format(self.method)
+            + '  {}'.format(self.method)
         return(s)

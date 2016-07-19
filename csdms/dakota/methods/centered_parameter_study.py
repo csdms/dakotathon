@@ -74,16 +74,16 @@ class CenteredParameterStudy(MethodsBase):
             raise TypeError("Step size must be a tuple or a list")
         self._step_vector = value
 
-    def method_block(self):
+    def __str__(self):
         """Define a centered parameter study method block.
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.method_block
+        csdms.dakota.methods.base.MethodsBase.__str__
 
         """
-        s = 'method\n' \
-            + '  {}\n'.format(self.method) \
+        s = MethodsBase.__str__(self)
+        s += '\n' \
             + '    steps_per_variable ='
         for step in self.steps_per_variable:
             s += ' {}'.format(step)
