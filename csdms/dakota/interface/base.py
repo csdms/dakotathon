@@ -15,7 +15,8 @@ class InterfaceBase(object):
                  id_interface='CSDMS',
                  analysis_driver='rosenbrock',
                  asynchronous=False,
-                 evaluation_concurrency=2):
+                 evaluation_concurrency=2,
+                 **kwargs):
         """Create a set of default experiment parameters."""
         self.interface = interface
         self.id_interface = id_interface

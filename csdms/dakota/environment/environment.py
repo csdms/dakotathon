@@ -7,7 +7,7 @@ class Environment(object):
 
     """Describe Dakota environment."""
 
-    def __init__(self, data_file='dakota.dat'):
+    def __init__(self, data_file='dakota.dat', **kwargs):
         """Create a set of default experiment parameters."""
         self.data_file = data_file
 

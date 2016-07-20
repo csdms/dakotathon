@@ -13,7 +13,7 @@ class MethodsBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, method=None):
+    def __init__(self, method=None, **kwargs):
         """Create default method parameters.
 
         Parameters
