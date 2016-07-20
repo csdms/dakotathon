@@ -1,12 +1,12 @@
 """Implementation of a Dakota continous design variable."""
 
-from .base import VariableBase
+from .base import VariablesBase
 
 
 classname = 'ContinuousDesign'
 
 
-class ContinuousDesign(VariableBase):
+class ContinuousDesign(VariablesBase):
 
     """Define attributes for Dakota continous design variables."""
 
@@ -18,7 +18,7 @@ class ContinuousDesign(VariableBase):
                  scale_types=None,
                  scales=None,
                  **kwargs):
-        VariableBase.__init__(self, **kwargs)
+        VariablesBase.__init__(self, **kwargs)
         self.variables = self.__module__.rsplit('.')[-1]
         self._descriptors = descriptors
         self._initial_point = initial_point
@@ -87,7 +87,7 @@ class ContinuousDesign(VariableBase):
 
     def __str__(self):
         """Define the variables block for continous design variables."""
-        s = VariableBase.__str__(self)
+        s = VariablesBase.__str__(self)
         if self.initial_point is not None:
             s += '\n' \
                  + '    initial_point ='

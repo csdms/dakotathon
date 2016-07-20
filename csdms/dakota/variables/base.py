@@ -3,7 +3,7 @@
 from abc import ABCMeta, abstractmethod
 
 
-class VariableBase(object):
+class VariablesBase(object):
 
     """Describe features common to all Dakota variable types."""
 
