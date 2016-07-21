@@ -27,7 +27,7 @@ class Experiment(object):
         self.input_files = input_files
 
         self.environment = self._import('environment', 'environment', **kwargs)
-        self.method = self._import('methods', method, **kwargs)
+        self.method = self._import('method', method, **kwargs)
         self.variables = self._import('variables', variables, **kwargs)
         if self.component is not None:
             interface = 'fork'
@@ -147,3 +147,11 @@ class Experiment(object):
         module = importlib.import_module(namespace)
         cls = getattr(module, module.classname)
         return cls(**kwargs)
+
+    def __str__(self):
+        s = str(self.environment) \
+            + str(self.method) \
+            + str(self.variables) \
+            + str(self.interface) \
+            + str(self.responses)
+        return s
