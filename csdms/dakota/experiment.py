@@ -5,6 +5,9 @@ import importlib
 import inspect
 
 
+blocks = ['environment', 'method', 'variables', 'interface', 'responses']
+
+
 class Experiment(object):
 
     """Describe parameters to create an input file for a Dakota experiment."""
@@ -32,9 +35,7 @@ class Experiment(object):
         return cls(**kwargs)
 
     def __str__(self):
-        s = str(self.environment) \
-            + str(self.method) \
-            + str(self.variables) \
-            + str(self.interface) \
-            + str(self.responses)
+        s = '# Dakota input file\n'
+        for section in blocks:
+            s += str(getattr(self, section))
         return s

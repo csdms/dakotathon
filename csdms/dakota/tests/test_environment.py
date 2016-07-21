@@ -38,4 +38,4 @@ def test_str_length():
     x = Environment()
     s = str(x)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 5)
+    assert_equal(n_lines, 4)

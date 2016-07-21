@@ -13,8 +13,7 @@ class Environment(object):
 
     def __str__(self):
         """Define the environment block of a Dakota input file."""
-        s = '# Dakota input file\n' \
-            + 'environment\n' \
+        s = 'environment\n' \
             + '  tabular_data\n' \
             + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
         return(s)
