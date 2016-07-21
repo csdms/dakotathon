@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of a Dakota multidim parameter study."""
 
-from .base import MethodsBase
+from .base import MethodBase
 
 
 classname = 'MultidimParameterStudy'
 
 
-class MultidimParameterStudy(MethodsBase):
+class MultidimParameterStudy(MethodBase):
 
     """Define parameters for a Dakota multidim parameter study."""
 
@@ -29,7 +29,7 @@ class MultidimParameterStudy(MethodsBase):
         >>> m = MultidimParameterStudy()
 
         """
-        MethodsBase.__init__(self, **kwargs)
+        MethodBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self._partitions = partitions
 
@@ -57,10 +57,10 @@ class MultidimParameterStudy(MethodsBase):
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.__str__
+        csdms.dakota.method.base.MethodBase.__str__
 
         """
-        s = MethodsBase.__str__(self)
+        s = MethodBase.__str__(self)
         s += '\n' \
             + '    partitions ='
         for p in self.partitions:

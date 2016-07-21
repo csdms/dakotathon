@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of a Dakota vector parameter study."""
 
-from .base import MethodsBase
+from .base import MethodBase
 
 
 classname = 'VectorParameterStudy'
 
 
-class VectorParameterStudy(MethodsBase):
+class VectorParameterStudy(MethodBase):
 
     """Define parameters for a Dakota vector parameter study."""
 
@@ -31,7 +31,7 @@ class VectorParameterStudy(MethodsBase):
         >>> v = VectorParameterStudy()
 
         """
-        MethodsBase.__init__(self, **kwargs)
+        MethodBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self._final_point = final_point
         self.n_steps = n_steps
@@ -60,10 +60,10 @@ class VectorParameterStudy(MethodsBase):
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.__str__
+        csdms.dakota.method.base.MethodBase.__str__
 
         """
-        s = MethodsBase.__str__(self)
+        s = MethodBase.__str__(self)
         s += '\n' \
             + '    final_point ='
         for pt in self.final_point:

@@ -6,7 +6,7 @@ import types
 import yaml
 
 
-class MethodsBase(object):
+class MethodBase(object):
 
     """Describe features common to all Dakota analysis methods."""
 
@@ -26,7 +26,7 @@ class MethodsBase(object):
 
     @classmethod
     def from_file_like(cls, file_like):
-        """Create a MethodsBase instance from a file-like object.
+        """Create a MethodBase instance from a file-like object.
 
         Parameters
         ----------
@@ -35,8 +35,8 @@ class MethodsBase(object):
 
         Returns
         -------
-        MethodsBase
-            A new MethodsBase instance.
+        MethodBase
+            A new MethodBase instance.
 
         """
         config = {}

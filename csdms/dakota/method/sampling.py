@@ -1,13 +1,13 @@
 #! /usr/bin/env python
 """Implementation of the Dakota sampling method."""
 
-from .base import MethodsBase
+from .base import MethodBase
 
 
 classname = 'Sampling'
 
 
-class Sampling(MethodsBase):
+class Sampling(MethodBase):
 
     """Define parameters for a Dakota experiment using the sampling method."""
 
@@ -34,7 +34,7 @@ class Sampling(MethodsBase):
         >>> x = Sampling()
 
         """
-        MethodsBase.__init__(self, **kwargs)
+        MethodBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self._samples = samples
         self._sample_type = sample_type
@@ -102,10 +102,10 @@ class Sampling(MethodsBase):
 
         See Also
         --------
-        csdms.dakota.methods.base.MethodsBase.__str__
+        csdms.dakota.method.base.MethodBase.__str__
 
         """
-        s = MethodsBase.__str__(self)
+        s = MethodBase.__str__(self)
         s += '\n' \
              + '    sample_type = {}\n'.format(self.sample_type) \
              + '    samples = {}\n'.format(self.samples)
