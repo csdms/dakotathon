@@ -5,61 +5,34 @@ import importlib
 import inspect
 
 
-_methods_path = 'csdms.dakota.methods.'
-_variables_path = 'csdms.dakota.variables.'
-
-
 class Experiment(object):
 
     """Describe the features of a Dakota experiment."""
 
     def __init__(self,
                  method='vector_parameter_study',
-                 variables='continuous_design',  # XXX start here
+                 variables='continuous_design',
+                 interface='direct',
+                 responses='response_functions',
                  component=None,
-                 configuration_file=os.path.abspath('config.yaml'),
                  run_directory=os.getcwd(),
                  template_file=None,
                  input_files=(),
-                 data_file='dakota.dat',
-                 interface='direct',
-                 id_interface='CSDMS',
-                 analysis_driver='rosenbrock',
-                 is_objective_function=False,
-                 responses=(),
-                 response_files=(),
-                 response_statistics=(),
                  **kwargs):
         """Create a set of default experiment parameters."""
         self.component = component
         self._run_directory = run_directory
-        self._configuration_file = configuration_file
+        self._configuration_file = os.path.abspath('config.yaml')
         self._template_file = template_file
         self.input_files = input_files
-        self.data_file = data_file
-        self.interface = interface
-        self.id_interface = id_interface
-        self.analysis_driver = analysis_driver
-        self.parameters_file = 'params.in'
-        self.results_file = 'results.out'
-        self.is_objective_function = is_objective_function
-        self._responses = responses
-        self._response_files = response_files
-        self._response_statistics = response_statistics
 
-        self.method = self._import(_methods_path, method, **kwargs)
-        self.variables = self._import(_variables_path, variables, **kwargs)
-
+        self.environment = self._import('environment', 'environment', **kwargs)
+        self.method = self._import('methods', method, **kwargs)
+        self.variables = self._import('variables', variables, **kwargs)
         if self.component is not None:
-            if self.analysis_driver == 'rosenbrock':
-                self.analysis_driver = 'dakota_run_plugin'
-            if self.interface == 'direct':
-                self.interface = 'fork'
-
-    def _import(self, path, module, **kwargs):
-        module = importlib.import_module(path + module)
-        cls = getattr(module, module.classname)
-        return cls(**kwargs)
+            interface = 'fork'
+        self.interface = self._import('interface', interface, **kwargs)
+        self.responses = self._import('responses', responses, **kwargs)
 
     @property
     def run_directory(self):
@@ -96,6 +69,8 @@ class Experiment(object):
         if not os.path.isabs(value):
             value = os.path.abspath(value)
         self._configuration_file = value
+        if self.interface.interface == 'fork':
+            self.interface._configuration_file = value
 
     @property
     def template_file(self):
@@ -141,68 +116,9 @@ class Experiment(object):
             input_files.append(os.path.abspath(item))
         self._input_files = tuple(input_files)
 
-    @property
-    def responses(self):
-        """Labels attached to Dakota responses."""
-        return self._responses
-
-    @responses.setter
-    def responses(self, value):
-        """Set labels for Dakota responses.
-
-        Parameters
-        ----------
-        value : a str or list or tuple of str
-          The new response labels.
-
-        """
-        if type(value) is str:
-            value = (value,)
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Descriptors must be a string, tuple or list")
-        self._responses = value
-
-    @property
-    def response_files(self):
-        """Model output files used in Dakota responses."""
-        return self._response_files
-
-    @response_files.setter
-    def response_files(self, value):
-        """Set model output files for Dakota responses.
-
-        Parameters
-        ----------
-        value : list or tuple of str
-          The new response files.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Response files must be a tuple or a list")
-        self._response_files = value
-
-    @property
-    def response_statistics(self):
-        """Model output statistics used in Dakota responses."""
-        return self._response_statistics
-
-    @response_statistics.setter
-    def response_statistics(self, value):
-        """Set model output statistics for Dakota responses.
-
-        Parameters
-        ----------
-        value : list or tuple of str
-          The new response statistics.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Response statistics must be a tuple or a list")
-        self._response_statistics = value
-
     @classmethod
     def from_file_like(cls, file_like):
-        """Create a MethodsBase instance from a file-like object.
+        """Create a new Experiment from a file-like object.
 
         Parameters
         ----------
@@ -211,8 +127,8 @@ class Experiment(object):
 
         Returns
         -------
-        MethodsBase
-            A new MethodsBase instance.
+        Experiment
+            A new Experiment.
 
         """
         config = {}
@@ -223,45 +139,11 @@ class Experiment(object):
             config = yaml.load(file_like)
         return cls(**config)
 
-    def environment_block(self):
-        """Define the environment block of a Dakota input file."""
-        s = '# Dakota input file\n' \
-            + 'environment\n' \
-            + '  tabular_data\n' \
-            + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
-        return(s)
+    def _get_subpackage_namespace(self, subpackage):
+        return os.path.splitext(self.__module__)[0] + '.' + subpackage
 
-    def interface_block(self):
-        """Define the interface block of a Dakota input file."""
-        s = 'interface\n' \
-            + '  id_interface = {!r}\n'.format(self.id_interface) \
-            + '  {}\n'.format(self.interface) \
-            + '  analysis_driver = {!r}\n'.format(self.analysis_driver)
-        if self.component is not None:
-            s += '  analysis_components = {!r}\n'.format(self.configuration_file)
-        if self.interface is not 'direct':
-            s += '  parameters_file = {!r}\n'.format(self.parameters_file) \
-                 + '  results_file = {!r}\n'.format(self.results_file) \
-                 + '  work_directory\n' \
-                 + '    named \'run\'\n' \
-                 + '    directory_tag\n' \
-                 + '    directory_save\n' \
-                 + '  file_save\n'
-        s += '\n'
-        return(s)
-
-    def responses_block(self):
-        """Define the responses block of a Dakota input file."""
-        n_responses = len(self.responses)
-        s = 'responses\n'
-        if self.is_objective_function:
-            s += '  objective_functions = {}\n'.format(n_responses)
-        else:
-            s += '  response_functions = {}\n'.format(n_responses)
-        s += '    response_descriptors ='
-        for rd in self.responses:
-            s += ' {!r}'.format(rd)
-        s += '\n' \
-             + '  no_gradients\n' \
-             + '  no_hessians\n'
-        return(s)
+    def _import(self, subpackage, module, **kwargs):
+        namespace = self._get_subpackage_namespace(subpackage) + '.' + module
+        module = importlib.import_module(namespace)
+        cls = getattr(module, module.classname)
+        return cls(**kwargs)
