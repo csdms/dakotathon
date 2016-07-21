@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for dakota.methods.base module.
+# Tests for csdms.dakota.method.base module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -8,17 +8,17 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import raises, assert_true, assert_equal
-from csdms.dakota.methods.base import MethodsBase
+from csdms.dakota.method.base import MethodBase
 
 # Helpers --------------------------------------------------------------
 
 
-class Concrete(MethodsBase):
+class Concrete(MethodBase):
 
-    """A subclass of MethodsBase used for testing."""
+    """A subclass of MethodBase used for testing."""
 
     def __init__(self):
-        MethodsBase.__init__(self)
+        MethodBase.__init__(self)
 
 # Fixtures -------------------------------------------------------------
 
@@ -39,8 +39,8 @@ def teardown_module():
 
 @raises(TypeError)
 def test_instantiate():
-    """Test whether MethodsBase fails to instantiate."""
-    d = MethodsBase()
+    """Test whether MethodBase fails to instantiate."""
+    d = MethodBase()
 
 
 def test_str_special():

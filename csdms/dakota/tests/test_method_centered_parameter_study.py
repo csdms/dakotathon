@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for the csdms.dakota.methods.centered_parameter_study module.
+# Tests for the csdms.dakota.method.centered_parameter_study module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
-from csdms.dakota.methods.centered_parameter_study import CenteredParameterStudy
+from csdms.dakota.method.centered_parameter_study import CenteredParameterStudy
 
 # Fixtures -------------------------------------------------------------
 

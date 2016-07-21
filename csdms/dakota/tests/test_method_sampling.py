@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for the csdms.dakota.methods.sampling module.
+# Tests for the csdms.dakota.method.sampling module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -9,7 +9,7 @@
 
 from nose.tools import (raises, assert_is_instance, assert_true,
                         assert_equal, assert_is_none)
-from csdms.dakota.methods.sampling import Sampling
+from csdms.dakota.method.sampling import Sampling
 
 # Fixtures -------------------------------------------------------------
 
