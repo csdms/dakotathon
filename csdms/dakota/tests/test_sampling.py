@@ -1,22 +1,15 @@
 #!/usr/bin/env python
 #
-# Tests for the dakota.methods.sampling module.
+# Tests for the csdms.dakota.methods.sampling module.
 #
 # Call with:
 #   $ nosetests -sv
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
 from nose.tools import (raises, assert_is_instance, assert_true,
                         assert_equal, assert_is_none)
 from csdms.dakota.methods.sampling import Sampling
-from . import start_dir, data_dir
-
-
-# Global variables -----------------------------------------------------
-
-config_file = os.path.join(data_dir, 'default_sampling_config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
@@ -41,55 +34,9 @@ def test_init_no_params():
     assert_is_instance(x1, Sampling)
 
 
-def test_init_from_file_like1():
-    """Test creating an instance from a config file."""
-    x1 = Sampling.from_file_like(config_file)
-    assert_is_instance(x1, Sampling)
-
-
-def test_init_from_file_like2():
-    """Test creating an instance from an open config file object."""
-    with open(config_file, 'r') as fp:
-        x1 = Sampling.from_file_like(fp)
-    assert_is_instance(x1, Sampling)
-
-
-def test_get_lower_bounds():
-    """Test getting the lower_bounds property."""
-    assert_true(type(x.lower_bounds) is tuple)
-
-
-def test_set_lower_bounds():
-    """Test setting the lower_bounds property."""
-    bound = (42, 3.14)
-    x.lower_bounds = bound
-    assert_equal(x.lower_bounds, bound)
-
-
-@raises(TypeError)
-def test_set_lower_bounds_fails_if_scalar():
-    """Test that the lower_bounds property fails with scalar."""
-    bound = 42
-    x.lower_bounds = bound
-
-
-def test_get_upper_bounds():
-    """Test getting the upper_bounds property."""
-    assert_true(type(x.upper_bounds) is tuple)
-
-
-def test_set_upper_bounds():
-    """Test setting the upper_bounds property."""
-    bound = (42, 3.14)
-    x.upper_bounds = bound
-    assert_equal(x.upper_bounds, bound)
-
-
-@raises(TypeError)
-def test_set_upper_bounds_fails_if_scalar():
-    """Test that the upper_bounds property fails with scalar."""
-    bound = 42
-    x.upper_bounds = bound
+def test_method_attr():
+    """Test the value of the method attribute."""
+    assert_equal(x.method, 'sampling')
 
 
 def test_get_samples():
@@ -152,13 +99,15 @@ def test_set_seed_fails_if_float():
     x.seed = seed
 
 
-def test_method_block():
-    """Test type of method_block method results."""
-    s = x.method_block()
+def test_str_special():
+    """Test type of __str__ method results."""
+    s = str(x)
     assert_true(type(s) is str)
 
 
-def test_variables_block():
-    """Test type of variables_block method results."""
-    s = x.variables_block()
-    assert_true(type(s) is str)
+def test_str_length():
+    """Test the default length of __str__."""
+    x1 = Sampling()
+    s = str(x1)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 5)

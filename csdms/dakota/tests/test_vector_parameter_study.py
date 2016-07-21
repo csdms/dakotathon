@@ -1,21 +1,14 @@
 #!/usr/bin/env python
 #
-# Tests for the dakota.vector_parameter_study module.
+# Tests for the csdms.dakota.methods.vector_parameter_study module.
 #
 # Call with:
 #   $ nosetests -sv
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
 from csdms.dakota.methods.vector_parameter_study import VectorParameterStudy
-from . import start_dir, data_dir
-
-
-# Global variables -----------------------------------------------------
-
-config_file = os.path.join(data_dir, 'default_vps_config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
@@ -40,36 +33,9 @@ def test_init_no_params():
     assert_is_instance(v1, VectorParameterStudy)
 
 
-def test_init_from_file_like1():
-    """Test creating an instance from a config file."""
-    v1 = VectorParameterStudy.from_file_like(config_file)
-    assert_is_instance(v1, VectorParameterStudy)
-
-
-def test_init_from_file_like2():
-    """Test creating an instance from an open config file object."""
-    with open(config_file, 'r') as fp:
-        v1 = VectorParameterStudy.from_file_like(fp)
-    assert_is_instance(v1, VectorParameterStudy)
-
-
-def test_get_initial_point():
-    """Test getting the initial_point property."""
-    assert_true(type(v.initial_point) is tuple)
-
-
-def test_set_initial_point():
-    """Test setting the initial_point property."""
-    point = (42,)
-    v.initial_point = point
-    assert_equal(v.initial_point, point)
-
-
-@raises(TypeError)
-def test_set_initial_point_fails_if_scalar():
-    """Test that the initial_point property fails with scalar."""
-    point = 42
-    v.initial_point = point
+def test_method_attr():
+    """Test the value of the method attribute."""
+    assert_equal(v.method, 'vector_parameter_study')
 
 
 def test_get_final_point():
@@ -91,13 +57,27 @@ def test_set_final_point_fails_if_scalar():
     v.final_point = point
 
 
-def test_method_block():
-    """Test type of method_block method results."""
-    s = v.method_block()
+def test_get_n_steps():
+    """Test getting the n_steps property."""
+    assert_true(type(v.n_steps) is int)
+
+
+def test_set_n_steps():
+    """Test setting the n_steps property."""
+    n = 42
+    v.n_steps = n
+    assert_equal(v.n_steps, n)
+
+
+def test_str_special():
+    """Test type of __str__ method results."""
+    s = str(v)
     assert_true(type(s) is str)
 
 
-def test_variables_block():
-    """Test type of variables_block method results."""
-    s = v.variables_block()
-    assert_true(type(s) is str)
+def test_str_length():
+    """Test the default length of __str__."""
+    v1 = VectorParameterStudy()
+    s = str(v1)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 5)

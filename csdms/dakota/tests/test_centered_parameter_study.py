@@ -1,21 +1,14 @@
 #!/usr/bin/env python
 #
-# Tests for the dakota.centered_parameter_study module.
+# Tests for the csdms.dakota.methods.centered_parameter_study module.
 #
 # Call with:
 #   $ nosetests -sv
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
 from nose.tools import raises, assert_is_instance, assert_true, assert_equal
 from csdms.dakota.methods.centered_parameter_study import CenteredParameterStudy
-from . import start_dir, data_dir
-
-
-# Global variables -----------------------------------------------------
-
-config_file = os.path.join(data_dir, 'default_cps_config.yaml')
 
 # Fixtures -------------------------------------------------------------
 
@@ -40,36 +33,9 @@ def test_init_no_params():
     assert_is_instance(c1, CenteredParameterStudy)
 
 
-def test_init_from_file_like1():
-    """Test creating an instance from a config file."""
-    c1 = CenteredParameterStudy.from_file_like(config_file)
-    assert_is_instance(c1, CenteredParameterStudy)
-
-
-def test_init_from_file_like2():
-    """Test creating an instance from an open config file object."""
-    with open(config_file, 'r') as fp:
-        c1 = CenteredParameterStudy.from_file_like(fp)
-    assert_is_instance(c1, CenteredParameterStudy)
-
-
-def test_get_initial_point():
-    """Test getting the initial_point property."""
-    assert_true(type(c.initial_point) is tuple)
-
-
-def test_set_initial_point():
-    """Test setting the initial_point property."""
-    point = (42, 3.14)
-    c.initial_point = point
-    assert_equal(c.initial_point, point)
-
-
-@raises(TypeError)
-def test_set_initial_point_fails_if_scalar():
-    """Test that the initial_point property fails with scalar."""
-    point = 42
-    c.initial_point = point
+def test_method_attr():
+    """Test the value of the method attribute."""
+    assert_equal(c.method, 'centered_parameter_study')
 
 
 def test_get_steps_per_variable():
@@ -110,13 +76,15 @@ def test_set_step_vector_fails_if_scalar():
     c.step_vector = steps
 
 
-def test_method_block():
-    """Test type of method_block method results."""
-    s = c.method_block()
+def test_str_special():
+    """Test type of __str__ method results."""
+    s = str(c)
     assert_true(type(s) is str)
 
 
-def test_variables_block():
-    """Test type of variables_block method results."""
-    s = c.variables_block()
-    assert_true(type(s) is str)
+def test_str_length():
+    """Test the default length of __str__."""
+    c1 = CenteredParameterStudy()
+    s = str(c1)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 5)
