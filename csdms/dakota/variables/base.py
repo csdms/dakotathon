@@ -42,7 +42,7 @@ class VariablesBase(object):
     def __str__(self):
         """Define the variables block of a Dakota input file."""
         s = 'variables\n' \
-            + ' {0} = {1}\n'.format(self.variables,
+            + '  {0} = {1}\n'.format(self.variables,
                                     len(self.descriptors))
         s += '    descriptors ='
         for vd in self.descriptors:

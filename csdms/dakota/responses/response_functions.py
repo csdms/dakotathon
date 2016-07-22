@@ -70,5 +70,4 @@ class ResponseFunctions(ResponsesBase):
         s += '\n' \
              + '  {}\n'.format(self.gradients) \
              + '  {}\n'.format(self.hessians)
-        s += '\n'
         return(s)
