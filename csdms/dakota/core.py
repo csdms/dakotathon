@@ -1,21 +1,27 @@
 #! /usr/bin/env python
 """A Python interface to the Dakota iterative systems analysis toolkit."""
 
+import os
 import subprocess
 import importlib
 import types
 import yaml
-from .method.vector_parameter_study import VectorParameterStudy
+from .experiment import Experiment
 
 
-_method_path = 'csdms.dakota.method.'
-
-
-class Dakota(object):
+class Dakota(Experiment):
 
     """Configure and run a Dakota experiment."""
 
-    def __init__(self, method=None, **kwargs):
+    def __init__(self,
+                 run_directory=os.getcwd(),
+                 configuration_file=os.path.abspath('config.yaml'),
+                 input_file='dakota.in',
+                 output_file='dakota.out',
+                 template_file=None,
+                 auxiliary_files=(),
+                 component=None,
+                 **kwargs):
         """Create a new `Dakota` instance.
 
         Called with no parameters, a Dakota experiment with basic
@@ -40,15 +46,100 @@ class Dakota(object):
         >>> d = Dakota(method='vector_parameter_study')
 
         """
-        self.input_file = 'dakota.in'
-        self.output_file = 'dakota.out'
+        Experiment.__init__(self, **kwargs)
+        self._run_directory = run_directory
+        self._configuration_file = configuration_file
+        self.input_file = input_file
+        self.output_file = output_file
+        self._template_file = template_file
+        self._auxiliary_files = auxiliary_files
+        self.component = component
 
-        if method is not None:
-            _module = importlib.import_module(_method_path + method)
-            _class = getattr(_module, _module.classname)
-            self.method = _class(**kwargs)
-        else:
-            self.method = VectorParameterStudy()
+        # XXX
+        if self.component is not None:
+            interface = 'fork'
+
+    @property
+    def run_directory(self):
+        """The run directory path."""
+        return self._run_directory
+
+    @run_directory.setter
+    def run_directory(self, value):
+        """Set the run directory path.
+
+        Parameters
+        ----------
+        value : str
+          The new run directory path.
+
+        """
+        self._run_directory = os.path.abspath(value)
+
+    @property
+    def configuration_file(self):
+        """The configuration file path."""
+        return self._configuration_file
+
+    @configuration_file.setter
+    def configuration_file(self, value):
+        """Set the configuration file path.
+
+        Parameters
+        ----------
+        value : str
+          The new file path.
+
+        """
+        if not os.path.isabs(value):
+            value = os.path.abspath(value)
+        self._configuration_file = value
+        if self.interface.interface == 'fork':
+            self.interface._configuration_file = value
+
+    @property
+    def template_file(self):
+        """The template file path."""
+        return self._template_file
+
+    @template_file.setter
+    def template_file(self, value):
+        """Set the template file path.
+
+        Parameters
+        ----------
+        value : str
+          The new file path.
+
+        """
+        if value is not None:
+            if not os.path.isabs(value):
+                value = os.path.abspath(value)
+        self._template_file = value
+
+    @property
+    def auxiliary_files(self):
+        """Auxiliary files used by the component."""
+        return self._auxiliary_files
+
+    @auxiliary_files.setter
+    def auxiliary_files(self, value):
+        """Set the auxiliary files used by component.
+
+        Parameters
+        ----------
+        value : str or list or tuple of str
+          The new auxiliary file(s).
+
+        """
+        files = []
+        if type(value) is str:
+            value = [value]
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Input files must be a string, tuple or list")
+        for item in value:
+            files.append(os.path.abspath(item))
+        self._auxiliary_files = tuple(files)
 
     @classmethod
     def from_file_like(cls, file_like):
@@ -90,15 +181,18 @@ class Dakota(object):
         >>> d.write_configuration_file('config.yaml')
 
         """
+        from .utils import get_attributes
+
         if config_file is not None:
-            self.method.configuration_file = config_file
-        props = self.method.__dict__.copy()
-        for key in props:
-            if key.startswith('_'):
-                new_key = key.lstrip('_')
-                props[new_key] = props.pop(key)
-        with open(self.method.configuration_file, 'w') as fp:
-            yaml.dump(props, fp, default_flow_style=False)
+            self.configuration_file = config_file
+
+        props = get_attributes(self)
+        for section in self._blocks:
+            section_props = get_attributes(props.pop(section))
+            props = dict(props.items() + section_props.items())
+
+        with open(self.configuration_file, 'w') as fp:
+            yaml.safe_dump(props, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
         """Create a Dakota input file on the file system.
@@ -119,11 +213,7 @@ class Dakota(object):
         if input_file is not None:
             self.input_file = input_file
         with open(self.input_file, 'w') as fp:
-            fp.write(self.method.environment_block())
-            fp.write(self.method.method_block())
-            fp.write(self.method.variables_block())
-            fp.write(self.method.interface_block())
-            fp.write(self.method.responses_block())
+            fp.write(str(self))
 
     def setup(self):
         """Write the Dakota configuration and input files.
