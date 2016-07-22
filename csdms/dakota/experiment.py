@@ -6,7 +6,7 @@ import importlib
 
 class Experiment(object):
 
-    """Describe parameters to create an input file for a Dakota experiment."""
+    """An aggregate of control blocks that define a Dakota input file."""
 
     def __init__(self,
                  environment='environment',
