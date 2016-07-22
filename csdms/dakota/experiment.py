@@ -8,6 +8,8 @@ class Experiment(object):
 
     """An aggregate of control blocks that define a Dakota input file."""
 
+    blocks = ('environment', 'method', 'variables', 'interface', 'responses')
+
     def __init__(self,
                  environment='environment',
                  method='vector_parameter_study',
@@ -16,9 +18,7 @@ class Experiment(object):
                  responses='response_functions',
                  **kwargs):
         """Create a set of default experiment parameters."""
-        self._blocks = ('environment', 'method', 'variables',
-                        'interface', 'responses')
-        for section in self._blocks:
+        for section in Experiment.blocks:
             cls = self._import(section, eval(section), **kwargs)
             attr = '_' + section
             setattr(self, attr, cls)
@@ -89,6 +89,6 @@ class Experiment(object):
 
     def __str__(self):
         s = '# Dakota input file\n'
-        for section in self._blocks:
+        for section in Experiment.blocks:
             s += str(getattr(self, section))
         return s

@@ -187,7 +187,7 @@ class Dakota(Experiment):
             self.configuration_file = config_file
 
         props = get_attributes(self)
-        for section in self._blocks:
+        for section in Experiment.blocks:
             section_props = get_attributes(props.pop(section))
             props = dict(props.items() + section_props.items())
 
