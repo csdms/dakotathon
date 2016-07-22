@@ -26,7 +26,7 @@ class ContinuousDesign(VariablesBase):
         self._upper_bounds = upper_bounds
 
         if initial_point is None and lower_bounds is None and \
-            upper_bounds is None: self._initial_point = (0.0, 0.0)
+            upper_bounds is None: self._initial_point = (-0.3, 0.2)
 
     @property
     def initial_point(self):
