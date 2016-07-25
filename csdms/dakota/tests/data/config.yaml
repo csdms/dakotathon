@@ -1,21 +1,31 @@
 analysis_driver: dakota_run_plugin
+asynchronous: false
+auxiliary_files:
+- /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/HYDRO0.HYPS
 component: hydrotrend
-configuration_file: /Users/mpiper/projects/mdpiper/dakota/dakota/config.yaml
+configuration_file: /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/config.yaml
 data_file: dakota.dat
+descriptors:
+- starting_mean_annual_temperature
+- total_annual_precipitation
+evaluation_concurrency: 2
 final_point:
 - 20.0
 - 2.5
+gradients: no_gradients
+hessians: no_hessians
+id_interface: CSDMS
 initial_point:
 - 10.0
 - 1.5
-input_files:
-- /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO0.HYPS
+input_file: dakota.in
 interface: fork
-is_objective_function: false
+lower_bounds: null
 method: vector_parameter_study
 n_steps: 5
+output_file: dakota.out
 parameters_file: params.in
-responses:
+response_descriptors:
 - Qs_median
 - Q_mean
 response_files:
@@ -24,10 +34,9 @@ response_files:
 response_statistics:
 - median
 - mean
+responses: response_functions
 results_file: results.out
-run_directory: /Users/mpiper/projects/mdpiper/dakota/dakota
-template_file: /Users/mpiper/projects/mdpiper/dakota/dakota/tests/data/HYDRO.IN.dtmpl
-variables:
-- starting_mean_annual_temperature
-- total_annual_precipitation
-variable_type: continuous_design
+run_directory: /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new
+template_file: /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/hydrotrend.in.dtmpl
+upper_bounds: null
+variables: continuous_design

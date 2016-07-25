@@ -64,7 +64,7 @@ def test_setup_files():
     """Tests setup_files() against the sample configuration file."""
     r = h.setup_files(config)
     assert_is(h.input_template, config['template_file'])
-    assert_is(h.hypsometry_file, config['input_files'][0])
+    assert_is(h.hypsometry_file, config['auxiliary_files'][0])
     assert_is(h.output_files, config['response_files'])
     assert_is(h.output_statistics, config['response_statistics'])
 
