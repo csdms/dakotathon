@@ -1,5 +1,5 @@
 """A Python interface to the Dakota iterative systems analysis toolkit."""
-from .core import Dakota
+from .dakota import Dakota
 from .bmi_dakota import BmiDakota
 
 

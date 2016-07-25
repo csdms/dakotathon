@@ -16,7 +16,7 @@ import shutil
 # from numpy.testing import assert_almost_equal
 from nose.tools import raises, with_setup
 from csdms.dakota.run_plugin import run_plugin, main
-from csdms.dakota.core import Dakota
+from csdms.dakota.dakota import Dakota
 from csdms.dakota.plugins.hydrotrend import is_installed
 from . import start_dir, data_dir
 

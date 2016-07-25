@@ -2,7 +2,7 @@
 """Basic Model Interface for the Dakota iterative systems analysis toolkit."""
 
 from basic_modeling_interface import Bmi
-from .core import Dakota
+from .dakota import Dakota
 
 
 class BmiDakota(Bmi):
