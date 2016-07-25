@@ -171,9 +171,9 @@ def test_input_file_contents():
 
 
 def test_setup():
+    """Test the setup method."""
     k = Dakota(method='vector_parameter_study')
-    k.serialize()
-    k.write_input_file()
+    k.setup()
     assert_true(os.path.exists(k.configuration_file))
     assert_true(filecmp.cmp(known_file, input_file))
 
