@@ -1,0 +1,7 @@
+%eval_id interface starting_mean_annual_temperature total_annual_precipitation      Qs_median         Q_mean 
+       1     CSDMS             10            1.5          2.116    75.13497033 
+       2     CSDMS             12            1.7          3.043    85.63155668 
+       3     CSDMS             14            1.9          4.156     96.0853701 
+       4     CSDMS             16            2.1          5.616    106.5451266 
+       5     CSDMS             18            2.3          7.207    117.0165739 
+       6     CSDMS             20            2.5          9.363    127.4870047 

@@ -85,16 +85,16 @@ def test_get_configuration_file_unknown_file():
     get_configuration_file('foo.in')
 
 
-def test_get_configuration():
-    """Test the get_configuration function."""
-    config = get_configuration(config_file)
+def test_deserialize():
+    """Test the deserialize function."""
+    config = deserialize(config_file)
     assert_equal(component, config['component'])
 
 
 @raises(IOError)
-def test_get_configuration_unknown_file():
-    """Test get_configuration when config file not found."""
-    get_configuration('foo.yaml')
+def test_deserialize_unknown_file():
+    """Test deserialize when config file not found."""
+    deserialize('foo.yaml')
 
 
 def test_compute_statistic():

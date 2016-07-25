@@ -99,6 +99,28 @@ def get_response_descriptors(params_file):
         return labels
 
 
+def get_attributes(obj):
+    """Get and format the attributes of an object.
+
+    Parameters
+    ----------
+    section
+      An object that has attributes.
+
+    Returns
+    -------
+    dict
+      The object's attributes.
+
+    """
+    attrs = obj.__dict__.copy()
+    for key in attrs:
+        if key.startswith('_'):
+            new_key = key.lstrip('_')
+            attrs[new_key] = attrs.pop(key)
+    return attrs
+
+
 def get_configuration_file(params_file):
     """Extract the configuration filepath from a Dakota parameters file.
 
@@ -119,7 +141,7 @@ def get_configuration_file(params_file):
                 return line.split('AC_1')[0].strip()
 
 
-def get_configuration(config_file):
+def deserialize(config_file):
     """Load settings from a YAML configuration file.
 
     Returns

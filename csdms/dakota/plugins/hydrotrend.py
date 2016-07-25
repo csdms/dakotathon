@@ -6,8 +6,8 @@ import shutil
 import subprocess
 import numpy as np
 from .base import PluginBase
-from csdms.dakota.utils import get_response_descriptors, write_results, \
-    compute_statistic
+from csdms.dakota.utils import (get_response_descriptors,
+                                write_results, compute_statistic)
 
 
 classname = 'HydroTrend'
@@ -27,11 +27,15 @@ class HydroTrend(PluginBase):
 
     """Represent a HydroTrend simulation in a Dakota experiment."""
 
-    def __init__(self, input_dir='HYDRO_IN',
-                 output_dir='HYDRO_OUTPUT', input_file='HYDRO.IN',
+    def __init__(self,
+                 input_dir='HYDRO_IN',
+                 output_dir='HYDRO_OUTPUT',
+                 input_file='HYDRO.IN',
                  input_template='HYDRO.IN.dtmpl',
-                 hypsometry_file='HYDRO0.HYPS', output_files=None,
-                 output_statistics=None, **kwargs):
+                 hypsometry_file='HYDRO0.HYPS',
+                 output_files=None,
+                 output_statistics=None,
+                 **kwargs):
         """Define default files and directories."""
         PluginBase.__init__(self, **kwargs)
         self.input_dir = input_dir
@@ -75,7 +79,7 @@ class HydroTrend(PluginBase):
 
         """
         self.input_template = config['template_file']
-        self.hypsometry_file, = config['input_files']
+        self.hypsometry_file, = config['auxiliary_files']
         self.output_files = config['response_files']
         self.output_statistics = config['response_statistics']
 

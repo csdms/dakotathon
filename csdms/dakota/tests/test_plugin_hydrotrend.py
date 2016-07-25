@@ -15,7 +15,7 @@ import numpy as np
 from numpy.testing import assert_almost_equal
 from nose.tools import raises, with_setup, assert_is, assert_true
 from csdms.dakota.plugins.hydrotrend import HydroTrend, is_installed
-from csdms.dakota.utils import get_configuration
+from csdms.dakota.utils import deserialize
 from . import start_dir, data_dir
 
 
@@ -39,7 +39,7 @@ def setup():
     """Called at start of any test using it @with_setup()"""
     global h, config
     h = HydroTrend()
-    config = get_configuration(config_file)
+    config = deserialize(config_file)
 
 
 def teardown():
@@ -64,7 +64,7 @@ def test_setup_files():
     """Tests setup_files() against the sample configuration file."""
     r = h.setup_files(config)
     assert_is(h.input_template, config['template_file'])
-    assert_is(h.hypsometry_file, config['input_files'][0])
+    assert_is(h.hypsometry_file, config['auxiliary_files'][0])
     assert_is(h.output_files, config['response_files'])
     assert_is(h.output_statistics, config['response_statistics'])
 

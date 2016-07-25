@@ -10,8 +10,8 @@ method
 
 variables
   continuous_design = 2
-    initial_point = -0.3 0.2
     descriptors = 'x1' 'x2'
+    initial_point = -0.3 0.2
 
 interface
   id_interface = 'CSDMS'
