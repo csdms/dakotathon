@@ -2,7 +2,7 @@
 """Defines the `dakota_run_plugin` console script."""
 
 import importlib
-from .utils import get_configuration_file, get_configuration
+from .utils import get_configuration_file, deserialize
 
 
 plugin_script = 'dakota_run_plugin'
@@ -48,7 +48,7 @@ def run_plugin(params_file, results_file):
 
     """
     config_file = get_configuration_file(params_file)
-    config = get_configuration(config_file)
+    config = deserialize(config_file)
 
     _module = importlib.import_module(_plugins_path + config['component'])
     if _module.is_installed():

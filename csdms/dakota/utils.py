@@ -141,7 +141,7 @@ def get_configuration_file(params_file):
                 return line.split('AC_1')[0].strip()
 
 
-def get_configuration(config_file):
+def deserialize(config_file):
     """Load settings from a YAML configuration file.
 
     Returns
