@@ -42,7 +42,7 @@ def test_descriptors():
 
 def test_get_initial_point():
     """Test getting the initial_point property."""
-    assert_equal(c.initial_point, (-0.3, -0.2))
+    assert_equal(c.initial_point, (-0.3, 0.2))
 
 
 def test_set_initial_point():
