@@ -9,6 +9,7 @@
 
 import os
 import shutil
+import filecmp
 import glob
 from nose.tools import with_setup, assert_true
 from csdms.dakota.core import Dakota
@@ -22,7 +23,8 @@ from . import start_dir, data_dir
 
 run_dir = os.getcwd()
 config_file = os.path.join(run_dir, 'config.yaml')
-existing_config_file = os.path.join(data_dir, 'config.yaml')
+known_config_file = os.path.join(data_dir, 'config.yaml')
+known_dat_file = os.path.join(data_dir, 'dakota.dat')
 
 # Fixtures -------------------------------------------------------------
 
@@ -80,12 +82,13 @@ def test_run_by_setting_attributes():
     if is_dakota_installed() and is_hydrotrend_installed():
         d.run()
         assert_true(os.path.exists(d.output_file))
+        assert_true(filecmp.cmp(known_dat_file, d.environment.data_file))
 
 
 @with_setup(setup, teardown)
 def test_run_from_config_file():
     """Test running a HydroTrend simulation from a config file."""
-    d = Dakota.from_file_like(existing_config_file)
+    d = Dakota.from_file_like(known_config_file)
     d.run_directory = run_dir
     d.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
     d.auxiliary_files = os.path.join(data_dir, 'HYDRO0.HYPS')
@@ -95,3 +98,4 @@ def test_run_from_config_file():
     if is_dakota_installed() and is_hydrotrend_installed():
         d.run()
         assert_true(os.path.exists(d.output_file))
+        assert_true(filecmp.cmp(known_dat_file, d.environment.data_file))
