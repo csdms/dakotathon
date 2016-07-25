@@ -11,6 +11,7 @@ class Experiment(object):
     blocks = ('environment', 'method', 'variables', 'interface', 'responses')
 
     def __init__(self,
+                 component=None,
                  environment='environment',
                  method='vector_parameter_study',
                  variables='continuous_design',
@@ -18,6 +19,9 @@ class Experiment(object):
                  responses='response_functions',
                  **kwargs):
         """Create a set of default experiment parameters."""
+        self.component = component
+        if self.component is not None:
+            interface = 'fork'
         for section in Experiment.blocks:
             cls = self._import(section, eval(section), **kwargs)
             attr = '_' + section

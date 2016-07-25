@@ -20,7 +20,6 @@ class Dakota(Experiment):
                  output_file='dakota.out',
                  template_file=None,
                  auxiliary_files=(),
-                 component=None,
                  **kwargs):
         """Create a new `Dakota` instance.
 
@@ -53,11 +52,6 @@ class Dakota(Experiment):
         self.output_file = output_file
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
-        self.component = component
-
-        # XXX
-        if self.component is not None:
-            interface = 'fork'
 
     @property
     def run_directory(self):

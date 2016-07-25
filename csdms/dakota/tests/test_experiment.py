@@ -1,7 +1,8 @@
 """Tests for the csdms.dakota.experiment module."""
 
 import os
-from nose.tools import raises, assert_true, assert_equal, assert_is_instance
+from nose.tools import (raises, assert_true, assert_equal,
+                        assert_is_instance, assert_is_none)
 from csdms.dakota.experiment import Experiment
 
 
@@ -20,6 +21,27 @@ def teardown_module():
 def test_instantiate():
     """Test whether Experiment instantiates."""
     e = Experiment()
+
+
+def test_get_component():
+    """Test getting the component attribute."""
+    assert_is_none(x.component)
+
+
+def test_set_component():
+    """Test setting the component attribute."""
+    e = Experiment()
+    component = 'hydrotrend'
+    e.component = component
+    assert_equal(e.component, component)
+
+
+def test_component_sets_interface_type():
+    """Test that setting component sets fork interface."""
+    from .test_interface_fork import Fork
+    component = 'hydrotrend'
+    e = Experiment(component=component)
+    assert_is_instance(e.interface, Fork)
 
 
 def test_get_environment():
