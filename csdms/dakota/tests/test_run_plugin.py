@@ -81,7 +81,7 @@ def test_run_plugin_unknown_config_file():
 def test_run_plugin_unknown_module():
     """Tests run_plugin() fails with unknown module."""
     d.method.component = 'foo'
-    d.write_configuration_file(local_config_file)
+    d.serialize(local_config_file)
     run_plugin(params_file, results_file)
 
 
@@ -89,7 +89,7 @@ def test_run_plugin_unknown_module():
 @with_setup(setup, teardown)
 def test_run_plugin_uninstalled_module():
     """Tests run_plugin() fails with module that's not installed."""
-    d.write_configuration_file(local_config_file)
+    d.serialize(local_config_file)
     os.environ['PATH'] = '.'
     run_plugin(params_file, results_file)
 

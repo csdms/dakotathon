@@ -143,9 +143,9 @@ def test_set_auxiliary_files_fails_if_scalar():
 
 
 def test_write_configuration_file():
-    """Test write_configuration_file produces config file."""
+    """Test serialize method produces config file."""
     k = Dakota(method='vector_parameter_study')
-    k.write_configuration_file()
+    k.serialize()
     assert_true(os.path.exists(k.configuration_file))
 
 
@@ -172,7 +172,7 @@ def test_input_file_contents():
 
 def test_setup():
     k = Dakota(method='vector_parameter_study')
-    k.write_configuration_file()
+    k.serialize()
     k.write_input_file()
     assert_true(os.path.exists(k.configuration_file))
     assert_true(filecmp.cmp(known_file, input_file))

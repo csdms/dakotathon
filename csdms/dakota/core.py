@@ -158,7 +158,7 @@ class Dakota(Experiment):
             config = yaml.load(file_like)
         return cls(**config)
 
-    def write_configuration_file(self, config_file=None):
+    def serialize(self, config_file=None):
         """Dump settings to a YAML configuration file.
 
         Parameters
@@ -172,7 +172,7 @@ class Dakota(Experiment):
         experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.write_configuration_file('config.yaml')
+        >>> d.serialize('config.yaml')
 
         """
         from .utils import get_attributes
@@ -221,7 +221,7 @@ class Dakota(Experiment):
         >>> d.setup()
 
         """
-        self.write_configuration_file()
+        self.serialize()
         self.write_input_file()
 
     def run(self):

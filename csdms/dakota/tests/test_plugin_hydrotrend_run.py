@@ -92,7 +92,7 @@ def test_run_from_config_file():
     d.run_directory = run_dir
     d.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
     d.auxiliary_files = os.path.join(data_dir, 'HYDRO0.HYPS')
-    d.write_configuration_file(config_file)
+    d.serialize(config_file)
     d.write_input_file()
     assert_true(os.path.exists(d.input_file))
     if is_dakota_installed() and is_hydrotrend_installed():
