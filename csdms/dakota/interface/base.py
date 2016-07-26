@@ -17,7 +17,25 @@ class InterfaceBase(object):
                  asynchronous=False,
                  evaluation_concurrency=2,
                  **kwargs):
-        """Create a set of default experiment parameters."""
+        """Create a default interface.
+
+        Parameters
+        ----------
+        interface : str, optional
+            The Dakota interface type (default is 'direct').
+        id_interface : str, optional
+            Interface identifier.
+        analysis_driver : str, optional
+            Name of analysis driver for Dakota experiment (default is
+            'rosenbrock').
+        asynchronous : bool, optional
+            Set to perform asynchronous evaluations (default is False).
+        evaluation_concurrency : int, optional
+            Number of concurrent evaluations (default is 2).
+        **kwargs
+            Optional keyword arguments.
+
+        """
         self.interface = interface
         self.id_interface = id_interface
         self.analysis_driver = analysis_driver

@@ -26,6 +26,7 @@ Contents
    Environments <environment>
    Methods <analysis_methods>
    Variables <variables>
+   Interfaces <interfaces>
 
    Component plugins <component_plugins>
    The `dakota_run_plugin` console script <csdms.dakota.run_plugin>
