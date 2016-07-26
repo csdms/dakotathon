@@ -8,7 +8,12 @@ classname = 'ContinuousDesign'
 
 class ContinuousDesign(VariablesBase):
 
-    """Define attributes for Dakota continous design variables."""
+    """Define attributes for Dakota continous design variables.
+
+    Continuous variables are defined by a real interval and are
+    changed during the search for the optimal design.
+
+    """
 
     def __init__(self,
                  descriptors=('x1', 'x2'),
@@ -18,6 +23,32 @@ class ContinuousDesign(VariablesBase):
                  scale_types=None,
                  scales=None,
                  **kwargs):
+        """Create the parameter set for a continuous design variable.
+
+        Parameters
+        ----------
+        descriptors : str or tuple or list of str, optional
+            Labels for the variables.
+        initial_point : tuple or list of numbers
+            Start points used by study variables.
+        lower_bounds : tuple or list of numbers
+            Minimum values used by the study variables.
+        upper_bounds : tuple or list of numbers
+            Maximum values used by the study variables.
+        scale_types
+            *Not implemented*
+        scales
+            *Not implemented*
+        **kwargs
+            Optional keyword arguments.
+
+        Examples
+        --------
+        Create a default ContinuousDesign instance with:
+
+        >>> v = ContinuousDesign()
+
+        """
         VariablesBase.__init__(self, **kwargs)
         self.variables = self.__module__.rsplit('.')[-1]
         self._descriptors = descriptors
@@ -86,7 +117,13 @@ class ContinuousDesign(VariablesBase):
         self._upper_bounds = value
 
     def __str__(self):
-        """Define the variables block for continous design variables."""
+        """Define the variables block for continous design variables.
+
+        See Also
+        --------
+        csdms.dakota.variables.base.VariablesBase.__str__
+
+        """
         s = VariablesBase.__str__(self)
         if self.initial_point is not None:
             s += '\n' \

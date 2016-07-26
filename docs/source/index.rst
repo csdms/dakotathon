@@ -22,8 +22,11 @@ Contents
 
    Dakota class <csdms.dakota.dakota>
    Experiment class <csdms.dakota.experiment> 
+
    Environments <environment>
    Methods <analysis_methods>
+   Variables <variables>
+
    Component plugins <component_plugins>
    The `dakota_run_plugin` console script <csdms.dakota.run_plugin>
    Utilities and helper functions <csdms.dakota.utils>
