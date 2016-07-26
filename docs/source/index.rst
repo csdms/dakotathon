@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 The CSDMS Dakota Interface
-========================================
+==========================
 
 :Release: |release|
 :Date: |today|
@@ -12,16 +12,26 @@ The CSDMS Dakota Interface
 The CSDMS Dakota interface provides a Python API 
 for the `Dakota <https://dakota.sandia.gov/>`_
 iterative systems analysis toolkit.
+The interface follows the documentation
+for the `keywords <https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/keywords.html>`_
+used to configure a Dakota experiment.
 
 
 Contents
 ========
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
 
-   Dakota class <csdms.dakota.core>
-   Dakota analysis methods <analysis_methods>
+   Dakota class <csdms.dakota.dakota>
+   Experiment class <csdms.dakota.experiment> 
+
+   Environments <environment>
+   Methods <analysis_methods>
+   Variables <variables>
+   Interfaces <interfaces>
+   Responses <responses>
+
    Component plugins <component_plugins>
    The `dakota_run_plugin` console script <csdms.dakota.run_plugin>
    Utilities and helper functions <csdms.dakota.utils>

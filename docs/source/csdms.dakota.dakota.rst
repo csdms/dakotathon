@@ -1,7 +1,7 @@
 Dakota class
 ============
 
-.. automodule:: csdms.dakota.core
+.. automodule:: csdms.dakota.dakota
     :members:
     :undoc-members:
     :special-members: __init__

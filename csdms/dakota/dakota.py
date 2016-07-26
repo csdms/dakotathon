@@ -11,7 +11,7 @@ from .experiment import Experiment
 
 class Dakota(Experiment):
 
-    """Configure and run a Dakota experiment."""
+    """Controller for configuring and running a Dakota experiment."""
 
     def __init__(self,
                  run_directory=os.getcwd(),
@@ -21,18 +21,34 @@ class Dakota(Experiment):
                  template_file=None,
                  auxiliary_files=(),
                  **kwargs):
-        """Create a new `Dakota` instance.
+        """Initialize a Dakota experiment.
 
-        Called with no parameters, a Dakota experiment with basic
-        defaults (a vector parameter study with the built-in
-        `rosenbrock` example) is created. Use ``method`` to set the
-        Dakota analysis method in a new experiment.
+        Called with no parameters, a Dakota experiment with basic defaults
+        (a vector parameter study with the built-in `rosenbrock` example)
+        is created. Use ``method`` to set the Dakota analysis method in a
+        new experiment.
 
         Parameters
         ----------
-        method : str, optional
-          The desired Dakota method (e.g., `vector_parameter_study`,
-          `polynomial_chaos`, etc.) to use in an experiment.
+        run_directory : str, optional
+            The working directory in which Dakota is run, and output
+            is placed (default is the current directory).
+        configuration_file : str, optional
+            A Dakota instance serialized to a YAML file (default is
+            **config.yaml**).
+        input_file : str, optional
+            Name of Dakota input file (default is **dakota.in**)
+        output_file : str, optional
+            Name of Dakota output file (default is **dakota.out**)
+        template_file : str, optional
+            The Dakota template file, formed from the input file of
+            the model to study, but with study variables replaced by
+            descriptors in braces; e.g., ``{total_annual_precipitation}``
+            (default is None).
+        auxiliary_files : str or tuple or list of str, optional
+            Additional input files used by the model being studied.
+        **kwargs
+            Arbitrary keyword arguments.
 
         Examples
         --------
@@ -65,7 +81,7 @@ class Dakota(Experiment):
         Parameters
         ----------
         value : str
-          The new run directory path.
+          The new run directory path (default is current directory).
 
         """
         self._run_directory = os.path.abspath(value)
@@ -82,7 +98,7 @@ class Dakota(Experiment):
         Parameters
         ----------
         value : str
-          The new file path.
+          The new file path (default is 'config.yaml').
 
         """
         if not os.path.isabs(value):
@@ -159,11 +175,11 @@ class Dakota(Experiment):
         return cls(**config)
 
     def serialize(self, config_file=None):
-        """Dump settings to a YAML configuration file.
+        """Dump settings for experiment to a YAML configuration file.
 
         Parameters
         ----------
-        config_file: str, optional
+        config_file : str, optional
           A path/name for a new configuration file.
 
         Examples
@@ -189,11 +205,14 @@ class Dakota(Experiment):
             yaml.safe_dump(props, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
-        """Create a Dakota input file on the file system.
+        """Create the Dakota input file for the experiment.
+
+        The input file is written to the directory specified by the
+        `run_directory` attribute.
 
         Parameters
         ----------
-        input_file: str, optional
+        input_file : str, optional
           A path/name for a new Dakota input file.
 
         Examples

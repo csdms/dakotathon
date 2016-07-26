@@ -14,7 +14,16 @@ class VariablesBase(object):
                  variables='continuous_design',
                  descriptors=(),
                  **kwargs):
-        """Create a set of default experiment parameters."""
+        """Create default variables parameters.
+
+        Parameters
+        ----------
+        descriptors : str or tuple or list of str, optional
+            Labels for the variables.
+        variables : str, optional
+            The type of parameter set (default is 'continuous_design').
+
+        """
         self.variables = variables
         self._descriptors = descriptors
 

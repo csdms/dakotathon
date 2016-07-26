@@ -16,7 +16,20 @@ class ResponsesBase(object):
                  gradients='no_gradients',
                  hessians='no_hessians',
                  **kwargs):
-        """Create a set of default experiment parameters."""
+        """Create a default response.
+
+        Parameters
+        ----------
+        responses : str, optional
+            The Dakota response type (default is 'response_functions').
+        response_descriptors : str or tuple or list of str, optional
+            Labels attached to the responses.
+        gradients : str, optional
+            Gradient type (default is 'no_gradients').
+        hessians : str, optional
+            Hessian type (default is 'no_hessians').
+
+        """
         self.responses = responses
         self._response_descriptors = response_descriptors
         self.gradients = gradients

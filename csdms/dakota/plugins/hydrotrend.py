@@ -36,7 +36,35 @@ class HydroTrend(PluginBase):
                  output_files=None,
                  output_statistics=None,
                  **kwargs):
-        """Define default files and directories."""
+        """Configure a default HydroTrend simulation.
+
+        Parameters
+        ----------
+        input_dir : str, optional
+            HydroTrend input directory (default is 'HYDRO_IN').
+        output_dir : str, optional
+            HydroTrend output directory (default is 'HYDRO_OUTPUT').
+        input_file : str, optional
+            HydroTrend input file (default is 'HYDRO.IN').
+        input_template : str, optional
+            Dakota template formed from HydroTrend input file (default
+            is 'HYDRO.IN.dtmpl').
+        hypsometry_file : str, optional
+            The hypsometry file for the HydroTrend experiment.
+        output_files : str or list or tuple of str, optional
+            HydroTrend output files to analyze.
+        output_statistics : str or list or tuple of str, optional
+            Statistics to apply to HydroTrend output.
+        **kwargs
+            Optional keyword arguments.
+
+        Examples
+        --------
+        Create a HydroTrend instance with:
+
+        >>> h = HydroTrend()
+
+        """
         PluginBase.__init__(self, **kwargs)
         self.input_dir = input_dir
         self.output_dir = output_dir

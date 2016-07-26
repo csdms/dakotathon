@@ -11,7 +11,16 @@ class Environment(EnvironmentBase):
     """Describe Dakota environment."""
 
     def __init__(self, data_file='dakota.dat', **kwargs):
-        """Create a set of default experiment parameters."""
+        """Define parameters for the Dakota environment.
+
+        Parameters
+        ----------
+        data_file : str, optional
+            The Dakota tabular data file (default is 'dakota.dat').
+        **kwargs
+            Optional keyword arguments.
+
+        """
         EnvironmentBase.__init__(self, **kwargs)
         self.data_file = data_file
 

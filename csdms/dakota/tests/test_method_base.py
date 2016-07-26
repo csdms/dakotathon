@@ -17,8 +17,8 @@ class Concrete(MethodBase):
 
     """A subclass of MethodBase used for testing."""
 
-    def __init__(self):
-        MethodBase.__init__(self)
+    def __init__(self, **kwargs):
+        MethodBase.__init__(self, **kwargs)
 
 # Fixtures -------------------------------------------------------------
 
@@ -27,7 +27,7 @@ def setup_module():
     """Called before any tests are performed."""
     print('\n*** ' + __name__)
     global c
-    c = Concrete()
+    c = Concrete(method='centered_parameter_study')
 
 
 def teardown_module():
@@ -41,6 +41,25 @@ def teardown_module():
 def test_instantiate():
     """Test whether MethodBase fails to instantiate."""
     d = MethodBase()
+
+
+def test_get_method():
+    """Test getting the method property."""
+    assert_true(type(c.method) is str)
+
+
+def test_set_method():
+    """Test setting the method property."""
+    m = 'sampling'
+    c.method = m
+    assert_equal(c.method, m)
+
+
+@raises(TypeError)
+def test_method_fails_if_not_str():
+    """Test that setting method to a non-str fails."""
+    value = 42
+    c.method = value
 
 
 def test_str_special():

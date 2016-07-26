@@ -69,6 +69,13 @@ def test_set_n_steps():
     assert_equal(v.n_steps, n)
 
 
+@raises(TypeError)
+def test_n_steps_fails_if_not_int():
+    """Test that setting n_steps to a non-int fails."""
+    value = 42.0
+    v.n_steps = value
+
+
 def test_str_special():
     """Test type of __str__ method results."""
     s = str(v)
