@@ -7,7 +7,7 @@
 
 The CSDMS Dakota interface provides
 a [Basic Model Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
-and API for the [Dakota](https://dakota.sandia.gov/)
+and a Python API for the [Dakota](https://dakota.sandia.gov/)
 iterative systems analysis toolkit.
 This is currently alpha-level software
 supported on Linux and Mac OSX.
@@ -56,16 +56,17 @@ specifying a Dakota analysis method:
 	>>> d = Dakota(method='vector_parameter_study')
 
 Currently,
-three Dakota methods
+four Dakota methods
 
 * [vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
 * [centered parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html)
 * [multidim parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-multidim_parameter_study.html)
+* [sampling](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-sampling.html)
 
 are supported.
 
 To run a sample case,
-create an input file
+create a Dakota input file
 from the default vector parameter study
 and call Dakota:
 
