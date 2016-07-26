@@ -34,7 +34,7 @@ class VectorParameterStudy(MethodBase):
         MethodBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
         self._final_point = final_point
-        self.n_steps = n_steps
+        self._n_steps = n_steps
 
     @property
     def final_point(self):
@@ -54,6 +54,25 @@ class VectorParameterStudy(MethodBase):
         if not isinstance(value, (tuple, list)):
             raise TypeError("Final points must be a tuple or a list")
         self._final_point = value
+
+    @property
+    def n_steps(self):
+        """Number of steps along vector."""
+        return self._n_steps
+
+    @n_steps.setter
+    def n_steps(self, value):
+        """Set number of steps along vector.
+
+        Parameters
+        ----------
+        value : int
+          The number of steps.
+
+        """
+        if not isinstance(value, int):
+            raise TypeError("Number of steps must be an int")
+        self._n_steps = value
 
     def __str__(self):
         """Define a vector parameter study method block for a Dakota input file.
