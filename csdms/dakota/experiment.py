@@ -188,7 +188,32 @@ class Experiment(object):
 
         >>> x = Experiment()
         >>> print x
-
+        # Dakota input file
+        environment
+          tabular_data
+            tabular_data_file = 'dakota.dat'
+        <BLANKLINE>
+        method
+          vector_parameter_study
+            final_point = 1.1 1.3
+            num_steps = 10
+        <BLANKLINE>
+        variables
+          continuous_design = 2
+            descriptors = 'x1' 'x2'
+            initial_point = -0.3 0.2
+        <BLANKLINE>
+        interface
+          id_interface = 'CSDMS'
+          direct
+          analysis_driver = 'rosenbrock'
+        <BLANKLINE>
+        responses
+          response_functions = 1
+            response_descriptors = 'y1'
+          no_gradients
+          no_hessians
+        <BLANKLINE>
         """
         s = '# Dakota input file\n'
         for section in Experiment.blocks:
