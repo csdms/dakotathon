@@ -15,6 +15,20 @@ class ResponseFunctions(ResponsesBase):
                  response_files=(),
                  response_statistics=('mean',),
                  **kwargs):
+        """Create a response using response functions.
+
+        Parameters
+        ----------
+        response_descriptors : str or tuple or list of str, optional
+            Labels attached to the responses.
+        response_files : str or tuple or list of str, optional
+            Model output files from which responses are calculated.
+        response_statistics : str or tuple or list of str, optional
+            Statistics used to generate responses.
+        **kwargs
+            Optional keyword arguments.
+
+        """
         ResponsesBase.__init__(self, **kwargs)
         self.responses = self.__module__.rsplit('.')[-1]
         self._response_descriptors = response_descriptors
@@ -35,6 +49,12 @@ class ResponseFunctions(ResponsesBase):
         value : list or tuple of str
           The new response files.
 
+        Examples
+        --------
+        Create a ResponseFunctions instance:
+
+        >>> f = ResponseFunctions()
+
         """
         if not isinstance(value, (tuple, list)):
             raise TypeError("Response files must be a tuple or a list")
@@ -42,12 +62,12 @@ class ResponseFunctions(ResponsesBase):
 
     @property
     def response_statistics(self):
-        """Model output statistics used in Dakota responses."""
+        """Statistics used to calculate Dakota responses."""
         return self._response_statistics
 
     @response_statistics.setter
     def response_statistics(self, value):
-        """Set model output statistics used in Dakota responses.
+        """Set statistics used to calculate Dakota responses.
 
         Parameters
         ----------
@@ -60,7 +80,13 @@ class ResponseFunctions(ResponsesBase):
         self._response_statistics = value
 
     def __str__(self):
-        """Define the responses block of a Dakota input file."""
+        """Define the responses block of a Dakota input file.
+
+        See Also
+        --------
+        csdms.dakota.responses.base.ResponsesBase.__str__
+
+        """
         n_descriptors = len(self.response_descriptors)
         s = ResponsesBase.__str__(self)
         s += '  response_functions = {}\n'.format(n_descriptors)
