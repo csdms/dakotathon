@@ -1,7 +1,7 @@
 Dakota environments
 ===================
 
-Python wrappers for Dakota environments.
+Environments are top-level settings for Dakota execution.
 
 
 Environment base class

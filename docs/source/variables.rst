@@ -1,8 +1,8 @@
 Dakota variable types
 =====================
 
-Python wrappers for the parameter sets to be iterated by a particular
-Dakota analysis method.
+Dakota variables are the parameter sets to be iterated by a particular
+analysis method.
 
 
 Variables base class
