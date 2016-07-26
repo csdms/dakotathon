@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 The CSDMS Dakota Interface
-========================================
+==========================
 
 :Release: |release|
 :Date: |today|
@@ -12,6 +12,9 @@ The CSDMS Dakota Interface
 The CSDMS Dakota interface provides a Python API 
 for the `Dakota <https://dakota.sandia.gov/>`_
 iterative systems analysis toolkit.
+The interface follows the documentation
+for the `keywords <https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/keywords.html>`_
+used to configure a Dakota experiment.
 
 
 Contents
