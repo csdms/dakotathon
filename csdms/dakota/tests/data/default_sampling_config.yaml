@@ -1,30 +1,36 @@
 analysis_driver: rosenbrock
+asynchronous: false
+auxiliary_files: []
 component: null
-configuration_file: /Users/mpiper/scratch/config.yaml
+configuration_file: /Users/mpiper/projects/dakota/csdms/dakota/tests/config.yaml
 data_file: dakota.dat
+descriptors:
+- x1
+- x2
+evaluation_concurrency: 2
+gradients: no_gradients
+hessians: no_hessians
 id_interface: CSDMS
-input_files: !!python/tuple []
+initial_point: null
+input_file: /Users/mpiper/projects/dakota/csdms/dakota/tests/dakota.in
 interface: direct
-is_objective_function: false
-lower_bounds: !!python/tuple
-- -1.0
-- -1.0
+lower_bounds:
+- -2.0
+- -2.0
 method: sampling
-parameters_file: params.in
-response_files: !!python/tuple []
-response_statistics: !!python/tuple []
-responses: !!python/tuple
+output_file: dakota.out
+response_descriptors:
 - y1
-results_file: results.out
-run_directory: /Users/mpiper/scratch
-sample_type: lhs
+response_files: []
+response_statistics:
+- mean
+responses: response_functions
+run_directory: /Users/mpiper/projects/dakota/csdms/dakota/tests
+sample_type: random
 samples: 10
 seed: null
 template_file: null
-upper_bounds: !!python/tuple
-- 1.0
-- 1.0
-variable_type: uniform_uncertain
-variables: !!python/tuple
-- x1
-- x2
+upper_bounds:
+- 2.0
+- 2.0
+variables: uniform_uncertain
