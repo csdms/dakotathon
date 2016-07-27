@@ -8,7 +8,12 @@ classname = 'UniformUncertain'
 
 class UniformUncertain(VariablesBase):
 
-    """Define attributes for Dakota uniform uncertain variables."""
+    """Define attributes for Dakota uniform uncertain variables.
+
+    The distribution lower and upper bounds are required
+    specifications; the initial point is optional.
+
+    """
 
     def __init__(self,
                  descriptors=('x1', 'x2'),
