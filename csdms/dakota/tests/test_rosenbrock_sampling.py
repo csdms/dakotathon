@@ -35,8 +35,9 @@ def test_create_input_file():
     assert_true(filecmp.cmp(known_input_file, input_file))
 
 
-def test_create_config_file():
-    """Test whether a known config file can be matched."""
-    d.serialize(config_file)
-    assert_true(filecmp.cmp(known_config_file, config_file))
+# XXX: Bad idea -- file contains full paths, which can't be matched on Travis.
+# def test_create_config_file():
+#     """Test whether a known config file can be matched."""
+#     d.serialize(config_file)
+#     assert_true(filecmp.cmp(known_config_file, config_file))
 
