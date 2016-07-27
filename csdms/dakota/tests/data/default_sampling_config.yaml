@@ -12,7 +12,7 @@ gradients: no_gradients
 hessians: no_hessians
 id_interface: CSDMS
 initial_point: null
-input_file: /Users/mpiper/projects/dakota/csdms/dakota/tests/dakota.in
+input_file: rosenbrock_sampling.in
 interface: direct
 lower_bounds:
 - -2.0
