@@ -52,14 +52,7 @@ class NormalUncertain(VariablesBase):
         Create a default instance of NormalUncertain with:
 
         >>> v = NormalUncertain()
-        >>> print v
-        variables
-          normal_uncertain = 2
-            descriptors = 'x1' 'x2'
-            means = 0.0 0.0
-            std_deviations = 1.0 1.0
-        <BLANKLINE>
-        <BLANKLINE>
+
         """
         VariablesBase.__init__(self, **kwargs)
         self.variables = self.__module__.rsplit('.')[-1]
@@ -167,6 +160,21 @@ class NormalUncertain(VariablesBase):
 
     def __str__(self):
         """Define the variables block for a normal uncertain variable.
+
+        Examples
+        --------
+        Display the variables block created by a default instance of
+        NormalUncertain:
+
+        >>> v = NormalUncertain()
+        >>> print v
+        variables
+          normal_uncertain = 2
+            descriptors = 'x1' 'x2'
+            means = 0.0 0.0
+            std_deviations = 1.0 1.0
+        <BLANKLINE>
+        <BLANKLINE>
 
         See Also
         --------

@@ -41,14 +41,7 @@ class UniformUncertain(VariablesBase):
         Create a default instance of UniformUncertain with:
 
         >>> v = UniformUncertain()
-        >>> print v
-        variables
-          uniform_uncertain = 2
-            descriptors = 'x1' 'x2'
-            lower_bounds = -2.0 -2.0
-            upper_bounds = 2.0 2.0
-        <BLANKLINE>
-        <BLANKLINE>
+
         """
         VariablesBase.__init__(self, **kwargs)
         self.variables = self.__module__.rsplit('.')[-1]
@@ -116,6 +109,21 @@ class UniformUncertain(VariablesBase):
 
     def __str__(self):
         """Define the variables block for a uniform uncertain variable.
+
+        Examples
+        --------
+        Display the variables block created by a default instance of
+        UniformUncertain:
+
+        >>> v = UniformUncertain()
+        >>> print v
+        variables
+          uniform_uncertain = 2
+            descriptors = 'x1' 'x2'
+            lower_bounds = -2.0 -2.0
+            upper_bounds = 2.0 2.0
+        <BLANKLINE>
+        <BLANKLINE>
 
         See Also
         --------

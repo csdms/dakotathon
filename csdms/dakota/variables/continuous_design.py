@@ -119,6 +119,20 @@ class ContinuousDesign(VariablesBase):
     def __str__(self):
         """Define the variables block for continous design variables.
 
+        Examples
+        --------
+        Display the variables block created by a default instance of
+        ContinuousDesign:
+
+        >>> v = ContinuousDesign()
+        >>> print v
+        variables
+          continuous_design = 2
+            descriptors = 'x1' 'x2'
+            initial_point = -0.3 0.2
+        <BLANKLINE>
+        <BLANKLINE>
+
         See Also
         --------
         csdms.dakota.variables.base.VariablesBase.__str__
