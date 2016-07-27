@@ -23,3 +23,23 @@ Continuous design
     :undoc-members:
     :special-members: __init__, __str__
     :show-inheritance:
+
+
+Uniform uncertain
+-----------------
+
+.. automodule:: csdms.dakota.variables.uniform_uncertain
+    :members:
+    :undoc-members:
+    :special-members: __init__, __str__
+    :show-inheritance:
+
+
+Normal uncertain
+----------------
+
+.. automodule:: csdms.dakota.variables.normal_uncertain
+    :members:
+    :undoc-members:
+    :special-members: __init__, __str__
+    :show-inheritance:

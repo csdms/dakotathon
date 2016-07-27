@@ -1,82 +1,54 @@
-"""Implementation of a Dakota continous design variable."""
+"""Implementation of a Dakota uniform uncertain variable."""
 
 from .base import VariablesBase
 
 
-classname = 'ContinuousDesign'
+classname = 'UniformUncertain'
 
 
-class ContinuousDesign(VariablesBase):
+class UniformUncertain(VariablesBase):
 
-    """Define attributes for Dakota continous design variables.
+    """Define attributes for Dakota uniform uncertain variables.
 
-    Continuous variables are defined by a real interval and are
-    changed during the search for the optimal design.
+    The distribution lower and upper bounds are required
+    specifications; the initial point is optional.
 
     """
 
     def __init__(self,
                  descriptors=('x1', 'x2'),
+                 lower_bounds=(-2.0, -2.0),
+                 upper_bounds=(2.0, 2.0),
                  initial_point=None,
-                 lower_bounds=None,
-                 upper_bounds=None,
-                 scale_types=None,
-                 scales=None,
                  **kwargs):
-        """Create the parameter set for a continuous design variable.
+        """Create the parameter set for a uniform uncertain variable.
 
         Parameters
         ----------
         descriptors : str or tuple or list of str, optional
             Labels for the variables.
-        initial_point : tuple or list of numbers
+        initial_point : tuple or list of numbers, optional
             Start points used by study variables.
         lower_bounds : tuple or list of numbers
             Minimum values used by the study variables.
         upper_bounds : tuple or list of numbers
             Maximum values used by the study variables.
-        scale_types
-            *Not implemented*
-        scales
-            *Not implemented*
         **kwargs
             Optional keyword arguments.
 
         Examples
         --------
-        Create a default ContinuousDesign instance with:
+        Create a default instance of UniformUncertain with:
 
-        >>> v = ContinuousDesign()
+        >>> v = UniformUncertain()
 
         """
         VariablesBase.__init__(self, **kwargs)
         self.variables = self.__module__.rsplit('.')[-1]
         self._descriptors = descriptors
-        self._initial_point = initial_point
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
-
-        if initial_point is None and lower_bounds is None and \
-            upper_bounds is None: self._initial_point = (-0.3, 0.2)
-
-    @property
-    def initial_point(self):
-        """Start points used by study variables."""
-        return self._initial_point
-
-    @initial_point.setter
-    def initial_point(self, value):
-        """Set start points used by study variables.
-
-        Parameters
-        ----------
-        value : list or tuple of numbers
-          The new initial points.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Initial points must be a tuple or a list")
-        self._initial_point = value
+        self._initial_point = initial_point
 
     @property
     def lower_bounds(self):
@@ -116,20 +88,40 @@ class ContinuousDesign(VariablesBase):
             raise TypeError("Upper bounds must be a tuple or a list")
         self._upper_bounds = value
 
+    @property
+    def initial_point(self):
+        """Start points used by study variables."""
+        return self._initial_point
+
+    @initial_point.setter
+    def initial_point(self, value):
+        """Set start points used by study variables.
+
+        Parameters
+        ----------
+        value : list or tuple of numbers
+          The new initial points.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Initial points must be a tuple or a list")
+        self._initial_point = value
+
     def __str__(self):
-        """Define the variables block for continous design variables.
+        """Define the variables block for a uniform uncertain variable.
 
         Examples
         --------
         Display the variables block created by a default instance of
-        ContinuousDesign:
+        UniformUncertain:
 
-        >>> v = ContinuousDesign()
+        >>> v = UniformUncertain()
         >>> print v
         variables
-          continuous_design = 2
+          uniform_uncertain = 2
             descriptors = 'x1' 'x2'
-            initial_point = -0.3 0.2
+            lower_bounds = -2.0 -2.0
+            upper_bounds = 2.0 2.0
         <BLANKLINE>
         <BLANKLINE>
 
@@ -139,11 +131,6 @@ class ContinuousDesign(VariablesBase):
 
         """
         s = VariablesBase.__str__(self)
-        if self.initial_point is not None:
-            s += '\n' \
-                 + '    initial_point ='
-            for pt in self.initial_point:
-                s += ' {}'.format(pt)
         if self.lower_bounds is not None:
             s += '\n' \
                  + '    lower_bounds ='
@@ -154,5 +141,10 @@ class ContinuousDesign(VariablesBase):
                  + '    upper_bounds ='
             for b in self.upper_bounds:
                 s += ' {}'.format(b)
+        if self.initial_point is not None:
+            s += '\n' \
+                 + '    initial_point ='
+            for pt in self.initial_point:
+                s += ' {}'.format(pt)
         s += '\n\n'
         return(s)
