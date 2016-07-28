@@ -47,3 +47,16 @@ def test_basis_polynomial_family_fails_if_unknown_type():
     """Test that setting basis_polynomial_family to an unknown type fails."""
     value = 'foobar'
     c.basis_polynomial_family = value
+
+
+def test_str_special():
+    """Test type of __str__ method results."""
+    s = str(c)
+    assert_true(type(s) is str)
+
+
+def test_str_length():
+    """Test the default length of __str__."""
+    s = str(c)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 3)

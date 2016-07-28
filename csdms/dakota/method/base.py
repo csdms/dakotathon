@@ -13,7 +13,7 @@ class MethodBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, method=None, **kwargs):
+    def __init__(self, method='vector_parameter_study', **kwargs):
         """Create default method parameters.
 
         Parameters
@@ -67,6 +67,7 @@ class UncertaintyQuantificationBase(MethodBase):
           'extended' (the default), 'askey', or 'wiener'.
 
         """
+        MethodBase.__init__(self, **kwargs)
         self._basis_polynomial_family = basis_polynomial_family
 
     @property
@@ -88,3 +89,17 @@ class UncertaintyQuantificationBase(MethodBase):
             msg = "Polynomial type must be 'extended', 'askey', or 'wiener'"
             raise TypeError(msg)
         self._basis_polynomial_family = value
+
+    def __str__(self):
+        """Define the method block for a UQ experiment.
+
+        See Also
+        --------
+        csdms.dakota.method.base.MethodBase.__str__
+
+        """
+        s = MethodBase.__str__(self)
+        s += '\n'
+        if self.basis_polynomial_family is not 'extended':
+            s += '    {}\n'.format(self.basis_polynomial_family)
+        return s
