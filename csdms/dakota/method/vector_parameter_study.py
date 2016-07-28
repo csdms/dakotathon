@@ -83,8 +83,7 @@ class VectorParameterStudy(MethodBase):
 
         """
         s = MethodBase.__str__(self)
-        s += '\n' \
-            + '    final_point ='
+        s += '    final_point ='
         for pt in self.final_point:
             s += ' {}'.format(pt)
         s += '\n' \

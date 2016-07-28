@@ -106,9 +106,8 @@ class Sampling(MethodBase):
 
         """
         s = MethodBase.__str__(self)
-        s += '\n' \
-             + '    sample_type = {}\n'.format(self.sample_type) \
-             + '    samples = {}\n'.format(self.samples)
+        s += '    sample_type = {}\n'.format(self.sample_type) \
+            + '    samples = {}\n'.format(self.samples)
         if self.seed is not None:
             s += '    seed = {}\n'.format(self.seed)
         s += '\n'

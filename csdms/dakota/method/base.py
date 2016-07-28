@@ -46,7 +46,7 @@ class MethodBase(object):
     def __str__(self):
         """Define the preamble of the Dakota input file method block."""
         s = 'method\n' \
-            + '  {}'.format(self.method)
+            + '  {}\n'.format(self.method)
         return(s)
 
 
@@ -99,7 +99,6 @@ class UncertaintyQuantificationBase(MethodBase):
 
         """
         s = MethodBase.__str__(self)
-        s += '\n'
         if self.basis_polynomial_family is not 'extended':
             s += '    {}\n'.format(self.basis_polynomial_family)
         return s
