@@ -132,7 +132,26 @@ def test_set_probability_levels_fails_if_scalar():
     m.probability_levels = pt
 
 
-#---
+def test_get_response_levels():
+    """Test getting the response_levels property."""
+    assert_true(type(x.response_levels) is tuple)
+
+
+def test_set_response_levels():
+    """Test setting the response_levels property."""
+    m = PolynomialChaos()
+    for items in [[0,1], (0,1)]:
+        m.response_levels = items
+        assert_equal(m.response_levels, items)
+
+
+@raises(TypeError)
+def test_set_response_levels_fails_if_scalar():
+    """Test that the response_levels property fails with scalar."""
+    m = PolynomialChaos()
+    pt = 42
+    m.response_levels = pt
+
 
 def test_get_samples():
     """Test getting the samples property."""
