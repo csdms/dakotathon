@@ -24,13 +24,25 @@ class PolynomialChaos(UncertaintyQuantificationBase):
 
     """The Dakota polynomial chaos analysis method.
 
-    The coefficient estimation approach is required, but the only
-    approach currently implemented is *quadrature_order_sequence*,
-    which obtains coefficients of the expansion using multidimensional
-    integration by a tensor-product of Gaussian quadrature rules
-    specified with *quadrature_order*, and, optionally, with
-    *dimension_preference*. If *dimension_preference* is defined,
-    its highest value is set to the *quadrature_order*.
+    Designation of a coefficient estimation approach is required, but
+    the only approach currently implemented is
+    *quadrature_order_sequence*, which obtains coefficients of the
+    expansion using multidimensional integration by a tensor-product
+    of Gaussian quadrature rules specified with *quadrature_order*,
+    and, optionally, with *dimension_preference*. If
+    *dimension_preference* is defined, its highest value is set to the
+    *quadrature_order*.
+
+    To supply *probability_levels* or *response_levels* to multiple
+    responses, nest the inputs to these properties.
+
+    Notes
+    -----
+    This implementation of the polynomial chaos method is based on the
+    `Dakota 6.4 documentation`_.
+
+    .. _Dakota 6.4 documentation:
+       https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/method-polynomial_chaos.html
 
     """
 
@@ -64,11 +76,11 @@ class PolynomialChaos(UncertaintyQuantificationBase):
           corresponding response value.
         response_levels : list or tuple of float, optional
           Values at which to estimate desired statistics for each response
-        samples: int
+        samples : int
           The number of randomly chosen values at which to execute a model.
-        sample_type: str
+        sample_type : str
           Technique for choosing samples, `random` or `lhs`.
-        seed: int, optional
+        seed : int, optional
           The seed for the random number generator. If seed is
           specified, a stochastic study will generate identical
           results when repeated using the same seed value. If not
@@ -265,6 +277,14 @@ class PolynomialChaos(UncertaintyQuantificationBase):
 
         >>> m = PolynomialChaos()
         >>> print m
+        method
+          polynomial_chaos
+            quadrature_order = 2
+            non_nested
+            sample_type = random
+            samples = 10
+        <BLANKLINE>
+        <BLANKLINE>
 
         See Also
         --------
