@@ -53,9 +53,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
                  nested=False,
                  probability_levels=(),
                  response_levels=(),
-                 samples=10,
-                 sample_type='random',
-                 seed=None,
                  variance_based_decomp=False,
                  **kwargs):
         """Create a new Dakota sampling study.
@@ -76,15 +73,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
           corresponding response value.
         response_levels : list or tuple of float, optional
           Values at which to estimate desired statistics for each response
-        samples : int
-          The number of randomly chosen values at which to execute a model.
-        sample_type : str
-          Technique for choosing samples, `random` or `lhs`.
-        seed : int, optional
-          The seed for the random number generator. If seed is
-          specified, a stochastic study will generate identical
-          results when repeated using the same seed value. If not
-          specified, a seed is randomly generated.
 
         Examples
         --------
@@ -101,9 +89,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
         self._nested = nested
         self._probability_levels = probability_levels
         self._response_levels = response_levels
-        self._samples = samples
-        self._sample_type = sample_type
-        self._seed = seed
 
         if len(self.dimension_preference) > 0:
             self.quadrature_order = max(self.dimension_preference)
@@ -210,63 +195,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
             raise TypeError("Response levels must be a tuple or a list")
         self._response_levels = value
 
-    @property
-    def samples(self):
-        """Number of samples in experiment."""
-        return self._samples
-
-    @samples.setter
-    def samples(self, value):
-        """Set number of samples used in experiment.
-
-        Parameters
-        ----------
-        value : int
-          The number of samples.
-
-        """
-        if type(value) is not int:
-            raise TypeError("Samples must be an int")
-        self._samples = value
-
-    @property
-    def sample_type(self):
-        """Sampling strategy."""
-        return self._sample_type
-
-    @sample_type.setter
-    def sample_type(self, value):
-        """Set sampling strategy used in experiment.
-
-        Parameters
-        ----------
-        value : str
-          The sampling strategy.
-
-        """
-        if ['random', 'lhs'].count(value) == 0:
-            raise TypeError("Sample type must be 'random' or 'lhs'")
-        self._sample_type = value
-
-    @property
-    def seed(self):
-        """Seed of the random number generator."""
-        return self._seed
-
-    @seed.setter
-    def seed(self, value):
-        """Set the seed of the random number generator.
-
-        Parameters
-        ----------
-        value : int
-          The random number generator seed.
-
-        """
-        if type(value) is not int:
-            raise TypeError("Seed must be an int")
-        self._seed = value
-
     def __str__(self):
         """Define the method block for a polynomial_chaos experiment.
 
@@ -309,9 +237,5 @@ class PolynomialChaos(UncertaintyQuantificationBase):
         if len(self.response_levels) > 0:
             s += '    response_levels ='
             s += _print_levels(self.response_levels)
-        s += '    sample_type = {}\n'.format(self.sample_type) \
-            + '    samples = {}\n'.format(self.samples)
-        if self.seed is not None:
-            s += '    seed = {}\n'.format(self.seed)
         s += '\n'
         return(s)

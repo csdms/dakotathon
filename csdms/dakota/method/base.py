@@ -57,7 +57,12 @@ class UncertaintyQuantificationBase(MethodBase):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, basis_polynomial_family='extended', **kwargs):
+    def __init__(self,
+                 basis_polynomial_family='extended',
+                 samples=10,
+                 sample_type='random',
+                 seed=None,
+                 **kwargs):
         """Create default method parameters.
 
         Parameters
@@ -65,10 +70,22 @@ class UncertaintyQuantificationBase(MethodBase):
         basis_polynomial_family: str, optional
           The type of polynomial basis used in the expansion, either
           'extended' (the default), 'askey', or 'wiener'.
+        samples : int
+          The number of randomly chosen values at which to execute a model.
+        sample_type : str
+          Technique for choosing samples, `random` or `lhs`.
+        seed : int, optional
+          The seed for the random number generator. If seed is
+          specified, a stochastic study will generate identical
+          results when repeated using the same seed value. If not
+          specified, a seed is randomly generated.
 
         """
         MethodBase.__init__(self, **kwargs)
         self._basis_polynomial_family = basis_polynomial_family
+        self._samples = samples
+        self._sample_type = sample_type
+        self._seed = seed
 
     @property
     def basis_polynomial_family(self):
@@ -90,6 +107,63 @@ class UncertaintyQuantificationBase(MethodBase):
             raise TypeError(msg)
         self._basis_polynomial_family = value
 
+    @property
+    def samples(self):
+        """Number of samples in experiment."""
+        return self._samples
+
+    @samples.setter
+    def samples(self, value):
+        """Set number of samples used in experiment.
+
+        Parameters
+        ----------
+        value : int
+          The number of samples.
+
+        """
+        if type(value) is not int:
+            raise TypeError("Samples must be an int")
+        self._samples = value
+
+    @property
+    def sample_type(self):
+        """Sampling strategy."""
+        return self._sample_type
+
+    @sample_type.setter
+    def sample_type(self, value):
+        """Set sampling strategy used in experiment.
+
+        Parameters
+        ----------
+        value : str
+          The sampling strategy.
+
+        """
+        if ['random', 'lhs'].count(value) == 0:
+            raise TypeError("Sample type must be 'random' or 'lhs'")
+        self._sample_type = value
+
+    @property
+    def seed(self):
+        """Seed of the random number generator."""
+        return self._seed
+
+    @seed.setter
+    def seed(self, value):
+        """Set the seed of the random number generator.
+
+        Parameters
+        ----------
+        value : int
+          The random number generator seed.
+
+        """
+        if type(value) is not int:
+            raise TypeError("Seed must be an int")
+        self._seed = value
+
     def __str__(self):
         """Define the method block for a UQ experiment.
 
@@ -101,4 +175,8 @@ class UncertaintyQuantificationBase(MethodBase):
         s = MethodBase.__str__(self)
         if self.basis_polynomial_family is not 'extended':
             s += '    {}\n'.format(self.basis_polynomial_family)
+        s += '    sample_type = {}\n'.format(self.sample_type) \
+            + '    samples = {}\n'.format(self.samples)
+        if self.seed is not None:
+            s += '    seed = {}\n'.format(self.seed)
         return s
