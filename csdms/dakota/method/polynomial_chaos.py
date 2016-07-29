@@ -7,19 +7,6 @@ from .base import UncertaintyQuantificationBase
 classname = 'PolynomialChaos'
 
 
-def _print_levels(levels):
-    s = ''
-    for item in levels:
-        if isinstance(item, (tuple, list)):
-            s += '\n     '
-            for subitem in item:
-                s += ' {}'.format(subitem)
-        else:
-            s += ' {}'.format(item)
-    s += '\n'
-    return s
-
-
 class PolynomialChaos(UncertaintyQuantificationBase):
 
     """The Dakota polynomial chaos analysis method.
@@ -51,8 +38,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
                  quadrature_order=2,
                  dimension_preference=(),
                  nested=False,
-                 probability_levels=(),
-                 response_levels=(),
                  **kwargs):
         """Create a new Dakota sampling study.
 
@@ -67,11 +52,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
           uncertain variable (dimension).
         nested : bool, optional
           Set to enforce nested quadrature rules, if available (default is False).
-        probability_levels : list or tuple of float, optional
-          Specify probability levels at which to estimate the
-          corresponding response value.
-        response_levels : list or tuple of float, optional
-          Values at which to estimate desired statistics for each response
 
         Examples
         --------
@@ -86,8 +66,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
         self._quadrature_order = quadrature_order
         self._dimension_preference = dimension_preference
         self._nested = nested
-        self._probability_levels = probability_levels
-        self._response_levels = response_levels
 
         if len(self.dimension_preference) > 0:
             self.quadrature_order = max(self.dimension_preference)
@@ -156,44 +134,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
             raise TypeError("Nested must be a bool")
         self._nested = value
 
-    @property
-    def probability_levels(self):
-        """Probabilities at which to estimate response values."""
-        return self._probability_levels
-
-    @probability_levels.setter
-    def probability_levels(self, value):
-        """Set probabilities at which to estimate response values.
-
-        Parameters
-        ----------
-        value : tuple or list of float
-          The probability levels.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Probability levels must be a tuple or a list")
-        self._probability_levels = value
-
-    @property
-    def response_levels(self):
-        """Values at which to estimate statistics for responses."""
-        return self._response_levels
-
-    @response_levels.setter
-    def response_levels(self, value):
-        """Set values at which to estimate statistics for responses.
-
-        Parameters
-        ----------
-        value : tuple or list of float
-          The response levels.
-
-        """
-        if not isinstance(value, (tuple, list)):
-            raise TypeError("Response levels must be a tuple or a list")
-        self._response_levels = value
-
     def __str__(self):
         """Define the method block for a polynomial_chaos experiment.
 
@@ -230,11 +170,5 @@ class PolynomialChaos(UncertaintyQuantificationBase):
                 s += '    nested\n'
             else:
                 s += '    non_nested\n'
-        if len(self.probability_levels) > 0:
-            s += '    probability_levels ='
-            s += _print_levels(self.probability_levels)
-        if len(self.response_levels) > 0:
-            s += '    response_levels ='
-            s += _print_levels(self.response_levels)
         s += '\n'
         return(s)

@@ -50,6 +50,19 @@ class MethodBase(object):
         return(s)
 
 
+def _print_levels(levels):
+    s = ''
+    for item in levels:
+        if isinstance(item, (tuple, list)):
+            s += '\n     '
+            for subitem in item:
+                s += ' {}'.format(subitem)
+        else:
+            s += ' {}'.format(item)
+    s += '\n'
+    return s
+
+
 class UncertaintyQuantificationBase(MethodBase):
 
     """Describe features of uncertainty quantification methods."""
@@ -59,6 +72,8 @@ class UncertaintyQuantificationBase(MethodBase):
     @abstractmethod
     def __init__(self,
                  basis_polynomial_family='extended',
+                 probability_levels=(),
+                 response_levels=(),
                  samples=10,
                  sample_type='random',
                  seed=None,
@@ -71,6 +86,11 @@ class UncertaintyQuantificationBase(MethodBase):
         basis_polynomial_family: str, optional
           The type of polynomial basis used in the expansion, either
           'extended' (the default), 'askey', or 'wiener'.
+        probability_levels : list or tuple of float, optional
+          Specify probability levels at which to estimate the
+          corresponding response value.
+        response_levels : list or tuple of float, optional
+          Values at which to estimate desired statistics for each response
         samples : int
           The number of randomly chosen values at which to execute a model.
         sample_type : str
@@ -88,6 +108,8 @@ class UncertaintyQuantificationBase(MethodBase):
         """
         MethodBase.__init__(self, **kwargs)
         self._basis_polynomial_family = basis_polynomial_family
+        self._probability_levels = probability_levels
+        self._response_levels = response_levels
         self._samples = samples
         self._sample_type = sample_type
         self._seed = seed
@@ -112,6 +134,44 @@ class UncertaintyQuantificationBase(MethodBase):
             msg = "Polynomial type must be 'extended', 'askey', or 'wiener'"
             raise TypeError(msg)
         self._basis_polynomial_family = value
+
+    @property
+    def probability_levels(self):
+        """Probabilities at which to estimate response values."""
+        return self._probability_levels
+
+    @probability_levels.setter
+    def probability_levels(self, value):
+        """Set probabilities at which to estimate response values.
+
+        Parameters
+        ----------
+        value : tuple or list of float
+          The probability levels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Probability levels must be a tuple or a list")
+        self._probability_levels = value
+
+    @property
+    def response_levels(self):
+        """Values at which to estimate statistics for responses."""
+        return self._response_levels
+
+    @response_levels.setter
+    def response_levels(self, value):
+        """Set values at which to estimate statistics for responses.
+
+        Parameters
+        ----------
+        value : tuple or list of float
+          The response levels.
+
+        """
+        if not isinstance(value, (tuple, list)):
+            raise TypeError("Response levels must be a tuple or a list")
+        self._response_levels = value
 
     @property
     def samples(self):
@@ -204,6 +264,12 @@ class UncertaintyQuantificationBase(MethodBase):
             + '    samples = {}\n'.format(self.samples)
         if self.seed is not None:
             s += '    seed = {}\n'.format(self.seed)
+        if len(self.probability_levels) > 0:
+            s += '    probability_levels ='
+            s += _print_levels(self.probability_levels)
+        if len(self.response_levels) > 0:
+            s += '    response_levels ='
+            s += _print_levels(self.response_levels)
         if self.variance_based_decomp:
             s += '    variance_based_decomp\n'
         return s
