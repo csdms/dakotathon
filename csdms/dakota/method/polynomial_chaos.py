@@ -249,10 +249,14 @@ class PolynomialChaos(UncertaintyQuantificationBase):
             else:
                 s += '    non_nested\n'
         if len(self.probability_levels) > 0:
-            s += '    probability_levels =\n'
-            s += '     '
+            s += '    probability_levels ='
             for item in self.probability_levels:
-                s += ' {}'.format(item)
+                if isinstance(item, (tuple, list)):
+                    s += '\n     '
+                    for subitem in item:
+                        s += ' {}'.format(subitem)
+                else:
+                    s += ' {}'.format(item)
             s += '\n'
         s += '    sample_type = {}\n'.format(self.sample_type) \
             + '    samples = {}\n'.format(self.samples)
