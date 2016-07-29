@@ -65,7 +65,11 @@ def _print_levels(levels):
 
 class UncertaintyQuantificationBase(MethodBase):
 
-    """Describe features of uncertainty quantification methods."""
+    """Describe features of uncertainty quantification methods.
+
+    To supply *probability_levels* or *response_levels* to multiple
+    responses, nest the inputs to these properties.
+    """
 
     __metaclass__ = ABCMeta
 

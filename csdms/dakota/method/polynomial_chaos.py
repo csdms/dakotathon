@@ -20,9 +20,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
     *dimension_preference* is defined, its highest value is set to the
     *quadrature_order*.
 
-    To supply *probability_levels* or *response_levels* to multiple
-    responses, nest the inputs to these properties.
-
     Notes
     -----
     This implementation of the polynomial chaos method is based on the
@@ -146,10 +143,10 @@ class PolynomialChaos(UncertaintyQuantificationBase):
         >>> print m
         method
           polynomial_chaos
-            quadrature_order = 2
-            non_nested
             sample_type = random
             samples = 10
+            quadrature_order = 2
+            non_nested
         <BLANKLINE>
         <BLANKLINE>
 
