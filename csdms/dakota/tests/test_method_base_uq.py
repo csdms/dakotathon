@@ -157,6 +157,27 @@ def test_set_seed_fails_if_float():
     m.seed = seed
 
 
+def test_get_variance_based_decomp():
+    """Test getting the variance_based_decomp property."""
+    assert_true(type(c.variance_based_decomp) is bool)
+
+
+def test_set_variance_based_decomp():
+    """Test setting the variance_based_decomp property."""
+    m = Concrete()
+    variance_based_decomp = True
+    m.variance_based_decomp = variance_based_decomp
+    assert_equal(m.variance_based_decomp, variance_based_decomp)
+
+
+@raises(TypeError)
+def test_set_variance_based_decomp_fails_if_float():
+    """Test that the variance_based_decomp property fails with a float."""
+    m = Concrete()
+    variance_based_decomp = 42.0
+    m.variance_based_decomp = variance_based_decomp
+
+
 def test_str_special():
     """Test type of __str__ method results."""
     s = str(c)
