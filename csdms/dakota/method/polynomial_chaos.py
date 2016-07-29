@@ -53,7 +53,6 @@ class PolynomialChaos(UncertaintyQuantificationBase):
                  nested=False,
                  probability_levels=(),
                  response_levels=(),
-                 variance_based_decomp=False,
                  **kwargs):
         """Create a new Dakota sampling study.
 

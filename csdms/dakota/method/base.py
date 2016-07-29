@@ -62,6 +62,7 @@ class UncertaintyQuantificationBase(MethodBase):
                  samples=10,
                  sample_type='random',
                  seed=None,
+                 variance_based_decomp=False,
                  **kwargs):
         """Create default method parameters.
 
@@ -79,6 +80,10 @@ class UncertaintyQuantificationBase(MethodBase):
           specified, a stochastic study will generate identical
           results when repeated using the same seed value. If not
           specified, a seed is randomly generated.
+        variance_based_decomp : bool, optional
+          Set to activate global sensitivity analysis based on
+          decomposition of response variance into main, interaction,
+          and total effects.
 
         """
         MethodBase.__init__(self, **kwargs)
@@ -86,6 +91,7 @@ class UncertaintyQuantificationBase(MethodBase):
         self._samples = samples
         self._sample_type = sample_type
         self._seed = seed
+        self._variance_based_decomp = variance_based_decomp
 
     @property
     def basis_polynomial_family(self):
@@ -164,6 +170,25 @@ class UncertaintyQuantificationBase(MethodBase):
             raise TypeError("Seed must be an int")
         self._seed = value
 
+    @property
+    def variance_based_decomp(self):
+        """Use variance-based decomposition global sensitivity analysis."""
+        return self._variance_based_decomp
+
+    @variance_based_decomp.setter
+    def variance_based_decomp(self, value):
+        """Toggle variance-based decomposition global sensitivity analysis.
+
+        Parameters
+        ----------
+        value : bool
+          True if using variance-based decomposition.
+
+        """
+        if type(value) is not bool:
+            raise TypeError("Set variance-based decomposition with a bool")
+        self._variance_based_decomp = value
+
     def __str__(self):
         """Define the method block for a UQ experiment.
 
@@ -179,4 +204,6 @@ class UncertaintyQuantificationBase(MethodBase):
             + '    samples = {}\n'.format(self.samples)
         if self.seed is not None:
             s += '    seed = {}\n'.format(self.seed)
+        if self.variance_based_decomp:
+            s += '    variance_based_decomp\n'
         return s
