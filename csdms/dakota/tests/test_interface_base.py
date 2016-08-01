@@ -41,7 +41,7 @@ def test_str_special():
     assert_true(type(s) is str)
 
 
-def test_asynchronous():
+def test_get_asynchronous():
     """Test getting default asynchronous property."""
     value = c.asynchronous
     assert_false(value)
@@ -54,7 +54,15 @@ def test_set_asynchronous():
     assert_true(value)
 
 
-def test_evaluation_concurrency():
+@raises(TypeError)
+def test_set_asynchronous_fails_if_float():
+    """Test that the asynchronous property fails with a float."""
+    m = Concrete()
+    value = 42.0
+    m.asynchronous = value
+
+
+def test_get_evaluation_concurrency():
     """Test getting default evaluation_concurrency property."""
     value = c.evaluation_concurrency
     assert_equal(value, default_evaluation_concurrency)
@@ -65,6 +73,14 @@ def test_set_evaluation_concurrency():
     c.evaluation_concurrency = 45
     value = c.evaluation_concurrency
     assert_equal(value, 45)
+
+
+@raises(TypeError)
+def test_set_evaluation_concurrency_fails_if_float():
+    """Test that evaluation_concurrency fails with a float."""
+    m = Concrete()
+    value = 42.0
+    m.evaluation_concurrency = value
 
 
 def test_str_length():
