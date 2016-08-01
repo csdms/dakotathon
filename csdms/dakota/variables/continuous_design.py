@@ -35,10 +35,6 @@ class ContinuousDesign(VariablesBase):
             Minimum values used by the study variables.
         upper_bounds : tuple or list of numbers
             Maximum values used by the study variables.
-        scale_types
-            *Not implemented*
-        scales
-            *Not implemented*
         **kwargs
             Optional keyword arguments.
 
