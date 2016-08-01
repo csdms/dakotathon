@@ -133,12 +133,15 @@ def test_set_sample_type_fails_if_not_lhs_or_random():
     m.sample_type = sample_type
 
 
-def test_get_seed():
+def test_get_seed1():
     """Test getting the seed property."""
-    if c.seed is not None:
-        assert_true(type(c.seed) is int)
-    else:
-        assert_is_none(c.seed)
+    assert_is_none(c.seed)
+
+
+def test_get_seed2():
+    """Test getting the seed property."""
+    m = Concrete(seed=42)
+    assert_true(type(m.seed) is int)
 
 
 def test_set_seed():
