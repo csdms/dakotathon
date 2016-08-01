@@ -8,21 +8,40 @@ import yaml
 
 class MethodBase(object):
 
-    """Describe features common to all Dakota analysis methods."""
+    """Describe common features of Dakota analysis methods.
+
+    The *max_iterations* and *convergence_tolerance* keywords are 
+    included in Dakota's set of `method independent controls`_.
+
+    .. _method independent controls:
+       https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/topic-method_independent_controls.html
+
+    """
 
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self, method='vector_parameter_study', **kwargs):
+    def __init__(self,
+                 method='vector_parameter_study',
+                 max_iterations=None,
+                 convergence_tolerance=None,
+                 **kwargs):
         """Create default method parameters.
 
         Parameters
         ----------
         method : str
           The name of the analysis method; e.g., 'vector_parameter_study'.
+        max_iterations : int, optional
+          Stopping criterion based on number of iterations.
+        convergence_tolerance : float, optional
+          Stopping criterion based on convergence of the objective
+          function or statistics. Defined on the open interval (0, 1).
 
         """
         self._method = method
+        self._max_iterations = max_iterations
+        self._convergence_tolerance = convergence_tolerance
 
     @property
     def method(self):
@@ -43,10 +62,54 @@ class MethodBase(object):
             raise TypeError("Method must be a str")
         self._method = value
 
+    @property
+    def max_iterations(self):
+        """The maximum number of iterations used in the experiment."""
+        return self._max_iterations
+
+    @max_iterations.setter
+    def max_iterations(self, value):
+        """Set the maximum number of iterations used in the experiment.
+
+        Parameters
+        ----------
+        value : int
+          The maximum number of iterations.
+
+        """
+        if not isinstance(value, int):
+            raise TypeError("Max iterations must be a int")
+        self._max_iterations = value
+
+    @property
+    def convergence_tolerance(self):
+        """The convergence tolerance used in the experiment."""
+        return self._convergence_tolerance
+
+    @convergence_tolerance.setter
+    def convergence_tolerance(self, value):
+        """Set the convergence tolerance used in the experiment.
+
+        Parameters
+        ----------
+        value : float
+          The new convergence tolerance.
+
+        """
+        if not isinstance(value, float):
+            raise TypeError("Convergence tolerance must be a float")
+        self._convergence_tolerance = value
+
     def __str__(self):
         """Define the preamble of the Dakota input file method block."""
         s = 'method\n' \
             + '  {}\n'.format(self.method)
+        if self.max_iterations is not None:
+            s += '    max_iterations = '
+            s += '{}\n'.format(self.max_iterations)
+        if self.convergence_tolerance is not None:
+            s += '    convergence_tolerance = '
+            s += '{}\n'.format(self.convergence_tolerance)
         return(s)
 
 
