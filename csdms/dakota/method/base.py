@@ -98,6 +98,8 @@ class MethodBase(object):
         """
         if not isinstance(value, float):
             raise TypeError("Convergence tolerance must be a float")
+        if value <= 0.0 or value >= 1.0:
+            raise ValueError("Convergence tolerance must be on (0,1)")
         self._convergence_tolerance = value
 
     def __str__(self):

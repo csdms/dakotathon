@@ -106,6 +106,20 @@ def test_convergence_tolerance_fails_if_not_float():
     x.convergence_tolerance = value
 
 
+@raises(ValueError)
+def test_convergence_tolerance_fails_lower_bnd():
+    """Test that setting convergence_tolerance <= 0.0 fails."""
+    x = Concrete()
+    x.convergence_tolerance = 0.0
+
+
+@raises(ValueError)
+def test_convergence_tolerance_fails_upper_bnd():
+    """Test that setting convergence_tolerance >= 1.0 fails."""
+    x = Concrete()
+    x.convergence_tolerance = 1.0
+
+
 def test_str_special():
     """Test type of __str__ method results."""
     s = str(c)
