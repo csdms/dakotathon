@@ -2,8 +2,6 @@
 """Abstract base classes for Dakota analysis methods."""
 
 from abc import ABCMeta, abstractmethod
-import types
-import yaml
 
 
 class MethodBase(object):
