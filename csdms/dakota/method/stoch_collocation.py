@@ -29,8 +29,6 @@ class StochasticCollocation(UncertaintyQuantificationBase):
     """
 
     def __init__(self,
-                 # automated_refinement_type=None,
-                 # refinement_type=None,
                  coefficient_estimation_approach='quadrature_order_sequence',
                  quadrature_order=2,
                  dimension_preference=(),
@@ -59,8 +57,6 @@ class StochasticCollocation(UncertaintyQuantificationBase):
         """
         UncertaintyQuantificationBase.__init__(self, **kwargs)
         self.method = self.__module__.rsplit('.')[-1]
-        self._automated_refinement_type = automated_refinement_type
-        self._refinement_type = refinement_type
         self.coefficient_estimation_approach = coefficient_estimation_approach
         self._quadrature_order = quadrature_order
         self._dimension_preference = dimension_preference
@@ -68,14 +64,6 @@ class StochasticCollocation(UncertaintyQuantificationBase):
 
         if len(self.dimension_preference) > 0:
             self.quadrature_order = max(self.dimension_preference)
-
-        # if self.automated_refinement_type is not None:
-        #     if self.refinement_type is None:
-        #         self.refinement_type = 'uniform'
-        #     if self.max_iterations is None:
-        #         self.max_iterations = 100
-        #     if self.convergence_tolerance is None:
-        #         self.convergence_tolerance = 1e-4
 
     @UncertaintyQuantificationBase.basis_polynomial_family.setter
     def basis_polynomial_family(self, value):
