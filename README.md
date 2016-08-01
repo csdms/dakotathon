@@ -56,12 +56,14 @@ specifying a Dakota analysis method:
 	>>> d = Dakota(method='vector_parameter_study')
 
 Currently,
-four Dakota methods
+six Dakota methods
 
-* [vector parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
-* [centered parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html)
-* [multidim parameter study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-multidim_parameter_study.html)
+* [vector_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html)
+* [centered_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html)
+* [multidim_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-multidim_parameter_study.html)
 * [sampling](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-sampling.html)
+* [polynomial_chaos](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-polynomial_chaos.html)
+* [stoch_collocation](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html)
 
 are supported.
 

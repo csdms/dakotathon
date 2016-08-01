@@ -61,8 +61,7 @@ class MultidimParameterStudy(MethodBase):
 
         """
         s = MethodBase.__str__(self)
-        s += '\n' \
-            + '    partitions ='
+        s += '    partitions ='
         for p in self.partitions:
             s += ' {}'.format(p)
         s += '\n\n'

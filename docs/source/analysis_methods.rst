@@ -4,8 +4,8 @@ Dakota analysis methods
 Python wrappers for Dakota analysis methods.
 
 
-Methods base class
-------------------
+Methods base classes
+--------------------
 
 .. automodule:: csdms.dakota.method.base
     :members:
@@ -48,6 +48,26 @@ Sampling
 --------
 
 .. automodule:: csdms.dakota.method.sampling
+    :members:
+    :undoc-members:
+    :special-members: __init__, __str__
+    :show-inheritance:
+
+
+Polynomial chaos
+----------------
+
+.. automodule:: csdms.dakota.method.polynomial_chaos
+    :members:
+    :undoc-members:
+    :special-members: __init__, __str__
+    :show-inheritance:
+
+
+Stochastic collocation
+----------------------
+
+.. automodule:: csdms.dakota.method.stoch_collocation
     :members:
     :undoc-members:
     :special-members: __init__, __str__
