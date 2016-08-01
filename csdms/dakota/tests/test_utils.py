@@ -49,6 +49,12 @@ def test_which():
     r = which('python')
 
 
+def test_which_fails_with_nonexistent_program():
+    """Test that which fails with a nonexistent program."""
+    r = which('vvwuvnfub')
+    assert_is_none(r)
+
+
 def test_which_dakota():
     """Test the 'which_dakota' function."""
     r = which_dakota()
