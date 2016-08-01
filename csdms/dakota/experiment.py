@@ -1,3 +1,5 @@
+"""A Python interface to a Dakota input file."""
+
 import os
 import importlib
 
