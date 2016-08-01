@@ -9,7 +9,7 @@ classname = 'PolynomialChaos'
 
 class PolynomialChaos(UncertaintyQuantificationBase):
 
-    """The Dakota polynomial chaos analysis method.
+    """The Dakota polynomial chaos uncertainty quantification method.
 
     Designation of a coefficient estimation approach is required, but
     the only approach currently implemented is
@@ -23,7 +23,7 @@ class PolynomialChaos(UncertaintyQuantificationBase):
     Notes
     -----
     This implementation of the polynomial chaos method is based on the
-    `Dakota 6.4 documentation`_.
+    description provided in the `Dakota 6.4 documentation`_.
 
     .. _Dakota 6.4 documentation:
        https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/method-polynomial_chaos.html
@@ -36,7 +36,7 @@ class PolynomialChaos(UncertaintyQuantificationBase):
                  dimension_preference=(),
                  nested=False,
                  **kwargs):
-        """Create a new Dakota sampling study.
+        """Create a new Dakota polynomial chaos study.
 
         Parameters
         ----------
