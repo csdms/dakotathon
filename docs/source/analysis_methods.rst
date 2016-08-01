@@ -62,3 +62,13 @@ Polynomial chaos
     :undoc-members:
     :special-members: __init__, __str__
     :show-inheritance:
+
+
+Stochastic collocation
+----------------------
+
+.. automodule:: csdms.dakota.method.stoch_collocation
+    :members:
+    :undoc-members:
+    :special-members: __init__, __str__
+    :show-inheritance:

@@ -45,7 +45,7 @@ class MethodBase(object):
 
     @property
     def method(self):
-        """The analysis method used in the experiment."""
+        """The name of the analysis method used in the experiment."""
         return self._method
 
     @method.setter
@@ -64,7 +64,7 @@ class MethodBase(object):
 
     @property
     def max_iterations(self):
-        """The maximum number of iterations used in the experiment."""
+        """Maximum number of iterations for the method."""
         return self._max_iterations
 
     @max_iterations.setter
@@ -83,7 +83,7 @@ class MethodBase(object):
 
     @property
     def convergence_tolerance(self):
-        """The convergence tolerance used in the experiment."""
+        """Convergence tolerance for the method."""
         return self._convergence_tolerance
 
     @convergence_tolerance.setter

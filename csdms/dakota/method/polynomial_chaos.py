@@ -22,10 +22,10 @@ class PolynomialChaos(UncertaintyQuantificationBase):
 
     Notes
     -----
-    This implementation of the polynomial chaos method is based on the
-    description provided in the `Dakota 6.4 documentation`_.
+    This implementation of the `polynomial chaos method`_ is based on the
+    description provided in the Dakota 6.4 documentation.
 
-    .. _Dakota 6.4 documentation:
+    .. _polynomial chaos method:
        https://dakota.sandia.gov//sites/default/files/docs/6.4/html-ref/method-polynomial_chaos.html
 
     """
