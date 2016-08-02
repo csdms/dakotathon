@@ -81,6 +81,11 @@ and
 **dakota.dat** (tabular output),
 in the current directory.
 
+For more in-depth examples of using the CSDMS Dakota interface,
+see the Jupyter Notebooks in the [examples](./examples) directory
+of this repository.
+
+
 ### Note
 
 If you're using Anaconda IPython on Mac OS X,
