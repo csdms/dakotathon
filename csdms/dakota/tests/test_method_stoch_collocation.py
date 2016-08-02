@@ -28,6 +28,26 @@ def test_method_attr():
     assert_equal(x.method, 'stoch_collocation')
 
 
+def test_get_basis_polynomial_family():
+    """Test getting the basis_polynomial_family property."""
+    assert_true(type(x.basis_polynomial_family) is str)
+
+
+def test_set_basis_polynomial_family():
+    """Test setting the basis_polynomial_family property."""
+    m = StochasticCollocation()
+    p = 'piecewise'
+    m.basis_polynomial_family = p
+    assert_equal(m.basis_polynomial_family, p)
+
+
+@raises(TypeError)
+def test_basis_polynomial_family_fails_if_unknown_type():
+    """Test that setting basis_polynomial_family to an unknown type fails."""
+    value = 'foobar'
+    x.basis_polynomial_family = value
+
+
 def test_get_quadrature_order():
     """Test getting the quadrature_order property."""
     assert_true(type(x.quadrature_order) is int)
@@ -117,8 +137,16 @@ def test_str_special():
     assert_true(type(s) is str)
 
 
-def test_str_length():
+def test_default_str_length():
     """Test the default length of __str__."""
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 7)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    m = StochasticCollocation(dimension_preference=(1, 2), nested=True)
+    s = str(m)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 8)

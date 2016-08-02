@@ -47,16 +47,18 @@ def test_get_initial_point():
 
 def test_set_initial_point():
     """Test setting the initial_point property."""
+    x = ContinuousDesign()
     for items in [[0,1], (0,1)]:
-        c.initial_point = items
-        assert_equal(c.initial_point, items)
+        x.initial_point = items
+        assert_equal(x.initial_point, items)
 
 
 @raises(TypeError)
 def test_set_initial_point_fails_if_scalar():
     """Test that the initial_point property fails with scalar."""
+    x = ContinuousDesign()
     pt = 42
-    c.initial_point = pt
+    x.initial_point = pt
 
 
 def test_get_lower_bounds():
@@ -66,16 +68,18 @@ def test_get_lower_bounds():
 
 def test_set_lower_bounds():
     """Test setting the lower_bounds property."""
+    x = ContinuousDesign()
     for items in [[0,1], (0,1)]:
-        c.lower_bounds = items
-        assert_equal(c.lower_bounds, items)
+        x.lower_bounds = items
+        assert_equal(x.lower_bounds, items)
 
 
 @raises(TypeError)
 def test_set_lower_bounds_fails_if_scalar():
     """Test that the lower_bounds property fails with scalar."""
+    x = ContinuousDesign()
     pt = 42
-    c.lower_bounds = pt
+    x.lower_bounds = pt
 
 
 def test_get_upper_bounds():
@@ -85,21 +89,30 @@ def test_get_upper_bounds():
 
 def test_set_upper_bounds():
     """Test setting the upper_bounds property."""
+    x = ContinuousDesign()
     for items in [[0,1], (0,1)]:
-        c.upper_bounds = items
-        assert_equal(c.upper_bounds, items)
+        x.upper_bounds = items
+        assert_equal(x.upper_bounds, items)
 
 
 @raises(TypeError)
 def test_set_upper_bounds_fails_if_scalar():
     """Test that the upper_bounds property fails with scalar."""
-    pt = 42
-    c.upper_bounds = pt
-
-
-def test_str_length():
-    """Test the default length of __str__."""
     x = ContinuousDesign()
-    s = str(x)
+    pt = 42
+    x.upper_bounds = pt
+
+
+def test_default_str_length():
+    """Test the default length of __str__."""
+    s = str(c)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 5)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    x = ContinuousDesign(lower_bounds=(-10, -10), upper_bounds=(10, 10))
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 6)

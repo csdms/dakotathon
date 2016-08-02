@@ -1,7 +1,8 @@
 """Tests for csdms.dakota.method.base.UncertaintyQuantificationBase."""
 
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
-from csdms.dakota.method.base import UncertaintyQuantificationBase
+from csdms.dakota.method.base import (UncertaintyQuantificationBase,
+                                      _print_levels)
 
 
 class Concrete(UncertaintyQuantificationBase):
@@ -133,12 +134,15 @@ def test_set_sample_type_fails_if_not_lhs_or_random():
     m.sample_type = sample_type
 
 
-def test_get_seed():
+def test_get_seed1():
     """Test getting the seed property."""
-    if c.seed is not None:
-        assert_true(type(c.seed) is int)
-    else:
-        assert_is_none(c.seed)
+    assert_is_none(c.seed)
+
+
+def test_get_seed2():
+    """Test getting the seed property."""
+    m = Concrete(seed=42)
+    assert_true(type(m.seed) is int)
 
 
 def test_set_seed():
@@ -184,8 +188,33 @@ def test_str_special():
     assert_true(type(s) is str)
 
 
-def test_str_length():
+def test_default_str_length():
     """Test the default length of __str__."""
     s = str(c)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 5)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    x = Concrete(seed=42,
+                 probability_levels=range(3),
+                 response_levels=range(3),
+                 variance_based_decomp=True)
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 8)
+
+
+def test_print_levels1():
+    """Test _print_levels with list and tuple."""
+    for item in [[0,1], (0,1)]:
+        s = _print_levels(item)
+        assert_true(type(s) is str)
+
+
+def test_print_levels2():
+    """Test _print_levels with list of tuples."""
+    items = [(1,2,3), (4,5,6)]
+    s = _print_levels(items)
+    assert_true(type(s) is str)

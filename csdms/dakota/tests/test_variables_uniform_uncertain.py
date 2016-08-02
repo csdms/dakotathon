@@ -97,9 +97,17 @@ def test_set_upper_bounds_fails_if_scalar():
     c.upper_bounds = pt
 
 
-def test_str_length():
+def test_default_str_length():
     """Test the default length of __str__."""
     x = UniformUncertain()
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 6)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    x = UniformUncertain(initial_point=(0.0, 0.0))
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 7)

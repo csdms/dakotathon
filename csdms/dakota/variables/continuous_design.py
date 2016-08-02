@@ -20,8 +20,6 @@ class ContinuousDesign(VariablesBase):
                  initial_point=None,
                  lower_bounds=None,
                  upper_bounds=None,
-                 scale_types=None,
-                 scales=None,
                  **kwargs):
         """Create the parameter set for a continuous design variable.
 
@@ -35,10 +33,6 @@ class ContinuousDesign(VariablesBase):
             Minimum values used by the study variables.
         upper_bounds : tuple or list of numbers
             Maximum values used by the study variables.
-        scale_types
-            *Not implemented*
-        scales
-            *Not implemented*
         **kwargs
             Optional keyword arguments.
 
