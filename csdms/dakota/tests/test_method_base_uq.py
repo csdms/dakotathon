@@ -187,8 +187,19 @@ def test_str_special():
     assert_true(type(s) is str)
 
 
-def test_str_length():
+def test_default_str_length():
     """Test the default length of __str__."""
     s = str(c)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 5)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    x = Concrete(seed=42,
+                 probability_levels=range(3),
+                 response_levels=range(3),
+                 variance_based_decomp=True)
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 8)

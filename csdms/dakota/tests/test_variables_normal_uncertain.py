@@ -47,16 +47,18 @@ def test_get_means():
 
 def test_set_means():
     """Test setting the means property."""
+    x = NormalUncertain()
     for items in [[0,1], (0,1)]:
-        c.means = items
-        assert_equal(c.means, items)
+        x.means = items
+        assert_equal(x.means, items)
 
 
 @raises(TypeError)
 def test_set_means_fails_if_scalar():
     """Test that the means property fails with scalar."""
+    x = NormalUncertain()
     pt = 42
-    c.means = pt
+    x.means = pt
 
 
 def test_get_std_deviations():
@@ -66,16 +68,18 @@ def test_get_std_deviations():
 
 def test_set_std_deviations():
     """Test setting the std_deviations property."""
+    x = NormalUncertain()
     for items in [[0,1], (0,1)]:
-        c.std_deviations = items
-        assert_equal(c.std_deviations, items)
+        x.std_deviations = items
+        assert_equal(x.std_deviations, items)
 
 
 @raises(TypeError)
 def test_set_std_deviations_fails_if_scalar():
     """Test that the std_deviations property fails with scalar."""
+    x = NormalUncertain()
     pt = 42
-    c.std_deviations = pt
+    x.std_deviations = pt
 
 
 def test_get_lower_bounds():
@@ -85,16 +89,18 @@ def test_get_lower_bounds():
 
 def test_set_lower_bounds():
     """Test setting the lower_bounds property."""
+    x = NormalUncertain()
     for items in [[0,1], (0,1)]:
-        c.lower_bounds = items
-        assert_equal(c.lower_bounds, items)
+        x.lower_bounds = items
+        assert_equal(x.lower_bounds, items)
 
 
 @raises(TypeError)
 def test_set_lower_bounds_fails_if_scalar():
     """Test that the lower_bounds property fails with scalar."""
+    x = NormalUncertain()
     pt = 42
-    c.lower_bounds = pt
+    x.lower_bounds = pt
 
 
 def test_get_upper_bounds():
@@ -104,16 +110,18 @@ def test_get_upper_bounds():
 
 def test_set_upper_bounds():
     """Test setting the upper_bounds property."""
+    x = NormalUncertain()
     for items in [[0,1], (0,1)]:
-        c.upper_bounds = items
-        assert_equal(c.upper_bounds, items)
+        x.upper_bounds = items
+        assert_equal(x.upper_bounds, items)
 
 
 @raises(TypeError)
 def test_set_upper_bounds_fails_if_scalar():
     """Test that the upper_bounds property fails with scalar."""
+    x = NormalUncertain()
     pt = 42
-    c.upper_bounds = pt
+    x.upper_bounds = pt
 
 
 def test_get_initial_point():
@@ -123,21 +131,32 @@ def test_get_initial_point():
 
 def test_set_initial_point():
     """Test setting the initial_point property."""
+    x = NormalUncertain()
     for items in [[0,1], (0,1)]:
-        c.initial_point = items
-        assert_equal(c.initial_point, items)
+        x.initial_point = items
+        assert_equal(x.initial_point, items)
 
 
 @raises(TypeError)
 def test_set_initial_point_fails_if_scalar():
     """Test that the initial_point property fails with scalar."""
-    pt = 42
-    c.initial_point = pt
-
-
-def test_str_length():
-    """Test the default length of __str__."""
     x = NormalUncertain()
-    s = str(x)
+    pt = 42
+    x.initial_point = pt
+
+
+def test_default_str_length():
+    """Test the default length of __str__."""
+    s = str(c)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 6)
+
+
+def test_str_length_with_options():
+    """Test the length of __str__ with optional props set."""
+    x = NormalUncertain(lower_bounds=(-10, -10),
+                        upper_bounds=(10,10),
+                        initial_point=(0, 0))
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 9)
