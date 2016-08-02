@@ -20,8 +20,6 @@ class ContinuousDesign(VariablesBase):
                  initial_point=None,
                  lower_bounds=None,
                  upper_bounds=None,
-                 scale_types=None,
-                 scales=None,
                  **kwargs):
         """Create the parameter set for a continuous design variable.
 
