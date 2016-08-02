@@ -1,7 +1,8 @@
 """Tests for csdms.dakota.method.base.UncertaintyQuantificationBase."""
 
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
-from csdms.dakota.method.base import UncertaintyQuantificationBase
+from csdms.dakota.method.base import (UncertaintyQuantificationBase,
+                                      _print_levels)
 
 
 class Concrete(UncertaintyQuantificationBase):
@@ -203,3 +204,17 @@ def test_str_length_with_options():
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 8)
+
+
+def test_print_levels1():
+    """Test _print_levels with list and tuple."""
+    for item in [[0,1], (0,1)]:
+        s = _print_levels(item)
+        assert_true(type(s) is str)
+
+
+def test_print_levels2():
+    """Test _print_levels with list of tuples."""
+    items = [(1,2,3), (4,5,6)]
+    s = _print_levels(items)
+    assert_true(type(s) is str)
