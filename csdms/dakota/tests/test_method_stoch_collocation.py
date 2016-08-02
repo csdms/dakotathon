@@ -28,6 +28,26 @@ def test_method_attr():
     assert_equal(x.method, 'stoch_collocation')
 
 
+def test_get_basis_polynomial_family():
+    """Test getting the basis_polynomial_family property."""
+    assert_true(type(x.basis_polynomial_family) is str)
+
+
+def test_set_basis_polynomial_family():
+    """Test setting the basis_polynomial_family property."""
+    m = StochasticCollocation()
+    p = 'piecewise'
+    m.basis_polynomial_family = p
+    assert_equal(m.basis_polynomial_family, p)
+
+
+@raises(TypeError)
+def test_basis_polynomial_family_fails_if_unknown_type():
+    """Test that setting basis_polynomial_family to an unknown type fails."""
+    value = 'foobar'
+    x.basis_polynomial_family = value
+
+
 def test_get_quadrature_order():
     """Test getting the quadrature_order property."""
     assert_true(type(x.quadrature_order) is int)
