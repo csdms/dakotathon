@@ -37,7 +37,7 @@ def test_responses():
 def test_response_descriptors():
     """Test getting the default response_descriptors property."""
     value = r.response_descriptors
-    assert_equal(value, 'y1')
+    assert_equal(value, ('y1',))
 
 
 def test_get_response_files():
@@ -71,7 +71,7 @@ def test_set_response_files_string_to_tuple():
 
 def test_get_response_statistics():
     """Test getting the default response_statistics property."""
-    assert_equal(r.response_statistics, 'mean')
+    assert_equal(r.response_statistics, ('mean',))
 
 
 def test_set_response_statistics():

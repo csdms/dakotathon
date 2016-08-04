@@ -11,9 +11,9 @@ class ResponseFunctions(ResponsesBase):
     """Define attributes for Dakota response functions."""
 
     def __init__(self,
-                 response_descriptors='y1',
+                 response_descriptors=('y1',),
                  response_files=(),
-                 response_statistics='mean',
+                 response_statistics=('mean',),
                  **kwargs):
         """Create a response using response functions.
 
