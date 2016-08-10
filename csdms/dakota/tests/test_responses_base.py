@@ -31,7 +31,7 @@ def teardown_module():
 @raises(TypeError)
 def test_instantiate():
     """Test whether ResponsesBase instantiates."""
-    b = ResponsesBase()
+    r = ResponsesBase()
 
 
 def test_str_special():
@@ -53,23 +53,26 @@ def test_get_response_descriptors():
 
 def test_set_response_descriptors():
     """Test setting the response_descriptors property."""
+    r = Concrete()
     for desc in [['Qs_median'], ('Qs_median',)]:
-        c.response_descriptors = desc
-        assert_equal(c.response_descriptors, desc)
+        r.response_descriptors = desc
+        assert_equal(r.response_descriptors, desc)
 
 
 @raises(TypeError)
-def test_set_response_descriptors_fails_if_scalar():
+def test_set_response_descriptors_fails_with_nonstring_scalar():
     """Test that response_descriptors fails with a non-string scalar."""
+    r = Concrete()
     desc = 42
-    c.response_descriptors = desc
+    r.response_descriptors = desc
 
 
 def test_set_response_descriptors_string_to_tuple():
     """Test that a string is converted to a tuple."""
+    r = Concrete()
     desc = 'x1'
-    c.response_descriptors = desc
-    assert_true(type(c.response_descriptors) is tuple)
+    r.response_descriptors = desc
+    assert_true(type(r.response_descriptors) is tuple)
 
 
 def test_gradients():
@@ -86,7 +89,6 @@ def test_hessians():
 
 def test_str_length():
     """Test the default length of __str__."""
-    b = Concrete()
-    s = str(b)
+    s = str(c)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 1)

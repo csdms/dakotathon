@@ -81,15 +81,20 @@ and
 **dakota.dat** (tabular output),
 in the current directory.
 
+For more in-depth examples of using the CSDMS Dakota interface,
+see the Jupyter Notebooks in the [examples](./examples) directory
+of this repository.
+
+
 ### Note
 
 If you're using Anaconda IPython on Mac OS X,
 include the `DYLD_LIBRARY_PATH` environment variable
-in your session before calling the `run` method above:
+in your session before calling the `run` method with:
 
 ```python
-In [1]: from csdms.dakota.utils import add_dyld_library_path
-In [2]: add_dyld_library_path()
+>>> from csdms.dakota.utils import add_dyld_library_path
+>>> add_dyld_library_path()
 ```
 
 See https://github.com/csdms/dakota/issues/17 for more information.

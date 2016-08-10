@@ -28,6 +28,12 @@ class ResponseFunctions(ResponsesBase):
         **kwargs
             Optional keyword arguments.
 
+        Examples
+        --------
+        Create a ResponseFunctions instance:
+
+        >>> f = ResponseFunctions()
+
         """
         ResponsesBase.__init__(self, **kwargs)
         self.responses = self.__module__.rsplit('.')[-1]
@@ -46,18 +52,14 @@ class ResponseFunctions(ResponsesBase):
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : str, or list or tuple of str
           The new response files.
 
-        Examples
-        --------
-        Create a ResponseFunctions instance:
-
-        >>> f = ResponseFunctions()
-
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Response files must be a tuple or a list")
+            raise TypeError("Response files must be a string, tuple, or list")
         self._response_files = value
 
     @property
@@ -71,12 +73,14 @@ class ResponseFunctions(ResponsesBase):
 
         Parameters
         ----------
-        value : list or tuple of str
+        value : str, or list or tuple of str
           The new response statistics.
 
         """
+        if type(value) is str:
+            value = (value,)
         if not isinstance(value, (tuple, list)):
-            raise TypeError("Response statistics must be a tuple or a list")
+            raise TypeError("Response statistics must be a string, tuple, or list")
         self._response_statistics = value
 
     def __str__(self):

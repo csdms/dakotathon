@@ -7,7 +7,7 @@ import yaml
 from abc import ABCMeta, abstractmethod
 
 
-def write_dflt_file(tmpl_file, parameters_file):
+def write_dflt_file(tmpl_file, parameters_file, run_duration=1.0):
     """Create a component input file populated with default values.
 
     Parameters
@@ -16,6 +16,8 @@ def write_dflt_file(tmpl_file, parameters_file):
       The path to the CSDMS template file defined for the component.
     parameters_file : str
       The path to the CSDMS parameters file defined for the component.
+    run_duration : str, int, or float
+      Simulation run length, in undetermined units (default is 1.0).
 
     Returns
     -------
@@ -29,7 +31,7 @@ def write_dflt_file(tmpl_file, parameters_file):
     with open(parameters_file, 'r') as fp:
         parameters = yaml.safe_load(fp)
 
-    parameters['_run_duration'] = {'value': {'default': '1'}}
+    parameters['_run_duration'] = {'value': {'default': str(run_duration)}}
 
     defaults = template
     for p_name in parameters.keys():
