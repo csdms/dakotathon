@@ -7,7 +7,6 @@ os:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get install python-scipy # faster than building with pip
   - pip install -r requirements.txt
   - pip install coveralls
 

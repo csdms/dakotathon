@@ -1,5 +1,4 @@
 numpy
-#scipy
 PyYAML
 nose
-basic-modeling-interface
+basic-modeling-interface>=0.1.3
