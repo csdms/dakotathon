@@ -1,7 +1,6 @@
 """A Python interface to the Dakota iterative systems analysis toolkit."""
 from .dakota import Dakota
-from .bmi_dakota import BmiDakota
 
 
-__all__ = ['Dakota', 'BmiDakota']
+__all__ = ['Dakota']
 __version__ = '0.2'
