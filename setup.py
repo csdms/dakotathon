@@ -1,4 +1,3 @@
-#! /usr/bin/env python
 from ez_setup import use_setuptools
 use_setuptools()
 from setuptools import setup, find_packages
@@ -11,7 +10,7 @@ setup(name='csdms-dakota',
       author='Mark Piper',
       author_email='mark.piper@colorado.edu',
       license='MIT',
-      description='Python API for Dakota',
+      description='A Python API for the Dakota systems analysis toolkit',
       long_description=open('README.md').read(),
       install_requires=[
           'numpy',
@@ -19,11 +18,17 @@ setup(name='csdms-dakota',
           'nose',
           'basic-modeling-interface',
       ],
-      namespace_packages=['csdms'], 
+      namespace_packages=['csdms'],
       packages=find_packages(exclude=['*.tests']),
       entry_points={
           'console_scripts': [
               plugin_script + ' = csdms.dakota.run_plugin:main'
           ]
-      }
+      },
+      keywords='CSDMS Dakota uncertainty sensitivity model modeling',
+      classifiers=[
+          'Development Status :: 3 - Alpha',
+          'License :: OSI Approved :: MIT License',
+          'Programming Language :: Python :: 2.7',
+      ],
 )
