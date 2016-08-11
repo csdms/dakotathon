@@ -13,6 +13,12 @@ setup(name='csdms-dakota',
       license='MIT',
       description='Python API for Dakota',
       long_description=open('README.md').read(),
+      install_requires=[
+          'numpy',
+          'pyyaml',
+          'nose',
+          'basic-modeling-interface',
+      ],
       namespace_packages=['csdms'], 
       packages=find_packages(exclude=['*.tests']),
       entry_points={
