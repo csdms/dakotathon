@@ -1,12 +1,18 @@
-language: python
-python:
-  - "2.7"
+env:
+  matrix:
+    - TRAVIS_PYTHON_VERSION="2.7"
 
 os:
   - linux
   - osx
 
+sudo: false
+
 before_install:
+  - echo "Build on $TRAVIS_OS_NAME"
+  - bash .ci/travis/install_python.sh
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - conda info -a
   - pip install -r requirements.txt
   - pip install coveralls
 
@@ -17,4 +23,4 @@ script:
   - nosetests --with-doctest --with-coverage --cover-package=csdms.dakota
 
 after_success:
-  - coveralls
+  - coveralls --verbose
