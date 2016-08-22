@@ -14,11 +14,11 @@ before_install:
   - bash .ci/travis/install_python.sh
   - export PATH="$HOME/miniconda/bin:$PATH"
   - conda info -a
-  - conda build -q .conda
+  - conda build -q -c csdms .conda
   - pip install coveralls
 
 install:
-  - conda install -q csdms-dakota --use-local
+  - conda install -q -c csdms csdms-dakota --use-local
 
 script:
   - nosetests --with-doctest --with-coverage --cover-package=csdms.dakota
