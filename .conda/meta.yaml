@@ -11,6 +11,7 @@ requirements:
     - numpy
     - pyyaml
     - basic-modeling-interface
+    - nose
   run:
     - python
     - numpy
