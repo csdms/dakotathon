@@ -6,6 +6,8 @@ os:
   - linux
   - osx
 
+sudo: required
+
 before_install:
   - echo "Build on $TRAVIS_OS_NAME"
   - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
