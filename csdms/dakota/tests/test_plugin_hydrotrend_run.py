@@ -82,6 +82,12 @@ def test_run_by_setting_attributes():
     if is_dakota_installed() and is_hydrotrend_installed():
         d.run()
         assert_true(os.path.exists(d.output_file))
+        with open(known_dat_file, 'r') as fp:
+            txt0 = fp.readlines()
+            print txt0
+        with open(d.environment.data_file, 'r') as fp:
+            txt1 = fp.readlines()
+            print txt1
         assert_true(filecmp.cmp(known_dat_file, d.environment.data_file))
 
 
