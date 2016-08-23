@@ -6,8 +6,6 @@ os:
   - linux
   - osx
 
-sudo: false
-
 before_install:
   - echo "Build on $TRAVIS_OS_NAME"
   - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
@@ -16,6 +14,8 @@ before_install:
   - conda info -a
   - conda build -q -c csdms .conda
   - pip install coveralls
+  - bash .ci/travis/install_dakota.sh
+  - dakota --version
 
 install:
   - conda install -q -c csdms csdms-dakota --use-local
