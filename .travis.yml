@@ -1,6 +1,8 @@
 env:
   matrix:
     - TRAVIS_PYTHON_VERSION="2.7"
+  global:
+    secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
 
 os:
   - linux
@@ -27,3 +29,4 @@ script:
 
 after_success:
   - coveralls --verbose
+  - bash .ci/travis/deploy_to_anaconda.sh
