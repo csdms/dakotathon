@@ -9,11 +9,11 @@ os:
 before_install:
   - echo "Build on $TRAVIS_OS_NAME"
   - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
-  - bash .ci/travis/install_python.sh
+  - source .ci/travis/install_python.sh
   - conda info -a
   - conda build -q -c csdms .conda
   - pip install coveralls
-  - bash .ci/travis/install_dakota.sh
+  - source .ci/travis/install_dakota.sh
   - dakota --version
 
 install:
