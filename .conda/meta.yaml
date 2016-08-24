@@ -1,0 +1,20 @@
+package:
+  name: csdms-dakota
+  version: {{"0.2" + environ.get('BUILD_STR', '')}}
+
+source:
+  path: ..
+
+requirements:
+  build:
+    - python
+    - numpy
+    - pyyaml
+    - basic-modeling-interface
+    - nose
+  run:
+    - python
+    - numpy
+    - pyyaml
+    - basic-modeling-interface
+    - nose

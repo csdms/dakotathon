@@ -2,6 +2,9 @@
 [![Code Health](https://landscape.io/github/csdms/dakota/master/landscape.svg?style=flat)](https://landscape.io/github/csdms/dakota/master)
 [![Coverage Status](https://coveralls.io/repos/csdms/dakota/badge.svg?branch=master)](https://coveralls.io/r/csdms/dakota?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/csdms-dakota/badge/?version=latest)](https://readthedocs.org/projects/csdms-dakota/?badge=latest)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/version.svg)](https://anaconda.org/csdms/csdms-dakota)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/downloads.svg)](https://anaconda.org/csdms/csdms-dakota)
 
 # CSDMS Dakota interface
 

@@ -1,20 +1,32 @@
-language: python
-python:
-  - "2.7"
+env:
+  matrix:
+    - TRAVIS_PYTHON_VERSION="2.7"
+  global:
+    secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
 
 os:
   - linux
+  - osx
+
+sudo: required
 
 before_install:
-  - sudo apt-get update -qq
-  - pip install -r requirements.txt
+  - echo "Build on $TRAVIS_OS_NAME"
+  - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
+  - source .ci/travis/install_python.sh
+  - conda info -a
+  - conda build -q -c csdms .conda
   - pip install coveralls
+  - source .ci/travis/install_dakota.sh
+  - dakota --version
+  - conda install -q -c csdms hydrotrend
 
 install:
-  - python setup.py install
+  - conda install -q -c csdms csdms-dakota --use-local
 
 script:
   - nosetests --with-doctest --with-coverage --cover-package=csdms.dakota
 
 after_success:
-  - coveralls
+  - coveralls --verbose
+  - bash .ci/travis/deploy_to_anaconda.sh

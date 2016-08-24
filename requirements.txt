@@ -1,4 +1,0 @@
-numpy
-PyYAML
-nose
-basic-modeling-interface>=0.1.3
