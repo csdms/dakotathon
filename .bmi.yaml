@@ -1,0 +1,10 @@
+bmi_paths:
+  - .bmi/centered_parameter_study
+  - .bmi/multidim_parameter_study
+  - .bmi/vector_parameter_study
+  - .bmi/sampling
+  - .bmi/polynomial_chaos
+  - .bmi/stoch_collocation
+
+build:
+  - python setup.py install
