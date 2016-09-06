@@ -1,0 +1,11 @@
+url: https://dakota.sandia.gov/sites/default/files/docs/6.4/html-ref/method-polynomial_chaos.html
+author: Mark Piper
+email: mark.piper@colorado.edu
+version: 0.2.2
+summary: "The polynomial chaos expansion (PCE) is a general framework
+for the approximate representation of random response functions in
+terms of finite-dimensional series expansions in standardized random
+variables. An important distinguishing feature of the methodology is
+that the functional relationship between random inputs and outputs is
+captured, not merely the output statistics as in the case of many
+nondeterministic methodologies."
