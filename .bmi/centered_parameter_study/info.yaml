@@ -1,12 +1,11 @@
-url: https://dakota.sandia.gov/sites/default/files/docs/6.4/html-ref/method-centered_parameter_study.html
-author: Mark Piper
-email: mark.piper@colorado.edu
-version: 0.2.2
+url: https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html
+author: Sandia National Laboratories
+version: 6.1
 summary: "Dakota's centered parameter study computes response data
-sets along multiple coordinate-based vectors, one per parameter,
-centered about the initial values from the variables
-specification. This is useful for investigation of function contours
-with respect to each parameter individually in the vicinity of a
-specific point (e.g., post-optimality analysis for verification of a
-minimum), thereby avoiding the cost associated with a multidimensional
-grid."
+  sets along multiple coordinate-based vectors, one per parameter,
+  centered about the initial values from the variables'
+  specification. This is useful for investigation of function contours
+  with respect to each parameter individually in the vicinity of a
+  specific point (e.g., post-optimality analysis for verification of a
+  minimum), thereby avoiding the cost associated with a
+  multidimensional grid."
