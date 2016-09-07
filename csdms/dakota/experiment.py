@@ -62,6 +62,15 @@ class Experiment(object):
         self.component = component
         if self.component is not None:
             interface = 'fork'
+        if method == 'multidim_parameter_study':
+            try:
+                kwargs['lower_bounds']
+            except KeyError:
+                kwargs['lower_bounds'] = (-2.0, -2.0)
+            try:
+                kwargs['upper_bounds']
+            except KeyError:
+                kwargs['upper_bounds'] = (2.0, 2.0)
         for section in Experiment.blocks:
             cls = self._import(section, eval(section), **kwargs)
             attr = '_' + section
