@@ -2,7 +2,8 @@
 
 import os
 from nose.tools import (raises, assert_true, assert_equal,
-                        assert_is_instance, assert_is_none)
+                        assert_is_instance, assert_is_none,
+                        assert_is_not_none)
 from csdms.dakota.experiment import Experiment
 
 
@@ -42,6 +43,13 @@ def test_component_sets_interface_type():
     component = 'hydrotrend'
     e = Experiment(component=component)
     assert_is_instance(e.interface, Fork)
+
+
+def test_multidim_parameter_study_uses_bounds():
+    """Test that the multidim parameter study uses bounds."""
+    e = Experiment(method='multidim_parameter_study')
+    assert_is_not_none(e.variables.lower_bounds)
+    assert_is_not_none(e.variables.upper_bounds)
 
 
 def test_get_environment():

@@ -1,30 +1,38 @@
 analysis_driver: rosenbrock
+asynchronous: false
+auxiliary_files: []
 component: null
-configuration_file: /Users/mpiper/scratch/default_mps_config.yaml
+configuration_file: /Users/mpiper/tmp/config.yaml
+convergence_tolerance: null
 data_file: dakota.dat
-id_interface: Python
-input_files: !!python/tuple []
-interface: direct
-is_objective_function: false
-lower_bounds: !!python/tuple
-- -2.0
-- -2.0
-method: centered_parameter_study
-parameters_file: params.in
-partitions: !!python/tuple
-- 10
-- 8
-responses: !!python/tuple
-- y1
-response_files: !!python/tuple []
-response_statistics: !!python/tuple []
-results_file: results.out
-run_directory: /Users/mpiper/scratch
-template_file: null
-upper_bounds: !!python/tuple
-- 2.0
-- 2.0
-variables: !!python/tuple
+descriptors:
 - x1
 - x2
-variable_type: continuous_design
+evaluation_concurrency: 2
+gradients: no_gradients
+hessians: no_hessians
+id_interface: CSDMS
+initial_point: null
+input_file: dakota.in
+interface: direct
+lower_bounds:
+- -2.0
+- -2.0
+max_iterations: null
+method: multidim_parameter_study
+output_file: dakota.out
+partitions:
+- 10
+- 8
+response_descriptors:
+- y1
+response_files: []
+response_statistics:
+- mean
+responses: response_functions
+run_directory: /Users/mpiper/tmp
+template_file: null
+upper_bounds:
+- 2.0
+- 2.0
+variables: continuous_design
