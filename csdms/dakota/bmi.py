@@ -7,7 +7,7 @@ from .dakota import Dakota
 
 class BmiDakota(Bmi):
 
-    """Perform a Dakota experiment on a component."""
+    """The BMI implementation for the CSDMS Dakota interface."""
 
     _name = 'Dakota'
 
@@ -60,3 +60,26 @@ class BmiDakota(Bmi):
     def get_time_step(self):
         """Time step of model."""
         return 1.0
+
+
+class CenteredParameterStudy(BmiDakota):
+
+    """BMI implementation of a Dakota centered parameter study."""
+
+    _name = 'CenteredParameterStudy'
+
+    def initialize(self, filename=None):
+        """Create a Dakota instance and input file.
+
+        Parameters
+        ----------
+        filename : str, optional
+            Path to a Dakota configuration file.
+
+        """
+        if filename is None:
+            self._model = Dakota(method='centered_parameter_study')
+        else:
+            self._model = Dakota.from_file_like(filename)
+
+        self._model.write_input_file()
