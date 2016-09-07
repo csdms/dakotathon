@@ -2,7 +2,7 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi_dakota import BmiDakota
+from csdms.dakota.bmi import BmiDakota
 from csdms.dakota.utils import is_dakota_installed
 
 
