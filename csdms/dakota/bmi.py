@@ -129,3 +129,27 @@ class VectorParameterStudy(BmiDakota):
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
+
+
+class Sampling (BmiDakota):
+
+    """BMI implementation of a Dakota sampling study."""
+
+    _name = 'Sampling'
+
+    def initialize(self, filename=None):
+        """Create a Dakota instance and input file.
+
+        Parameters
+        ----------
+        filename : str, optional
+            Path to a Dakota configuration file.
+
+        """
+        if filename is None:
+            self._model = Dakota(method='sampling',
+                                 variables='uniform_uncertain')
+        else:
+            self._model = Dakota.from_file_like(filename)
+
+        self._model.write_input_file()
