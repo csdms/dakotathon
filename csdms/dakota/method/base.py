@@ -173,7 +173,7 @@ class UncertaintyQuantificationBase(MethodBase):
           and total effects.
 
         """
-        MethodBase.__init__(self, **kwargs)
+        MethodBase.__init__(self, method='sampling', **kwargs)
         self._basis_polynomial_family = basis_polynomial_family
         self._probability_levels = probability_levels
         self._response_levels = response_levels
