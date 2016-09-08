@@ -330,7 +330,8 @@ class UncertaintyQuantificationBase(MethodBase):
         s += '    sample_type = {}\n'.format(self.sample_type) \
             + '    samples = {}\n'.format(self.samples)
         if self.seed is not None:
-            s += '    seed = {}\n'.format(self.seed)
+            if self.seed != 0:
+                s += '    seed = {}\n'.format(self.seed)
         if len(self.probability_levels) > 0:
             s += '    probability_levels ='
             s += _print_levels(self.probability_levels)
