@@ -98,14 +98,14 @@ response_statistic1:
   description: Statistic computed on response
   value:
     type: choice
-    default: mean
+    default: Mean
     choices:
-      - mean
-      - median
-      - sum
-      - std
-      - max
-      - min
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
     units: '-'
 response_descriptor2:
   description: Response variable name
@@ -117,14 +117,14 @@ response_statistic2:
   description: Statistic computed on response
   value:
     type: choice
-    default: mean
+    default: Mean
     choices:
-      - mean
-      - median
-      - sum
-      - std
-      - max
-      - min
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
     units: '-'
 response_descriptor3:
   description: Response variable name
@@ -136,12 +136,12 @@ response_statistic3:
   description: Statistic computed on response
   value:
     type: choice
-    default: mean
+    default: Mean
     choices:
-      - mean
-      - median
-      - sum
-      - std
-      - max
-      - min
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
     units: '-'

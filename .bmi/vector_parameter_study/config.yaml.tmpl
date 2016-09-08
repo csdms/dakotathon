@@ -2,7 +2,7 @@ method: vector_parameter_study
 
 analysis_driver: dakota_run_plugin
 asynchronous: false
-auxiliary_files:                # handled by component
+auxiliary_files:
 component: {component}          # set by hook
 configuration_file: config.yaml
 convergence_tolerance:
@@ -21,12 +21,15 @@ max_iterations:
 means:
 n_steps: {n_steps}
 output_file: dakota.out
-response_descriptors: [{response_descriptor1}, {response_descriptor2}, {response_descriptor3},]
-response_files:                 # obviated by BMI
-response_statistics: [{response_statistic1}, {response_statistic2}, {response_statistic3},]
+response_descriptors: ["{response_descriptor1}", "{response_descriptor2}", "{response_descriptor3}",]
+response_files:
+response_statistics: ["{response_statistic1}", "{response_statistic2}", "{response_statistic3}",]
 responses: response_functions
 run_directory: .
 std_deviations:
 template_file: {template_file}  # set by hook
 upper_bounds:
 variables: continuous_design
+
+# Notes:
+# * BMI handles auxiliary_files and response_files.

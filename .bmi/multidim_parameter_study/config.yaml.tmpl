@@ -2,7 +2,7 @@ method: multidim_parameter_study
 
 analysis_driver: dakota_run_plugin
 asynchronous: false
-auxiliary_files:                # handled by component
+auxiliary_files:
 component: {component}          # set by hook
 configuration_file: config.yaml
 convergence_tolerance:
@@ -20,12 +20,15 @@ max_iterations:
 means:
 output_file: dakota.out
 partitions: [{partition1}, {partition2}, {partition3},]
-response_descriptors: [{response_descriptor1}, {response_descriptor2}, {response_descriptor3},]
-response_files:                 # obviated by BMI
-response_statistics: [{response_statistic1}, {response_statistic2}, {response_statistic3},]
+response_descriptors: ["{response_descriptor1}", "{response_descriptor2}", "{response_descriptor3}",]
+response_files:
+response_statistics: ["{response_statistic1}", "{response_statistic2}", "{response_statistic3}",]
 responses: response_functions
 run_directory: .
 std_deviations:
 template_file: {template_file}  # set by hook
 upper_bounds: [{upper_bound1}, {upper_bound2}, {upper_bound3},]
 variables: continuous_design
+
+# Notes:
+# * BMI handles auxiliary_files and response_files.

@@ -127,8 +127,6 @@ std_deviation3:
       max: 1e6
     units: '-'
 
-
-
 response_descriptor1:
   description: Response variable name
   value:
