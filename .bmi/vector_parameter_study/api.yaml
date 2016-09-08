@@ -1,0 +1,4 @@
+name: VectorParameterStudy
+language: python
+package: csdms.dakota.bmi
+class: VectorParameterStudy

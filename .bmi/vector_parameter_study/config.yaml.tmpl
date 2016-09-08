@@ -1,0 +1,32 @@
+method: vector_parameter_study
+
+analysis_driver: dakota_run_plugin
+asynchronous: false
+auxiliary_files:                # handled by component
+component: {component}          # set by hook
+configuration_file: config.yaml
+convergence_tolerance:
+data_file: dakota.dat
+descriptors: ["{descriptor1}", "{descriptor2}", "{descriptor3}",]
+evaluation_concurrency: 2
+final_point: [{final_point1}, {final_point2}, {final_point3},]
+gradients: no_gradients
+hessians: no_hessians
+id_interface: CSDMS
+initial_point: [{initial_point1}, {initial_point2}, {initial_point3},]
+input_file: dakota.in
+interface: fork
+lower_bounds:
+max_iterations:
+means:
+n_steps: {n_steps}
+output_file: dakota.out
+response_descriptors: [{response_descriptor1}, {response_descriptor2}, {response_descriptor3},]
+response_files:                 # obviated by BMI
+response_statistics: [{response_statistic1}, {response_statistic2}, {response_statistic3},]
+responses: response_functions
+run_directory: .
+std_deviations:
+template_file: {template_file}  # set by hook
+upper_bounds:
+variables: continuous_design
