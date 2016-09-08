@@ -1,0 +1,4 @@
+name: Sampling
+language: python
+package: csdms.dakota.bmi
+class: Sampling
