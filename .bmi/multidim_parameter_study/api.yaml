@@ -1,0 +1,4 @@
+name: MultidimParameterStudy
+language: python
+package: csdms.dakota.bmi
+class: MultidimParameterStudy

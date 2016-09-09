@@ -1,0 +1,4 @@
+name: StochasticCollocation
+language: python
+package: csdms.dakota.bmi
+class: StochasticCollocation

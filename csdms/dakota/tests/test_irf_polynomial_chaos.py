@@ -2,11 +2,11 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi import BmiDakota
+from csdms.dakota.bmi import PolynomialChaos
 from csdms.dakota.utils import is_dakota_installed
 
 
-config_val = {'method': 'vector_parameter_study', 'component': 'hydrotrend'}
+config_val = {'method': 'polynomial_chaos', 'variables': 'uniform_uncertain'}
 input_file, \
     output_file, \
     data_file, \
@@ -26,37 +26,37 @@ def teardown():
 
 
 def test_component_name():
-    model = BmiDakota()
+    model = PolynomialChaos()
     name = model.get_component_name()
-    assert_equal(name, 'Dakota')
+    assert_equal(name, 'PolynomialChaos')
     assert_is(model.get_component_name(), name)
 
 
 def test_start_time():
-    model = BmiDakota()
+    model = PolynomialChaos()
     model.initialize()
     assert_equal(model.get_start_time(), 0.0)
 
 
 def test_end_time():
-    model = BmiDakota()
+    model = PolynomialChaos()
     model.initialize()
     assert_equal(model.get_end_time(), 1.0)
 
 
 def test_current_time():
-    model = BmiDakota()
+    model = PolynomialChaos()
     assert_equal(model.get_current_time(), 0.0)
 
 
 def test_time_step():
-    model = BmiDakota()
+    model = PolynomialChaos()
     assert_equal(model.get_time_step(), 1.0)
 
 
 @with_setup(setup, teardown)
 def test_initialize_defaults():
-    model = BmiDakota()
+    model = PolynomialChaos()
     model.initialize()
     assert_true(os.path.exists(input_file))
 
@@ -66,7 +66,7 @@ def test_initialize_from_file_like():
     from StringIO import StringIO
 
     config = StringIO(yaml.dump(config_val))
-    model = BmiDakota()
+    model = PolynomialChaos()
     model.initialize(config)
     assert_true(os.path.exists(input_file))
 
@@ -79,7 +79,7 @@ def test_initialize_from_file():
         fp.write(yaml.dump(config_val))
         fname = fp.name
 
-    model = BmiDakota()
+    model = PolynomialChaos()
     model.initialize(fname)
     os.remove(fname)
     assert_true(os.path.exists(input_file))
@@ -87,7 +87,7 @@ def test_initialize_from_file():
 
 def test_update():
     if is_dakota_installed():
-        model = BmiDakota()
+        model = PolynomialChaos()
         model.initialize()
         model.update()
         assert_true(os.path.exists(input_file))
@@ -97,7 +97,7 @@ def test_update():
 
 def test_finalize():
     if is_dakota_installed():
-        model = BmiDakota()
+        model = PolynomialChaos()
         model.initialize()
         model.update()
         model.finalize()

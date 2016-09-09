@@ -1,0 +1,4 @@
+name: CenteredParameterStudy
+language: python
+package: csdms.dakota.bmi
+class: CenteredParameterStudy

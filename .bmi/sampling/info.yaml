@@ -1,0 +1,9 @@
+url: https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-sampling.html
+author: Sandia National Laboratories
+version: 6.1
+summary: "Dakota's sampling method generates parameter values by
+  drawing samples from the specified uncertain variable probability
+  distributions. The computational model is executed over all
+  generated parameter values to compute the responses for which
+  statistics are computed. The statistics support sensitivity analysis
+  and uncertainty quantification."

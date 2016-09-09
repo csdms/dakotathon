@@ -1,0 +1,297 @@
+descriptor1:
+  description: Input variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+lower_bound1:
+  description: Lower bound on values of study variable
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+upper_bound1:
+  description: Upper bound on values of study variable
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+mean1:
+  description: Mean of the distribution
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+std_deviation1:
+  description: Standard deviation of the distribution
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 1e-6
+      max: 1e6
+    units: '-'
+
+descriptor2:
+  description: Input variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+lower_bound2:
+  description: Lower bound on values of study variable
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+upper_bound2:
+  description: Upper bound on values of study variable
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+mean2:
+  description: Mean of the distribution
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+std_deviation2:
+  description: Standard deviation of the distribution
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 1e-6
+      max: 1e6
+    units: '-'
+
+descriptor3:
+  description: Input variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+lower_bound3:
+  description: Lower bound on values of study variable
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+upper_bound3:
+  description: Upper bound on values of study variable
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+mean3:
+  description: Mean of the distribution
+  value:
+    type: float
+    default: 0.0
+    range:
+      min: -1e6
+      max: 1e6
+    units: '-'
+std_deviation3:
+  description: Standard deviation of the distribution
+  value:
+    type: float
+    default: 1.0
+    range:
+      min: 1e-6
+      max: 1e6
+    units: '-'
+
+response_descriptor1:
+  description: Response variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+response_statistic1:
+  description: Statistic computed on response
+  value:
+    type: choice
+    default: Mean
+    choices:
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
+    units: '-'
+probability_levels1:
+  description:
+    Probabilities at which to estimate response values (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+response_levels1:
+  description:
+    Levels at which to estimate response PDF and CDF (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+
+response_descriptor2:
+  description: Response variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+response_statistic2:
+  description: Statistic computed on response
+  value:
+    type: choice
+    default: Mean
+    choices:
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
+    units: '-'
+probability_levels2:
+  description:
+    Probabilities at which to estimate response values (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+response_levels2:
+  description:
+    Levels at which to estimate response PDF and CDF (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+
+response_descriptor3:
+  description: Response variable name
+  value:
+    type: dynamic_choice
+    default:
+    units: '-'
+response_statistic3:
+  description: Statistic computed on response
+  value:
+    type: choice
+    default: Mean
+    choices:
+      - Mean
+      - Median
+      - Sum
+      - Standard deviation
+      - Maximum
+      - Minimum
+    units: '-'
+probability_levels3:
+  description:
+    Probabilities at which to estimate response values (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+response_levels3:
+  description:
+    Levels at which to estimate response PDF and CDF (a comma-delimited list)
+  value:
+    type: string
+    default: ''
+    units: '-'
+
+quadrature_order:
+  description:
+    The highest order polynomial used by the method
+  value:
+    type: choice
+    default: 2
+    choices:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+    units: '-'
+sample_type:
+  description:
+    Technique for choosing samples
+  value:
+    type: choice
+    default: Random sampling
+    choices:
+      - Random sampling
+      - Latin hypercube sampling
+    units: '-'
+samples:
+  description:
+    Number of samples in experiment
+  value:
+    type: int
+    default: 10
+    range:
+      min: 1
+      max: 1e6
+    units: '-'
+seed:
+  description:
+    Seed for random number generator (0 = randomly selected)
+  value:
+    type: int
+    default: 0
+    range:
+      min: 0
+      max: 1e6
+    units: '-'
+variance_based_decomp:
+  description:
+    Activate global sensitivity analysis based on decomposition of response variance
+  value:
+    type: choice
+    default: False
+    choices:
+      - False
+      - True
+    units: '-'
+variable_type:
+  description:
+    Variable type used in the experiment
+  value:
+    type: choice
+    default: Uniform uncertain
+    choices:
+      - Uniform uncertain
+      - Normal uncertain
+    units: '-'

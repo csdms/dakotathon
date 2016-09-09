@@ -195,6 +195,22 @@ def test_default_str_length():
     assert_equal(n_lines, 5)
 
 
+def test_str_length_with_zero_seed_value():
+    """Test the length of __str__ with seed = 0."""
+    x = Concrete(seed=0)
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 4)
+
+
+def test_str_length_with_nonzero_seed_value():
+    """Test the length of __str__ with seed != 0."""
+    x = Concrete(seed=42)
+    s = str(x)
+    n_lines = len(s.splitlines())
+    assert_equal(n_lines, 5)
+
+
 def test_str_length_with_options():
     """Test the length of __str__ with optional props set."""
     x = Concrete(seed=42,

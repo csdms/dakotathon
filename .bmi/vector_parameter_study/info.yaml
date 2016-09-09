@@ -1,0 +1,10 @@
+url: https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html
+author: Sandia National Laboratories
+version: 6.1
+summary: "Dakota's vector parameter study computes response data sets
+  at selected intervals along a vector in parameter space. It is often
+  used for single-coordinate parameter studies (to study the effect of
+  a single variable on a response set), but it can be used more
+  generally for multiple coordinate vector studies (to investigate the
+  response variations along some n-dimensional vector such as an
+  optimizer search direction)."

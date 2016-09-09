@@ -1,0 +1,4 @@
+name: PolynomialChaos
+language: python
+package: csdms.dakota.bmi
+class: PolynomialChaos
