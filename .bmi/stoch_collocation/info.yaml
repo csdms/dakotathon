@@ -1,18 +1,17 @@
-url: https://dakota.sandia.gov/sites/default/files/docs/6.4/html-ref/method-stoch_collocation.html
-author: Mark Piper
-email: mark.piper@colorado.edu
-version: 0.2.2
+url: https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html
+author: Sandia National Laboratories
+version: 6.1
 summary: "Stochastic collocation is a general framework for
-approximate representation of random response functions in terms of
-finite-dimensional interpolation bases.  The stochastic collocation
-(SC) method is very similar to polynomial chaos (PCE), with the key
-difference that the orthogonal polynomial basis functions are replaced
-with interpolation polynomial bases. The interpolation polynomials may
-be either local or global and either value-based or
-gradient-enhanced. In the local case, valued-based are piecewise
-linear splines and gradient-enhanced are piecewise cubic splines, and
-in the global case, valued-based are Lagrange interpolants and
-gradient-enhanced are Hermite interpolants. Thus, in PCE, one forms
-coefficients for known orthogonal polynomial basis functions, whereas
-SC forms multidimensional interpolation functions for known
-coefficients."
+  approximate representation of random response functions in terms of
+  finite-dimensional interpolation bases.  The stochastic collocation
+  (SC) method is very similar to polynomial chaos (PCE), with the key
+  difference that the orthogonal polynomial basis functions are
+  replaced with interpolation polynomial bases. The interpolation
+  polynomials may be either local or global and either value-based or
+  gradient-enhanced. In the local case, valued-based are piecewise
+  linear splines and gradient-enhanced are piecewise cubic splines,
+  and in the global case, valued-based are Lagrange interpolants and
+  gradient-enhanced are Hermite interpolants. Thus, in PCE, one forms
+  coefficients for known orthogonal polynomial basis functions,
+  whereas SC forms multidimensional interpolation functions for known
+  coefficients."

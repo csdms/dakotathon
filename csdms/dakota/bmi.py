@@ -157,7 +157,7 @@ class Sampling (BmiDakota):
 
 class PolynomialChaos (BmiDakota):
 
-    """BMI implementation of a Dakota polynomial chaos study."""
+    """BMI implementation of a Dakota study with the polynomial chaos method."""
 
     _name = 'PolynomialChaos'
 
@@ -172,6 +172,30 @@ class PolynomialChaos (BmiDakota):
         """
         if filename is None:
             self._model = Dakota(method='polynomial_chaos',
+                                 variables='uniform_uncertain')
+        else:
+            self._model = Dakota.from_file_like(filename)
+
+        self._model.write_input_file()
+
+
+class StochasticCollocation (BmiDakota):
+
+    """BMI implementation of a Dakota study with the stochastic collocation method."""
+
+    _name = 'StochasticCollocation'
+
+    def initialize(self, filename=None):
+        """Create a Dakota instance and input file.
+
+        Parameters
+        ----------
+        filename : str, optional
+            Path to a Dakota configuration file.
+
+        """
+        if filename is None:
+            self._model = Dakota(method='stoch_collocation',
                                  variables='uniform_uncertain')
         else:
             self._model = Dakota.from_file_like(filename)
