@@ -1,6 +1,6 @@
 package:
   name: csdms-dakota
-  version: {{"0.2.1" + environ.get('BUILD_STR', '')}}
+  version: {{"0.2.2" + environ.get('BUILD_STR', '')}}
 
 source:
   path: ..
