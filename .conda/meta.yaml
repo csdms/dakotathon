@@ -1,6 +1,6 @@
 package:
   name: dakotathon
-  version: {{"0.2.2" + environ.get('BUILD_STR', '')}}
+  version: {{"0.2.3" + environ.get('BUILD_STR', '')}}
 
 source:
   path: ..
