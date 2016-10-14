@@ -8,7 +8,7 @@ analysis method.
 Variables base class
 --------------------
 
-.. automodule:: csdms.dakota.variables.base
+.. automodule:: dakotathon.variables.base
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -18,7 +18,7 @@ Variables base class
 Continuous design
 -----------------
 
-.. automodule:: csdms.dakota.variables.continuous_design
+.. automodule:: dakotathon.variables.continuous_design
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -28,7 +28,7 @@ Continuous design
 Uniform uncertain
 -----------------
 
-.. automodule:: csdms.dakota.variables.uniform_uncertain
+.. automodule:: dakotathon.variables.uniform_uncertain
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -38,7 +38,7 @@ Uniform uncertain
 Normal uncertain
 ----------------
 
-.. automodule:: csdms.dakota.variables.normal_uncertain
+.. automodule:: dakotathon.variables.normal_uncertain
     :members:
     :undoc-members:
     :special-members: __init__, __str__

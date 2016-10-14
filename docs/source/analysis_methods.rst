@@ -7,7 +7,7 @@ Python wrappers for Dakota analysis methods.
 Methods base classes
 --------------------
 
-.. automodule:: csdms.dakota.method.base
+.. automodule:: dakotathon.method.base
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -17,7 +17,7 @@ Methods base classes
 Centered parameter study
 ------------------------
 
-.. automodule:: csdms.dakota.method.centered_parameter_study
+.. automodule:: dakotathon.method.centered_parameter_study
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -27,7 +27,7 @@ Centered parameter study
 Multidim parameter study
 ------------------------
 
-.. automodule:: csdms.dakota.method.multidim_parameter_study
+.. automodule:: dakotathon.method.multidim_parameter_study
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -37,7 +37,7 @@ Multidim parameter study
 Vector parameter study
 ----------------------
 
-.. automodule:: csdms.dakota.method.vector_parameter_study
+.. automodule:: dakotathon.method.vector_parameter_study
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -47,7 +47,7 @@ Vector parameter study
 Sampling
 --------
 
-.. automodule:: csdms.dakota.method.sampling
+.. automodule:: dakotathon.method.sampling
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -57,7 +57,7 @@ Sampling
 Polynomial chaos
 ----------------
 
-.. automodule:: csdms.dakota.method.polynomial_chaos
+.. automodule:: dakotathon.method.polynomial_chaos
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -67,7 +67,7 @@ Polynomial chaos
 Stochastic collocation
 ----------------------
 
-.. automodule:: csdms.dakota.method.stoch_collocation
+.. automodule:: dakotathon.method.stoch_collocation
     :members:
     :undoc-members:
     :special-members: __init__, __str__

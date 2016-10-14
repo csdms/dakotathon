@@ -5,6 +5,6 @@ else
 fi
 
 echo "Uploading to $CHANNEL"
-anaconda -t $ANACONDA_TOKEN upload --force --user csdms --channel $CHANNEL $HOME/miniconda/conda-bld/**/csdms-dakota*bz2
+anaconda -t $ANACONDA_TOKEN upload --force --user csdms --channel $CHANNEL $HOME/miniconda/conda-bld/**/dakotathon*bz2
 
 echo "Done."

@@ -2,9 +2,9 @@
 [![Code Health](https://landscape.io/github/csdms/dakota/master/landscape.svg?style=flat)](https://landscape.io/github/csdms/dakota/master)
 [![Coverage Status](https://coveralls.io/repos/csdms/dakota/badge.svg?branch=master)](https://coveralls.io/r/csdms/dakota?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/csdms-dakota/badge/?version=latest)](https://readthedocs.org/projects/csdms-dakota/?badge=latest)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/version.svg)](https://anaconda.org/csdms/csdms-dakota)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/csdms-dakota/badges/downloads.svg)](https://anaconda.org/csdms/csdms-dakota)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/version.svg)](https://anaconda.org/csdms/dakotathon)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
+[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/downloads.svg)](https://anaconda.org/csdms/dakotathon)
 
 # CSDMS Dakota interface
 
@@ -51,7 +51,7 @@ build HydroTrend from source:
 
 Import the CSDMS Dakota interface into a Python session with:
 
-	>>> from csdms.dakota import Dakota
+	>>> from dakotathon import Dakota
 
 Create a `Dakota` instance,
 specifying a Dakota analysis method:
@@ -96,7 +96,7 @@ include the `DYLD_LIBRARY_PATH` environment variable
 in your session before calling the `run` method with:
 
 ```python
->>> from csdms.dakota.utils import add_dyld_library_path
+>>> from dakotathon.utils import add_dyld_library_path
 >>> add_dyld_library_path()
 ```
 

@@ -1,4 +1,4 @@
 name: StochasticCollocation
 language: python
-package: csdms.dakota.bmi
+package: dakotathon.bmi
 class: StochasticCollocation

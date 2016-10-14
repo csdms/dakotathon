@@ -1,11 +1,11 @@
 from ez_setup import use_setuptools
 use_setuptools()
 from setuptools import setup, find_packages
-from csdms.dakota import __version__
-from csdms.dakota.run_plugin import plugin_script
+from dakotathon import __version__
+from dakotathon.run_plugin import plugin_script
 
 
-setup(name='csdms-dakota',
+setup(name='dakotathon',
       version=__version__,
       author='Mark Piper',
       author_email='mark.piper@colorado.edu',
@@ -18,11 +18,10 @@ setup(name='csdms-dakota',
           'nose',
           'basic-modeling-interface',
       ],
-      namespace_packages=['csdms'],
       packages=find_packages(exclude=['*.tests']),
       entry_points={
           'console_scripts': [
-              plugin_script + ' = csdms.dakota.run_plugin:main'
+              plugin_script + ' = dakotathon.run_plugin:main'
           ]
       },
       keywords='CSDMS Dakota uncertainty sensitivity model modeling',

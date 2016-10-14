@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# csdms-dakota documentation build configuration file, created by
+# dakotathon documentation build configuration file, created by
 # sphinx-quickstart on Tue Jun  2 15:50:41 2015.
 #
 # This file is execfile()d with the current directory set to its
@@ -56,7 +56,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'csdms-dakota'
+project = u'dakotathon'
 copyright = u'2015, Mark Piper'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -189,7 +189,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'csdms-dakotadoc'
+htmlhelp_basename = 'dakotathondoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -209,7 +209,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'csdms-dakota.tex', u'csdms-dakota Documentation',
+  ('index', 'dakotathon.tex', u'dakotathon Documentation',
    u'Mark Piper', 'manual'),
 ]
 
@@ -239,7 +239,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'csdms-dakota', u'csdms-dakota Documentation',
+    ('index', 'dakotathon', u'dakotathon Documentation',
      [u'Mark Piper'], 1)
 ]
 
@@ -253,8 +253,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'csdms-dakota', u'csdms-dakota Documentation',
-   u'Mark Piper', 'csdms-dakota', 'One line description of project.',
+  ('index', 'dakotathon', u'dakotathon Documentation',
+   u'Mark Piper', 'dakotathon', 'One line description of project.',
    'Miscellaneous'),
 ]
 

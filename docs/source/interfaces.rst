@@ -8,7 +8,7 @@ in order to map variables into responses.
 Interface base class
 --------------------
 
-.. automodule:: csdms.dakota.interface.base
+.. automodule:: dakotathon.interface.base
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -18,7 +18,7 @@ Interface base class
 Direct
 ------
 
-.. automodule:: csdms.dakota.interface.direct
+.. automodule:: dakotathon.interface.direct
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -28,7 +28,7 @@ Direct
 Fork
 ----
 
-.. automodule:: csdms.dakota.interface.fork
+.. automodule:: dakotathon.interface.fork
     :members:
     :undoc-members:
     :special-members: __init__, __str__
