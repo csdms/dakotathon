@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for csdms.dakota.method.base module.
+# Tests for dakotathon.method.base module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
-from csdms.dakota.method.base import MethodBase
+from dakotathon.method.base import MethodBase
 
 # Helpers --------------------------------------------------------------
 

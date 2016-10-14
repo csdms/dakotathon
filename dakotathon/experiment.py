@@ -89,7 +89,7 @@ class Experiment(object):
         ----------
         value : obj
             An environment control block object, an instance of a
-            subclass of csdms.dakota.environment.base.EnvironmentBase.
+            subclass of dakotathon.environment.base.EnvironmentBase.
 
         """
         supr = self._environment.__class__.__bases__[0]
@@ -110,7 +110,7 @@ class Experiment(object):
         ----------
         value : obj
             A method control block object, an instance of a
-            subclass of csdms.dakota.method.base.MethodBase.
+            subclass of dakotathon.method.base.MethodBase.
 
         """
         supr = self._method.__class__.__bases__[0]
@@ -131,7 +131,7 @@ class Experiment(object):
         ----------
         value : obj
             A variables control block object, an instance of a
-            subclass of csdms.dakota.variables.base.VariablesBase.
+            subclass of dakotathon.variables.base.VariablesBase.
 
         """
         supr = self._variables.__class__.__bases__[0]
@@ -152,7 +152,7 @@ class Experiment(object):
         ----------
         value : obj
             An interface control block object, an instance of a
-            subclass of csdms.dakota.interface.base.InterfaceBase.
+            subclass of dakotathon.interface.base.InterfaceBase.
 
         """
         supr = self._interface.__class__.__bases__[0]
@@ -173,7 +173,7 @@ class Experiment(object):
         ----------
         value : obj
             A responses control block object, an instance of a
-            subclass of csdms.dakota.responses.base.ResponsesBase.
+            subclass of dakotathon.responses.base.ResponsesBase.
 
         """
         supr = self._responses.__class__.__bases__[0]

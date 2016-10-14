@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.method.stoch_collocation module."""
+"""Tests for the dakotathon.method.stoch_collocation module."""
 
 from nose.tools import (raises, assert_is_instance, assert_true,
                         assert_equal, assert_is_none)
-from csdms.dakota.method.stoch_collocation import StochasticCollocation
+from dakotathon.method.stoch_collocation import StochasticCollocation
 
 
 def setup_module():

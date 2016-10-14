@@ -2,8 +2,8 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi import Sampling
-from csdms.dakota.utils import is_dakota_installed
+from dakotathon.bmi import Sampling
+from dakotathon.utils import is_dakota_installed
 
 
 config_val = {'method': 'sampling', 'variables': 'uniform_uncertain'}

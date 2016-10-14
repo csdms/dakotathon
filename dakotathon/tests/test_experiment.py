@@ -1,10 +1,10 @@
-"""Tests for the csdms.dakota.experiment module."""
+"""Tests for the dakotathon.experiment module."""
 
 import os
 from nose.tools import (raises, assert_true, assert_equal,
                         assert_is_instance, assert_is_none,
                         assert_is_not_none)
-from csdms.dakota.experiment import Experiment
+from dakotathon.experiment import Experiment
 
 
 def setup_module():

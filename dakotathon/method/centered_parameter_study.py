@@ -79,7 +79,7 @@ class CenteredParameterStudy(MethodBase):
 
         See Also
         --------
-        csdms.dakota.method.base.MethodBase.__str__
+        dakotathon.method.base.MethodBase.__str__
 
         """
         s = MethodBase.__str__(self)

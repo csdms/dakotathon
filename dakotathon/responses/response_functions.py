@@ -88,7 +88,7 @@ class ResponseFunctions(ResponsesBase):
 
         See Also
         --------
-        csdms.dakota.responses.base.ResponsesBase.__str__
+        dakotathon.responses.base.ResponsesBase.__str__
 
         """
         n_descriptors = len(self.response_descriptors)

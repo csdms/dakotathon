@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.environment.environment module."""
+"""Tests for the dakotathon.environment.environment module."""
 
 import os
 from nose.tools import assert_true, assert_false, assert_equal
-from csdms.dakota.environment.environment import Environment
+from dakotathon.environment.environment import Environment
 
 
 def setup_module():

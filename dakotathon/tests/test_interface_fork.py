@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.interface.fork module."""
+"""Tests for the dakotathon.interface.fork module."""
 
 import os
 from nose.tools import assert_true, assert_false, assert_equal
-from csdms.dakota.interface.fork import Fork
+from dakotathon.interface.fork import Fork
 from .test_interface_base import default_str_lines
 
 

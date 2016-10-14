@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.method.polynomial_chaos module."""
+"""Tests for the dakotathon.method.polynomial_chaos module."""
 
 from nose.tools import (raises, assert_is_instance, assert_true,
                         assert_equal, assert_is_none)
-from csdms.dakota.method.polynomial_chaos import PolynomialChaos
+from dakotathon.method.polynomial_chaos import PolynomialChaos
 
 
 def setup_module():

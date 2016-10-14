@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.variables.normal_uncertain module."""
+"""Tests for the dakotathon.variables.normal_uncertain module."""
 
 import os
 from nose.tools import raises, assert_true, assert_is_none, assert_equal
-from csdms.dakota.variables.normal_uncertain import NormalUncertain
+from dakotathon.variables.normal_uncertain import NormalUncertain
 
 
 def setup_module():

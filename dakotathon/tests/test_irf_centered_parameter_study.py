@@ -2,8 +2,8 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi import CenteredParameterStudy
-from csdms.dakota.utils import is_dakota_installed
+from dakotathon.bmi import CenteredParameterStudy
+from dakotathon.utils import is_dakota_installed
 
 
 config_val = {'method': 'centered_parameter_study'}

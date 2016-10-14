@@ -38,7 +38,7 @@ class Fork(InterfaceBase):
 
         See Also
         --------
-        csdms.dakota.interface.base.InterfaceBase.__str__
+        dakotathon.interface.base.InterfaceBase.__str__
 
         """
         s = InterfaceBase.__str__(self)

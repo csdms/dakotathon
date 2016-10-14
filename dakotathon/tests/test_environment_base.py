@@ -1,7 +1,7 @@
-"""Tests for the csdms.dakota.environment.base module."""
+"""Tests for the dakotathon.environment.base module."""
 
 from nose.tools import raises, assert_true, assert_equal
-from csdms.dakota.environment.base import EnvironmentBase
+from dakotathon.environment.base import EnvironmentBase
 
 
 class Concrete(EnvironmentBase):

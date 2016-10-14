@@ -8,7 +8,7 @@
 import os
 import filecmp
 from nose.tools import raises, assert_is_none, assert_true
-from csdms.dakota.plugins.base import (PluginBase, write_dflt_file,
+from dakotathon.plugins.base import (PluginBase, write_dflt_file,
                                        write_dtmpl_file)
 from . import start_dir, data_dir
 

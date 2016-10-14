@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.interface.direct module."""
+"""Tests for the dakotathon.interface.direct module."""
 
 import os
 from nose.tools import assert_true, assert_false, assert_equal
-from csdms.dakota.interface.direct import Direct
+from dakotathon.interface.direct import Direct
 from .test_interface_base import default_str_lines
 
 

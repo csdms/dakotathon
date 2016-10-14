@@ -3,7 +3,7 @@
 import os
 import filecmp
 from nose.tools import assert_true
-from csdms.dakota.dakota import Dakota
+from dakotathon.dakota import Dakota
 from . import data_dir
 
 

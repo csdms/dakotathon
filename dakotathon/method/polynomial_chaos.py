@@ -152,7 +152,7 @@ class PolynomialChaos(UncertaintyQuantificationBase):
 
         See Also
         --------
-        csdms.dakota.method.base.UncertaintyQuantificationBase.__str__
+        dakotathon.method.base.UncertaintyQuantificationBase.__str__
 
         """
         s = UncertaintyQuantificationBase.__str__(self)

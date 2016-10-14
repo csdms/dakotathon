@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.responses.base module."""
+"""Tests for the dakotathon.responses.base module."""
 
 import os
 from nose.tools import raises, assert_true, assert_false, assert_equal
-from csdms.dakota.responses.base import ResponsesBase
+from dakotathon.responses.base import ResponsesBase
 
 
 descriptors = ['a', 'b']

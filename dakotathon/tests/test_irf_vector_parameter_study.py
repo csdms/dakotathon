@@ -2,8 +2,8 @@
 import os
 import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
-from csdms.dakota.bmi import VectorParameterStudy
-from csdms.dakota.utils import is_dakota_installed
+from dakotathon.bmi import VectorParameterStudy
+from dakotathon.utils import is_dakota_installed
 
 
 config_val = {'method': 'vector_parameter_study'}

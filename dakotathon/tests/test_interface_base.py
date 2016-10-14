@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.interface.base module."""
+"""Tests for the dakotathon.interface.base module."""
 
 import os
 from nose.tools import raises, assert_true, assert_false, assert_equal
-from csdms.dakota.interface.base import InterfaceBase
+from dakotathon.interface.base import InterfaceBase
 
 
 default_evaluation_concurrency = 2

@@ -1,7 +1,7 @@
-"""Tests for csdms.dakota.method.base.UncertaintyQuantificationBase."""
+"""Tests for dakotathon.method.base.UncertaintyQuantificationBase."""
 
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
-from csdms.dakota.method.base import (UncertaintyQuantificationBase,
+from dakotathon.method.base import (UncertaintyQuantificationBase,
                                       _print_levels)
 
 

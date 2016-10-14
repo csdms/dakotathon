@@ -6,7 +6,7 @@ from .utils import get_configuration_file, deserialize
 
 
 plugin_script = 'dakota_run_plugin'
-_plugins_path = 'csdms.dakota.plugins.'
+_plugins_path = 'dakotathon.plugins.'
 
 
 def run_plugin(params_file, results_file):

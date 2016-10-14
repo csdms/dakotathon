@@ -14,8 +14,8 @@ import tempfile
 import numpy as np
 from numpy.testing import assert_almost_equal
 from nose.tools import raises, with_setup, assert_is, assert_true
-from csdms.dakota.plugins.hydrotrend import HydroTrend, is_installed
-from csdms.dakota.utils import deserialize
+from dakotathon.plugins.hydrotrend import HydroTrend, is_installed
+from dakotathon.utils import deserialize
 from . import start_dir, data_dir
 
 

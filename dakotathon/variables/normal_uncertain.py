@@ -178,7 +178,7 @@ class NormalUncertain(VariablesBase):
 
         See Also
         --------
-        csdms.dakota.variables.base.VariablesBase.__str__
+        dakotathon.variables.base.VariablesBase.__str__
 
         """
         s = VariablesBase.__str__(self)

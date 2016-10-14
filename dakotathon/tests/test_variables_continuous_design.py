@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.variables.continuous_design module."""
+"""Tests for the dakotathon.variables.continuous_design module."""
 
 import os
 from nose.tools import raises, assert_true, assert_is_none, assert_equal
-from csdms.dakota.variables.continuous_design import ContinuousDesign
+from dakotathon.variables.continuous_design import ContinuousDesign
 
 
 def setup_module():

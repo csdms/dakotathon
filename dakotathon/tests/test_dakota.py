@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Tests for the csdms.dakota.dakota module.
+# Tests for the dakotathon.dakota module.
 #
 # Call with:
 #   $ nosetests -sv
@@ -12,8 +12,8 @@ import filecmp
 from subprocess import CalledProcessError
 from nose.tools import (raises, assert_is_instance, assert_true,
                         assert_is_none, assert_equal)
-from csdms.dakota.dakota import Dakota
-from csdms.dakota.utils import is_dakota_installed
+from dakotathon.dakota import Dakota
+from dakotathon.utils import is_dakota_installed
 from . import start_dir, data_dir
 
 

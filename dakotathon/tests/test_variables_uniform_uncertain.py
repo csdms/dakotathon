@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.variables.uniform_uncertain module."""
+"""Tests for the dakotathon.variables.uniform_uncertain module."""
 
 import os
 from nose.tools import raises, assert_true, assert_is_none, assert_equal
-from csdms.dakota.variables.uniform_uncertain import UniformUncertain
+from dakotathon.variables.uniform_uncertain import UniformUncertain
 
 
 def setup_module():

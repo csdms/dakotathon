@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.responses.response_functions module."""
+"""Tests for the dakotathon.responses.response_functions module."""
 
 import os
 from nose.tools import raises, assert_true, assert_false, assert_equal
-from csdms.dakota.responses.response_functions import ResponseFunctions
+from dakotathon.responses.response_functions import ResponseFunctions
 
 
 def setup_module():

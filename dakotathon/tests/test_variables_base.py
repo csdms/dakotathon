@@ -1,8 +1,8 @@
-"""Tests for the csdms.dakota.variables.base module."""
+"""Tests for the dakotathon.variables.base module."""
 
 import os
 from nose.tools import raises, assert_true, assert_false, assert_equal
-from csdms.dakota.variables.base import VariablesBase
+from dakotathon.variables.base import VariablesBase
 
 
 class Concrete(VariablesBase):
