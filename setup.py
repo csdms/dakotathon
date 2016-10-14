@@ -21,7 +21,7 @@ setup(name='dakotathon',
       packages=find_packages(exclude=['*.tests']),
       entry_points={
           'console_scripts': [
-              plugin_script + ' = csdms.dakota.run_plugin:main'
+              plugin_script + ' = dakotathon.run_plugin:main'
           ]
       },
       keywords='CSDMS Dakota uncertainty sensitivity model modeling',
