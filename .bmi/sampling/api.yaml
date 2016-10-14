@@ -1,4 +1,4 @@
 name: Sampling
 language: python
-package: csdms.dakota.bmi
+package: dakotathon.bmi
 class: Sampling

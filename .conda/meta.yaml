@@ -1,5 +1,5 @@
 package:
-  name: csdms-dakota
+  name: dakotathon
   version: {{"0.2.2" + environ.get('BUILD_STR', '')}}
 
 source:
