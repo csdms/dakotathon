@@ -1,7 +1,7 @@
 Experiment class
 ================
 
-.. automodule:: csdms.dakota.experiment
+.. automodule:: dakotathon.experiment
     :members:
     :undoc-members:
     :special-members: __init__, __str__

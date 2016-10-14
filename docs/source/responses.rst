@@ -8,7 +8,7 @@ Dakota upon evaluation of an interface.
 Responses base class
 --------------------
 
-.. automodule:: csdms.dakota.responses.base
+.. automodule:: dakotathon.responses.base
     :members:
     :undoc-members:
     :special-members: __init__, __str__
@@ -18,7 +18,7 @@ Responses base class
 Response functions
 ------------------
 
-.. automodule:: csdms.dakota.responses.response_functions
+.. automodule:: dakotathon.responses.response_functions
     :members:
     :undoc-members:
     :special-members: __init__, __str__

@@ -7,7 +7,7 @@ CSDMS components that can be called by Dakota.
 Plugins base class
 ------------------
 
-.. automodule:: csdms.dakota.plugins.base
+.. automodule:: dakotathon.plugins.base
     :members:
     :undoc-members:
     :show-inheritance:
@@ -16,7 +16,7 @@ Plugins base class
 HydroTrend
 ----------
 
-.. automodule:: csdms.dakota.plugins.hydrotrend
+.. automodule:: dakotathon.plugins.hydrotrend
     :members:
     :undoc-members:
     :special-members: __init__

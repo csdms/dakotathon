@@ -1,4 +1,4 @@
-.. csdms-dakota documentation master file, created by
+.. dakotathon documentation master file, created by
    sphinx-quickstart on Tue Jun  2 15:50:41 2015.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
@@ -23,8 +23,8 @@ Contents
 .. toctree::
    :maxdepth: 3
 
-   Dakota class <csdms.dakota.dakota>
-   Experiment class <csdms.dakota.experiment> 
+   Dakota class <dakotathon.dakota>
+   Experiment class <dakotathon.experiment> 
 
    Environments <environment>
    Methods <analysis_methods>
@@ -33,8 +33,8 @@ Contents
    Responses <responses>
 
    Component plugins <component_plugins>
-   The `dakota_run_plugin` console script <csdms.dakota.run_plugin>
-   Utilities and helper functions <csdms.dakota.utils>
+   The `dakota_run_plugin` console script <dakotathon.run_plugin>
+   Utilities and helper functions <dakotathon.utils>
 
 
 Indices and tables

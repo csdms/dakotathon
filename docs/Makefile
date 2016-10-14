@@ -85,17 +85,17 @@ qthelp:
 	@echo
 	@echo "Build finished; now you can run "qcollectiongenerator" with the" \
 	      ".qhcp project file in $(BUILDDIR)/qthelp, like this:"
-	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/csdms-dakota.qhcp"
+	@echo "# qcollectiongenerator $(BUILDDIR)/qthelp/dakotathon.qhcp"
 	@echo "To view the help file:"
-	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/csdms-dakota.qhc"
+	@echo "# assistant -collectionFile $(BUILDDIR)/qthelp/dakotathon.qhc"
 
 devhelp:
 	$(SPHINXBUILD) -b devhelp $(ALLSPHINXOPTS) $(BUILDDIR)/devhelp
 	@echo
 	@echo "Build finished."
 	@echo "To view the help file:"
-	@echo "# mkdir -p $$HOME/.local/share/devhelp/csdms-dakota"
-	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/csdms-dakota"
+	@echo "# mkdir -p $$HOME/.local/share/devhelp/dakotathon"
+	@echo "# ln -s $(BUILDDIR)/devhelp $$HOME/.local/share/devhelp/dakotathon"
 	@echo "# devhelp"
 
 epub:

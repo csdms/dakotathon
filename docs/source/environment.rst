@@ -7,7 +7,7 @@ Environments are top-level settings for Dakota execution.
 Environment base class
 ----------------------
 
-.. automodule:: csdms.dakota.environment.base
+.. automodule:: dakotathon.environment.base
     :members:
     :undoc-members:
     :special-members: __str__
@@ -17,7 +17,7 @@ Environment base class
 Environment
 -----------
 
-.. automodule:: csdms.dakota.environment.environment
+.. automodule:: dakotathon.environment.environment
     :members:
     :undoc-members:
     :special-members: __init__, __str__
