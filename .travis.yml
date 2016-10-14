@@ -22,10 +22,10 @@ before_install:
   - conda install -q -c csdms hydrotrend
 
 install:
-  - conda install -q -c csdms csdms-dakota --use-local
+  - conda install -q -c csdms dakotathon --use-local
 
 script:
-  - nosetests --with-doctest --with-coverage --cover-package=csdms.dakota
+  - nosetests --with-doctest --with-coverage --cover-package=dakotathon
 
 after_success:
   - coveralls --verbose
