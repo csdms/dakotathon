@@ -1,6 +1,7 @@
 """Implementation of a Dakota continous design variable."""
 
 from .base import VariablesBase
+from ..utils import to_iterable
 
 
 classname = 'ContinuousDesign'
@@ -134,19 +135,22 @@ class ContinuousDesign(VariablesBase):
         """
         s = VariablesBase.__str__(self)
         if self.initial_point is not None:
+            initial_point = to_iterable(self.initial_point)
             s += '\n' \
                  + '    initial_point ='
-            for pt in self.initial_point:
+            for pt in initial_point:
                 s += ' {}'.format(pt)
         if self.lower_bounds is not None:
+            lower_bounds = to_iterable(self.lower_bounds)
             s += '\n' \
                  + '    lower_bounds ='
-            for b in self.lower_bounds:
+            for b in lower_bounds:
                 s += ' {}'.format(b)
         if self.upper_bounds is not None:
+            upper_bounds = to_iterable(self.upper_bounds)
             s += '\n' \
                  + '    upper_bounds ='
-            for b in self.upper_bounds:
+            for b in upper_bounds:
                 s += ' {}'.format(b)
         s += '\n\n'
         return(s)

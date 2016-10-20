@@ -1,6 +1,7 @@
 """Implementation of the Dakota response_function response type."""
 
 from .base import ResponsesBase
+from ..utils import to_iterable
 
 
 classname = 'ResponseFunctions'
@@ -91,11 +92,11 @@ class ResponseFunctions(ResponsesBase):
         dakotathon.responses.base.ResponsesBase.__str__
 
         """
-        n_descriptors = len(self.response_descriptors)
+        descriptors = to_iterable(self.response_descriptors)
         s = ResponsesBase.__str__(self)
-        s += '  response_functions = {}\n'.format(n_descriptors)
+        s += '  response_functions = {}\n'.format(len(descriptors))
         s += '    response_descriptors ='
-        for rd in self.response_descriptors:
+        for rd in descriptors:
             s += ' {!r}'.format(rd)
         s += '\n' \
              + '  {}\n'.format(self.gradients) \

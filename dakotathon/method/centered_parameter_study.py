@@ -2,6 +2,7 @@
 """Implementation of a Dakota centered parameter study."""
 
 from .base import MethodBase
+from ..utils import to_iterable
 
 
 classname = 'CenteredParameterStudy'
@@ -83,12 +84,14 @@ class CenteredParameterStudy(MethodBase):
 
         """
         s = MethodBase.__str__(self)
+        steps_per_variable = to_iterable(self.steps_per_variable)
+        step_vector = to_iterable(self.step_vector)
         s += '    steps_per_variable ='
-        for step in self.steps_per_variable:
+        for step in steps_per_variable:
             s += ' {}'.format(step)
         s += '\n' \
             + '    step_vector ='
-        for step in self.step_vector:
+        for step in step_vector:
             s += ' {}'.format(step)
         s += '\n\n'
         return(s)

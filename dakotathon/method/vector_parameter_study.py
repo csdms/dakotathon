@@ -2,6 +2,7 @@
 """Implementation of a Dakota vector parameter study."""
 
 from .base import MethodBase
+from ..utils import to_iterable
 
 
 classname = 'VectorParameterStudy'
@@ -83,8 +84,9 @@ class VectorParameterStudy(MethodBase):
 
         """
         s = MethodBase.__str__(self)
+        final_point = to_iterable(self.final_point)
         s += '    final_point ='
-        for pt in self.final_point:
+        for pt in final_point:
             s += ' {}'.format(pt)
         s += '\n' \
             + '    num_steps = {}\n\n'.format(self.n_steps)
