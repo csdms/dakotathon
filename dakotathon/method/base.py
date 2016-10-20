@@ -139,7 +139,7 @@ class UncertaintyQuantificationBase(MethodBase):
     @abstractmethod
     def __init__(self,
                  basis_polynomial_family='extended',
-                 probability_levels=(),
+                 probability_levels=(0.1, 0.5, 0.9),
                  response_levels=(),
                  samples=10,
                  sample_type='random',
@@ -155,7 +155,7 @@ class UncertaintyQuantificationBase(MethodBase):
           'extended' (the default), 'askey', or 'wiener'.
         probability_levels : list or tuple of float, optional
           Specify probability levels at which to estimate the
-          corresponding response value.
+          corresponding response value. Default is (0.1, 0.5, 0.9).
         response_levels : list or tuple of float, optional
           Values at which to estimate desired statistics for each response
         samples : int

@@ -4,13 +4,10 @@ import yaml
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
 from dakotathon.bmi import BmiDakota
 from dakotathon.utils import is_dakota_installed
+from . import dakota_files
 
 
 config_val = {'method': 'vector_parameter_study', 'component': 'hydrotrend'}
-input_file, \
-    output_file, \
-    data_file, \
-    restart_file = ['dakota.' + ext for ext in ('in', 'out', 'dat', 'rst')]
 
 
 def setup():
@@ -20,7 +17,7 @@ def setup():
 
 def teardown():
     """Called at end of any test @with_setup()"""
-    for f in [input_file, output_file, data_file, restart_file]:
+    for f in dakota_files.values():
         if os.path.exists(f):
             os.remove(f)
 
@@ -58,7 +55,7 @@ def test_time_step():
 def test_initialize_defaults():
     model = BmiDakota()
     model.initialize()
-    assert_true(os.path.exists(input_file))
+    assert_true(os.path.exists(dakota_files['input']))
 
 
 @with_setup(setup, teardown)
@@ -68,7 +65,7 @@ def test_initialize_from_file_like():
     config = StringIO(yaml.dump(config_val))
     model = BmiDakota()
     model.initialize(config)
-    assert_true(os.path.exists(input_file))
+    assert_true(os.path.exists(dakota_files['input']))
 
 
 @with_setup(setup, teardown)
@@ -82,7 +79,7 @@ def test_initialize_from_file():
     model = BmiDakota()
     model.initialize(fname)
     os.remove(fname)
-    assert_true(os.path.exists(input_file))
+    assert_true(os.path.exists(dakota_files['input']))
 
 
 def test_update():
@@ -90,9 +87,9 @@ def test_update():
         model = BmiDakota()
         model.initialize()
         model.update()
-        assert_true(os.path.exists(input_file))
-        assert_true(os.path.exists(output_file))
-        assert_true(os.path.exists(data_file))
+        assert_true(os.path.exists(dakota_files['input']))
+        assert_true(os.path.exists(dakota_files['output']))
+        assert_true(os.path.exists(dakota_files['data']))
 
 
 def test_finalize():

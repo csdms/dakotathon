@@ -159,6 +159,7 @@ class StochasticCollocation(UncertaintyQuantificationBase):
           stoch_collocation
             sample_type = random
             samples = 10
+            probability_levels = 0.1 0.5 0.9
             quadrature_order = 2
             non_nested
         <BLANKLINE>

@@ -192,7 +192,7 @@ def test_default_str_length():
     """Test the default length of __str__."""
     s = str(c)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 5)
+    assert_equal(n_lines, 6)
 
 
 def test_str_length_with_zero_seed_value():
@@ -200,7 +200,7 @@ def test_str_length_with_zero_seed_value():
     x = Concrete(seed=0)
     s = str(x)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 4)
+    assert_equal(n_lines, 5)
 
 
 def test_str_length_with_nonzero_seed_value():
@@ -208,7 +208,7 @@ def test_str_length_with_nonzero_seed_value():
     x = Concrete(seed=42)
     s = str(x)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 5)
+    assert_equal(n_lines, 6)
 
 
 def test_str_length_with_options():
