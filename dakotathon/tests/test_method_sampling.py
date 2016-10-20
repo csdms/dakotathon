@@ -49,4 +49,4 @@ def test_str_length():
     """Test the default length of __str__."""
     s = str(x)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 5)
+    assert_equal(n_lines, 6)

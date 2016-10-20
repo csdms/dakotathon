@@ -141,7 +141,7 @@ def test_default_str_length():
     """Test the default length of __str__."""
     s = str(x)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 7)
+    assert_equal(n_lines, 8)
 
 
 def test_str_length_with_options():
@@ -149,4 +149,4 @@ def test_str_length_with_options():
     m = StochasticCollocation(dimension_preference=(1, 2), nested=True)
     s = str(m)
     n_lines = len(s.splitlines())
-    assert_equal(n_lines, 8)
+    assert_equal(n_lines, 9)
