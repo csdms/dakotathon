@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import yaml
+import glob
 from nose.tools import assert_is, assert_true, assert_equal, with_setup
 from dakotathon.bmi import PolynomialChaos
 from dakotathon.utils import is_dakota_installed
@@ -23,6 +24,11 @@ def teardown():
     for f in [input_file, output_file, data_file, restart_file]:
         if os.path.exists(f):
             os.remove(f)
+    for f in glob.glob('LHS_*'):
+        if os.path.exists(f):
+            os.remove(f)
+    if os.path.exists('S4'):
+        os.remove('S4')
 
 
 def test_component_name():
