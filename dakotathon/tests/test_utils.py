@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import (raises, assert_equal, assert_false,
+from nose.tools import (raises, assert_equal, assert_false, assert_true,
                         assert_is_none)
 from dakotathon.utils import *
 from . import start_dir, data_dir
@@ -132,3 +132,24 @@ def test_write_results_scalar_input():
     values = 1.0
     labels = 'foo'
     r = write_results(results_file, values, labels)
+
+
+def test_to_iterable_with_scalar():
+    """Test that to_iterable returns a tuple with scalar input."""
+    value = 'foo'
+    r = to_iterable(value)
+    assert_true(type(r) is tuple)
+
+
+def test_to_iterable_with_tuple():
+    """Test that to_iterable returns original tuple with tuple input."""
+    value = ('foo',)
+    r = to_iterable(value)
+    assert_true(r is value)
+
+
+def test_to_iterable_with_list():
+    """Test that to_iterable returns original list with list input."""
+    value = ['foo']
+    r = to_iterable(value)
+    assert_true(r is value)

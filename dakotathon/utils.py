@@ -191,3 +191,11 @@ def write_results(results_file, values, labels):
     with open(results_file, 'w') as fp:
         for i in range(len(values)):
             fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
+
+
+def to_iterable(value):
+    """Convert a scalar value to a tuple."""
+    iterable_value = value
+    if not isinstance(value, (tuple, list)):
+        iterable_value = value,
+    return iterable_value
