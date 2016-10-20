@@ -184,8 +184,8 @@ class Experiment(object):
     def _get_subpackage_namespace(self, subpackage):
         return os.path.splitext(self.__module__)[0] + '.' + subpackage
 
-    def _import(self, subpackage, module, **kwargs):
-        namespace = self._get_subpackage_namespace(subpackage) + '.' + module
+    def _import(self, _subpackage, _module, **kwargs):
+        namespace = self._get_subpackage_namespace(_subpackage) + '.' + _module
         module = importlib.import_module(namespace)
         cls = getattr(module, module.classname)
         return cls(**kwargs)
