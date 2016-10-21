@@ -1,29 +1,40 @@
 analysis_driver: rosenbrock
+asynchronous: false
+auxiliary_files: []
 component: null
-configuration_file: /Users/mpiper/scratch/config.yaml
+configuration_file: /home/csdms/wmt/_testing/_test/config.yaml
+convergence_tolerance: null
 data_file: dakota.dat
-initial_point: !!python/tuple
-- 0.0
-- 0.0
-input_files: !!python/tuple []
+descriptors:
+- x1
+- x2
+evaluation_concurrency: 2
+gradients: no_gradients
+hessians: no_hessians
+id_interface: CSDMS
+initial_point:
+- -0.3
+- 0.2
+input_file: dakota.in
 interface: direct
-is_objective_function: false
+lower_bounds: null
+max_iterations: null
 method: centered_parameter_study
-parameters_file: params.in
-responses: !!python/tuple
+output_file: dakota.out
+plugin: null
+response_descriptors:
 - y1
-response_files: !!python/tuple []
-response_statistics: !!python/tuple []
-results_file: results.out
-run_directory: /Users/mpiper/scratch
-step_vector: !!python/tuple
+response_files: []
+response_statistics:
+- mean
+responses: response_functions
+run_directory: /home/csdms/wmt/_testing/_test
+step_vector:
 - 0.4
 - 0.5
-steps_per_variable: !!python/tuple
+steps_per_variable:
 - 5
 - 4
 template_file: null
-variables: !!python/tuple
-- x1
-- x2
-variable_type: continuous_design
+upper_bounds: null
+variables: continuous_design

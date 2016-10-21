@@ -2,7 +2,8 @@ analysis_driver: rosenbrock
 asynchronous: false
 auxiliary_files: []
 component: null
-configuration_file: /Users/mpiper/scratch/fun-with-dakota/config.yaml
+configuration_file: /home/csdms/wmt/_testing/_test/config.yaml
+convergence_tolerance: null
 data_file: dakota.dat
 descriptors:
 - x1
@@ -20,16 +21,18 @@ initial_point:
 input_file: dakota.in
 interface: direct
 lower_bounds: null
+max_iterations: null
 method: vector_parameter_study
 n_steps: 10
 output_file: dakota.out
+plugin: null
 response_descriptors:
 - y1
 response_files: []
 response_statistics:
 - mean
 responses: response_functions
-run_directory: /Users/mpiper/scratch/fun-with-dakota
+run_directory: /home/csdms/wmt/_testing/_test
 template_file: null
 upper_bounds: null
 variables: continuous_design
