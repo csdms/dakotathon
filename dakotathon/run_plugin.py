@@ -50,20 +50,20 @@ def run_plugin(params_file, results_file):
     config_file = get_configuration_file(params_file)
     config = deserialize(config_file)
 
-    _module = importlib.import_module(_plugins_path + config['component'])
+    _module = importlib.import_module(_plugins_path + config['plugin'])
     if _module.is_installed():
         _class = getattr(_module, _module.classname)
-        component = _class()
+        model = _class()
     else:
-        raise NameError('Component cannot be created.')
+        raise NameError('Model cannot be created.')
 
-    # Set up the simulation, call the component, calculate the
-    # response statistic for the simulation, write the output to the
-    # Dakota results file.
-    component.setup(config)
-    component.call()
-    component.calculate()
-    component.write(params_file, results_file)
+    # Set up the simulation, call the model, calculate the response
+    # statistic for the simulation, write the output to the Dakota
+    # results file.
+    model.setup(config)
+    model.call()
+    model.calculate()
+    model.write(params_file, results_file)
 
 
 def main():

@@ -80,7 +80,7 @@ def test_run_plugin_unknown_config_file():
 @with_setup(setup, teardown)
 def test_run_plugin_unknown_module():
     """Tests run_plugin() fails with unknown module."""
-    d.method.component = 'foo'
+    d.plugin = 'foo'
     d.serialize(local_config_file)
     run_plugin(params_file, results_file)
 
