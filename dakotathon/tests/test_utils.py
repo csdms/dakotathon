@@ -19,7 +19,7 @@ parameters_file = os.path.join(data_dir, 'params.in')
 results_file = 'results.out'
 response_labels = ['Qs_median', 'Q_mean']
 config_file = os.path.join(data_dir, 'config.yaml')
-component = 'hydrotrend'
+plugin = 'hydrotrend'
 
 # Fixtures -------------------------------------------------------------
 
@@ -94,7 +94,7 @@ def test_get_configuration_file_unknown_file():
 def test_deserialize():
     """Test the deserialize function."""
     config = deserialize(config_file)
-    assert_equal(component, config['component'])
+    assert_equal(plugin, config['plugin'])
 
 
 @raises(IOError)

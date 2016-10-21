@@ -66,7 +66,7 @@ def teardown_module():
 @with_setup(setup, teardown)
 def test_run_by_setting_attributes():
     """Test running a HydroTrend simulation."""
-    d = Dakota(method='vector_parameter_study', component='hydrotrend')
+    d = Dakota(method='vector_parameter_study', plugin='hydrotrend')
     d.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
     d.auxiliary_files = os.path.join(data_dir, 'HYDRO0.HYPS')
     d.variables.descriptors = ['starting_mean_annual_temperature',
