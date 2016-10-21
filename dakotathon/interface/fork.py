@@ -28,7 +28,6 @@ class Fork(InterfaceBase):
         """
         InterfaceBase.__init__(self, **kwargs)
         self.interface = self.__module__.rsplit('.')[-1]
-        self.analysis_driver = 'dakota_run_plugin'
         self._configuration_file = os.path.abspath('config.yaml')
         self.parameters_file = 'params.in'
         self.results_file = 'results.out'
