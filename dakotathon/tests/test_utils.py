@@ -126,9 +126,8 @@ def test_compute_statistic_nonumeric_array():
     r = compute_statistic(stat, arr)
 
 
-@raises(TypeError)
 def test_write_results_scalar_input():
-    """Test the write_results function fails with scalar inputs."""
+    """Test the write_results function works with scalar inputs."""
     values = 1.0
     labels = 'foo'
     r = write_results(results_file, values, labels)

@@ -5,6 +5,7 @@ import os
 import subprocess
 import re
 import yaml
+import numpy as np
 
 
 def is_dakota_installed():
@@ -171,7 +172,6 @@ def compute_statistic(statistic, array):
       The value of the computed statistic.
 
     """
-    import numpy as np
     return np.__getattribute__(statistic)(array)
 
 
@@ -188,10 +188,11 @@ def write_results(results_file, values, labels):
       A list of labels to attach to the values.
 
     """
-    with open(results_file, 'w') as fp:
-        for i in range(len(values)):
-            fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
-
+    arr_values = np.asarray(values)
+    arr_labels = np.asarray(labels)
+    results = np.column_stack((arr_values, arr_labels))
+    np.savetxt(results_file, results, delimiter="\t", fmt='%s')
+            
 
 def to_iterable(value):
     """Convert a scalar value to a tuple."""
