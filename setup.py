@@ -3,6 +3,7 @@ use_setuptools()
 from setuptools import setup, find_packages
 from dakotathon import __version__
 from dakotathon.run_plugin import plugin_script
+from dakotathon.run_component import component_script
 
 
 setup(name='dakotathon',
@@ -21,7 +22,8 @@ setup(name='dakotathon',
       packages=find_packages(exclude=['*.tests']),
       entry_points={
           'console_scripts': [
-              plugin_script + ' = dakotathon.run_plugin:main'
+              plugin_script + ' = dakotathon.run_plugin:main',
+              component_script + ' = dakotathon.run_component:main'
           ]
       },
       keywords='CSDMS Dakota uncertainty sensitivity model modeling',
