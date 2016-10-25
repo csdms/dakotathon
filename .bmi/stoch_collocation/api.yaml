@@ -2,3 +2,4 @@ name: StochasticCollocation
 language: python
 package: dakotathon.bmi
 class: StochasticCollocation
+initialize_args: "config.yaml"
