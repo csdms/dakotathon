@@ -11,11 +11,81 @@ from .utils import (get_configuration_file, deserialize,
 
 
 component_script = 'dakota_run_component'
-component_path = 'pymt.components'
+
+
+class ComponentOutput(object):
+
+    """Stores component output variables for processing by Dakota."""
+
+    def __init__(self, component, var_names):
+        self.component = component
+        self.var_names = var_names
+        for var in self.var_names:
+            setattr(self, var, [])
+
+    def update(self):
+        for var in self.var_names:
+            attr = getattr(self, var)
+            attr.append(self.component.get_value(var))
+
+    def get_value(self, var):
+        return getattr(self, var)
+
+
+class RunComponent(object):
+
+    """Provides framework to run a CSDMS component from Dakota."""
+
+    component_path = 'pymt.components'
+
+    def __init__(self, params_file, results_file):
+        self.params_file = params_file
+        self.results_file = results_file
+        self.component = None
+        self.input_file = None
+        self.n_responses = 0
+        self.output = None
+        self.results = []
+
+        config_file = get_configuration_file(self.params_file)
+        self.config = deserialize(config_file)
+
+    def create_component(self):
+        module = importlib.import_module(self.component_path)
+        cls = getattr(module, self.config['component'])
+        self.component = cls()
+
+    def setup(self):
+        self.input_file, _ = os.path.splitext(self.config['template_file'])
+        subprocess.call(['dprepro', self.params_file,
+                         self.config['template_file'],
+                         self.input_file])
+        shutil.copy(self.input_file, os.getcwd())
+        self.n_responses = len(self.config['response_descriptors'])
+        self.output = ComponentOutput(self.component,
+                                      self.config['response_descriptors'])
+
+    def run(self):
+        self.component.initialize(self.input_file)
+        while self.component.get_current_time() < self.component.get_end_time():
+            self.component.update()
+            self.output.update()
+        self.component.finalize()
+
+    def calculate(self):
+        for i in range(self.n_responses):
+            desc = self.config['response_descriptors'][i]
+            stat = self.config['response_statistics'][i]
+            r = compute_statistic(stat, self.output.get_value(desc))
+            self.results.append(r)
+
+    def write(self):
+        write_results(self.results_file, self.results,
+                      self.config['response_descriptors'])
 
 
 def run_component(params_file, results_file):
-    """Brokers communication between Dakota and a model through files.
+    """Brokers communication between Dakota and a CSDMS component.
 
     Parameters
     ----------
@@ -31,17 +101,17 @@ def run_component(params_file, results_file):
     script with two arguments, the names of the parameters and results files:
 
     1. The parameters file provides information on the current Dakota
-       evaluation step, including the names and values of model
+       evaluation step, including the names and values of component
        variables and their responses. It also includes, as the
        *analysis component*, the name of a configuration file that
        stores information about the setup of the experiment, including
-       the name of the model to call, input files, output file(s) to
+       the name of the component to call, input files, output file(s) to
        examine, and the statistic to apply to the output file(s).
 
-    2. The results file contains model output values in a format
+    2. The results file contains component output values in a format
        specified by the Dakota documentation.
 
-    Once the model is identified, an interface is created to perform
+    Once the component is identified, a worker is created to perform
     three steps: preprocessing, execution, and postprocessing. In the
     preprocessing step, information from the configuration file is
     transferred to the component. In the execution step, the component
@@ -52,43 +122,12 @@ def run_component(params_file, results_file):
     through the results file, ending the Dakota evaluation step.
 
     """
-    config_file = get_configuration_file(params_file)
-    config = deserialize(config_file)
-
-    try:
-        module = importlib.import_module(component_path)
-        cls = getattr(module, config['component'])
-        component = cls()
-    except (ImportError, AttributeError) as e:
-        print 'Error:', e
-        print 'Component cannot be created.'
-
-    # Convert the Dakota template file to a model config file
-    # with `dprepro`.
-    input_file, ext = os.path.splitext(config['template_file'])
-    subprocess.call(['dprepro', params_file, config['template_file'], input_file])
-    shutil.copy(input_file, os.getcwd())
-
-    # Using BMI methods, run the model and collect outputs.
-    output = {}
-    for key in config['response_descriptors']:
-        output[key] = []
-    component.initialize(input_file)
-    while component.get_current_time() < component.get_end_time():
-        component.update()
-        for key in config['response_descriptors']:
-            output[key].append(component.get_value(key))  # held in memory!
-    component.finalize()
-    
-    # Calculate the response statistic and write the Dakota results file.
-    values, labels = [], []
-    for i in range(len(config['response_descriptors'])):
-        descriptor = config['response_descriptors'][i]
-        statistic = config['response_statistics'][i]
-        r = compute_statistic(statistic, output[descriptor])
-        values.append(r)
-        labels.append(descriptor)
-    write_results(results_file, values, labels)
+    runner = RunComponent(params_file, results_file)
+    runner.create_component()
+    runner.setup()
+    runner.run()
+    runner.calculate()
+    runner.write()
 
 
 def main():
