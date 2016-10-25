@@ -49,21 +49,12 @@ def test_run_component_unknown_config_file():
     run_component(params_file, results_file)
 
 
-@raises(AttributeError)
+@raises(ImportError)
 @with_setup(setup, teardown)
 def test_run_component_unknown_module():
     """Tests run_component() fails with unknown module."""
     d.component = 'foo'
     d.serialize(local_config_file)
-    run_component(params_file, results_file)
-
-
-@raises(TypeError)
-@with_setup(setup, teardown)
-def test_run_component_uninstalled_module():
-    """Tests run_component() fails with module that's not installed."""
-    d.serialize(local_config_file)
-    os.environ['PATH'] = '.'
     run_component(params_file, results_file)
 
 
