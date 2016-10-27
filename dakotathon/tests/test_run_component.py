@@ -10,7 +10,7 @@ from . import start_dir, data_dir
 
 
 run_dir = os.getcwd()
-local_config_file = 'config.yaml'
+local_config_file = 'dakota.yaml'
 config_file = os.path.join(data_dir, local_config_file)
 local_params_file = 'params.in'
 params_file = os.path.join(data_dir, local_params_file)

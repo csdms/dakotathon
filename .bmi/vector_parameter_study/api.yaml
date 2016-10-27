@@ -2,4 +2,4 @@ name: VectorParameterStudy
 language: python
 package: dakotathon.bmi
 class: VectorParameterStudy
-initialize_args: "config.yaml"
+initialize_args: "dakota.yaml"

@@ -12,7 +12,7 @@ template_file:
   description: Dakota template of model configuration file
   value:
     type: string
-    default: 'config.yaml.dtmpl'
+    default: 'dakota.yaml.dtmpl'
 auxiliary_files:
   description: Additional model input files
   value:

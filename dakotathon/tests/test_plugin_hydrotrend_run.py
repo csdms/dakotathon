@@ -22,8 +22,8 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-config_file = os.path.join(run_dir, 'config.yaml')
-known_config_file = os.path.join(data_dir, 'config.yaml')
+config_file = os.path.join(run_dir, 'dakota.yaml')
+known_config_file = os.path.join(data_dir, 'dakota.yaml')
 # known_dat_file = os.path.join(data_dir, 'dakota.dat')
 
 # Fixtures -------------------------------------------------------------

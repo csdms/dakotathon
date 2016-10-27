@@ -1,4 +1,4 @@
-method: polynomial_chaos
+method: stoch_collocation
 
 analysis_driver: {analysis_driver}
 asynchronous: false
@@ -6,7 +6,7 @@ auxiliary_files: {auxiliary_files}
 basis_polynomial_family: extended
 coefficient_estimation_approach: quadrature_order_sequence
 component: {component}
-configuration_file: config.yaml
+configuration_file: dakota.yaml
 convergence_tolerance:
 data_file: dakota.dat
 descriptors: {descriptors}

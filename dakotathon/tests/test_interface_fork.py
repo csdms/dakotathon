@@ -7,7 +7,7 @@ from .test_interface_base import default_str_lines
 
 
 run_dir = os.getcwd()
-config_file = os.path.join(run_dir, 'config.yaml')
+config_file = os.path.join(run_dir, 'dakota.yaml')
 
 
 def setup_module():

@@ -18,7 +18,7 @@ from . import start_dir, data_dir
 parameters_file = os.path.join(data_dir, 'params.in')
 results_file = 'results.out'
 response_labels = ['Qs_median', 'Q_mean']
-config_file = os.path.join(data_dir, 'config.yaml')
+config_file = os.path.join(data_dir, 'dakota.yaml')
 plugin = 'hydrotrend'
 
 # Fixtures -------------------------------------------------------------

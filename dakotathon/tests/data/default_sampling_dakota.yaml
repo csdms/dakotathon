@@ -1,8 +1,9 @@
 analysis_driver: rosenbrock
 asynchronous: false
 auxiliary_files: []
+basis_polynomial_family: extended
 component: null
-configuration_file: /home/csdms/wmt/_testing/_test/config.yaml
+configuration_file: /home/csdms/wmt/_testing/_test/dakota.yaml
 convergence_tolerance: null
 data_file: dakota.dat
 descriptors:
@@ -19,22 +20,25 @@ input_file: dakota.in
 interface: direct
 lower_bounds: null
 max_iterations: null
-method: centered_parameter_study
+method: sampling
 output_file: dakota.out
 plugin: null
+probability_levels:
+- 0.1
+- 0.5
+- 0.9
 response_descriptors:
 - y1
 response_files: []
+response_levels: []
 response_statistics:
 - mean
 responses: response_functions
 run_directory: /home/csdms/wmt/_testing/_test
-step_vector:
-- 0.4
-- 0.5
-steps_per_variable:
-- 5
-- 4
+sample_type: random
+samples: 10
+seed: null
 template_file: null
 upper_bounds: null
 variables: continuous_design
+variance_based_decomp: false

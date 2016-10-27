@@ -2,4 +2,4 @@ name: MultidimParameterStudy
 language: python
 package: dakotathon.bmi
 class: MultidimParameterStudy
-initialize_args: "config.yaml"
+initialize_args: "dakota.yaml"

@@ -14,7 +14,7 @@ class Dakota(Experiment):
 
     def __init__(self,
                  run_directory=os.getcwd(),
-                 configuration_file=os.path.abspath('config.yaml'),
+                 configuration_file=os.path.abspath('dakota.yaml'),
                  input_file='dakota.in',
                  output_file='dakota.out',
                  template_file=None,
@@ -34,7 +34,7 @@ class Dakota(Experiment):
             is placed (default is the current directory).
         configuration_file : str, optional
             A Dakota instance serialized to a YAML file (default is
-            **config.yaml**).
+            **dakota.yaml**).
         input_file : str, optional
             Name of Dakota input file (default is **dakota.in**)
         output_file : str, optional
@@ -97,7 +97,7 @@ class Dakota(Experiment):
         Parameters
         ----------
         value : str
-          The new file path (default is 'config.yaml').
+          The new file path (default is 'dakota.yaml').
 
         """
         if not os.path.isabs(value):
@@ -187,7 +187,7 @@ class Dakota(Experiment):
         experiment:
 
         >>> d = Dakota(method='vector_parameter_study')
-        >>> d.serialize('config.yaml')
+        >>> d.serialize('dakota.yaml')
 
         """
         from .utils import get_attributes

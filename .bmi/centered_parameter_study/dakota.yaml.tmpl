@@ -1,25 +1,23 @@
-method: vector_parameter_study
+method: centered_parameter_study
 
 analysis_driver: {analysis_driver}
 asynchronous: false
-auxiliary_files: {auxiliary_files}
+auxiliary_files:
 component: {component}
-configuration_file: config.yaml
+configuration_file: dakota.yaml
 convergence_tolerance:
 data_file: dakota.dat
 descriptors: {descriptors}
 evaluation_concurrency: 2
-final_point: {final_point}
 gradients: no_gradients
 hessians: no_hessians
-id_interface: {id_interface}
+id_interface: {id_interface} 
 initial_point: {initial_point}
 input_file: dakota.in
 interface: fork
 lower_bounds:
 max_iterations:
 means:
-n_steps: {n_steps}
 output_file: dakota.out
 plugin: {plugin}
 response_descriptors: {response_descriptors}
@@ -28,10 +26,13 @@ response_statistics: {response_statistics}
 responses: response_functions
 run_directory: .
 std_deviations:
+steps_per_variable: {steps_per_variable}
+step_vector: {step_vector}
 template_file: "{template_file}"
 upper_bounds:
 variables: continuous_design
 
 # Notes:
-# * The descriptors, final_point, initial_point, response_descriptors,
-#   and response_statistics parameters should be scalars or lists.
+# * The descriptors, initial_point, response_descriptors,
+#   response_statistics, step_per_variable, and step_vector parameters
+#   should be scalars or lists.

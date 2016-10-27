@@ -10,8 +10,8 @@ from . import data_dir
 run_dir = os.getcwd()
 input_file = os.path.join(run_dir, 'dakota.in')
 known_input_file = os.path.join(data_dir, 'rosenbrock_sampling.in')
-config_file = os.path.join(run_dir, 'config.yaml')
-known_config_file = os.path.join(data_dir, 'default_sampling_config.yaml')
+config_file = os.path.join(run_dir, 'dakota.yaml')
+known_config_file = os.path.join(data_dir, 'default_sampling_dakota.yaml')
 
 
 def setup_module():

@@ -1,25 +1,26 @@
-method: multidim_parameter_study
+method: vector_parameter_study
 
 analysis_driver: {analysis_driver}
 asynchronous: false
-auxiliary_files:
+auxiliary_files: {auxiliary_files}
 component: {component}
-configuration_file: config.yaml
+configuration_file: dakota.yaml
 convergence_tolerance:
 data_file: dakota.dat
 descriptors: {descriptors}
 evaluation_concurrency: 2
+final_point: {final_point}
 gradients: no_gradients
 hessians: no_hessians
-id_interface: {id_interface} 
-initial_point:
+id_interface: {id_interface}
+initial_point: {initial_point}
 input_file: dakota.in
 interface: fork
-lower_bounds: {lower_bounds}
+lower_bounds:
 max_iterations:
 means:
+n_steps: {n_steps}
 output_file: dakota.out
-partitions: {partitions}
 plugin: {plugin}
 response_descriptors: {response_descriptors}
 response_files: {response_files}
@@ -28,10 +29,9 @@ responses: response_functions
 run_directory: .
 std_deviations:
 template_file: "{template_file}"
-upper_bounds: {upper_bound}
+upper_bounds:
 variables: continuous_design
 
 # Notes:
-# * The descriptors, initial_point, lower_bounds, partitions,
-#   response_descriptors, response_statistics, and upper_bounds
-#   parameters should be scalars or lists.
+# * The descriptors, final_point, initial_point, response_descriptors,
+#   and response_statistics parameters should be scalars or lists.

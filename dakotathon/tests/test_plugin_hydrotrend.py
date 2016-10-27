@@ -22,7 +22,7 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-config_file = os.path.join(data_dir, 'config.yaml')
+config_file = os.path.join(data_dir, 'dakota.yaml')
 params_file = os.path.join(data_dir, 'params.in')
 known_results_file = os.path.join(data_dir, 'results.out')
 results_file = 'results.out'

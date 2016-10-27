@@ -2,4 +2,4 @@ name: CenteredParameterStudy
 language: python
 package: dakotathon.bmi
 class: CenteredParameterStudy
-initialize_args: "config.yaml"
+initialize_args: "dakota.yaml"

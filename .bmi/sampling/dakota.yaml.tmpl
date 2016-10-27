@@ -1,16 +1,14 @@
-method: stoch_collocation
+method: sampling
 
 analysis_driver: {analysis_driver}
 asynchronous: false
 auxiliary_files: {auxiliary_files}
 basis_polynomial_family: extended
-coefficient_estimation_approach: quadrature_order_sequence
 component: {component}
-configuration_file: config.yaml
+configuration_file: dakota.yaml
 convergence_tolerance:
 data_file: dakota.dat
 descriptors: {descriptors}
-dimension_preference:
 evaluation_concurrency: 2
 gradients: no_gradients
 hessians: no_hessians
@@ -21,11 +19,9 @@ interface: fork
 lower_bounds: {lower_bounds}
 max_iterations:
 means: {means}
-nested: false
 output_file: dakota.out
 plugin: {plugin}
 probability_levels: {probability_levels}
-quadrature_order: {quadrature_order} 
 response_descriptors: {response_descriptors}
 response_files: {response_files}
 response_levels: {response_levels}
@@ -46,6 +42,3 @@ variance_based_decomp: {variance_based_decomp}
 # * The descriptors, lower_bounds, upper_bounds, means, std_deviations,
 #   probability_levels, response_levels, response_descriptors,
 #   and response_statistics parameters should be scalars or lists.
-# * coefficient_estimation_approach must be set, but the only option
-#   currently is quadrature_order_sequence.
-# * dimension_preference isn't implemented.
