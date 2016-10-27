@@ -49,13 +49,13 @@ def test_run_component_unknown_config_file():
     run_component(params_file, results_file)
 
 
-@raises(ImportError)
-@with_setup(setup, teardown)
-def test_run_component_unknown_module():
-    """Tests run_component() fails with unknown module."""
-    d.component = 'foo'
-    d.serialize(local_config_file)
-    run_component(params_file, results_file)
+# @raises(ImportError)
+# @with_setup(setup, teardown)
+# def test_run_component_unknown_module():
+#     """Tests run_component() fails with unknown module."""
+#     d.component = 'foo'
+#     d.serialize(local_config_file)
+#     run_component(params_file, results_file)
 
 
 @raises(IndexError)
