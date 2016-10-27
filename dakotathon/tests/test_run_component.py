@@ -3,8 +3,10 @@
 import os
 import sys
 import shutil
-from nose.tools import raises, with_setup
-from dakotathon.run_component import run_component, main
+from nose.tools import (raises, with_setup, assert_is_instance,
+                        assert_true)
+from dakotathon.run_component import (run_component, main,
+                                      ComponentOutput, RunComponent)
 from dakotathon.dakota import Dakota
 from . import start_dir, data_dir
 
@@ -63,3 +65,28 @@ def test_main_no_args():
     """Tests main() fails without args."""
     sys.argv = []
     main()
+
+
+def test_ComponentOutput_init1():
+    """Test ComponentOutput initializes with string input"""
+    x = ComponentOutput(None, 'foo')
+    assert_is_instance(x, ComponentOutput)
+
+
+def test_ComponentOutput_init2():
+    """Test ComponentOutput initializes with list input"""
+    x = ComponentOutput(None, ['foo', 'bar'])
+    assert_is_instance(x, ComponentOutput)
+
+
+def test_ComponentOutput_get_value():
+    """Test ComponentOutput.get_value() returns list"""
+    var_name = 'foo'
+    x = ComponentOutput(None, var_name)
+    assert_true(type(x.get_value(var_name)) is list)
+
+
+# def test_RunComponent_init():
+#     """Test RunComponent initializes"""
+#     x = RunComponent(params_file, results_file)
+#     assert_is_instance(x, RunComponent)

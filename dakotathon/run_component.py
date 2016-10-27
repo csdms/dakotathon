@@ -7,7 +7,7 @@ import subprocess
 import importlib
 import numpy as np
 from .utils import (get_configuration_file, deserialize,
-                    compute_statistic, write_results)
+                    compute_statistic, write_results, to_iterable)
 
 
 component_script = 'dakota_run_component'
@@ -19,7 +19,7 @@ class ComponentOutput(object):
 
     def __init__(self, component, var_names):
         self.component = component
-        self.var_names = var_names
+        self.var_names = to_iterable(var_names)
         for var in self.var_names:
             setattr(self, var, [])
 
