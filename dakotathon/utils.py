@@ -6,6 +6,7 @@ import subprocess
 import re
 import yaml
 import numpy as np
+import collections
 
 
 def is_dakota_installed():
@@ -192,11 +193,27 @@ def write_results(results_file, values, labels):
     arr_labels = np.asarray(labels)
     results = np.column_stack((arr_values, arr_labels))
     np.savetxt(results_file, results, delimiter="\t", fmt='%s')
-            
 
-def to_iterable(value):
-    """Convert a scalar value to a tuple."""
-    iterable_value = value
-    if not isinstance(value, (tuple, list)):
-        iterable_value = value,
-    return iterable_value
+
+def to_iterable(x):
+    """Get an iterable version of an input.
+
+    Parameters
+    ----------
+    x
+      Anything.
+
+    Returns
+    -------
+    If the input isn't iterable, or is a string, then a tuple; else,
+    the input.
+
+    Notes
+    -----
+    Courtesy http://stackoverflow.com/a/6711233/1563298
+
+    """
+    if isinstance(x, collections.Iterable) and not isinstance(x, basestring):
+        return x
+    else:
+        return (x,)
