@@ -1,120 +1,72 @@
-descriptor1:
+component:
+  description: Name of CSDMS component
+  value:
+    type: string
+    default:
+plugin:
+  description: Name of model plugin
+  value:
+    type: string
+    default:
+template_file:
+  description: Dakota template of model configuration file
+  value:
+    type: string
+    default: 'config.yaml.dtmpl'
+auxiliary_files:
+  description: Additional model input files
+  value:
+    type: list
+    default: []
+analysis_driver:
+  description: Dakota analysis driver program
+  value:
+    type: choice
+    default: dakota_run_plugin
+    choices:
+      - dakota_run_plugin
+      - dakota_run_component
+id_interface:
+  description: Name of the interface block
+  value:
+    type: string
+    default: CSDMS
+
+descriptors:
   description: Input variable name
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-initial_point1:
+    type: list
+    default: []
+initial_point:
   description: Start point for study variable
   value:
-    type: float
-    default: 0.0
-    units: '-'
-final_point1:
+    type: list
+    default: [0.0]
+final_point:
   description: End point for study variable
   value:
-    type: float
-    default: 1.0
-    units: '-'
-descriptor2:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-initial_point2:
-  description: Start point for study variable
-  value:
-    type: float
-    default: 0.0
-    units: '-'
-final_point2:
-  description: End point for study variable
-  value:
-    type: float
-    default: 1.0
-    units: '-'
-descriptor3:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-initial_point3:
-  description: Start point for study variable
-  value:
-    type: float
-    default: 0.0
-    units: '-'
-final_point3:
-  description: End point for study variable
-  value:
-    type: float
-    default: 1.0
-    units: '-'
+    type: list
+    default: [1.0]
 n_steps:
   description: Number of steps to take along vector
   value:
     type: int
-    default: 4
+    default: 5
     range:
       min: 1
       max: 1e3
-    units: '-'
-response_descriptor1:
+response_descriptors:
   description: Response variable name
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic1:
+    type: list
+    default: []
+response_statistics:
   description: Statistic computed on response
   value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor2:
-  description: Response variable name
+    type: list
+    default: ['mean']
+response_files:
+  description: Model output files used for calculating response
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic2:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor3:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic3:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
+    type: list
+    default: []

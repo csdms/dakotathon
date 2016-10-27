@@ -1,147 +1,69 @@
-descriptor1:
-  description: Input variable name
+component:
+  description: Name of CSDMS component
   value:
-    type: dynamic_choice
+    type: string
     default:
-    units: '-'
-initial_point1:
-  description: Start point (center value) for study variable
+plugin:
+  description: Name of model plugin
   value:
-    type: float
-    default: 0.0
-    units: '-'
-steps_per_variable1:
-  description: Number of steps to take in each direction
-  value:
-    type: int
-    default: 1
-    range:
-      min: 1
-      max: 100
-    units: '-'
-step_vector1:
-  description: Step size in each direction
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e+6
-    units: '-'
-descriptor2:
-  description: Input variable name
-  value:
-    type: dynamic_choice
+    type: string
     default:
-    units: '-'
-initial_point2:
-  description: Start point (center value) for study variable
+template_file:
+  description: Dakota template of model configuration file
   value:
-    type: float
-    default: 0.0
-    units: '-'
-steps_per_variable2:
-  description: Number of steps to take in each direction
+    type: string
+    default: 'config.yaml.dtmpl'
+auxiliary_files:
+  description: Additional model input files
   value:
-    type: int
-    default: 1
-    range:
-      min: 1
-      max: 100
-    units: '-'
-step_vector2:
-  description: Step size in each direction
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e+6
-    units: '-'
-descriptor3:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-initial_point3:
-  description: Start point (center value) for study variable
-  value:
-    type: float
-    default: 0.0
-    units: '-'
-steps_per_variable3:
-  description: Number of steps to take in each direction
-  value:
-    type: int
-    default: 1
-    range:
-      min: 1
-      max: 100
-    units: '-'
-step_vector3:
-  description: Step size in each direction
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e+6
-    units: '-'
-response_descriptor1:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic1:
-  description: Statistic computed on response
+    type: list
+    default: []
+analysis_driver:
+  description: Dakota analysis driver program
   value:
     type: choice
-    default: Mean
+    default: dakota_run_plugin
     choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor2:
+      - dakota_run_plugin
+      - dakota_run_component
+id_interface:
+  description: Name of the interface block
+  value:
+    type: string
+    default: CSDMS
+
+descriptors:
+  description: Input variable name
+  value:
+    type: list
+    default: []
+initial_point:
+  description: Start point (center value) for study variable
+  value:
+    type: list
+    default: [0.0]
+steps_per_variable:
+  description: Number of steps to take in each direction
+  value:
+    type: list
+    default: [1]
+step_vector:
+  description: Step size in each direction
+  value:
+    type: list
+    default: [1.0]
+response_descriptors:
   description: Response variable name
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic2:
+    type: list
+    default: []
+response_files:
+  description: Model output files used for calculating response
+  value:
+    type: list
+    default: []
+response_statistics:
   description: Statistic computed on response
   value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor3:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic3:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
+    type: list
+    default: ['mean']

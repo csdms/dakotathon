@@ -1,19 +1,19 @@
 method: vector_parameter_study
 
-analysis_driver: dakota_run_plugin
+analysis_driver: {analysis_driver}
 asynchronous: false
-auxiliary_files:
-component: {component}          # set by hook
+auxiliary_files: {auxiliary_files}
+component: {component}
 configuration_file: config.yaml
 convergence_tolerance:
 data_file: dakota.dat
-descriptors: ["{descriptor1}", "{descriptor2}", "{descriptor3}",]
+descriptors: {descriptors}
 evaluation_concurrency: 2
-final_point: [{final_point1}, {final_point2}, {final_point3},]
+final_point: {final_point}
 gradients: no_gradients
 hessians: no_hessians
-id_interface: CSDMS
-initial_point: [{initial_point1}, {initial_point2}, {initial_point3},]
+id_interface: {id_interface}
+initial_point: {initial_point}
 input_file: dakota.in
 interface: fork
 lower_bounds:
@@ -21,15 +21,17 @@ max_iterations:
 means:
 n_steps: {n_steps}
 output_file: dakota.out
-response_descriptors: ["{response_descriptor1}", "{response_descriptor2}", "{response_descriptor3}",]
-response_files:
-response_statistics: ["{response_statistic1}", "{response_statistic2}", "{response_statistic3}",]
+plugin: {plugin}
+response_descriptors: {response_descriptors}
+response_files: {response_files}
+response_statistics: {response_statistics}
 responses: response_functions
 run_directory: .
 std_deviations:
-template_file: {template_file}  # set by hook
+template_file: "{template_file}"
 upper_bounds:
 variables: continuous_design
 
 # Notes:
-# * BMI handles auxiliary_files and response_files.
+# * The descriptors, final_point, initial_point, response_descriptors,
+#   and response_statistics parameters should be scalars or lists.

@@ -1,34 +1,37 @@
 method: multidim_parameter_study
 
-analysis_driver: dakota_run_plugin
+analysis_driver: {analysis_driver}
 asynchronous: false
 auxiliary_files:
-component: {component}          # set by hook
+component: {component}
 configuration_file: config.yaml
 convergence_tolerance:
 data_file: dakota.dat
-descriptors: ["{descriptor1}", "{descriptor2}", "{descriptor3}",]
+descriptors: {descriptors}
 evaluation_concurrency: 2
 gradients: no_gradients
 hessians: no_hessians
-id_interface: CSDMS
+id_interface: {id_interface} 
 initial_point:
 input_file: dakota.in
 interface: fork
-lower_bounds: [{lower_bound1}, {lower_bound2}, {lower_bound3},]
+lower_bounds: {lower_bounds}
 max_iterations:
 means:
 output_file: dakota.out
-partitions: [{partition1}, {partition2}, {partition3},]
-response_descriptors: ["{response_descriptor1}", "{response_descriptor2}", "{response_descriptor3}",]
-response_files:
-response_statistics: ["{response_statistic1}", "{response_statistic2}", "{response_statistic3}",]
+partitions: {partitions}
+plugin: {plugin}
+response_descriptors: {response_descriptors}
+response_files: {response_files}
+response_statistics: {response_statistics}
 responses: response_functions
 run_directory: .
 std_deviations:
-template_file: {template_file}  # set by hook
-upper_bounds: [{upper_bound1}, {upper_bound2}, {upper_bound3},]
+template_file: "{template_file}"
+upper_bounds: {upper_bound}
 variables: continuous_design
 
 # Notes:
-# * BMI handles auxiliary_files and response_files.
+# * The descriptors, initial_point, lower_bounds, partitions,
+#   response_descriptors, response_statistics, and upper_bounds
+#   parameters should be scalars or lists.
