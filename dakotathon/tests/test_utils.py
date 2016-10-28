@@ -152,3 +152,63 @@ def test_to_iterable_with_list():
     value = ['foo']
     r = to_iterable(value)
     assert_true(r is value)
+
+
+@raises(KeyError)
+def test_configure_parameters_fails_without_descriptors():
+    """Test that configure_parameters fails without descriptors."""
+    params = {}
+    r = configure_parameters(params)
+
+
+@raises(KeyError)
+def test_configure_parameters_fails_without_response_descriptors():
+    """Test that configure_parameters fails without response_descriptors."""
+    params = {'descriptors': 'foo'}
+    r = configure_parameters(params)
+
+
+@raises(KeyError)
+def test_configure_parameters_fails_without_response_statistics():
+    """Test that configure_parameters fails without response_statistics."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar'}
+    r = configure_parameters(params)
+
+
+def test_configure_parameters_sets_plugin_and_component():
+    """Test that configure_parameters sets analysis_driver for component."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['component'], '')
+    assert_equal(updated['plugin'], '')
+
+
+def test_configure_parameters_return_values():
+    """Test configure_parameters return values."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['component'], '')
+    assert_equal(updated['plugin'], '')
+
+
+def test_configure_parameters_sets_analysis_driver_component():
+    """Test that configure_parameters sets analysis_driver for component."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    params['component'] = 'model'
+    r = configure_parameters(params)
+    assert_equal(type(r), tuple)
+    assert_equal(type(r[0]), dict)
+    assert_equal(type(r[1]), dict)
+
+
+def test_configure_parameters_sets_analysis_driver_plugin():
+    """Test that configure_parameters sets analysis_driver for plugin."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    params['plugin'] = 'model'
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['analysis_driver'], 'dakota_run_plugin')
+    assert_equal(updated['component'], '')
