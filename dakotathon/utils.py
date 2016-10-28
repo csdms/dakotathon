@@ -217,3 +217,48 @@ def to_iterable(x):
         return x
     else:
         return (x,)
+
+
+def configure_parameters(params):
+    """Preprocess Dakota parameters prior to committing to a config file.
+
+    Parameters
+    ----------
+    params : dict
+      Configuration parameters for a Dakota experiment that map to the
+      items in the Dakota configuration file, **dakota.yaml**.
+
+    Returns
+    -------
+    (dict, dict)
+      An updated dict of Dakota configuration parameters, and a dict
+      of substitutions used to create the Dakota template ("dtmpl")
+      file.
+
+    """
+    try:
+        params['component']
+    except KeyError:
+        try:
+            params['plugin']
+        except KeyError:
+            params['component'] = params['plugin'] = ''
+        else:
+            params['analysis_driver'] = 'dakota_run_plugin'
+            params['component'] = ''
+    else:
+        params['analysis_driver'] = 'dakota_run_component'
+        params['plugin'] = ''
+
+    to_check = ['descriptors',
+                'response_descriptors',
+                'response_statistics']
+    for item in to_check:
+        if isinstance(params[item], basestring):
+            params[item] = [params[item]]
+
+    subs = {}
+    for item in params['descriptors']:
+        subs[item] = '{' + item + '}'
+
+    return params, subs
