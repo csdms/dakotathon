@@ -11,12 +11,17 @@ start a Jupyter Notebook:
 
 and select one of the Notebooks to run.
 
-The script **pymt-frostnumbermodel-vector-parameter-study.py**
-demonstrates how the CDI can be called as a component
+The scripts
+
+* **pymt-frostnumbermodel-vector-parameter-study.py** and
+* **pymt-frostnumbermodel-multidim-parameter-study.py**
+
+demonstrate how the CDI can be called as a component
 using [PyMT](https://github.com/csdms/pymt).
-This script can be run on a WMT executor
+These scripts can be run on a WMT executor
 in which the CDI
 and the [FrostNumberModel](https://github.com/permamodel/permamodel)
-have been installed as components:
+have been installed as components.
+For example:
 
     $ python pymt-frostnumbermodel-vector-parameter-study.py
