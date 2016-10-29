@@ -56,11 +56,12 @@ class RunComponent(object):
         self.component = cls()
 
     def setup(self):
-        self.input_file, _ = os.path.splitext(self.config['template_file'])
+        input_file, _ = os.path.splitext(self.config['template_file'])
         subprocess.call(['dprepro', self.params_file,
                          self.config['template_file'],
-                         self.input_file])
-        shutil.copy(self.input_file, os.getcwd())
+                         input_file])
+        shutil.move(input_file, os.getcwd())
+        self.input_file = os.path.basename(input_file)
         self.n_responses = len(self.config['response_descriptors'])
         self.output = ComponentOutput(self.component,
                                       self.config['response_descriptors'])
