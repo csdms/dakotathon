@@ -61,7 +61,9 @@ class RunComponent(object):
                          self.config['template_file'],
                          input_file])
         shutil.move(input_file, os.getcwd())
-        self.input_file = os.path.basename(input_file)
+        root_dir, self.input_file = os.path.split(input_file)
+        for fname in self.config['auxiliary_files']:
+            shutil.copy(os.path.join(root_dir, fname), os.getcwd())
         self.n_responses = len(self.config['response_descriptors'])
         self.output = ComponentOutput(self.component,
                                       self.config['response_descriptors'])

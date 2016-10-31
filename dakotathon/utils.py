@@ -252,7 +252,8 @@ def configure_parameters(params):
 
     to_check = ['descriptors',
                 'response_descriptors',
-                'response_statistics']
+                'response_statistics',
+                'auxiliary_files',]
     for item in to_check:
         if isinstance(params[item], basestring):
             params[item] = [params[item]]
