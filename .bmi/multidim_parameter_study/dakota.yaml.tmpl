@@ -2,7 +2,7 @@ method: multidim_parameter_study
 
 analysis_driver: {analysis_driver}
 asynchronous: false
-auxiliary_files:
+auxiliary_files: {auxiliary_files}
 component: {component}
 configuration_file: dakota.yaml
 convergence_tolerance:
@@ -32,6 +32,6 @@ upper_bounds: {upper_bounds}
 variables: continuous_design
 
 # Notes:
-# * The descriptors, initial_point, lower_bounds, partitions,
-#   response_descriptors, response_statistics, and upper_bounds
-#   parameters should be scalars or lists.
+# * The auxiliary_files, descriptors, initial_point, lower_bounds,
+#   partitions, response_descriptors, response_statistics, and
+#   upper_bounds parameters should be scalars or lists.
