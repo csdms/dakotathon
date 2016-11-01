@@ -42,7 +42,6 @@ class RunComponent(object):
         self.params_file = params_file
         self.results_file = results_file
         self.component = None
-        self.input_file = None
         self.output = None
         self.results = []
 
@@ -55,19 +54,19 @@ class RunComponent(object):
         self.component = cls()
 
     def setup(self):
+        shutil.copy(os.path.join(self.config['run_directory'],
+                                 self.config['template_file']), os.getcwd())
         input_file, _ = os.path.splitext(self.config['template_file'])
         subprocess.call(['dprepro', self.params_file,
                          self.config['template_file'],
                          input_file])
-        shutil.move(input_file, os.getcwd())
-        root_dir, self.input_file = os.path.split(input_file)
         for fname in self.config['auxiliary_files']:
-            shutil.copy(os.path.join(root_dir, fname), os.getcwd())
+            shutil.copy(os.path.join(self.config['run_directory'], fname), os.getcwd())
         self.output = ComponentOutput(self.component,
                                       self.config['response_descriptors'])
 
     def run(self):
-        self.component.initialize(self.input_file)
+        self.component.initialize(self.config['initialize_args'])
         while self.component.get_current_time() < self.component.get_end_time():
             self.component.update()
             self.output.update()
