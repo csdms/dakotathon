@@ -43,7 +43,6 @@ class RunComponent(object):
         self.results_file = results_file
         self.component = None
         self.input_file = None
-        self.n_responses = 0
         self.output = None
         self.results = []
 
@@ -64,7 +63,6 @@ class RunComponent(object):
         root_dir, self.input_file = os.path.split(input_file)
         for fname in self.config['auxiliary_files']:
             shutil.copy(os.path.join(root_dir, fname), os.getcwd())
-        self.n_responses = len(self.config['response_descriptors'])
         self.output = ComponentOutput(self.component,
                                       self.config['response_descriptors'])
 
@@ -76,7 +74,7 @@ class RunComponent(object):
         self.component.finalize()
 
     def calculate(self):
-        for i in range(self.n_responses):
+        for i in range(len(self.config['response_descriptors'])):
             desc = self.config['response_descriptors'][i]
             stat = self.config['response_statistics'][i]
             r = compute_statistic(stat, self.output.get_value(desc))
