@@ -36,6 +36,11 @@ id_interface:
   value:
     type: string
     default: CSDMS
+initialize_args:
+  description: Arguments passed to component initialize method
+  value:
+    type: string
+    default: ''
 
 descriptors:
   description:
