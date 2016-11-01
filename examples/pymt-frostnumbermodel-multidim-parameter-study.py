@@ -26,16 +26,16 @@ parameters = {
 
 parameters, substitutes = configure_parameters(parameters)
 
-work_dir = c.setup(os.getcwd(), **substitutes)
+parameters['run_directory'] = c.setup(os.getcwd(), **substitutes)
 
 cfg_file = 'frostnumber_model.cfg'  # get from pymt eventually
+parameters['initialize_args'] = cfg_file
 dtmpl_file = cfg_file + '.dtmpl'
 os.rename(cfg_file, dtmpl_file)
-parameters['template_file'] = os.path.join(work_dir, dtmpl_file)
+parameters['template_file'] = dtmpl_file
 
-d.setup(work_dir, **parameters)
+d.setup(parameters['run_directory'], **parameters)
 
-d.initialize(os.path.join(work_dir, 'dakota.yaml'))
+d.initialize('dakota.yaml')
 d.update()
 d.finalize()
-
