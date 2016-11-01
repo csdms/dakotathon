@@ -8,6 +8,11 @@ plugin:
   value:
     type: string
     default:
+run_directory:
+  description: Directory in which Dakota experiment is run
+  value:
+    type: string
+    default: '.'
 template_file:
   description: Dakota template of model configuration file
   value:
