@@ -255,8 +255,11 @@ def configure_parameters(params):
                 'response_statistics',
                 'auxiliary_files',]
     for item in to_check:
-        if isinstance(params[item], basestring):
-            params[item] = [params[item]]
+        try:
+            if isinstance(params[item], basestring):
+                params[item] = [params[item]]
+        except KeyError:
+            pass
 
     subs = {}
     for item in params['descriptors']:
