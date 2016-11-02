@@ -161,20 +161,6 @@ def test_configure_parameters_fails_without_descriptors():
     r = configure_parameters(params)
 
 
-@raises(KeyError)
-def test_configure_parameters_fails_without_response_descriptors():
-    """Test that configure_parameters fails without response_descriptors."""
-    params = {'descriptors': 'foo'}
-    r = configure_parameters(params)
-
-
-@raises(KeyError)
-def test_configure_parameters_fails_without_response_statistics():
-    """Test that configure_parameters fails without response_statistics."""
-    params = {'descriptors': 'foo', 'response_descriptors': 'bar'}
-    r = configure_parameters(params)
-
-
 def test_configure_parameters_sets_plugin_and_component():
     """Test that configure_parameters sets analysis_driver for component."""
     params = {'descriptors': 'foo', 'response_descriptors': 'bar',
