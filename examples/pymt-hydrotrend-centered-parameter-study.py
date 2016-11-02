@@ -14,6 +14,7 @@ c, d = Hydrotrend(), CenteredParameterStudy()
 
 parameters = {
     'component': type(c).__name__,
+    'run_duration': 365,               # days
     'auxiliary_files': 'HYDRO0.HYPS',  # the default Waipaoa hypsometry
     'descriptors': ['starting_mean_annual_temperature',
                     'total_annual_precipitation'],
@@ -24,17 +25,16 @@ parameters = {
                              'channel_exit_water__volume_flow_rate'],
     'response_statistics': ['median', 'mean']
     }
+dparameters, cparameters = configure_parameters(parameters)
 
-parameters, substitutes = configure_parameters(parameters)
-
-parameters['run_directory'] = c.setup(os.getcwd(), **substitutes)
+dparameters['run_directory'] = c.setup(os.getcwd(), **cparameters)
 
 cfg_file = 'HYDRO.IN'  # get from pymt eventually
 dtmpl_file = cfg_file + '.dtmpl'
 os.rename(cfg_file, dtmpl_file)
-parameters['template_file'] = dtmpl_file
+dparameters['template_file'] = dtmpl_file
 
-d.setup(parameters['run_directory'], **parameters)
+d.setup(dparameters['run_directory'], **dparameters)
 
 d.initialize('dakota.yaml')
 d.update()
