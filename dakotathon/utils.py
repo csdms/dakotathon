@@ -264,5 +264,9 @@ def configure_parameters(params):
     subs = {}
     for item in params['descriptors']:
         subs[item] = '{' + item + '}'
+    try:
+        subs['run_duration'] = params['run_duration']
+    except KeyError:
+        pass
 
     return params, subs
