@@ -27,7 +27,7 @@ supported on Linux and Mac OSX.
 
 ## Installation
 
-Install the CDI into a Anaconda Python distribution with
+Install the CDI into an Anaconda Python distribution with
 
     $ conda install -c csdms dakotathon
 
