@@ -2,37 +2,37 @@ analysis_driver: rosenbrock
 asynchronous: false
 auxiliary_files: []
 component: null
-configuration_file: /Users/mpiper/tmp/config.yaml
+configuration_file: /home/csdms/wmt/_testing/_test/dakota.yaml
 convergence_tolerance: null
 data_file: dakota.dat
 descriptors:
 - x1
 - x2
 evaluation_concurrency: 2
+final_point:
+- 1.1
+- 1.3
 gradients: no_gradients
 hessians: no_hessians
 id_interface: CSDMS
-initial_point: null
+initial_point:
+- -0.3
+- 0.2
 input_file: dakota.in
 interface: direct
-lower_bounds:
-- -2.0
-- -2.0
+lower_bounds: null
 max_iterations: null
-method: multidim_parameter_study
+method: vector_parameter_study
+n_steps: 10
 output_file: dakota.out
-partitions:
-- 10
-- 8
+plugin: null
 response_descriptors:
 - y1
 response_files: []
 response_statistics:
 - mean
 responses: response_functions
-run_directory: /Users/mpiper/tmp
+run_directory: /home/csdms/wmt/_testing/_test
 template_file: null
-upper_bounds:
-- 2.0
-- 2.0
+upper_bounds: null
 variables: continuous_design

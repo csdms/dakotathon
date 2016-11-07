@@ -1,6 +1,7 @@
 """Implementation of a Dakota normal uncertain variable."""
 
 from .base import VariablesBase
+from ..utils import to_iterable
 
 
 classname = 'NormalUncertain'
@@ -183,29 +184,34 @@ class NormalUncertain(VariablesBase):
         """
         s = VariablesBase.__str__(self)
         if self.means is not None:
+            means = to_iterable(self.means)
             s += '\n' \
                  + '    means ='
-            for m in self.means:
+            for m in means:
                 s += ' {}'.format(m)
         if self.std_deviations is not None:
+            std_deviations = to_iterable(self.std_deviations)
             s += '\n' \
                  + '    std_deviations ='
-            for m in self.std_deviations:
+            for m in std_deviations:
                 s += ' {}'.format(m)
         if self.lower_bounds is not None:
+            lower_bounds = to_iterable(self.lower_bounds)
             s += '\n' \
                  + '    lower_bounds ='
-            for b in self.lower_bounds:
+            for b in lower_bounds:
                 s += ' {}'.format(b)
         if self.upper_bounds is not None:
+            upper_bounds = to_iterable(self.upper_bounds)
             s += '\n' \
                  + '    upper_bounds ='
-            for b in self.upper_bounds:
+            for b in upper_bounds:
                 s += ' {}'.format(b)
         if self.initial_point is not None:
+            initial_point = to_iterable(self.initial_point)
             s += '\n' \
                  + '    initial_point ='
-            for pt in self.initial_point:
+            for pt in initial_point:
                 s += ' {}'.format(pt)
         s += '\n\n'
         return(s)

@@ -2,6 +2,7 @@
 """Implementation of a Dakota multidim parameter study."""
 
 from .base import MethodBase
+from ..utils import to_iterable
 
 
 classname = 'MultidimParameterStudy'
@@ -61,8 +62,9 @@ class MultidimParameterStudy(MethodBase):
 
         """
         s = MethodBase.__str__(self)
+        partitions = to_iterable(self.partitions)
         s += '    partitions ='
-        for p in self.partitions:
+        for p in partitions:
             s += ' {}'.format(p)
         s += '\n\n'
         return(s)

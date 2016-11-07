@@ -8,5 +8,5 @@
                                           1 DVV_1:starting_mean_annual_temperature
                                           2 DVV_2:total_annual_precipitation
                                           1 analysis_components
-                                config.yaml AC_1:dakota_run_plugin
+                                dakota.yaml AC_1:dakota_run_plugin
                                           1 eval_id

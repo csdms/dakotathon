@@ -1,233 +1,107 @@
-descriptor1:
-  description: Input variable name
+component:
+  description: Name of CSDMS component
   value:
-    type: dynamic_choice
+    type: string
     default:
-    units: '-'
-lower_bound1:
-  description: Lower bound on values of study variable
+plugin:
+  description: Name of model plugin
   value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound1:
-  description: Upper bound on values of study variable
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-mean1:
-  description: Mean of the distribution
-  value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-std_deviation1:
-  description: Standard deviation of the distribution
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e6
-    units: '-'
-
-descriptor2:
-  description: Input variable name
-  value:
-    type: dynamic_choice
+    type: string
     default:
-    units: '-'
-lower_bound2:
-  description: Lower bound on values of study variable
+run_directory:
+  description: Directory in which Dakota experiment is run
   value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound2:
-  description: Upper bound on values of study variable
+    type: string
+    default: '.'
+template_file:
+  description: Dakota template of model configuration file
   value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-mean2:
-  description: Mean of the distribution
+    type: string
+    default: 'dakota.yaml.dtmpl'
+auxiliary_files:
+  description: Additional model input files
   value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-std_deviation2:
-  description: Standard deviation of the distribution
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e6
-    units: '-'
-
-descriptor3:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-lower_bound3:
-  description: Lower bound on values of study variable
-  value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound3:
-  description: Upper bound on values of study variable
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-mean3:
-  description: Mean of the distribution
-  value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-std_deviation3:
-  description: Standard deviation of the distribution
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: 1e-6
-      max: 1e6
-    units: '-'
-
-response_descriptor1:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic1:
-  description: Statistic computed on response
+    type: list
+    default: []
+analysis_driver:
+  description: Dakota analysis driver program
   value:
     type: choice
-    default: Mean
+    default: dakota_run_plugin
     choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-probability_levels1:
-  description:
-    Probabilities at which to estimate response values (a comma-delimited list)
+      - dakota_run_plugin
+      - dakota_run_component
+id_interface:
+  description: Name of the interface block
+  value:
+    type: string
+    default: CSDMS
+initialize_args:
+  description: Arguments passed to component initialize method
   value:
     type: string
     default: ''
-    units: '-'
-response_levels1:
-  description:
-    Levels at which to estimate response PDF and CDF (a comma-delimited list)
-  value:
-    type: string
-    default: ''
-    units: '-'
 
-response_descriptor2:
-  description: Response variable name
+descriptors:
+  description:
+    Input variable name
   value:
-    type: dynamic_choice
+    type: list
     default:
-    units: '-'
-response_statistic2:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-probability_levels2:
+lower_bounds:
   description:
-    Probabilities at which to estimate response values (a comma-delimited list)
+    Lower bound on values of study variable
   value:
-    type: string
-    default: ''
-    units: '-'
-response_levels2:
+    type: list
+    default: [0.0]
+upper_bounds:
   description:
-    Levels at which to estimate response PDF and CDF (a comma-delimited list)
+    Upper bound on values of study variable
   value:
-    type: string
-    default: ''
-    units: '-'
+    type: list
+    default: [1.0]
+means:
+  description:
+    Mean of the study variable distribution
+  value:
+    type: list
+    default: [0.0]
+std_deviations:
+  description:
+    Standard deviation of the study variable distribution
+  value:
+    type: list
+    default: [1.0]
 
-response_descriptor3:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic3:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-probability_levels3:
+response_descriptors:
   description:
-    Probabilities at which to estimate response values (a comma-delimited list)
+    Response variable name
   value:
-    type: string
-    default: ''
-    units: '-'
-response_levels3:
+    type: list
+    default: []
+response_statistics:
   description:
-    Levels at which to estimate response PDF and CDF (a comma-delimited list)
+    Statistic computed on response
   value:
-    type: string
-    default: ''
-    units: '-'
+    type: list
+    default: ['mean']
+probability_levels:
+  description:
+    Probabilities at which to estimate response values
+  value:
+    type: list
+    default: [0.1, 0.5, 0.9]
+response_levels:
+  description:
+    Levels at which to estimate response PDF and CDF
+  value:
+    type: list
+    default: []
+response_files:
+  description: Model output files used for calculating response
+  value:
+    type: list
+    default: []
 
 quadrature_order:
   description:
@@ -244,7 +118,6 @@ quadrature_order:
       - 6
       - 7
       - 8
-    units: '-'
 sample_type:
   description:
     Technique for choosing samples
@@ -254,7 +127,6 @@ sample_type:
     choices:
       - Random sampling
       - Latin hypercube sampling
-    units: '-'
 samples:
   description:
     Number of samples in experiment
@@ -264,7 +136,6 @@ samples:
     range:
       min: 1
       max: 1e6
-    units: '-'
 seed:
   description:
     Seed for random number generator (0 = randomly selected)
@@ -274,7 +145,6 @@ seed:
     range:
       min: 0
       max: 1e6
-    units: '-'
 variance_based_decomp:
   description:
     Activate global sensitivity analysis based on decomposition of response variance
@@ -284,7 +154,6 @@ variance_based_decomp:
     choices:
       - False
       - True
-    units: '-'
 variable_type:
   description:
     Variable type used in the experiment
@@ -294,4 +163,3 @@ variable_type:
     choices:
       - Uniform uncertain
       - Normal uncertain
-    units: '-'

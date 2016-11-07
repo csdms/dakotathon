@@ -7,7 +7,7 @@ from .test_interface_base import default_str_lines
 
 
 run_dir = os.getcwd()
-config_file = os.path.join(run_dir, 'config.yaml')
+config_file = os.path.join(run_dir, 'dakota.yaml')
 
 
 def setup_module():
@@ -38,9 +38,9 @@ def test_interface_attribute():
     assert_equal(f.interface, 'fork')
 
 
-def test_analysis_driver_attribute():
-    """Test value of the analysis_driver attribute."""
-    assert_equal(f.analysis_driver, 'dakota_run_plugin')
+# def test_analysis_driver_attribute():
+#     """Test value of the analysis_driver attribute."""
+#     assert_equal(f.analysis_driver, 'dakota_run_plugin')
 
 
 def test_config_file_path():

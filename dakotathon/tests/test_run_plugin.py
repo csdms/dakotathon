@@ -24,7 +24,7 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-local_config_file = 'config.yaml'
+local_config_file = 'dakota.yaml'
 config_file = os.path.join(data_dir, local_config_file)
 local_params_file = 'params.in'
 params_file = os.path.join(data_dir, local_params_file)
@@ -80,7 +80,7 @@ def test_run_plugin_unknown_config_file():
 @with_setup(setup, teardown)
 def test_run_plugin_unknown_module():
     """Tests run_plugin() fails with unknown module."""
-    d.method.component = 'foo'
+    d.plugin = 'foo'
     d.serialize(local_config_file)
     run_plugin(params_file, results_file)
 

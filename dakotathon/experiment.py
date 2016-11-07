@@ -13,6 +13,7 @@ class Experiment(object):
 
     def __init__(self,
                  component=None,
+                 plugin=None,
                  environment='environment',
                  method='vector_parameter_study',
                  variables='continuous_design',
@@ -29,7 +30,12 @@ class Experiment(object):
         ----------
         component : str, optional
             Name of CSDMS component which Dakota is analyzing (default
-            is None).
+            is None). The `component` and `plugin` parameters are
+            exclusive.
+        plugin : str, optional
+            Name of a plugin model which Dakota is analyzing (default
+            is None). The `component` and `plugin` parameters are
+            exclusive.
         environment : str, optional
             Type of environment used in Dakota experiment (default is
             'environment').
@@ -60,8 +66,26 @@ class Experiment(object):
 
         """
         self.component = component
+        self.plugin = plugin
+
+        if (self.component and self.plugin) is not None:
+            err_msg = 'The component and plugin attributes are exclusive.'
+            raise AttributeError(err_msg)
+
         if self.component is not None:
             interface = 'fork'
+            try:
+                kwargs['analysis_driver']
+            except KeyError:
+                kwargs['analysis_driver'] = 'dakota_run_component'
+
+        if self.plugin is not None:
+            interface = 'fork'
+            try:
+                kwargs['analysis_driver']
+            except KeyError:
+                kwargs['analysis_driver'] = 'dakota_run_plugin'
+
         if method == 'multidim_parameter_study':
             try:
                 kwargs['lower_bounds']
@@ -184,8 +208,8 @@ class Experiment(object):
     def _get_subpackage_namespace(self, subpackage):
         return os.path.splitext(self.__module__)[0] + '.' + subpackage
 
-    def _import(self, subpackage, module, **kwargs):
-        namespace = self._get_subpackage_namespace(subpackage) + '.' + module
+    def _import(self, _subpackage, _module, **kwargs):
+        namespace = self._get_subpackage_namespace(_subpackage) + '.' + _module
         module = importlib.import_module(namespace)
         cls = getattr(module, module.classname)
         return cls(**kwargs)

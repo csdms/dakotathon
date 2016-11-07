@@ -22,8 +22,8 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-config_file = os.path.join(run_dir, 'config.yaml')
-known_config_file = os.path.join(data_dir, 'config.yaml')
+config_file = os.path.join(run_dir, 'dakota.yaml')
+known_config_file = os.path.join(data_dir, 'dakota.yaml')
 # known_dat_file = os.path.join(data_dir, 'dakota.dat')
 
 # Fixtures -------------------------------------------------------------
@@ -66,7 +66,7 @@ def teardown_module():
 @with_setup(setup, teardown)
 def test_run_by_setting_attributes():
     """Test running a HydroTrend simulation."""
-    d = Dakota(method='vector_parameter_study', component='hydrotrend')
+    d = Dakota(method='vector_parameter_study', plugin='hydrotrend')
     d.template_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
     d.auxiliary_files = os.path.join(data_dir, 'HYDRO0.HYPS')
     d.variables.descriptors = ['starting_mean_annual_temperature',

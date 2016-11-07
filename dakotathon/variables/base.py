@@ -1,6 +1,7 @@
 """An abstract base class for all Dakota variable types."""
 
 from abc import ABCMeta, abstractmethod
+from ..utils import to_iterable
 
 
 class VariablesBase(object):
@@ -50,10 +51,10 @@ class VariablesBase(object):
 
     def __str__(self):
         """Define the variables block of a Dakota input file."""
+        descriptors = to_iterable(self.descriptors)
         s = 'variables\n' \
-            + '  {0} = {1}\n'.format(self.variables,
-                                    len(self.descriptors))
+            + '  {0} = {1}\n'.format(self.variables, len(descriptors))
         s += '    descriptors ='
-        for vd in self.descriptors:
+        for vd in descriptors:
             s += ' {!r}'.format(vd)
         return(s)

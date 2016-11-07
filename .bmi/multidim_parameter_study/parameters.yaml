@@ -1,156 +1,79 @@
-descriptor1:
+component:
+  description: Name of CSDMS component
+  value:
+    type: string
+    default:
+plugin:
+  description: Name of model plugin
+  value:
+    type: string
+    default:
+run_directory:
+  description: Directory in which Dakota experiment is run
+  value:
+    type: string
+    default: '.'
+template_file:
+  description: Dakota template of model configuration file
+  value:
+    type: string
+    default: 'dakota.yaml.dtmpl'
+auxiliary_files:
+  description: Additional model input files
+  value:
+    type: list
+    default: []
+analysis_driver:
+  description: Dakota analysis driver program
+  value:
+    type: choice
+    default: dakota_run_plugin
+    choices:
+      - dakota_run_plugin
+      - dakota_run_component
+id_interface:
+  description: Name of the interface block
+  value:
+    type: string
+    default: CSDMS
+initialize_args:
+  description: Arguments passed to component initialize method
+  value:
+    type: string
+    default: ''
+
+descriptors:
   description: Input variable name
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-lower_bound1:
+    type: list
+    default: []
+lower_bounds:
   description: Lower bound on values of study variable
   value:
     type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound1:
+    default: [0.0]
+upper_bounds:
   description: Upper bound on values of study variable
   value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-partition1:
+    type: list
+    default: [1.0]
+partitions:
   description: Number of partitions between lower and upper bounds
   value:
-    type: int
-    default: 2
-    range:
-      min: 1
-      max: 1e2
-    units: '-'
-descriptor2:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-lower_bound2:
-  description: Lower bound on values of study variable
-  value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound2:
-  description: Upper bound on values of study variable
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-partition2:
-  description: Number of partitions between lower and upper bounds
-  value:
-    type: int
-    default: 1
-    range:
-      min: 2
-      max: 1e2
-    units: '-'
-descriptor3:
-  description: Input variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-lower_bound3:
-  description: Lower bound on values of study variable
-  value:
-    type: float
-    default: 0.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-upper_bound3:
-  description: Upper bound on values of study variable
-  value:
-    type: float
-    default: 1.0
-    range:
-      min: -1e6
-      max: 1e6
-    units: '-'
-partition3:
-  description: Number of partitions between lower and upper bounds
-  value:
-    type: int
-    default: 1
-    range:
-      min: 2
-      max: 1e2
-    units: '-'
-response_descriptor1:
+    type: list
+    default: [2]
+response_descriptors:
   description: Response variable name
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic1:
+    type: list
+    default: []
+response_statistics:
   description: Statistic computed on response
   value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor2:
-  description: Response variable name
+    type: list
+    default: ['mean']
+response_files:
+  description: Model output files used for calculating response
   value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic2:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
-response_descriptor3:
-  description: Response variable name
-  value:
-    type: dynamic_choice
-    default:
-    units: '-'
-response_statistic3:
-  description: Statistic computed on response
-  value:
-    type: choice
-    default: Mean
-    choices:
-      - Mean
-      - Median
-      - Sum
-      - Standard deviation
-      - Maximum
-      - Minimum
-    units: '-'
+    type: list
+    default: []

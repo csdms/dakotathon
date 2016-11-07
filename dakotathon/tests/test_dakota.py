@@ -25,10 +25,10 @@ input_file, \
     restart_file = ['dakota.' + ext for ext in ('in', 'out', 'dat', 'rst')]
 alt_input_file = 'alt.in'
 known_file = os.path.join(data_dir, 'default_vps_dakota.in')
-known_config_file = os.path.join(data_dir, 'default_vps_config.yaml')
-default_config_file = os.path.join(os.getcwd(), 'config.yaml')
+known_config_file = os.path.join(data_dir, 'default_vps_dakota.yaml')
+default_config_file = os.path.join(os.getcwd(), 'dakota.yaml')
 tmp_files = [input_file, alt_input_file, output_file, data_file,
-             restart_file, 'config.yaml']
+             restart_file, 'dakota.yaml']
 
 # Fixtures -------------------------------------------------------------
 

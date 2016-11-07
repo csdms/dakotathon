@@ -2,3 +2,4 @@ name: PolynomialChaos
 language: python
 package: dakotathon.bmi
 class: PolynomialChaos
+initialize_args: "dakota.yaml"

@@ -8,7 +8,7 @@
 # Mark Piper (mark.piper@colorado.edu)
 
 import os
-from nose.tools import (raises, assert_equal, assert_false,
+from nose.tools import (raises, assert_equal, assert_false, assert_true,
                         assert_is_none)
 from dakotathon.utils import *
 from . import start_dir, data_dir
@@ -18,8 +18,8 @@ from . import start_dir, data_dir
 parameters_file = os.path.join(data_dir, 'params.in')
 results_file = 'results.out'
 response_labels = ['Qs_median', 'Q_mean']
-config_file = os.path.join(data_dir, 'config.yaml')
-component = 'hydrotrend'
+config_file = os.path.join(data_dir, 'dakota.yaml')
+plugin = 'hydrotrend'
 
 # Fixtures -------------------------------------------------------------
 
@@ -94,7 +94,7 @@ def test_get_configuration_file_unknown_file():
 def test_deserialize():
     """Test the deserialize function."""
     config = deserialize(config_file)
-    assert_equal(component, config['component'])
+    assert_equal(plugin, config['plugin'])
 
 
 @raises(IOError)
@@ -126,9 +126,75 @@ def test_compute_statistic_nonumeric_array():
     r = compute_statistic(stat, arr)
 
 
-@raises(TypeError)
 def test_write_results_scalar_input():
-    """Test the write_results function fails with scalar inputs."""
+    """Test the write_results function works with scalar inputs."""
     values = 1.0
     labels = 'foo'
     r = write_results(results_file, values, labels)
+
+
+def test_to_iterable_with_scalar():
+    """Test that to_iterable returns a tuple with scalar input."""
+    value = 'foo'
+    r = to_iterable(value)
+    assert_true(type(r) is tuple)
+
+
+def test_to_iterable_with_tuple():
+    """Test that to_iterable returns original tuple with tuple input."""
+    value = ('foo',)
+    r = to_iterable(value)
+    assert_true(r is value)
+
+
+def test_to_iterable_with_list():
+    """Test that to_iterable returns original list with list input."""
+    value = ['foo']
+    r = to_iterable(value)
+    assert_true(r is value)
+
+
+@raises(KeyError)
+def test_configure_parameters_fails_without_descriptors():
+    """Test that configure_parameters fails without descriptors."""
+    params = {}
+    r = configure_parameters(params)
+
+
+def test_configure_parameters_sets_plugin_and_component():
+    """Test that configure_parameters sets analysis_driver for component."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['component'], '')
+    assert_equal(updated['plugin'], '')
+
+
+def test_configure_parameters_return_values():
+    """Test configure_parameters return values."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['component'], '')
+    assert_equal(updated['plugin'], '')
+
+
+def test_configure_parameters_sets_analysis_driver_component():
+    """Test that configure_parameters sets analysis_driver for component."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    params['component'] = 'model'
+    r = configure_parameters(params)
+    assert_equal(type(r), tuple)
+    assert_equal(type(r[0]), dict)
+    assert_equal(type(r[1]), dict)
+
+
+def test_configure_parameters_sets_analysis_driver_plugin():
+    """Test that configure_parameters sets analysis_driver for plugin."""
+    params = {'descriptors': 'foo', 'response_descriptors': 'bar',
+              'response_statistics': 'baz'}
+    params['plugin'] = 'model'
+    updated, subs = configure_parameters(params)
+    assert_equal(updated['analysis_driver'], 'dakota_run_plugin')
+    assert_equal(updated['component'], '')

@@ -1,0 +1,52 @@
+method: polynomial_chaos
+
+analysis_driver: {analysis_driver}
+asynchronous: false
+auxiliary_files: {auxiliary_files}
+basis_polynomial_family: extended
+coefficient_estimation_approach: quadrature_order_sequence
+component: {component}
+configuration_file: dakota.yaml
+convergence_tolerance:
+data_file: dakota.dat
+descriptors: {descriptors}
+dimension_preference:
+evaluation_concurrency: 2
+gradients: no_gradients
+hessians: no_hessians
+id_interface: {id_interface} 
+initial_point:
+initialize_args: {initialize_args}
+input_file: dakota.in
+interface: fork
+lower_bounds: {lower_bounds}
+max_iterations:
+means: {means}
+nested: false
+output_file: dakota.out
+plugin: {plugin}
+probability_levels: {probability_levels}
+quadrature_order: {quadrature_order} 
+response_descriptors: {response_descriptors}
+response_files: {response_files}
+response_levels: {response_levels}
+response_statistics: {response_statistics}
+responses: response_functions
+run_directory: {run_directory}
+sample_type: "{sample_type}"
+samples: {samples}
+seed: {seed}
+std_deviations: {std_deviations}
+template_file: "{template_file}"
+upper_bounds: {upper_bounds}
+variables: "{variable_type}"
+variance_based_decomp: {variance_based_decomp}
+
+# Notes:
+# * For uniform_uncertain variables, ignore means and std_deviations.
+# * The descriptors, lower_bounds, upper_bounds, means, std_deviations,
+#   probability_levels, response_levels, response_descriptors,
+#   and response_statistics parameters should be scalars or lists.
+# * coefficient_estimation_approach must be set, but the only option
+#   currently is quadrature_order_sequence.
+# * dimension_preference isn't implemented.

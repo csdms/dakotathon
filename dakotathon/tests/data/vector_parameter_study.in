@@ -16,7 +16,7 @@ variables
 interface
   fork
   analysis_driver = 'dakota_run_plugin'
-  analysis_components = 'config.yaml'
+  analysis_components = 'dakota.yaml'
   parameters_file = 'params.in'
   results_file = 'results.out'
   work_directory

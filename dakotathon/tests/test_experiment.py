@@ -45,6 +45,48 @@ def test_component_sets_interface_type():
     assert_is_instance(e.interface, Fork)
 
 
+def test_component_sets_analysis_driver():
+    """Test that setting component sets the analysis driver."""
+    component = 'hydrotrend'
+    e = Experiment(component=component)
+    assert_equal(e.interface.analysis_driver, 'dakota_run_component')
+
+
+def test_get_plugin():
+    """Test getting the plugin attribute."""
+    assert_is_none(x.plugin)
+
+
+def test_set_plugin():
+    """Test setting the plugin attribute."""
+    e = Experiment()
+    plugin = 'hydrotrend'
+    e.plugin = plugin
+    assert_equal(e.plugin, plugin)
+
+
+def test_plugin_sets_interface_type():
+    """Test that setting plugin sets fork interface."""
+    from .test_interface_fork import Fork
+    plugin = 'hydrotrend'
+    e = Experiment(plugin=plugin)
+    assert_is_instance(e.interface, Fork)
+
+
+def test_plugin_sets_analysis_driver():
+    """Test that setting plugin sets the analysis driver."""
+    plugin = 'hydrotrend'
+    e = Experiment(plugin=plugin)
+    assert_equal(e.interface.analysis_driver, 'dakota_run_plugin')
+
+
+@raises(AttributeError)
+def test_setting_component_and_plugin():
+    """Test that setting component and plugin raises exception."""
+    component = plugin = 'hydrotrend'
+    e = Experiment(component=component, plugin=plugin)
+
+
 def test_multidim_parameter_study_uses_bounds():
     """Test that the multidim parameter study uses bounds."""
     e = Experiment(method='multidim_parameter_study')

@@ -2,8 +2,7 @@ analysis_driver: dakota_run_plugin
 asynchronous: false
 auxiliary_files:
 - /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/HYDRO0.HYPS
-component: hydrotrend
-configuration_file: /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/config.yaml
+configuration_file: /Users/mpiper/scratch/fun-with-dakota/hydrotrend-new/dakota.yaml
 data_file: dakota.dat
 descriptors:
 - starting_mean_annual_temperature
@@ -25,6 +24,7 @@ method: vector_parameter_study
 n_steps: 5
 output_file: dakota.out
 parameters_file: params.in
+plugin: hydrotrend
 response_descriptors:
 - Qs_median
 - Q_mean

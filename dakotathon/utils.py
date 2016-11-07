@@ -5,6 +5,8 @@ import os
 import subprocess
 import re
 import yaml
+import numpy as np
+import collections
 
 
 def is_dakota_installed():
@@ -171,7 +173,6 @@ def compute_statistic(statistic, array):
       The value of the computed statistic.
 
     """
-    import numpy as np
     return np.__getattribute__(statistic)(array)
 
 
@@ -188,6 +189,84 @@ def write_results(results_file, values, labels):
       A list of labels to attach to the values.
 
     """
-    with open(results_file, 'w') as fp:
-        for i in range(len(values)):
-            fp.write('{0}\t{1}\n'.format(values[i], labels[i]))
+    arr_values = np.asarray(values)
+    arr_labels = np.asarray(labels)
+    results = np.column_stack((arr_values, arr_labels))
+    np.savetxt(results_file, results, delimiter="\t", fmt='%s')
+
+
+def to_iterable(x):
+    """Get an iterable version of an input.
+
+    Parameters
+    ----------
+    x
+      Anything.
+
+    Returns
+    -------
+    If the input isn't iterable, or is a string, then a tuple; else,
+    the input.
+
+    Notes
+    -----
+    Courtesy http://stackoverflow.com/a/6711233/1563298
+
+    """
+    if isinstance(x, collections.Iterable) and not isinstance(x, basestring):
+        return x
+    else:
+        return (x,)
+
+
+def configure_parameters(params):
+    """Preprocess Dakota parameters prior to committing to a config file.
+
+    Parameters
+    ----------
+    params : dict
+      Configuration parameters for a Dakota experiment that map to the
+      items in the Dakota configuration file, **dakota.yaml**.
+
+    Returns
+    -------
+    (dict, dict)
+      An updated dict of Dakota configuration parameters, and a dict
+      of substitutions used to create the Dakota template ("dtmpl")
+      file.
+
+    """
+    try:
+        params['component']
+    except KeyError:
+        try:
+            params['plugin']
+        except KeyError:
+            params['component'] = params['plugin'] = ''
+        else:
+            params['analysis_driver'] = 'dakota_run_plugin'
+            params['component'] = ''
+    else:
+        params['analysis_driver'] = 'dakota_run_component'
+        params['plugin'] = ''
+
+    to_check = ['descriptors',
+                'response_descriptors',
+                'response_statistics',
+                'auxiliary_files',]
+    for item in to_check:
+        try:
+            if isinstance(params[item], basestring):
+                params[item] = [params[item]]
+        except KeyError:
+            pass
+
+    subs = {}
+    for item in params['descriptors']:
+        subs[item] = '{' + item + '}'
+    try:
+        subs['run_duration'] = params['run_duration']
+    except KeyError:
+        pass
+
+    return params, subs
