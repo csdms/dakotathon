@@ -10,7 +10,7 @@ configuration_file: dakota.yaml
 convergence_tolerance:
 data_file: dakota.dat
 descriptors: {descriptors}
-dimension_preference:
+dimension_preference: []
 evaluation_concurrency: 2
 gradients: no_gradients
 hessians: no_hessians
@@ -49,4 +49,4 @@ variance_based_decomp: {variance_based_decomp}
 #   and response_statistics parameters should be scalars or lists.
 # * coefficient_estimation_approach must be set, but the only option
 #   currently is quadrature_order_sequence.
-# * dimension_preference isn't implemented.
+# * dimension_preference isn't implemented, but has a list placeholder.
