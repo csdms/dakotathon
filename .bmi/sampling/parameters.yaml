@@ -108,10 +108,10 @@ sample_type:
     Technique for choosing samples
   value:
     type: choice
-    default: Random sampling
+    default: random
     choices:
-      - Random sampling
-      - Latin hypercube sampling
+      - random
+      - lhs
 samples:
   description:
     Number of samples in experiment
@@ -144,7 +144,7 @@ variable_type:
     Variable type used in the experiment
   value:
     type: choice
-    default: Uniform uncertain
+    default: uniform_uncertain
     choices:
-      - Uniform uncertain
-      - Normal uncertain
+      - uniform_uncertain
+      - normal_uncertain
