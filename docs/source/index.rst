@@ -33,7 +33,7 @@ Contents
    Responses <responses>
 
    Model plugins <model_plugins>
-   The `dakota_run_plugin` console script <dakotathon.run_plugin>
+   Console scripts <console_scripts>
    Utilities and helper functions <dakotathon.utils>
 
 
