@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""Provides a Dakota interface to the HydroTrend component."""
+"""Provides a Dakota interface to the HydroTrend model."""
 
 import os
 import shutil

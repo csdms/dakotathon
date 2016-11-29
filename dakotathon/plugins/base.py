@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-"""An abstract base class for all Dakota component plugins."""
+"""An abstract base class for all Dakota model plugins."""
 
 import os
 import re
@@ -8,14 +8,14 @@ from abc import ABCMeta, abstractmethod
 
 
 def write_dflt_file(tmpl_file, parameters_file, run_duration=1.0):
-    """Create a component input file populated with default values.
+    """Create a model input file populated with default values.
 
     Parameters
     ----------
     tmpl_file : str
-      The path to the CSDMS template file defined for the component.
+      The path to the template file defined for the model.
     parameters_file : str
-      The path to the CSDMS parameters file defined for the component.
+      The path to the parameters file defined for the model.
     run_duration : str, int, or float
       Simulation run length, in undetermined units (default is 1.0).
 
@@ -55,22 +55,22 @@ def write_dtmpl_file(tmpl_file, dflt_input_file, parameter_names):
     """Create a template input file for use by Dakota.
 
     In the CSDMS framework, the tmpl file is an input file for a
-    component, but with the parameter values replaced by
+    model, but with the parameter values replaced by
     `{parameter_name}`. Dakota uses the same idea. This function
-    creates a Dakota dtmpl file from a CSDMS component tmpl file. Only
+    creates a Dakota dtmpl file from a CSDMS model tmpl file. Only
     the parameters used by Dakota are left in the tmpl format; the
-    remainder are populated with default values for the component. The
+    remainder are populated with default values for the model. The
     dtmpl file is written to the current directory.
 
     Parameters
     ----------
     tmpl_file : str
-      The path to the CSDMS template file defined for the component.
+      The path to the template file defined for the model.
     dflt_input_file : str
       An input file that contains the default parameter values for a
-      component.
+      model.
     parameter_names : list of str
-      A list of parameter names for the component to be evaluated by
+      A list of parameter names for the model to be evaluated by
       Dakota.
 
     Returns
@@ -113,7 +113,7 @@ class PluginBase(object):
 
     @abstractmethod
     def setup(self, config):
-        """Configure component inputs.
+        """Configure model inputs.
 
         Sets attributes using information from the run configuration
         file. The Dakota parsing utility ``dprepro`` reads parameters
@@ -129,17 +129,17 @@ class PluginBase(object):
 
     @abstractmethod
     def call(self):
-        """Call the component through the shell."""
+        """Call the model through the shell."""
         pass
 
     @abstractmethod
     def load(self, output_file):
-        """Read data from a component output file.
+        """Read data from a model output file.
 
         Parameters
         ----------
         output_file : str
-          The path to a component output file.
+          The path to a model output file.
 
         Returns
         -------

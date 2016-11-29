@@ -1,7 +1,7 @@
-Component plugins
-=================
+Model plugins
+=============
 
-CSDMS components that can be called by Dakota.
+Plugin classes for non-componentized models that can be called by Dakota.
 
 
 Plugins base class
