@@ -325,7 +325,7 @@ class UncertaintyQuantificationBase(MethodBase):
 
         """
         s = MethodBase.__str__(self)
-        if self.basis_polynomial_family is not 'extended':
+        if self.basis_polynomial_family != 'extended':
             s += '    {}\n'.format(self.basis_polynomial_family)
         s += '    sample_type = {}\n'.format(self.sample_type) \
             + '    samples = {}\n'.format(self.samples)
