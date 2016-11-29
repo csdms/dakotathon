@@ -32,7 +32,7 @@ Contents
    Interfaces <interfaces>
    Responses <responses>
 
-   Component plugins <component_plugins>
+   Model plugins <model_plugins>
    The `dakota_run_plugin` console script <dakotathon.run_plugin>
    Utilities and helper functions <dakotathon.utils>
 
