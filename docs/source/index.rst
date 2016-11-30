@@ -32,9 +32,11 @@ Contents
    Interfaces <interfaces>
    Responses <responses>
 
-   Component plugins <component_plugins>
-   The `dakota_run_plugin` console script <dakotathon.run_plugin>
+   Model plugins <model_plugins>
+   Console scripts <console_scripts>
    Utilities and helper functions <dakotathon.utils>
+
+   Basic Model Interface (BMI) <dakotathon.bmi>
 
 
 Indices and tables
