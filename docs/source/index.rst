@@ -36,6 +36,8 @@ Contents
    Console scripts <console_scripts>
    Utilities and helper functions <dakotathon.utils>
 
+   Basic Model Interface (BMI) <dakotathon.bmi>
+
 
 Indices and tables
 ==================
