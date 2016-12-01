@@ -6,9 +6,9 @@
 [![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
 [![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/downloads.svg)](https://anaconda.org/csdms/dakotathon)
 
-# CSDMS Dakota interface
+# CSDMS Dakota Interface
 
-The CSDMS Dakota interface (CDI) provides
+The CSDMS Dakota Interface (CDI; code name: Dakotathon) provides
 a [Basic Model Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
 and a Python API for a subset of the methods
 included in the [Dakota](https://dakota.sandia.gov/)
@@ -22,8 +22,9 @@ including:
 * [polynomial_chaos](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-polynomial_chaos.html), and
 * [stoch_collocation](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html).
 
-This is currently alpha-level software
-supported on Linux and Mac OSX.
+The CDI is currently alpha-level software
+supported on Linux and macOS.
+API documentation is available at http://csdms-dakota.readthedocs.io.
 
 ## Installation
 
@@ -42,7 +43,7 @@ Follow the instructions on the Dakota website
 for [downloading](https://dakota.sandia.gov/download.html) and
 [installing](https://dakota.sandia.gov/content/install-linux-macosx)
 a precompiled Dakota binary for your system.
-Dakota version 6.1 is supported by the CSDMS Dakota interface.
+Dakota version 6.1 is supported by the CSDMS Dakota Interface.
 
 ## Execution: standalone
 
@@ -69,7 +70,8 @@ and
 **dakota.dat** (tabular output),
 in the current directory.
 
-For more in-depth examples of using the CSDMS Dakota interface,
+For more in-depth examples of using the CSDMS Dakota Interface
+as a standalone Python package,
 see the Jupyter Notebooks
 in the [examples](./examples) directory
 of this repository.
@@ -77,7 +79,7 @@ of this repository.
 
 ### Note
 
-If you're using Anaconda IPython on Mac OS X,
+If you're using Anaconda IPython on macOS,
 include the `DYLD_LIBRARY_PATH` environment variable
 in your session before calling the `run` method with:
 
@@ -112,7 +114,7 @@ Next,
 set up a dict of parameters for the experiment:
 
 ```python
-parameters = {
+experiment = {
   'component': type(c).__name__,
   'run_duration': 365,               # days
   'auxiliary_files': 'HYDRO0.HYPS',  # the default Waipaoa hypsometry
@@ -128,10 +130,10 @@ parameters = {
 ```
 
 and use a helper function
-to format the parameters for Dakota and Hydrotrend:
+to format the parameters for Dakota and for Hydrotrend:
 
 ```python
-cparameters, hparameters = configure_parameters(parameters)
+cparameters, hparameters = configure_parameters(experiment)
 ```
 
 Set up the Hydrotrend component:
