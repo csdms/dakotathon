@@ -14,7 +14,7 @@ c, d = Hydrotrend(), CenteredParameterStudy()
 
 parameters = {
     'component': type(c).__name__,
-    'run_duration': 365,               # days
+    'run_duration': 10,                # years
     'auxiliary_files': 'HYDRO0.HYPS',  # the default Waipaoa hypsometry
     'descriptors': ['starting_mean_annual_temperature',
                     'total_annual_precipitation'],
