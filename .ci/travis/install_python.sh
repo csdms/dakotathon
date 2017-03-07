@@ -6,7 +6,7 @@ else
     OS="Linux-x86_64";
 fi
 if [[ "$TRAVIS_PYTHON_VERSION" == 2.* ]]; then
-      wget http://repo.continuum.io/miniconda/Miniconda-latest-$OS.sh -O miniconda.sh;
+      wget http://repo.continuum.io/miniconda/Miniconda2-latest-$OS.sh -O miniconda.sh;
 else
       wget http://repo.continuum.io/miniconda/Miniconda3-latest-$OS.sh -O miniconda.sh;
 fi
