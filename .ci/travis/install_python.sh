@@ -16,7 +16,5 @@ hash -r
 conda config --set always_yes yes --set changeps1 no
 conda info -a
 conda install python=$TRAVIS_PYTHON_VERSION
-conda install -q conda-build
-conda install -q anaconda-client
-conda install -q coverage
-conda install -q sphinx
+conda install -q -c conda-forge conda-build
+conda install -q -c conda-forge anaconda-client coverage sphinx

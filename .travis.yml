@@ -19,7 +19,7 @@ before_install:
   - pip install coveralls
   - source .ci/travis/install_dakota.sh
   - dakota --version
-  - conda install -q -c csdms hydrotrend
+  - conda install -q -c csdms -c conda-forge hydrotrend
 
 install:
   - conda install -q -c csdms dakotathon --use-local
