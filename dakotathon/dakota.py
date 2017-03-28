@@ -14,7 +14,7 @@ class Dakota(Experiment):
 
     def __init__(self,
                  run_directory=os.getcwd(),
-                 configuration_file=os.path.abspath('dakota.yaml'),
+                 configuration_file='dakota.yaml',
                  input_file='dakota.in',
                  output_file='dakota.out',
                  template_file=None,
@@ -61,10 +61,11 @@ class Dakota(Experiment):
 
         """
         Experiment.__init__(self, **kwargs)
+        configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
         self._run_directory = run_directory
         self._configuration_file = configuration_file
-        self.input_file = input_file
-        self.output_file = output_file
+        self.input_file = os.path.abspath(os.path.join(run_directory, input_file))
+        self.output_file = os.path.abspath(os.path.join(run_directory, output_file))
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
 
@@ -244,6 +245,9 @@ class Dakota(Experiment):
 
     def run(self):
         """Run the Dakota experiment."""
+        subprocess.call(['dakota', '-i', self.input_file , '-o', self.output_file, '&>', 'run.log'])
+
+        
         subprocess.check_output(['dakota',
                                  '-i', self.input_file,
                                  '-o', self.output_file],
