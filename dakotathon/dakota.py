@@ -64,8 +64,8 @@ class Dakota(Experiment):
         configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
         self._run_directory = run_directory
         self._configuration_file = configuration_file
-        self.input_file = os.path.abspath(os.path.join(run_directory, input_file))
-        self.output_file = os.path.abspath(os.path.join(run_directory, output_file))
+        self.input_file = input_file
+        self.output_file = output_file
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
 
@@ -225,7 +225,10 @@ class Dakota(Experiment):
         """
         if input_file is not None:
             self.input_file = input_file
-        with open(self.input_file, 'w') as fp:
+        
+        input_file_path = os.path.abspath(os.path.join(self.run_directory,
+                                                        self.input_file))
+        with open(input_file_path, 'w') as fp:
             fp.write(str(self))
 
     def setup(self):
@@ -246,9 +249,10 @@ class Dakota(Experiment):
     def run(self):
         """Run the Dakota experiment."""
         subprocess.call(['dakota', '-i', self.input_file , '-o', self.output_file, '&>', 'run.log'])
+        os.chdir(self.run_directory)
 
-        
         subprocess.check_output(['dakota',
                                  '-i', self.input_file,
                                  '-o', self.output_file],
-                                stderr=subprocess.STDOUT)
+                                stderr=subprocess.STDOUT) 
+
