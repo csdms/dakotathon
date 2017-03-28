@@ -197,7 +197,13 @@ class Dakota(Experiment):
             self.configuration_file = config_file
 
         props = get_attributes(self)
-        for section in Experiment.blocks:
+        
+        removed_blocks = set(Experiment.blocks)-set(self.blocks)
+        for removed_block in removed_blocks:
+            temp = props.pop(removed_block)
+            del temp
+        
+        for section in self.blocks:
             section_props = get_attributes(props.pop(section))
             props = dict(list(props.items()) + list(section_props.items()))
 
@@ -248,7 +254,6 @@ class Dakota(Experiment):
 
     def run(self):
         """Run the Dakota experiment."""
-        subprocess.call(['dakota', '-i', self.input_file , '-o', self.output_file, '&>', 'run.log'])
         os.chdir(self.run_directory)
 
         subprocess.check_output(['dakota',

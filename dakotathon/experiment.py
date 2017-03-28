@@ -251,6 +251,6 @@ class Experiment(object):
         <BLANKLINE>
         """
         s = '# Dakota input file\n'
-        for section in Experiment.blocks:
+        for section in self.blocks:
             s += str(getattr(self, section))
         return s
