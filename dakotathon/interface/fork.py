@@ -28,8 +28,10 @@ class Fork(InterfaceBase):
         """
         InterfaceBase.__init__(self, **kwargs)
         self.interface = self.__module__.rsplit('.')[-1]
-        self._configuration_file = os.path.abspath(os.path.join(kwargs.pop('run_directory'), kwargs.pop('configuration_file')))
-
+        try:
+            self._configuration_file = os.path.abspath(os.path.join(kwargs.pop('run_directory'), kwargs.pop('configuration_file')))
+        except KeyError:
+            self._configuration_file = os.path.abspath('dakota.yaml')
 
     def __str__(self):
         """Define the block for a fork interface.
