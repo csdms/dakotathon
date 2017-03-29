@@ -125,9 +125,9 @@ class HydroTrend(PluginBase):
         self.input_dir = os.path.join('..', 'HYDRO_IN')
         self.output_dir = os.path.join('..', 'HYDRO_OUTPUT')
         if os.path.exists(self.input_dir) is False:
-            os.mkdir(self.input_dir, 0755)
+            os.mkdir(self.input_dir, 0o755)
         if os.path.exists(self.output_dir) is False:
-            os.mkdir(self.output_dir, 0755)
+            os.mkdir(self.output_dir, 0o755)
 
     def call(self):
         """Invoke HydroTrend through the shell."""

@@ -214,8 +214,8 @@ def test_str_length_with_nonzero_seed_value():
 def test_str_length_with_options():
     """Test the length of __str__ with optional props set."""
     x = Concrete(seed=42,
-                 probability_levels=range(3),
-                 response_levels=range(3),
+                 probability_levels=list(range(3)),
+                 response_levels=list(range(3)),
                  variance_based_decomp=True)
     s = str(x)
     n_lines = len(s.splitlines())

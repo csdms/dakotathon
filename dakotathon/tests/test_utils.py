@@ -106,7 +106,7 @@ def test_deserialize_unknown_file():
 def test_compute_statistic():
     """Test the compute_statistic function."""
     stat = 'mean'
-    arr = range(6)
+    arr = list(range(6))
     assert_equal(2.5, compute_statistic(stat, arr))
 
 
@@ -114,7 +114,7 @@ def test_compute_statistic():
 def test_compute_statistic_unknown_statistic():
     """Test the compute_statistic function fails with an unknown statistic."""
     stat = 'foo'
-    arr = range(6)
+    arr = list(range(6))
     r = compute_statistic(stat, arr)
 
 

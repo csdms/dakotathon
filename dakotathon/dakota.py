@@ -166,7 +166,7 @@ class Dakota(Experiment):
 
         """
         config = {}
-        if isinstance(file_like, types.StringTypes):
+        if isinstance(file_like, str):
             with open(file_like, 'r') as fp:
                 config = yaml.load(fp.read())
         else:
@@ -198,7 +198,7 @@ class Dakota(Experiment):
         props = get_attributes(self)
         for section in Experiment.blocks:
             section_props = get_attributes(props.pop(section))
-            props = dict(props.items() + section_props.items())
+            props = dict(list(props.items()) + list(section_props.items()))
 
         with open(self.configuration_file, 'w') as fp:
             yaml.safe_dump(props, fp, default_flow_style=False)
