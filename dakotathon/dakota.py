@@ -36,11 +36,11 @@ class Dakota(Experiment):
             is placed (default is the current directory).
         configuration_file : str, optional
             A Dakota instance serialized to a YAML file (default is
-            **dakota.yaml**). 
+            **dakota.yaml**).
         input_file : str, optional
             Name of Dakota input file (default is **dakota.in**).
         output_file : str, optional
-            Name of Dakota output file (default is **dakota.out**). 
+            Name of Dakota output file (default is **dakota.out**).
         run_log : str, optional
             Name of Dakota log file (default is **run.log***)
         error_log : str, optional
@@ -76,7 +76,7 @@ class Dakota(Experiment):
         self._auxiliary_files = auxiliary_files
         self.run_log = run_log
         self.error_log = error_log
-        
+
     @property
     def run_directory(self):
         """The run directory path."""
@@ -205,12 +205,12 @@ class Dakota(Experiment):
             self.configuration_file = config_file
 
         props = get_attributes(self)
-        
+
         removed_blocks = set(Experiment.blocks)-set(self.blocks)
         for removed_block in removed_blocks:
             temp = props.pop(removed_block)
             del temp
-        
+
         for section in self.blocks:
             section_props = get_attributes(props.pop(section))
             props = dict(list(props.items()) + list(section_props.items()))
@@ -239,7 +239,7 @@ class Dakota(Experiment):
         """
         if input_file is not None:
             self.input_file = input_file
-        
+
         input_file_path = os.path.abspath(os.path.join(self.run_directory,
                                                         self.input_file))
         with open(input_file_path, 'w') as fp:
@@ -262,9 +262,9 @@ class Dakota(Experiment):
 
     def run(self):
         """Run the Dakota experiment.
-        
+
         Run is executed in the directory specified by run_directory keyword and
-        run log and error log are created. 
+        run log and error log are created.
         """
         os.chdir(self.run_directory)
 
@@ -275,6 +275,3 @@ class Dakota(Experiment):
                                  '-o', self.output_file],
                                 stdout=file_out,
                                 stderr=error_out)
-    
-
-

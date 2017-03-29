@@ -20,7 +20,7 @@ class InterfaceBase(object):
                  parameters_file='params.in',
                  results_file='results.out',
                  **kwargs):
-        
+
         """Create a default interface.
 
         Parameters
@@ -37,8 +37,8 @@ class InterfaceBase(object):
         evaluation_concurrency : int, optional
             Number of concurrent evaluations (default is 2).
         work_directory : str, optional
-            The file path to the work directory (default is a new directory 
-            called **run** within the run directory). 
+            The file path to the work directory (default is a new directory
+            called **run** within the run directory).
         parameters_file : str, optional
             The name of the parameters file (default is **params.in**).
         results_file : str, optional
