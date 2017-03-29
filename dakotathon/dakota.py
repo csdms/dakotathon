@@ -18,6 +18,7 @@ class Dakota(Experiment):
                  input_file='dakota.in',
                  output_file='dakota.out',
                  run_log='run.log',
+                 error_log='stderr.log',
                  template_file=None,
                  auxiliary_files=(),
                  **kwargs):
@@ -35,11 +36,15 @@ class Dakota(Experiment):
             is placed (default is the current directory).
         configuration_file : str, optional
             A Dakota instance serialized to a YAML file (default is
-            **dakota.yaml**).
+            **dakota.yaml**). 
         input_file : str, optional
-            Name of Dakota input file (default is **dakota.in**)
+            Name of Dakota input file (default is **dakota.in**).
         output_file : str, optional
-            Name of Dakota output file (default is **dakota.out**)
+            Name of Dakota output file (default is **dakota.out**). 
+        run_log : str, optional
+            Name of Dakota log file (default is **run.log***)
+        error_log : str, optional
+            Name of Dakota error log file (default is **stderr.log***)
         template_file : str, optional
             The Dakota template file, formed from the input file of
             the model to study, but with study variables replaced by
@@ -70,6 +75,8 @@ class Dakota(Experiment):
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
         self.run_log = run_log
+        self.error_log = error_log
+        
     @property
     def run_directory(self):
         """The run directory path."""
@@ -254,14 +261,20 @@ class Dakota(Experiment):
         self.write_input_file()
 
     def run(self):
-        """Run the Dakota experiment."""
+        """Run the Dakota experiment.
+        
+        Run is executed in the directory specified by run_directory keyword and
+        run log and error log are created. 
+        """
         os.chdir(self.run_directory)
 
         with open(self.run_log, "w") as file_out:
-            subprocess.call(['dakota',
-                             '-i', self.input_file,
-                             '-o', self.output_file],
-                            stdout=file_out)
-
+            with open(self.error_log, "w") as error_out:
+                subprocess.call(['dakota',
+                                 '-i', self.input_file,
+                                 '-o', self.output_file],
+                                stdout=file_out,
+                                stderr=error_out)
+    
 
 
