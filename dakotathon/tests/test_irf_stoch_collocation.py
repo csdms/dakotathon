@@ -68,7 +68,7 @@ def test_initialize_defaults():
 def test_initialize_from_file_like():
     from io import StringIO
 
-    config = StringIO(yaml.dump(config_val))
+    config = StringIO(unicode(yaml.dump(config_val)))
     model = StochasticCollocation()
     model.initialize(config)
     assert_true(os.path.exists(dakota_files['input']))
