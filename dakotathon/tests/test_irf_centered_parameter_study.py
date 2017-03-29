@@ -60,9 +60,9 @@ def test_initialize_defaults():
 
 @with_setup(setup, teardown)
 def test_initialize_from_file_like():
-    from io import StringIO
+    from io import BytesIO
 
-    config = StringIO(unicode(yaml.dump(config_val)))
+    config = BytesIO(yaml.dump(config_val, encoding=('utf-8')))
     model = CenteredParameterStudy()
     model.initialize(config)
     assert_true(os.path.exists(dakota_files['input']))
