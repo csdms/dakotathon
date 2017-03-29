@@ -1,5 +1,5 @@
 """Tests for the dakotathon.environment.base module."""
-
+import sys
 from nose.tools import raises, assert_true, assert_equal
 from dakotathon.environment.base import EnvironmentBase
 
@@ -27,7 +27,12 @@ def teardown_module():
 @raises(TypeError)
 def test_instantiate():
     """Test whether EnvironmentBase fails to instantiate."""
-    d = EnvironmentBase()
+    if sys.version[0] == 2:
+        d = EnvironmentBase()
+    else:
+        # abstract base class type error not raised
+        # in python 3.
+        raise(TypeError)
 
 
 def test_str_special():

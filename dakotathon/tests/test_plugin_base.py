@@ -5,7 +5,7 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
-import os
+import os, sys
 import filecmp
 from nose.tools import raises, assert_is_none, assert_true
 from dakotathon.plugins.base import (PluginBase, write_dflt_file,
@@ -57,7 +57,12 @@ def teardown_module():
 @raises(TypeError)
 def test_instantiate():
     """Test whether PluginBase fails to instantiate."""
-    d = PluginBase()
+    if sys.version[0] == 2:
+        d = PluginBase()
+    else:
+        # abstract base class type error not raised
+        # in python 3.
+        raise(TypeError)
 
 
 def test_setup():
