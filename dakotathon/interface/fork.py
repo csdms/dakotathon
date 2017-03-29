@@ -28,7 +28,7 @@ class Fork(InterfaceBase):
         """
         InterfaceBase.__init__(self, **kwargs)
         self.interface = self.__module__.rsplit('.')[-1]
-        self._configuration_file = os.path.abspath(os.path.join(self.run_directory, self.configuration_file))
+        self._configuration_file = os.path.abspath(os.path.join(kwargs.pop('run_directory'), kwargs.pop('configuration_file')))
 
 
     def __str__(self):

@@ -66,7 +66,10 @@ class Dakota(Experiment):
         >>> d = Dakota(method='vector_parameter_study')
 
         """
-        Experiment.__init__(self, **kwargs)
+        Experiment.__init__(self,
+                            run_directory=run_directory,
+                            configuration_file=configuration_file,
+                            **kwargs)
         configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
         self._run_directory = run_directory
         self._configuration_file = configuration_file
