@@ -246,6 +246,7 @@ class Dakota(Experiment):
 
         input_file_path = os.path.abspath(os.path.join(self.run_directory,
                                                        self.input_file))
+        
         if os.path.exists(os.path.abspath(self.run_directory)) == False:
             os.mkdir(os.path.abspath(self.run_directory))
         
