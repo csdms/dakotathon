@@ -17,6 +17,7 @@ class Dakota(Experiment):
                  configuration_file='dakota.yaml',
                  input_file='dakota.in',
                  output_file='dakota.out',
+                 run_log='run.log',
                  template_file=None,
                  auxiliary_files=(),
                  **kwargs):
@@ -68,7 +69,7 @@ class Dakota(Experiment):
         self.output_file = output_file
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
-
+        self.run_log = run_log
     @property
     def run_directory(self):
         """The run directory path."""
@@ -256,8 +257,11 @@ class Dakota(Experiment):
         """Run the Dakota experiment."""
         os.chdir(self.run_directory)
 
-        subprocess.check_output(['dakota',
-                                 '-i', self.input_file,
-                                 '-o', self.output_file],
-                                stderr=subprocess.STDOUT) 
+        with open(self.run_log, "w") as file_out:
+            subprocess.call(['dakota',
+                             '-i', self.input_file,
+                             '-o', self.output_file],
+                            stdout=file_out)
+
+
 
