@@ -16,7 +16,11 @@ class InterfaceBase(object):
                  analysis_driver='rosenbrock',
                  asynchronous=False,
                  evaluation_concurrency=2,
+                 work_directory='run',
+                 parameters_file='params.in',
+                 results_file='results.out',
                  **kwargs):
+        
         """Create a default interface.
 
         Parameters
@@ -32,6 +36,13 @@ class InterfaceBase(object):
             Set to perform asynchronous evaluations (default is False).
         evaluation_concurrency : int, optional
             Number of concurrent evaluations (default is 2).
+        work_directory : str, optional
+            The file path to the work directory (default is a new directory 
+            called **run** within the run directory). 
+        parameters_file : str, optional
+            The name of the parameters file (default is **params.in**).
+        results_file : str, optional
+            The name of the results file (default is **results.out**).
         **kwargs
             Optional keyword arguments.
 
@@ -41,6 +52,9 @@ class InterfaceBase(object):
         self.analysis_driver = analysis_driver
         self._asynchronous = asynchronous
         self._evaluation_concurrency = evaluation_concurrency
+        self.parameters_file = parameters_file
+        self.results_file = results_file
+        self.work_directory = work_directory
 
     @property
     def asynchronous(self):

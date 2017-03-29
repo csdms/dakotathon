@@ -11,11 +11,7 @@ class Fork(InterfaceBase):
 
     """Define attributes for a Dakota fork interface."""
 
-    def __init__(self,
-                 work_directory='run',
-                 parameters_file='params.in',
-                 results_file='results.out',
-                 **kwargs):
+    def __init__(self, **kwargs):
         """Create a fork interface.
 
         Parameters
@@ -32,10 +28,8 @@ class Fork(InterfaceBase):
         """
         InterfaceBase.__init__(self, **kwargs)
         self.interface = self.__module__.rsplit('.')[-1]
-        self._configuration_file = os.path.abspath('dakota.yaml')
-        self.parameters_file = parameters_file
-        self.results_file = results_file
-        self.work_directory = work_directory
+        self._configuration_file = os.path.abspath(os.path.join(self.run_directory, self.configuration_file))
+
 
     def __str__(self):
         """Define the block for a fork interface.
