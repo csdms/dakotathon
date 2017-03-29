@@ -71,6 +71,7 @@ class Dakota(Experiment):
                             configuration_file=configuration_file,
                             **kwargs)
         configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
+        
         self._run_directory = run_directory
         self._configuration_file = configuration_file
         self.input_file = input_file
@@ -244,7 +245,10 @@ class Dakota(Experiment):
             self.input_file = input_file
 
         input_file_path = os.path.abspath(os.path.join(self.run_directory,
-                                                        self.input_file))
+                                                       self.input_file))
+        if os.path.exists(os.path.abspath(self.run_directory)) == False:
+            os.mkdir(os.path.abspath(self.run_directory))
+        
         with open(input_file_path, 'w') as fp:
             fp.write(str(self))
 
