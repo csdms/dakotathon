@@ -66,8 +66,8 @@ class PsuadeMoat(MethodBase):
     """Define parameters for a Dakota PSUADE MOAT study."""
 
     def __init__(self,
-                samples,
-                seed,
+                samples=12,
+                seed=500,
                 partitions=5,
                 model_pointer=None,
                  **kwargs):
@@ -75,21 +75,22 @@ class PsuadeMoat(MethodBase):
         
         Parameters
         ----------
-        samples : array_like of float
-          Number of samples.
-        seed : int
-          Random seed.
+        samples : array_like of float, optional
+          Number of samples (default is 10).
+        seed : int, optional
+          Random seed (default is 500).
         partitions : array_like of int, optional
           Number of partitions (default = 5)
         model_pointer : str, optional
           The id_model of the model block used for the analysis. This should be
           specified if multiple models are being used. If none is specified
           Dakota will use the last model block parsed.
+          
         Examples
         --------
         Create a default centered parameter study experiment:
 
-        >>> c = CenteredParameterStudy()
+        >>> p = PsuadeMoat()
 
         """
         MethodBase.__init__(self, **kwargs)

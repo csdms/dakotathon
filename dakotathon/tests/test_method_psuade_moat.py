@@ -27,15 +27,9 @@ def teardown_module():
     pass
 
 # Tests ----------------------------------------------------------------
-@raises(TypeError)
-def test_init_fails_with_no_parameters():
-    """Test that init fails if no parameters are specified."""
-    PsuadeMoat()
-
-
 def test_init_minimum_parameter():
     """Test creating an instance with the minimum number of parameters."""
-    p1 = PsuadeMoat(seed=395, samples=5)
+    p1 = PsuadeMoat()
     assert_is_instance(p1, PsuadeMoat)
 
 
