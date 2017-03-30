@@ -63,6 +63,11 @@ class PsuadeMoatStudy(MethodBase):
         """Number of samples."""
         return self._samples
 
+    @property
+    def seed(self):
+        """Seed value."""
+        return self._seed
+
     def __str__(self):
         """Define a PSUADE MOAT method block.
 
