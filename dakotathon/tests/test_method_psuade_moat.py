@@ -105,7 +105,7 @@ def test_set_samples_fails_if_tuple():
 # model_pointer attribute --------------------------------------------------
 def test_get_model_pointer():
     """Test getting the model_pointer property."""
-    assert_true(type(p.model_pointer) is None)
+    assert_true(type(p.model_pointer) is type(None))
     
     p1 = PsuadeMoat(seed=395, samples=5, model_pointer='mymodel')
     assert_true(type(p1.model_pointer) is str)
