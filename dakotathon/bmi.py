@@ -201,3 +201,26 @@ class StochasticCollocation (BmiDakota):
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
+
+class PsuadeMoat (BmiDakota):
+    
+    """BMI implementation of a Dakota study with the PSUADE MOAT method."""
+    
+    _name = 'PsuadeMoat'
+    
+    def initialize(self, filename=None):
+        """Create a Dakota instance and input file.
+            
+            Parameters
+            ----------
+            filename : str, optional
+            Path to a Dakota configuration file.
+            
+            """
+        if filename is None:
+            self._model = Dakota(method='psuade_moat',
+                                 variables='uniform_uncertain')
+        else:
+            self._model = Dakota.from_file_like(filename)
+        
+        self._model.write_input_file()
