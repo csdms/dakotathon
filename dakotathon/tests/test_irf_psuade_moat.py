@@ -66,9 +66,9 @@ def test_initialize_defaults():
 
 @with_setup(setup, teardown)
 def test_initialize_from_file_like():
-    from StringIO import StringIO
-
-    config = StringIO(yaml.dump(config_val))
+    from io import BytesIO
+    
+    config = BytesIO(yaml.dump(config_val, encoding=('utf-8')))
     model = PsuadeMoat()
     model.initialize(config)
     assert_true(os.path.exists(dakota_files['input']))
