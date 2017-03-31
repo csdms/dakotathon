@@ -261,6 +261,7 @@ def test_running_in_different_directory():
     os.remove(input_file)
     os.remove(output_file)
     teardown_module()
+    [os.remove(f) for f in os.listdir(".")]
     os.chdir('..')
     os.rmdir(run_directory)
 
