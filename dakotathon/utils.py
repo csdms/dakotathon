@@ -213,7 +213,7 @@ def to_iterable(x):
     Courtesy http://stackoverflow.com/a/6711233/1563298
 
     """
-    if isinstance(x, collections.Iterable) and not isinstance(x, basestring):
+    if isinstance(x, collections.Iterable) and not isinstance(x, str):
         return x
     else:
         return (x,)
@@ -256,7 +256,7 @@ def configure_parameters(params):
                 'auxiliary_files',]
     for item in to_check:
         try:
-            if isinstance(params[item], basestring):
+            if isinstance(params[item], str):
                 params[item] = [params[item]]
         except KeyError:
             pass
