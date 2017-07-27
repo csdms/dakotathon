@@ -8,7 +8,7 @@
 
 # CSDMS Dakota Interface
 
-The CSDMS Dakota Interface (CDI; code name: Dakotathon) provides
+The CSDMS Dakota Interface (CDI; code named *Dakotathon*) provides
 a [Basic Model Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
 and a Python API for a subset of the methods
 included in the [Dakota](https://dakota.sandia.gov/)
@@ -18,6 +18,7 @@ including:
 * [vector_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-vector_parameter_study.html),
 * [centered_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-centered_parameter_study.html),
 * [multidim_parameter_study](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-multidim_parameter_study.html),
+* [psuade_moat](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-psuade_moat.html),
 * [sampling](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-sampling.html),
 * [polynomial_chaos](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-polynomial_chaos.html), and
 * [stoch_collocation](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html).
