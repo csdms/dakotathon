@@ -14,9 +14,11 @@ class Dakota(Experiment):
 
     def __init__(self,
                  run_directory=os.getcwd(),
-                 configuration_file=os.path.abspath('dakota.yaml'),
+                 configuration_file='dakota.yaml',
                  input_file='dakota.in',
                  output_file='dakota.out',
+                 run_log='run.log',
+                 error_log='stderr.log',
                  template_file=None,
                  auxiliary_files=(),
                  **kwargs):
@@ -36,9 +38,13 @@ class Dakota(Experiment):
             A Dakota instance serialized to a YAML file (default is
             **dakota.yaml**).
         input_file : str, optional
-            Name of Dakota input file (default is **dakota.in**)
+            Name of Dakota input file (default is **dakota.in**).
         output_file : str, optional
-            Name of Dakota output file (default is **dakota.out**)
+            Name of Dakota output file (default is **dakota.out**).
+        run_log : str, optional
+            Name of Dakota log file (default is **run.log***)
+        error_log : str, optional
+            Name of Dakota error log file (default is **stderr.log***)
         template_file : str, optional
             The Dakota template file, formed from the input file of
             the model to study, but with study variables replaced by
@@ -60,13 +66,20 @@ class Dakota(Experiment):
         >>> d = Dakota(method='vector_parameter_study')
 
         """
-        Experiment.__init__(self, **kwargs)
+        Experiment.__init__(self,
+                            run_directory=run_directory,
+                            configuration_file=configuration_file,
+                            **kwargs)
+        configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
+        
         self._run_directory = run_directory
         self._configuration_file = configuration_file
         self.input_file = input_file
         self.output_file = output_file
         self._template_file = template_file
         self._auxiliary_files = auxiliary_files
+        self.run_log = run_log
+        self.error_log = error_log
 
     @property
     def run_directory(self):
@@ -196,9 +209,15 @@ class Dakota(Experiment):
             self.configuration_file = config_file
 
         props = get_attributes(self)
-        for section in Experiment.blocks:
+
+        removed_blocks = set(Experiment.blocks)-set(self.blocks)
+        for removed_block in removed_blocks:
+            temp = props.pop(removed_block)
+            del temp
+
+        for section in self.blocks:
             section_props = get_attributes(props.pop(section))
-            props = dict(props.items() + section_props.items())
+            props = dict(list(props.items()) + list(section_props.items()))
 
         with open(self.configuration_file, 'w') as fp:
             yaml.safe_dump(props, fp, default_flow_style=False)
@@ -224,7 +243,14 @@ class Dakota(Experiment):
         """
         if input_file is not None:
             self.input_file = input_file
-        with open(self.input_file, 'w') as fp:
+
+        input_file_path = os.path.abspath(os.path.join(self.run_directory,
+                                                       self.input_file))
+        
+        if os.path.exists(os.path.abspath(self.run_directory)) == False:
+            os.mkdir(os.path.abspath(self.run_directory))
+        
+        with open(input_file_path, 'w') as fp:
             fp.write(str(self))
 
     def setup(self):
@@ -243,8 +269,17 @@ class Dakota(Experiment):
         self.write_input_file()
 
     def run(self):
-        """Run the Dakota experiment."""
-        subprocess.check_output(['dakota',
+        """Run the Dakota experiment.
+
+        Run is executed in the directory specified by run_directory keyword and
+        run log and error log are created.
+        """
+        os.chdir(self.run_directory)
+
+        with open(self.run_log, "w") as file_out:
+            with open(self.error_log, "w") as error_out:
+                subprocess.call(['dakota',
                                  '-i', self.input_file,
                                  '-o', self.output_file],
-                                stderr=subprocess.STDOUT)
+                                stdout=file_out,
+                                stderr=error_out)
