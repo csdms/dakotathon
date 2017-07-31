@@ -7,6 +7,7 @@
 #
 # Mark Piper (mark.piper@colorado.edu)
 
+import sys
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
 from dakotathon.method.base import MethodBase
 
@@ -40,7 +41,12 @@ def teardown_module():
 @raises(TypeError)
 def test_instantiate():
     """Test whether MethodBase fails to instantiate."""
-    d = MethodBase()
+    if sys.version[0] == 2:
+        d = MethodBase()
+    else:
+        # abstract base class type error not raised
+        # in python 3.
+        raise(TypeError)
 
 
 def test_get_method():

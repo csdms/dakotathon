@@ -179,7 +179,7 @@ class Dakota(Experiment):
 
         """
         config = {}
-        if isinstance(file_like, types.StringTypes):
+        if isinstance(file_like, str):
             with open(file_like, 'r') as fp:
                 config = yaml.load(fp.read())
         else:
