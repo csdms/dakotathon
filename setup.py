@@ -1,5 +1,3 @@
-from ez_setup import use_setuptools
-use_setuptools()
 from setuptools import setup, find_packages
 from dakotathon import __version__
 from dakotathon.run_plugin import plugin_script

@@ -45,6 +45,10 @@ def teardown():
         os.remove(config_file)
     if os.path.exists('dakota.in'):
         os.remove('dakota.in')
+    if os.path.exists('run.log'):
+        os.remove('run.log')
+    if os.path.exists('stderr.log'):
+        os.remove('stderr.log')
     if is_hydrotrend_installed():
         for dname in glob.glob('HYDRO_*'):
             shutil.rmtree(dname)

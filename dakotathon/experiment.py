@@ -95,6 +95,7 @@ class Experiment(object):
                 kwargs['upper_bounds']
             except KeyError:
                 kwargs['upper_bounds'] = (2.0, 2.0)
+  
         for section in Experiment.blocks:
             cls = self._import(section, eval(section), **kwargs)
             attr = '_' + section
@@ -251,6 +252,6 @@ class Experiment(object):
         <BLANKLINE>
         """
         s = '# Dakota input file\n'
-        for section in Experiment.blocks:
+        for section in self.blocks:
             s += str(getattr(self, section))
         return s

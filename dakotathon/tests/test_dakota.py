@@ -198,3 +198,85 @@ def test_default_run_without_input_file():
             k.run()
         except CalledProcessError:
             pass
+
+def test_changing_parameter_names():
+    """Test ability to provide parameter names."""
+    run_directory = 'looped_runs'
+    configuration_file = 'an_excellent_yaml.yaml'
+    run_log = 'run_output_here.log'
+    error_log = 'no_errors_here.log'
+    k = Dakota(method='vector_parameter_study',
+               run_directory=run_directory,
+               configuration_file=configuration_file,
+               run_log=run_log,
+               error_log=error_log)
+    k.write_input_file()
+    k.serialize()
+    k.run()
+
+    os.remove(configuration_file)
+    os.remove(run_log)
+    os.remove(error_log)
+    teardown_module()
+    os.chdir('..')
+    os.rmdir(run_directory)
+
+def test_running_in_different_directory():
+    """Test ability to provide parameter names."""
+    work_folder = 'dakota_runs'
+    run_directory = os.path.abspath(os.path.join(os.getcwd(), 'running_here'))
+    work_directory = os.path.abspath(os.path.join(run_directory, '..','working_here'))
+    configuration_file = 'another_excellent_yaml.yaml'
+    run_log = 'run_output_should_be_here.log'
+    error_log = 'no_errors_inside.log'
+    parameters_file = 'parameters_here.in'
+    results_file = 'neato_results_here.out'
+    input_file = 'dakota_LHC.in'
+    output_file = 'dakota_LHC.out'
+    
+    k = Dakota(method='sampling',
+               variables='uniform_uncertain',
+               input_file=input_file,
+               output_file=output_file,
+               interface='fork',
+               run_directory=run_directory,
+               work_directory=work_directory,
+               work_folder=work_folder,
+               configuration_file=configuration_file,
+               run_log=run_log,
+               error_log=error_log,
+               parameters_file=parameters_file,
+               results_file=results_file)
+    k.write_input_file()
+    k.serialize()
+    k.run()
+    
+    # teardown. First the run directory.
+    lhc_filelist = [ f for f in os.listdir(".") if f.startswith("LHS") ]
+    for f in lhc_filelist:
+        os.remove(f)
+    os.remove(configuration_file)
+    os.remove(run_log)
+    os.remove(error_log)
+    os.remove(input_file)
+    os.remove(output_file)
+    teardown_module()
+    [os.remove(f) for f in os.listdir(".")]
+    os.chdir('..')
+    os.rmdir(run_directory)
+
+    # Second the working directory.
+
+    num_runs = k.method.samples
+    os.chdir(work_directory)
+    for i in range(num_runs):
+        folder_name = '.'.join([work_folder, str(i+1)])
+        os.chdir(folder_name)
+        os.remove(parameters_file)
+        os.remove(results_file)
+        os.chdir('..')
+        os.rmdir(folder_name)
+    os.chdir('..')
+    os.rmdir(work_directory)
+
+

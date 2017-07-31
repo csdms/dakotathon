@@ -16,6 +16,13 @@ class Concrete(InterfaceBase):
     def __init__(self):
         InterfaceBase.__init__(self)
 
+class ConcreteKwargs(InterfaceBase):
+    
+    """A subclass of InterfaceBase with kwargs for testing."""
+    
+    def __init__(self, **kwargs):
+        InterfaceBase.__init__(self, **kwargs)
+
 
 def setup_module():
     """Fixture called before any tests are performed."""
@@ -113,3 +120,9 @@ def test_str_length_removing_asynchronous():
     s = str(b)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, default_str_lines)
+
+def test_change_parameter_names():
+    """Test changing the parameter names."""
+    c = ConcreteKwargs(work_directory='yay',
+                       parameters_file='hello.in',
+                       results_file='goodbye.out')
