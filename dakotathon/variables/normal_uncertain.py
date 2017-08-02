@@ -168,7 +168,7 @@ class NormalUncertain(VariablesBase):
         NormalUncertain:
 
         >>> v = NormalUncertain()
-        >>> print v
+        >>> print(v)
         variables
           normal_uncertain = 2
             descriptors = 'x1' 'x2'

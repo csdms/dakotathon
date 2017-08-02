@@ -154,7 +154,7 @@ class StochasticCollocation(UncertaintyQuantificationBase):
         StochasticCollocation:
 
         >>> m = StochasticCollocation()
-        >>> print m
+        >>> print(m)
         method
           stoch_collocation
             sample_type = random

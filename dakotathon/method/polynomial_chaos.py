@@ -140,7 +140,7 @@ class PolynomialChaos(UncertaintyQuantificationBase):
         PolynomialChaos:
 
         >>> m = PolynomialChaos()
-        >>> print m
+        >>> print(m)
         method
           polynomial_chaos
             sample_type = random

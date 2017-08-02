@@ -117,7 +117,7 @@ class UniformUncertain(VariablesBase):
         UniformUncertain:
 
         >>> v = UniformUncertain()
-        >>> print v
+        >>> print(v)
         variables
           uniform_uncertain = 2
             descriptors = 'x1' 'x2'
