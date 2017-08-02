@@ -23,7 +23,7 @@ including:
 * [polynomial_chaos](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-polynomial_chaos.html), and
 * [stoch_collocation](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html).
 
-The CDI is currently alpha-level software
+The CDI is currently beta-level software
 supported on Linux and macOS.
 API documentation is available at http://csdms-dakota.readthedocs.io.
 
@@ -44,7 +44,8 @@ Follow the instructions on the Dakota website
 for [downloading](https://dakota.sandia.gov/download.html) and
 [installing](https://dakota.sandia.gov/content/install-linux-macosx)
 a precompiled Dakota binary for your system.
-Dakota version 6.1 is supported by the CSDMS Dakota Interface.
+Dakota version 6.1 and greater
+is supported by the CSDMS Dakota Interface.
 
 ## Execution: standalone
 
