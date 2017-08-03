@@ -223,7 +223,7 @@ class Experiment(object):
         Print the Dakota input file to the console.
 
         >>> x = Experiment()
-        >>> print x
+        >>> print(x)
         # Dakota input file
         environment
           tabular_data

@@ -120,7 +120,7 @@ class ContinuousDesign(VariablesBase):
         ContinuousDesign:
 
         >>> v = ContinuousDesign()
-        >>> print v
+        >>> print(v)
         variables
           continuous_design = 2
             descriptors = 'x1' 'x2'
