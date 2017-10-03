@@ -17,7 +17,7 @@ before_install:
   - source .ci/travis/install_python.sh
   - pip install -r requirements.txt
   - conda info -a
-  - conda build -q -c csdms-stack .conda
+  - conda build -q -c csdms-stack .conda --old-build-string
   - pip install coveralls
   - source .ci/travis/install_dakota.sh
   - dakota --version
