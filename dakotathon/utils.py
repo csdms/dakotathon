@@ -71,7 +71,7 @@ def add_dyld_library_path():
         os.environ['DYLD_LIBRARY_PATH'] = os.path.join(dakota_dir, 'bin') \
                                           + os.path.pathsep \
                                           + os.path.join(dakota_dir, 'lib')
-    except AttributeError:
+    except (AttributeError, TypeError):
         return None
 
 
