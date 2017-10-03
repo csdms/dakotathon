@@ -1,7 +1,7 @@
 env:
   matrix:
     - TRAVIS_PYTHON_VERSION="2.7"
-    - TRAVIS_PYTHON_VERSION="3.5"
+    - TRAVIS_PYTHON_VERSION="3.*"
   global:
     secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
 
@@ -17,14 +17,14 @@ before_install:
   - source .ci/travis/install_python.sh
   - pip install -r requirements.txt
   - conda info -a
-  - conda build -q -c csdms .conda
+  - conda build -q -c csdms-stack .conda --old-build-string
   - pip install coveralls
   - source .ci/travis/install_dakota.sh
   - dakota --version
-  - conda install -q -c csdms hydrotrend
+  - conda install -q -c csdms-stack hydrotrend
 
 install:
-  - conda install -q -c csdms dakotathon --use-local
+  - conda install -q -c csdms-stack dakotathon --use-local
 
 script:
   - nosetests --with-doctest --with-coverage --cover-package=dakotathon
