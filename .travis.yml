@@ -16,6 +16,7 @@ before_install:
   - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
   - source .ci/travis/install_python.sh
   - pip install -r requirements.txt
+  - conda install -c csdms-stack basic-modeling-interface
   - conda info -a
   - conda build -q -c csdms-stack .conda --old-build-string
   - pip install coveralls
