@@ -2,7 +2,7 @@
 # Install Dakota and its dependencies.
 
 if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-    base_url="http://csdms.colorado.edu/pub/tools/dakota"
+    base_url="https://csdms.colorado.edu/pub/tools/dakota"
     dakota_filename="dakota-6.4.0.Linux-Ubuntu.x86_64.tar.gz"
     deb_filename="libicu48_4.8.1.1-12+deb7u3_amd64.deb"
     wget $base_url/$deb_filename
