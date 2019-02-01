@@ -20,7 +20,7 @@ before_install:
   - conda info -a
   - conda build -q -c csdms-stack .conda --old-build-string
   - pip install coveralls
-  - source .ci/travis/install_dakota.sh
+  - conda install -c defaults -c csdms-stack -c conda-forge dakota
   - dakota --version
   - conda install -q -c csdms-stack hydrotrend
 
