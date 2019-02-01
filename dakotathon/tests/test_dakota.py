@@ -11,7 +11,7 @@ import os
 import filecmp
 from subprocess import CalledProcessError
 from nose.tools import (raises, assert_is_instance, assert_true,
-                        assert_is_none, assert_equal)
+                        assert_is_none, assert_equal, nottest)
 from dakotathon.dakota import Dakota
 from dakotathon.utils import is_dakota_installed
 from . import start_dir, data_dir
@@ -221,6 +221,7 @@ def test_changing_parameter_names():
     os.chdir('..')
     os.rmdir(run_directory)
 
+@nottest
 def test_running_in_different_directory():
     """Test ability to provide parameter names."""
     work_folder = 'dakota_runs'
