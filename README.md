@@ -6,10 +6,10 @@
 [![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
 [![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/downloads.svg)](https://anaconda.org/csdms/dakotathon)
 
-# CSDMS Dakota Interface
+# Dakotathon
 
-The CSDMS Dakota Interface (CDI; code named *Dakotathon*) provides
-a [Basic Model Interface](http://dx.doi.org/10.1016/j.cageo.2012.04.002)
+Dakotathon provides
+a [Basic Model Interface](https://bmi.readthedocs.io)
 and a Python API for a subset of the methods
 included in the [Dakota](https://dakota.sandia.gov/)
 iterative systems analysis toolkit,
@@ -23,15 +23,15 @@ including:
 * [polynomial_chaos](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-polynomial_chaos.html), and
 * [stoch_collocation](https://dakota.sandia.gov/sites/default/files/docs/6.1/html-ref/method-stoch_collocation.html).
 
-The CDI is currently beta-level software
+Dakotathon is currently beta-level software
 supported on Linux and macOS.
 API documentation is available at http://csdms-dakota.readthedocs.io.
 
 ## Installation
 
-Install the CDI into an Anaconda Python distribution with
+Install Dakotathon into an Anaconda Python distribution with
 
-    $ conda install -c csdms dakotathon
+    $ conda install -c csdms-stack dakotathon
 
 or install from source with
 
@@ -39,17 +39,19 @@ or install from source with
 	$ cd dakota
 	$ python setup.py install
 
-The CDI requires Dakota.
-Follow the instructions on the Dakota website
+Dakotathon requires Dakota 6.1 or greater.
+Install Dakota through conda with
+
+    $ conda install -c csdms-stack -c conda-forge dakota
+
+or, follow the instructions on the Dakota website
 for [downloading](https://dakota.sandia.gov/download.html) and
 [installing](https://dakota.sandia.gov/content/install-linux-macosx)
 a precompiled Dakota binary for your system.
-Dakota version 6.1 and greater
-is supported by the CSDMS Dakota Interface.
 
 ## Execution: standalone
 
-Import the CDI into a Python session with:
+Import Dakotathon into a Python session with:
 
 	>>> from dakotathon import Dakota
 
@@ -72,7 +74,7 @@ and
 **dakota.dat** (tabular output),
 in the current directory.
 
-For more in-depth examples of using the CSDMS Dakota Interface
+For more in-depth examples of using Dakotathon
 as a standalone Python package,
 see the Jupyter Notebooks
 in the [examples](./examples) directory
@@ -94,8 +96,8 @@ See https://github.com/csdms/dakota/issues/17 for more information.
 
 ## Execution: in PyMT
 
-The CDI can also be called as a component in a WMT execution server
-where [PyMT](https://github.com/csdms/pymt) has been installed.
+Dakotathon can also be called as a component in
+[PyMT](https://github.com/csdms/pymt).
 For example,
 to perform a centered parameter study on the Hydrotrend component,
 start with imports:
@@ -173,7 +175,7 @@ and
 **dakota.dat** (tabular output),
 in the current directory.
 
-For more in-depth examples of using the CDI with PyMT,
+For more in-depth examples of using Dakotathon with PyMT,
 see the Python scripts
 in the [examples](./examples) directory
 of this repository.
