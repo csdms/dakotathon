@@ -20,6 +20,10 @@ before_install:
   - conda info -a
   - conda build -q -c csdms-stack .conda --old-build-string
   - conda install coveralls
+  - |
+    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+      conda install openmpi=1.6
+    fi
   - conda install -c defaults -c csdms-stack -c conda-forge dakota
   - dakota --version
   - conda install -q -c csdms-stack hydrotrend
