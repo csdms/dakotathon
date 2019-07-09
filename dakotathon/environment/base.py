@@ -15,5 +15,5 @@ class EnvironmentBase(object):
 
     def __str__(self):
         """The header for the environment block of a Dakota input file."""
-        s = 'environment\n'
-        return(s)
+        s = "environment\n"
+        return s

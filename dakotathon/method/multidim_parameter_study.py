@@ -5,16 +5,14 @@ from .base import MethodBase
 from ..utils import to_iterable
 
 
-classname = 'MultidimParameterStudy'
+classname = "MultidimParameterStudy"
 
 
 class MultidimParameterStudy(MethodBase):
 
     """Define parameters for a Dakota multidim parameter study."""
 
-    def __init__(self,
-                 partitions=(10, 8),
-                 **kwargs):
+    def __init__(self, partitions=(10, 8), **kwargs):
         """Create a new Dakota multidim parameter study.
 
         Parameters
@@ -31,7 +29,7 @@ class MultidimParameterStudy(MethodBase):
 
         """
         MethodBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
         self._partitions = partitions
 
     @property
@@ -63,8 +61,8 @@ class MultidimParameterStudy(MethodBase):
         """
         s = MethodBase.__str__(self)
         partitions = to_iterable(self.partitions)
-        s += '    partitions ='
+        s += "    partitions ="
         for p in partitions:
-            s += ' {}'.format(p)
-        s += '\n\n'
-        return(s)
+            s += " {}".format(p)
+        s += "\n\n"
+        return s

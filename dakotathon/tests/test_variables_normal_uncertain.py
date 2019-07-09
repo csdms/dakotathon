@@ -7,7 +7,7 @@ from dakotathon.variables.normal_uncertain import NormalUncertain
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = NormalUncertain()
 
@@ -31,13 +31,13 @@ def test_str_special():
 def test_variables():
     """Test the variables attribute."""
     value = c.variables
-    assert_equal(value, 'normal_uncertain')
+    assert_equal(value, "normal_uncertain")
 
 
 def test_descriptors():
     """Test getting the default descriptors property."""
     value = c.descriptors
-    assert_equal(value, ('x1', 'x2'))
+    assert_equal(value, ("x1", "x2"))
 
 
 def test_get_means():
@@ -48,7 +48,7 @@ def test_get_means():
 def test_set_means():
     """Test setting the means property."""
     x = NormalUncertain()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.means = items
         assert_equal(x.means, items)
 
@@ -69,7 +69,7 @@ def test_get_std_deviations():
 def test_set_std_deviations():
     """Test setting the std_deviations property."""
     x = NormalUncertain()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.std_deviations = items
         assert_equal(x.std_deviations, items)
 
@@ -90,7 +90,7 @@ def test_get_lower_bounds():
 def test_set_lower_bounds():
     """Test setting the lower_bounds property."""
     x = NormalUncertain()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.lower_bounds = items
         assert_equal(x.lower_bounds, items)
 
@@ -111,7 +111,7 @@ def test_get_upper_bounds():
 def test_set_upper_bounds():
     """Test setting the upper_bounds property."""
     x = NormalUncertain()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.upper_bounds = items
         assert_equal(x.upper_bounds, items)
 
@@ -132,7 +132,7 @@ def test_get_initial_point():
 def test_set_initial_point():
     """Test setting the initial_point property."""
     x = NormalUncertain()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.initial_point = items
         assert_equal(x.initial_point, items)
 
@@ -154,9 +154,9 @@ def test_default_str_length():
 
 def test_str_length_with_options():
     """Test the length of __str__ with optional props set."""
-    x = NormalUncertain(lower_bounds=(-10, -10),
-                        upper_bounds=(10,10),
-                        initial_point=(0, 0))
+    x = NormalUncertain(
+        lower_bounds=(-10, -10), upper_bounds=(10, 10), initial_point=(0, 0)
+    )
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 9)

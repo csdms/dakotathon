@@ -4,7 +4,7 @@ from .base import VariablesBase
 from ..utils import to_iterable
 
 
-classname = 'NormalUncertain'
+classname = "NormalUncertain"
 
 
 class NormalUncertain(VariablesBase):
@@ -21,14 +21,16 @@ class NormalUncertain(VariablesBase):
 
     """
 
-    def __init__(self,
-                 descriptors=('x1', 'x2'),
-                 means=(0.0, 0.0),
-                 std_deviations=(1.0, 1.0),
-                 lower_bounds=None,
-                 upper_bounds=None,
-                 initial_point=None,
-                 **kwargs):
+    def __init__(
+        self,
+        descriptors=("x1", "x2"),
+        means=(0.0, 0.0),
+        std_deviations=(1.0, 1.0),
+        lower_bounds=None,
+        upper_bounds=None,
+        initial_point=None,
+        **kwargs
+    ):
         """Create the parameter set for a normal uncertain variable.
 
         Parameters
@@ -56,7 +58,7 @@ class NormalUncertain(VariablesBase):
 
         """
         VariablesBase.__init__(self, **kwargs)
-        self.variables = self.__module__.rsplit('.')[-1]
+        self.variables = self.__module__.rsplit(".")[-1]
         self._descriptors = descriptors
         self._means = means
         self._std_deviations = std_deviations
@@ -185,33 +187,28 @@ class NormalUncertain(VariablesBase):
         s = VariablesBase.__str__(self)
         if self.means is not None:
             means = to_iterable(self.means)
-            s += '\n' \
-                 + '    means ='
+            s += "\n" + "    means ="
             for m in means:
-                s += ' {}'.format(m)
+                s += " {}".format(m)
         if self.std_deviations is not None:
             std_deviations = to_iterable(self.std_deviations)
-            s += '\n' \
-                 + '    std_deviations ='
+            s += "\n" + "    std_deviations ="
             for m in std_deviations:
-                s += ' {}'.format(m)
+                s += " {}".format(m)
         if self.lower_bounds is not None:
             lower_bounds = to_iterable(self.lower_bounds)
-            s += '\n' \
-                 + '    lower_bounds ='
+            s += "\n" + "    lower_bounds ="
             for b in lower_bounds:
-                s += ' {}'.format(b)
+                s += " {}".format(b)
         if self.upper_bounds is not None:
             upper_bounds = to_iterable(self.upper_bounds)
-            s += '\n' \
-                 + '    upper_bounds ='
+            s += "\n" + "    upper_bounds ="
             for b in upper_bounds:
-                s += ' {}'.format(b)
+                s += " {}".format(b)
         if self.initial_point is not None:
             initial_point = to_iterable(self.initial_point)
-            s += '\n' \
-                 + '    initial_point ='
+            s += "\n" + "    initial_point ="
             for pt in initial_point:
-                s += ' {}'.format(pt)
-        s += '\n\n'
-        return(s)
+                s += " {}".format(pt)
+        s += "\n\n"
+        return s

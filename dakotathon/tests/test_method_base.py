@@ -21,19 +21,21 @@ class Concrete(MethodBase):
     def __init__(self, **kwargs):
         MethodBase.__init__(self, **kwargs)
 
+
 # Fixtures -------------------------------------------------------------
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
-    c = Concrete(method='centered_parameter_study')
+    c = Concrete(method="centered_parameter_study")
 
 
 def teardown_module():
     """Called after all tests have completed."""
     pass
+
 
 # Tests ----------------------------------------------------------------
 
@@ -46,7 +48,7 @@ def test_instantiate():
     else:
         # abstract base class type error not raised
         # in python 3.
-        raise(TypeError)
+        raise (TypeError)
 
 
 def test_get_method():
@@ -57,7 +59,7 @@ def test_get_method():
 def test_set_method():
     """Test setting the method property."""
     x = Concrete()
-    m = 'sampling'
+    m = "sampling"
     x.method = m
     assert_equal(x.method, m)
 

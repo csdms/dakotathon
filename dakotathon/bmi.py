@@ -9,7 +9,7 @@ class BmiDakota(Bmi):
 
     """The BMI implementation for the CSDMS Dakota interface."""
 
-    _name = 'Dakota'
+    _name = "Dakota"
 
     def __init__(self):
         """Create a BmiDakota instance."""
@@ -637,7 +637,7 @@ class CenteredParameterStudy(BmiDakota):
 
     """BMI implementation of a Dakota centered parameter study."""
 
-    _name = 'CenteredParameterStudy'
+    _name = "CenteredParameterStudy"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -649,7 +649,7 @@ class CenteredParameterStudy(BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='centered_parameter_study')
+            self._model = Dakota(method="centered_parameter_study")
         else:
             self._model = Dakota.from_file_like(filename)
 
@@ -660,7 +660,7 @@ class MultidimParameterStudy(BmiDakota):
 
     """BMI implementation of a Dakota multidim parameter study."""
 
-    _name = 'MultidimParameterStudy'
+    _name = "MultidimParameterStudy"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -672,7 +672,7 @@ class MultidimParameterStudy(BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='multidim_parameter_study')
+            self._model = Dakota(method="multidim_parameter_study")
         else:
             self._model = Dakota.from_file_like(filename)
 
@@ -683,7 +683,7 @@ class VectorParameterStudy(BmiDakota):
 
     """BMI implementation of a Dakota vector parameter study."""
 
-    _name = 'VectorParameterStudy'
+    _name = "VectorParameterStudy"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -695,18 +695,18 @@ class VectorParameterStudy(BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='vector_parameter_study')
+            self._model = Dakota(method="vector_parameter_study")
         else:
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
 
 
-class Sampling (BmiDakota):
+class Sampling(BmiDakota):
 
     """BMI implementation of a Dakota sampling study."""
 
-    _name = 'Sampling'
+    _name = "Sampling"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -718,19 +718,18 @@ class Sampling (BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='sampling',
-                                 variables='uniform_uncertain')
+            self._model = Dakota(method="sampling", variables="uniform_uncertain")
         else:
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
 
 
-class PolynomialChaos (BmiDakota):
+class PolynomialChaos(BmiDakota):
 
     """BMI implementation of a Dakota study with the polynomial chaos method."""
 
-    _name = 'PolynomialChaos'
+    _name = "PolynomialChaos"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -742,19 +741,20 @@ class PolynomialChaos (BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='polynomial_chaos',
-                                 variables='uniform_uncertain')
+            self._model = Dakota(
+                method="polynomial_chaos", variables="uniform_uncertain"
+            )
         else:
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
 
 
-class StochasticCollocation (BmiDakota):
+class StochasticCollocation(BmiDakota):
 
     """BMI implementation of a Dakota study with the stochastic collocation method."""
 
-    _name = 'StochasticCollocation'
+    _name = "StochasticCollocation"
 
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
@@ -766,19 +766,21 @@ class StochasticCollocation (BmiDakota):
 
         """
         if filename is None:
-            self._model = Dakota(method='stoch_collocation',
-                                 variables='uniform_uncertain')
+            self._model = Dakota(
+                method="stoch_collocation", variables="uniform_uncertain"
+            )
         else:
             self._model = Dakota.from_file_like(filename)
 
         self._model.write_input_file()
 
-class PsuadeMoat (BmiDakota):
-    
+
+class PsuadeMoat(BmiDakota):
+
     """BMI implementation of a Dakota study with the PSUADE MOAT method."""
-    
-    _name = 'PsuadeMoat'
-    
+
+    _name = "PsuadeMoat"
+
     def initialize(self, filename=None):
         """Create a Dakota instance and input file.
             
@@ -789,9 +791,8 @@ class PsuadeMoat (BmiDakota):
             
             """
         if filename is None:
-            self._model = Dakota(method='psuade_moat',
-                                 variables='uniform_uncertain')
+            self._model = Dakota(method="psuade_moat", variables="uniform_uncertain")
         else:
             self._model = Dakota.from_file_like(filename)
-        
+
         self._model.write_input_file()

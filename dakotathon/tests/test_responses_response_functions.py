@@ -7,7 +7,7 @@ from dakotathon.responses.response_functions import ResponseFunctions
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global r
     r = ResponseFunctions()
 
@@ -31,13 +31,13 @@ def test_str_special():
 def test_responses():
     """Test the responses attribute."""
     value = r.responses
-    assert_equal(value, 'response_functions')
+    assert_equal(value, "response_functions")
 
 
 def test_response_descriptors():
     """Test getting the default response_descriptors property."""
     value = r.response_descriptors
-    assert_equal(value, ('y1',))
+    assert_equal(value, ("y1",))
 
 
 def test_get_response_files():
@@ -48,7 +48,7 @@ def test_get_response_files():
 def test_set_response_files():
     """Test setting the response_files property."""
     x = ResponseFunctions()
-    for files in [['HYDROASCII.QS'], ('HYDROASCII.QS',)]:
+    for files in [["HYDROASCII.QS"], ("HYDROASCII.QS",)]:
         x.response_files = files
         assert_equal(x.response_files, files)
 
@@ -64,20 +64,20 @@ def test_set_response_files_fails_with_nonstring_scalar():
 def test_set_response_files_string_to_tuple():
     """Test that a string is converted to a tuple."""
     x = ResponseFunctions()
-    value = 'x1'
+    value = "x1"
     x.response_files = value
     assert_true(type(x.response_files) is tuple)
 
 
 def test_get_response_statistics():
     """Test getting the default response_statistics property."""
-    assert_equal(r.response_statistics, ('mean',))
+    assert_equal(r.response_statistics, ("mean",))
 
 
 def test_set_response_statistics():
     """Test setting the response_statistics property."""
     x = ResponseFunctions()
-    for stats in [['median'], ('median',)]:
+    for stats in [["median"], ("median",)]:
         x.response_statistics = stats
         assert_equal(x.response_statistics, stats)
 
@@ -93,7 +93,7 @@ def test_set_response_statistics_fails_with_nonstring_scalar():
 def test_set_response_statistics_string_to_tuple():
     """Test that a string is converted to a tuple."""
     x = ResponseFunctions()
-    value = 'x1'
+    value = "x1"
     x.response_statistics = value
     assert_true(type(x.response_statistics) is tuple)
 

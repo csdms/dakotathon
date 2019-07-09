@@ -7,12 +7,12 @@ from .test_interface_base import default_str_lines
 
 
 run_dir = os.getcwd()
-config_file = os.path.join(run_dir, 'dakota.yaml')
+config_file = os.path.join(run_dir, "dakota.yaml")
 
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global f
     f = Fork()
 
@@ -35,7 +35,7 @@ def test_str_special():
 
 def test_interface_attribute():
     """Test value of the interface attribute."""
-    assert_equal(f.interface, 'fork')
+    assert_equal(f.interface, "fork")
 
 
 # def test_analysis_driver_attribute():
@@ -50,8 +50,8 @@ def test_config_file_path():
 
 def test_file_attributes():
     """Test value of parameters_file and results_file attributes."""
-    assert_equal(f.parameters_file, 'params.in')
-    assert_equal(f.results_file, 'results.out')
+    assert_equal(f.parameters_file, "params.in")
+    assert_equal(f.results_file, "results.out")
 
 
 def test_str_length():

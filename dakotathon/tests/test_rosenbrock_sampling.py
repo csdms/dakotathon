@@ -8,17 +8,17 @@ from . import data_dir
 
 
 run_dir = os.getcwd()
-input_file = os.path.join(run_dir, 'dakota.in')
-known_input_file = os.path.join(data_dir, 'rosenbrock_sampling.in')
-config_file = os.path.join(run_dir, 'dakota.yaml')
-known_config_file = os.path.join(data_dir, 'default_sampling_dakota.yaml')
+input_file = os.path.join(run_dir, "dakota.in")
+known_input_file = os.path.join(data_dir, "rosenbrock_sampling.in")
+config_file = os.path.join(run_dir, "dakota.yaml")
+known_config_file = os.path.join(data_dir, "default_sampling_dakota.yaml")
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global d
-    d = Dakota(method='sampling', variables='uniform_uncertain')
+    d = Dakota(method="sampling", variables="uniform_uncertain")
 
 
 def teardown_module():
@@ -40,4 +40,3 @@ def test_create_input_file():
 #     """Test whether a known config file can be matched."""
 #     d.serialize(config_file)
 #     assert_true(filecmp.cmp(known_config_file, config_file))
-

@@ -4,7 +4,7 @@ from .base import VariablesBase
 from ..utils import to_iterable
 
 
-classname = 'ContinuousDesign'
+classname = "ContinuousDesign"
 
 
 class ContinuousDesign(VariablesBase):
@@ -16,12 +16,14 @@ class ContinuousDesign(VariablesBase):
 
     """
 
-    def __init__(self,
-                 descriptors=('x1', 'x2'),
-                 initial_point=None,
-                 lower_bounds=None,
-                 upper_bounds=None,
-                 **kwargs):
+    def __init__(
+        self,
+        descriptors=("x1", "x2"),
+        initial_point=None,
+        lower_bounds=None,
+        upper_bounds=None,
+        **kwargs
+    ):
         """Create the parameter set for a continuous design variable.
 
         Parameters
@@ -45,14 +47,14 @@ class ContinuousDesign(VariablesBase):
 
         """
         VariablesBase.__init__(self, **kwargs)
-        self.variables = self.__module__.rsplit('.')[-1]
+        self.variables = self.__module__.rsplit(".")[-1]
         self._descriptors = descriptors
         self._initial_point = initial_point
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
 
-        if initial_point is None and lower_bounds is None and \
-            upper_bounds is None: self._initial_point = (-0.3, 0.2)
+        if initial_point is None and lower_bounds is None and upper_bounds is None:
+            self._initial_point = (-0.3, 0.2)
 
     @property
     def initial_point(self):
@@ -136,21 +138,18 @@ class ContinuousDesign(VariablesBase):
         s = VariablesBase.__str__(self)
         if self.initial_point is not None:
             initial_point = to_iterable(self.initial_point)
-            s += '\n' \
-                 + '    initial_point ='
+            s += "\n" + "    initial_point ="
             for pt in initial_point:
-                s += ' {}'.format(pt)
+                s += " {}".format(pt)
         if self.lower_bounds is not None:
             lower_bounds = to_iterable(self.lower_bounds)
-            s += '\n' \
-                 + '    lower_bounds ='
+            s += "\n" + "    lower_bounds ="
             for b in lower_bounds:
-                s += ' {}'.format(b)
+                s += " {}".format(b)
         if self.upper_bounds is not None:
             upper_bounds = to_iterable(self.upper_bounds)
-            s += '\n' \
-                 + '    upper_bounds ='
+            s += "\n" + "    upper_bounds ="
             for b in upper_bounds:
-                s += ' {}'.format(b)
-        s += '\n\n'
-        return(s)
+                s += " {}".format(b)
+        s += "\n\n"
+        return s

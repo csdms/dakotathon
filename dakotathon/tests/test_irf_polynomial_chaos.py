@@ -8,7 +8,7 @@ from dakotathon.utils import is_dakota_installed
 from . import dakota_files
 
 
-config_val = {'method': 'polynomial_chaos', 'variables': 'uniform_uncertain'}
+config_val = {"method": "polynomial_chaos", "variables": "uniform_uncertain"}
 
 
 def setup():
@@ -21,17 +21,17 @@ def teardown():
     for f in list(dakota_files.values()):
         if os.path.exists(f):
             os.remove(f)
-    for f in glob.glob('LHS_*'):
+    for f in glob.glob("LHS_*"):
         if os.path.exists(f):
             os.remove(f)
-    if os.path.exists('S4'):
-        os.remove('S4')
+    if os.path.exists("S4"):
+        os.remove("S4")
 
 
 def test_component_name():
     model = PolynomialChaos()
     name = model.get_component_name()
-    assert_equal(name, 'PolynomialChaos')
+    assert_equal(name, "PolynomialChaos")
     assert_is(model.get_component_name(), name)
 
 
@@ -61,31 +61,31 @@ def test_time_step():
 def test_initialize_defaults():
     model = PolynomialChaos()
     model.initialize()
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file_like():
     from io import BytesIO
-    
-    config = BytesIO(yaml.dump(config_val, encoding=('utf-8')))
+
+    config = BytesIO(yaml.dump(config_val, encoding=("utf-8")))
     model = PolynomialChaos()
     model.initialize(config)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file():
     import tempfile
 
-    with tempfile.NamedTemporaryFile('w', delete=False) as fp:
+    with tempfile.NamedTemporaryFile("w", delete=False) as fp:
         fp.write(yaml.dump(config_val))
         fname = fp.name
 
     model = PolynomialChaos()
     model.initialize(fname)
     os.remove(fname)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 def test_update():
@@ -93,9 +93,9 @@ def test_update():
         model = PolynomialChaos()
         model.initialize()
         model.update()
-        assert_true(os.path.exists(dakota_files['input']))
-        assert_true(os.path.exists(dakota_files['output']))
-        assert_true(os.path.exists(dakota_files['data']))
+        assert_true(os.path.exists(dakota_files["input"]))
+        assert_true(os.path.exists(dakota_files["output"]))
+        assert_true(os.path.exists(dakota_files["data"]))
 
 
 def test_finalize():

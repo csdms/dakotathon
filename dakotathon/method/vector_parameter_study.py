@@ -5,17 +5,14 @@ from .base import MethodBase
 from ..utils import to_iterable
 
 
-classname = 'VectorParameterStudy'
+classname = "VectorParameterStudy"
 
 
 class VectorParameterStudy(MethodBase):
 
     """Define parameters for a Dakota vector parameter study."""
 
-    def __init__(self,
-                 final_point=(1.1, 1.3),
-                 n_steps=10,
-                 **kwargs):
+    def __init__(self, final_point=(1.1, 1.3), n_steps=10, **kwargs):
         """Create a new Dakota vector parameter study.
 
         Parameters
@@ -33,7 +30,7 @@ class VectorParameterStudy(MethodBase):
 
         """
         MethodBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
         self._final_point = final_point
         self._n_steps = n_steps
 
@@ -85,9 +82,8 @@ class VectorParameterStudy(MethodBase):
         """
         s = MethodBase.__str__(self)
         final_point = to_iterable(self.final_point)
-        s += '    final_point ='
+        s += "    final_point ="
         for pt in final_point:
-            s += ' {}'.format(pt)
-        s += '\n' \
-            + '    num_steps = {}\n\n'.format(self.n_steps)
-        return(s)
+            s += " {}".format(pt)
+        s += "\n" + "    num_steps = {}\n\n".format(self.n_steps)
+        return s

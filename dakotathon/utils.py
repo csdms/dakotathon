@@ -19,7 +19,7 @@ def is_dakota_installed():
 
     """
     try:
-        subprocess.check_call(['dakota', '--version'])
+        subprocess.check_call(["dakota", "--version"])
     except (subprocess.CalledProcessError, OSError):
         return False
     else:
@@ -44,8 +44,9 @@ def which(prog, env=None):
     prog = os.environ.get(env or prog.upper(), prog)
 
     try:
-        prog = subprocess.check_output(['/usr/bin/which', prog],
-                                       stderr=open('/dev/null', 'w')).strip()
+        prog = subprocess.check_output(
+            ["/usr/bin/which", prog], stderr=open("/dev/null", "w")
+        ).strip()
     except subprocess.CalledProcessError:
         return None
     else:
@@ -60,7 +61,7 @@ def which_dakota():
     The path to the Dakota executable, or None if Dakota is not found.
 
     """
-    return which('dakota')
+    return which("dakota")
 
 
 def add_dyld_library_path():
@@ -68,9 +69,11 @@ def add_dyld_library_path():
     try:
         dakota_exe = which_dakota()
         dakota_dir = os.path.dirname(os.path.dirname(dakota_exe))
-        os.environ['DYLD_LIBRARY_PATH'] = os.path.join(dakota_dir, 'bin') \
-                                          + os.path.pathsep \
-                                          + os.path.join(dakota_dir, 'lib')
+        os.environ["DYLD_LIBRARY_PATH"] = (
+            os.path.join(dakota_dir, "bin")
+            + os.path.pathsep
+            + os.path.join(dakota_dir, "lib")
+        )
     except (AttributeError, TypeError):
         return None
 
@@ -91,10 +94,10 @@ def get_response_descriptors(params_file):
     """
     labels = []
     try:
-        with open(params_file, 'r') as fp:
+        with open(params_file, "r") as fp:
             for line in fp:
-                if re.search('ASV_', line):
-                    labels.append(''.join(re.findall(':(\S+)', line)))
+                if re.search("ASV_", line):
+                    labels.append("".join(re.findall(":(\S+)", line)))
     except IOError:
         return None
     else:
@@ -117,8 +120,8 @@ def get_attributes(obj):
     """
     attrs = obj.__dict__.copy()
     for key in attrs:
-        if key.startswith('_'):
-            new_key = key.lstrip('_')
+        if key.startswith("_"):
+            new_key = key.lstrip("_")
             attrs[new_key] = attrs.pop(key)
     return attrs
 
@@ -137,10 +140,10 @@ def get_configuration_file(params_file):
       The path to the configuration file for the Dakota experiment.
 
     """
-    with open(params_file, 'r') as fp:
+    with open(params_file, "r") as fp:
         for line in fp:
-            if re.search('AC_1', line):
-                return line.split('AC_1')[0].strip()
+            if re.search("AC_1", line):
+                return line.split("AC_1")[0].strip()
 
 
 def deserialize(config_file):
@@ -152,7 +155,7 @@ def deserialize(config_file):
       Configuration settings in a dict.
 
     """
-    with open(config_file, 'r') as fp:
+    with open(config_file, "r") as fp:
         return yaml.safe_load(fp)
 
 
@@ -192,7 +195,7 @@ def write_results(results_file, values, labels):
     arr_values = np.asarray(values)
     arr_labels = np.asarray(labels)
     results = np.column_stack((arr_values, arr_labels))
-    np.savetxt(results_file, results, delimiter="\t", fmt='%s')
+    np.savetxt(results_file, results, delimiter="\t", fmt="%s")
 
 
 def to_iterable(x):
@@ -237,23 +240,25 @@ def configure_parameters(params):
 
     """
     try:
-        params['component']
+        params["component"]
     except KeyError:
         try:
-            params['plugin']
+            params["plugin"]
         except KeyError:
-            params['component'] = params['plugin'] = ''
+            params["component"] = params["plugin"] = ""
         else:
-            params['analysis_driver'] = 'dakota_run_plugin'
-            params['component'] = ''
+            params["analysis_driver"] = "dakota_run_plugin"
+            params["component"] = ""
     else:
-        params['analysis_driver'] = 'dakota_run_component'
-        params['plugin'] = ''
+        params["analysis_driver"] = "dakota_run_component"
+        params["plugin"] = ""
 
-    to_check = ['descriptors',
-                'response_descriptors',
-                'response_statistics',
-                'auxiliary_files',]
+    to_check = [
+        "descriptors",
+        "response_descriptors",
+        "response_statistics",
+        "auxiliary_files",
+    ]
     for item in to_check:
         try:
             if isinstance(params[item], str):
@@ -262,10 +267,10 @@ def configure_parameters(params):
             pass
 
     subs = {}
-    for item in params['descriptors']:
-        subs[item] = '{' + item + '}'
+    for item in params["descriptors"]:
+        subs[item] = "{" + item + "}"
     try:
-        subs['run_duration'] = params['run_duration']
+        subs["run_duration"] = params["run_duration"]
     except KeyError:
         pass
 

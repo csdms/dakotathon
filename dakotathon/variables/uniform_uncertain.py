@@ -4,7 +4,7 @@ from .base import VariablesBase
 from ..utils import to_iterable
 
 
-classname = 'UniformUncertain'
+classname = "UniformUncertain"
 
 
 class UniformUncertain(VariablesBase):
@@ -16,12 +16,14 @@ class UniformUncertain(VariablesBase):
 
     """
 
-    def __init__(self,
-                 descriptors=('x1', 'x2'),
-                 lower_bounds=(-2.0, -2.0),
-                 upper_bounds=(2.0, 2.0),
-                 initial_point=None,
-                 **kwargs):
+    def __init__(
+        self,
+        descriptors=("x1", "x2"),
+        lower_bounds=(-2.0, -2.0),
+        upper_bounds=(2.0, 2.0),
+        initial_point=None,
+        **kwargs
+    ):
         """Create the parameter set for a uniform uncertain variable.
 
         Parameters
@@ -45,7 +47,7 @@ class UniformUncertain(VariablesBase):
 
         """
         VariablesBase.__init__(self, **kwargs)
-        self.variables = self.__module__.rsplit('.')[-1]
+        self.variables = self.__module__.rsplit(".")[-1]
         self._descriptors = descriptors
         self._lower_bounds = lower_bounds
         self._upper_bounds = upper_bounds
@@ -134,21 +136,18 @@ class UniformUncertain(VariablesBase):
         s = VariablesBase.__str__(self)
         if self.lower_bounds is not None:
             lower_bounds = to_iterable(self.lower_bounds)
-            s += '\n' \
-                 + '    lower_bounds ='
+            s += "\n" + "    lower_bounds ="
             for b in lower_bounds:
-                s += ' {}'.format(b)
+                s += " {}".format(b)
         if self.upper_bounds is not None:
             upper_bounds = to_iterable(self.upper_bounds)
-            s += '\n' \
-                 + '    upper_bounds ='
+            s += "\n" + "    upper_bounds ="
             for b in upper_bounds:
-                s += ' {}'.format(b)
+                s += " {}".format(b)
         if self.initial_point is not None:
             initial_point = to_iterable(self.initial_point)
-            s += '\n' \
-                 + '    initial_point ='
+            s += "\n" + "    initial_point ="
             for pt in initial_point:
-                s += ' {}'.format(pt)
-        s += '\n\n'
-        return(s)
+                s += " {}".format(pt)
+        s += "\n\n"
+        return s

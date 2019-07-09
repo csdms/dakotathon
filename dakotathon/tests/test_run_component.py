@@ -3,25 +3,23 @@
 import os
 import sys
 import shutil
-from nose.tools import (raises, with_setup, assert_is_instance,
-                        assert_true)
-from dakotathon.run_component import (run_component, main,
-                                      ComponentOutput, RunComponent)
+from nose.tools import raises, with_setup, assert_is_instance, assert_true
+from dakotathon.run_component import run_component, main, ComponentOutput, RunComponent
 from dakotathon.dakota import Dakota
 from . import start_dir, data_dir
 
 
 run_dir = os.getcwd()
-local_config_file = 'dakota.yaml'
+local_config_file = "dakota.yaml"
 config_file = os.path.join(data_dir, local_config_file)
-local_params_file = 'params.in'
+local_params_file = "params.in"
 params_file = os.path.join(data_dir, local_params_file)
-results_file = 'results.out'
+results_file = "results.out"
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
 
 
 def setup():
@@ -69,19 +67,19 @@ def test_main_no_args():
 
 def test_ComponentOutput_init1():
     """Test ComponentOutput initializes with string input"""
-    x = ComponentOutput(None, 'foo')
+    x = ComponentOutput(None, "foo")
     assert_is_instance(x, ComponentOutput)
 
 
 def test_ComponentOutput_init2():
     """Test ComponentOutput initializes with list input"""
-    x = ComponentOutput(None, ['foo', 'bar'])
+    x = ComponentOutput(None, ["foo", "bar"])
     assert_is_instance(x, ComponentOutput)
 
 
 def test_ComponentOutput_get_value():
     """Test ComponentOutput.get_value() returns list"""
-    var_name = 'foo'
+    var_name = "foo"
     x = ComponentOutput(None, var_name)
     assert_true(type(x.get_value(var_name)) is list)
 

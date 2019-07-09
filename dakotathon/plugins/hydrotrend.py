@@ -6,17 +6,16 @@ import shutil
 import subprocess
 import numpy as np
 from .base import PluginBase
-from dakotathon.utils import (get_response_descriptors,
-                              write_results, compute_statistic)
+from dakotathon.utils import get_response_descriptors, write_results, compute_statistic
 
 
-classname = 'HydroTrend'
+classname = "HydroTrend"
 
 
 def is_installed():
     """Check whether HydroTrend is in the execution path."""
     try:
-        subprocess.call(['hydrotrend', '--version'])
+        subprocess.call(["hydrotrend", "--version"])
     except OSError:
         return False
     else:
@@ -27,15 +26,17 @@ class HydroTrend(PluginBase):
 
     """Represent a HydroTrend simulation in a Dakota experiment."""
 
-    def __init__(self,
-                 input_dir='HYDRO_IN',
-                 output_dir='HYDRO_OUTPUT',
-                 input_file='HYDRO.IN',
-                 input_template='HYDRO.IN.dtmpl',
-                 hypsometry_file='HYDRO0.HYPS',
-                 output_files=None,
-                 output_statistics=None,
-                 **kwargs):
+    def __init__(
+        self,
+        input_dir="HYDRO_IN",
+        output_dir="HYDRO_OUTPUT",
+        input_file="HYDRO.IN",
+        input_template="HYDRO.IN.dtmpl",
+        hypsometry_file="HYDRO0.HYPS",
+        output_files=None,
+        output_statistics=None,
+        **kwargs
+    ):
         """Configure a default HydroTrend simulation.
 
         Parameters
@@ -91,9 +92,9 @@ class HydroTrend(PluginBase):
         """
         self.setup_files(config)
         self.setup_directories(config)
-        subprocess.call(['dprepro', config['parameters_file'],
-                         self.input_template,
-                         self.input_file])
+        subprocess.call(
+            ["dprepro", config["parameters_file"], self.input_template, self.input_file]
+        )
         shutil.copy(self.input_file, self.input_dir)
         shutil.copy(self.hypsometry_file, self.input_dir)
 
@@ -106,10 +107,10 @@ class HydroTrend(PluginBase):
           Configuration settings for a Dakota experiment.
 
         """
-        self.input_template = config['template_file']
-        self.hypsometry_file, = config['auxiliary_files']
-        self.output_files = config['response_files']
-        self.output_statistics = config['response_statistics']
+        self.input_template = config["template_file"]
+        self.hypsometry_file, = config["auxiliary_files"]
+        self.output_files = config["response_files"]
+        self.output_statistics = config["response_statistics"]
 
     def setup_directories(self, config):
         """Configure HydroTrend input and output directories.
@@ -122,8 +123,8 @@ class HydroTrend(PluginBase):
         """
         # self.input_dir = os.path.join(config['run_directory'], 'HYDRO_IN')
         # self.output_dir = os.path.join(config['run_directory'], 'HYDRO_OUTPUT')
-        self.input_dir = os.path.join('..', 'HYDRO_IN')
-        self.output_dir = os.path.join('..', 'HYDRO_OUTPUT')
+        self.input_dir = os.path.join("..", "HYDRO_IN")
+        self.output_dir = os.path.join("..", "HYDRO_OUTPUT")
         if os.path.exists(self.input_dir) is False:
             os.mkdir(self.input_dir, 0o755)
         if os.path.exists(self.output_dir) is False:
@@ -131,9 +132,9 @@ class HydroTrend(PluginBase):
 
     def call(self):
         """Invoke HydroTrend through the shell."""
-        subprocess.call(['hydrotrend',
-                         '--in-dir', self.input_dir,
-                         '--out-dir', self.output_dir])
+        subprocess.call(
+            ["hydrotrend", "--in-dir", self.input_dir, "--out-dir", self.output_dir]
+        )
 
     def load(self, output_file):
         """Read a column of data from a HydroTrend output file.
@@ -152,9 +153,9 @@ class HydroTrend(PluginBase):
         try:
             series = np.loadtxt(output_file, skiprows=2)
         except (IOError, StopIteration):
-            return(None)
+            return None
         else:
-            return(series)
+            return series
 
     def calculate(self):
         """Calculate Dakota output functions."""
@@ -165,7 +166,7 @@ class HydroTrend(PluginBase):
                 val = compute_statistic(rstat, series)
                 self.output_values.append(val)
             else:
-                self.output_values.append(float('nan'))
+                self.output_values.append(float("nan"))
 
     def write(self, params_file, results_file):
         """Write the Dakota results file.

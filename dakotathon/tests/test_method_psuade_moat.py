@@ -17,7 +17,7 @@ from dakotathon.method.psuade_moat import PsuadeMoat
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global p
     p = PsuadeMoat(seed=395, samples=5)
 
@@ -25,6 +25,7 @@ def setup_module():
 def teardown_module():
     """Called after all tests have completed."""
     pass
+
 
 # Tests ----------------------------------------------------------------
 def test_init_minimum_parameter():
@@ -35,7 +36,8 @@ def test_init_minimum_parameter():
 
 def test_method_attr():
     """Test the value of the method attribute."""
-    assert_equal(p.method, 'psuade_moat')
+    assert_equal(p.method, "psuade_moat")
+
 
 # partition attribute --------------------------------------------------
 def test_get_partitions():
@@ -96,18 +98,19 @@ def test_set_samples_fails_if_tuple():
     samples = (3, 4)
     p.samples = samples
 
+
 # model_pointer attribute --------------------------------------------------
 def test_get_model_pointer():
     """Test getting the model_pointer property."""
     assert_true(type(p.model_pointer) is type(None))
-    
-    p1 = PsuadeMoat(seed=395, samples=5, model_pointer='mymodel')
+
+    p1 = PsuadeMoat(seed=395, samples=5, model_pointer="mymodel")
     assert_true(type(p1.model_pointer) is str)
 
 
 def test_set_model_pointer():
     """Test setting the model_pointer property."""
-    model_pointer = 'my_model'
+    model_pointer = "my_model"
     p.model_pointer = model_pointer
     assert_equal(p.model_pointer, model_pointer)
 
@@ -117,6 +120,7 @@ def test_set_model_pointer_fails_if_tuple():
     """Test that the model_pointer property fails with tuple."""
     model_pointer = (3, 4)
     p.model_pointer = model_pointer
+
 
 def test_str_special():
     """Test type of __str__ method results."""
@@ -134,7 +138,7 @@ def test_str_length():
 
 def test_model_pointer_str_length():
     """Test the length of __str__ with a model_pointer."""
-    p1 = PsuadeMoat(seed=395, samples=5, model_pointer='mymodel')
+    p1 = PsuadeMoat(seed=395, samples=5, model_pointer="mymodel")
     s = str(p1)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 7)

@@ -1,15 +1,20 @@
 """Tests for the dakotathon.experiment module."""
 
 import os
-from nose.tools import (raises, assert_true, assert_equal,
-                        assert_is_instance, assert_is_none,
-                        assert_is_not_none)
+from nose.tools import (
+    raises,
+    assert_true,
+    assert_equal,
+    assert_is_instance,
+    assert_is_none,
+    assert_is_not_none,
+)
 from dakotathon.experiment import Experiment
 
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global x
     x = Experiment()
 
@@ -32,7 +37,7 @@ def test_get_component():
 def test_set_component():
     """Test setting the component attribute."""
     e = Experiment()
-    component = 'hydrotrend'
+    component = "hydrotrend"
     e.component = component
     assert_equal(e.component, component)
 
@@ -40,16 +45,17 @@ def test_set_component():
 def test_component_sets_interface_type():
     """Test that setting component sets fork interface."""
     from .test_interface_fork import Fork
-    component = 'hydrotrend'
+
+    component = "hydrotrend"
     e = Experiment(component=component)
     assert_is_instance(e.interface, Fork)
 
 
 def test_component_sets_analysis_driver():
     """Test that setting component sets the analysis driver."""
-    component = 'hydrotrend'
+    component = "hydrotrend"
     e = Experiment(component=component)
-    assert_equal(e.interface.analysis_driver, 'dakota_run_component')
+    assert_equal(e.interface.analysis_driver, "dakota_run_component")
 
 
 def test_get_plugin():
@@ -60,7 +66,7 @@ def test_get_plugin():
 def test_set_plugin():
     """Test setting the plugin attribute."""
     e = Experiment()
-    plugin = 'hydrotrend'
+    plugin = "hydrotrend"
     e.plugin = plugin
     assert_equal(e.plugin, plugin)
 
@@ -68,28 +74,29 @@ def test_set_plugin():
 def test_plugin_sets_interface_type():
     """Test that setting plugin sets fork interface."""
     from .test_interface_fork import Fork
-    plugin = 'hydrotrend'
+
+    plugin = "hydrotrend"
     e = Experiment(plugin=plugin)
     assert_is_instance(e.interface, Fork)
 
 
 def test_plugin_sets_analysis_driver():
     """Test that setting plugin sets the analysis driver."""
-    plugin = 'hydrotrend'
+    plugin = "hydrotrend"
     e = Experiment(plugin=plugin)
-    assert_equal(e.interface.analysis_driver, 'dakota_run_plugin')
+    assert_equal(e.interface.analysis_driver, "dakota_run_plugin")
 
 
 @raises(AttributeError)
 def test_setting_component_and_plugin():
     """Test that setting component and plugin raises exception."""
-    component = plugin = 'hydrotrend'
+    component = plugin = "hydrotrend"
     e = Experiment(component=component, plugin=plugin)
 
 
 def test_multidim_parameter_study_uses_bounds():
     """Test that the multidim parameter study uses bounds."""
-    e = Experiment(method='multidim_parameter_study')
+    e = Experiment(method="multidim_parameter_study")
     assert_is_not_none(e.variables.lower_bounds)
     assert_is_not_none(e.variables.upper_bounds)
 
@@ -97,12 +104,14 @@ def test_multidim_parameter_study_uses_bounds():
 def test_get_environment():
     """Test getting the environment property."""
     from .test_environment_base import EnvironmentBase
+
     assert_is_instance(x.environment, EnvironmentBase)
 
 
 def test_set_environment():
     """Test setting the environment property."""
     from .test_environment_base import Concrete
+
     e = Experiment()
     inst = Concrete()
     e.environment = inst
@@ -120,12 +129,14 @@ def test_set_environment_fails_if_not_instance():
 def test_get_method():
     """Test getting the method property."""
     from .test_method_base import MethodBase
+
     assert_is_instance(x.method, MethodBase)
 
 
 def test_set_method():
     """Test setting the method property."""
     from .test_method_base import Concrete
+
     e = Experiment()
     inst = Concrete()
     e.method = inst
@@ -143,12 +154,14 @@ def test_set_method_fails_if_not_instance():
 def test_get_variables():
     """Test getting the variables property."""
     from .test_variables_base import VariablesBase
+
     assert_is_instance(x.variables, VariablesBase)
 
 
 def test_set_variables():
     """Test setting the variables property."""
     from .test_variables_base import Concrete
+
     e = Experiment()
     inst = Concrete()
     e.variables = inst
@@ -166,12 +179,14 @@ def test_set_variables_fails_if_not_instance():
 def test_get_interface():
     """Test getting the interface property."""
     from .test_interface_base import InterfaceBase
+
     assert_is_instance(x.interface, InterfaceBase)
 
 
 def test_set_interface():
     """Test setting the interface property."""
     from .test_interface_base import Concrete
+
     e = Experiment()
     inst = Concrete()
     e.interface = inst
@@ -189,12 +204,14 @@ def test_set_interface_fails_if_not_instance():
 def test_get_responses():
     """Test getting the responses property."""
     from .test_responses_base import ResponsesBase
+
     assert_is_instance(x.responses, ResponsesBase)
 
 
 def test_set_responses():
     """Test setting the responses property."""
     from .test_responses_base import Concrete
+
     e = Experiment()
     inst = Concrete()
     e.responses = inst
@@ -221,4 +238,3 @@ def test_str_length():
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 25)
-

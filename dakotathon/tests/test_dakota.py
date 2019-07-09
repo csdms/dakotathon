@@ -10,8 +10,14 @@
 import os
 import filecmp
 from subprocess import CalledProcessError
-from nose.tools import (raises, assert_is_instance, assert_true,
-                        assert_is_none, assert_equal, nottest)
+from nose.tools import (
+    raises,
+    assert_is_instance,
+    assert_true,
+    assert_is_none,
+    assert_equal,
+    nottest,
+)
 from dakotathon.dakota import Dakota
 from dakotathon.utils import is_dakota_installed
 from . import start_dir, data_dir
@@ -19,23 +25,28 @@ from . import start_dir, data_dir
 
 # Global variables -----------------------------------------------------
 
-input_file, \
-    output_file, \
-    data_file, \
-    restart_file = ['dakota.' + ext for ext in ('in', 'out', 'dat', 'rst')]
-alt_input_file = 'alt.in'
-known_file = os.path.join(data_dir, 'default_vps_dakota.in')
-known_config_file = os.path.join(data_dir, 'default_vps_dakota.yaml')
-default_config_file = os.path.join(os.getcwd(), 'dakota.yaml')
-tmp_files = [input_file, alt_input_file, output_file, data_file,
-             restart_file, 'dakota.yaml']
+input_file, output_file, data_file, restart_file = [
+    "dakota." + ext for ext in ("in", "out", "dat", "rst")
+]
+alt_input_file = "alt.in"
+known_file = os.path.join(data_dir, "default_vps_dakota.in")
+known_config_file = os.path.join(data_dir, "default_vps_dakota.yaml")
+default_config_file = os.path.join(os.getcwd(), "dakota.yaml")
+tmp_files = [
+    input_file,
+    alt_input_file,
+    output_file,
+    data_file,
+    restart_file,
+    "dakota.yaml",
+]
 
 # Fixtures -------------------------------------------------------------
 
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global d
     d = Dakota()
 
@@ -45,6 +56,7 @@ def teardown_module():
     for f in tmp_files:
         if os.path.exists(f):
             os.remove(f)
+
 
 # Tests ----------------------------------------------------------------
 
@@ -57,14 +69,14 @@ def test_init_no_parameters():
 
 def test_init_method_parameter():
     """Test constructor with method parameter."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     assert_is_instance(k, Dakota)
 
 
 @raises(ImportError)
 def test_init_method_parameter_unknown_module():
     """Test constructor with method parameter fails with unknown module."""
-    k = Dakota(method='__foo$')
+    k = Dakota(method="__foo$")
 
 
 def test_init_from_file_like1():
@@ -75,7 +87,7 @@ def test_init_from_file_like1():
 
 def test_init_from_file_like2():
     """Test creating an instance from an open config file object."""
-    with open(known_config_file, 'r') as fp:
+    with open(known_config_file, "r") as fp:
         k = Dakota.from_file_like(fp)
     assert_is_instance(k, Dakota)
 
@@ -88,7 +100,7 @@ def test_get_run_directory():
 def test_set_run_directory():
     """Test setting the run_directory property."""
     k = Dakota()
-    run_dir = '/foo/bar'
+    run_dir = "/foo/bar"
     k.run_directory = run_dir
     assert_equal(k.run_directory, run_dir)
 
@@ -113,7 +125,7 @@ def test_get_template_file():
 def test_set_template_file():
     """Test setting the template_file property."""
     k = Dakota()
-    template_file = 'foo.tmpl'
+    template_file = "foo.tmpl"
     k.template_file = template_file
     assert_equal(os.path.basename(k.template_file), template_file)
 
@@ -126,7 +138,7 @@ def test_get_auxiliary_files():
 def test_set_auxiliary_files():
     """Test setting the auxiliary_files property."""
     k = Dakota()
-    for auxiliary_file in ['foo.in', ['foo.in'], ('foo.in',)]:
+    for auxiliary_file in ["foo.in", ["foo.in"], ("foo.in",)]:
         k.auxiliary_files = auxiliary_file
         if type(auxiliary_file) is not str:
             auxiliary_file = auxiliary_file[0]
@@ -144,35 +156,35 @@ def test_set_auxiliary_files_fails_if_scalar():
 
 def test_write_configuration_file():
     """Test serialize method produces config file."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     k.serialize()
     assert_true(os.path.exists(k.configuration_file))
 
 
 def test_write_input_file_with_method_default_name():
     """Test write_input_file works when instanced with method."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     k.write_input_file()
     assert_true(os.path.exists(k.input_file))
 
 
 def test_write_input_file_with_method_new_name():
     """Test write_input_file works when instanced with method and new name."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     k.write_input_file(input_file=alt_input_file)
     assert_true(os.path.exists(k.input_file))
 
 
 def test_input_file_contents():
     """Test write_input_file results versus a known input file."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     k.write_input_file()
     assert_true(filecmp.cmp(known_file, input_file))
 
 
 def test_setup():
     """Test the setup method."""
-    k = Dakota(method='vector_parameter_study')
+    k = Dakota(method="vector_parameter_study")
     k.setup()
     assert_true(os.path.exists(k.configuration_file))
     assert_true(filecmp.cmp(known_file, input_file))
@@ -199,17 +211,20 @@ def test_default_run_without_input_file():
         except CalledProcessError:
             pass
 
+
 def test_changing_parameter_names():
     """Test ability to provide parameter names."""
-    run_directory = 'looped_runs'
-    configuration_file = 'an_excellent_yaml.yaml'
-    run_log = 'run_output_here.log'
-    error_log = 'no_errors_here.log'
-    k = Dakota(method='vector_parameter_study',
-               run_directory=run_directory,
-               configuration_file=configuration_file,
-               run_log=run_log,
-               error_log=error_log)
+    run_directory = "looped_runs"
+    configuration_file = "an_excellent_yaml.yaml"
+    run_log = "run_output_here.log"
+    error_log = "no_errors_here.log"
+    k = Dakota(
+        method="vector_parameter_study",
+        run_directory=run_directory,
+        configuration_file=configuration_file,
+        run_log=run_log,
+        error_log=error_log,
+    )
     k.write_input_file()
     k.serialize()
     k.run()
@@ -218,42 +233,45 @@ def test_changing_parameter_names():
     os.remove(run_log)
     os.remove(error_log)
     teardown_module()
-    os.chdir('..')
+    os.chdir("..")
     os.rmdir(run_directory)
+
 
 @nottest
 def test_running_in_different_directory():
     """Test ability to provide parameter names."""
-    work_folder = 'dakota_runs'
-    run_directory = os.path.abspath(os.path.join(os.getcwd(), 'running_here'))
-    work_directory = os.path.abspath(os.path.join(run_directory, '..','working_here'))
-    configuration_file = 'another_excellent_yaml.yaml'
-    run_log = 'run_output_should_be_here.log'
-    error_log = 'no_errors_inside.log'
-    parameters_file = 'parameters_here.in'
-    results_file = 'neato_results_here.out'
-    input_file = 'dakota_LHC.in'
-    output_file = 'dakota_LHC.out'
-    
-    k = Dakota(method='sampling',
-               variables='uniform_uncertain',
-               input_file=input_file,
-               output_file=output_file,
-               interface='fork',
-               run_directory=run_directory,
-               work_directory=work_directory,
-               work_folder=work_folder,
-               configuration_file=configuration_file,
-               run_log=run_log,
-               error_log=error_log,
-               parameters_file=parameters_file,
-               results_file=results_file)
+    work_folder = "dakota_runs"
+    run_directory = os.path.abspath(os.path.join(os.getcwd(), "running_here"))
+    work_directory = os.path.abspath(os.path.join(run_directory, "..", "working_here"))
+    configuration_file = "another_excellent_yaml.yaml"
+    run_log = "run_output_should_be_here.log"
+    error_log = "no_errors_inside.log"
+    parameters_file = "parameters_here.in"
+    results_file = "neato_results_here.out"
+    input_file = "dakota_LHC.in"
+    output_file = "dakota_LHC.out"
+
+    k = Dakota(
+        method="sampling",
+        variables="uniform_uncertain",
+        input_file=input_file,
+        output_file=output_file,
+        interface="fork",
+        run_directory=run_directory,
+        work_directory=work_directory,
+        work_folder=work_folder,
+        configuration_file=configuration_file,
+        run_log=run_log,
+        error_log=error_log,
+        parameters_file=parameters_file,
+        results_file=results_file,
+    )
     k.write_input_file()
     k.serialize()
     k.run()
-    
+
     # teardown. First the run directory.
-    lhc_filelist = [ f for f in os.listdir(".") if f.startswith("LHS") ]
+    lhc_filelist = [f for f in os.listdir(".") if f.startswith("LHS")]
     for f in lhc_filelist:
         os.remove(f)
     os.remove(configuration_file)
@@ -263,7 +281,7 @@ def test_running_in_different_directory():
     os.remove(output_file)
     teardown_module()
     [os.remove(f) for f in os.listdir(".")]
-    os.chdir('..')
+    os.chdir("..")
     os.rmdir(run_directory)
 
     # Second the working directory.
@@ -271,13 +289,11 @@ def test_running_in_different_directory():
     num_runs = k.method.samples
     os.chdir(work_directory)
     for i in range(num_runs):
-        folder_name = '.'.join([work_folder, str(i+1)])
+        folder_name = ".".join([work_folder, str(i + 1)])
         os.chdir(folder_name)
         os.remove(parameters_file)
         os.remove(results_file)
-        os.chdir('..')
+        os.chdir("..")
         os.rmdir(folder_name)
-    os.chdir('..')
+    os.chdir("..")
     os.rmdir(work_directory)
-
-

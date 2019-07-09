@@ -10,12 +10,14 @@ class ResponsesBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self,
-                 responses='response_functions',
-                 response_descriptors=(),
-                 gradients='no_gradients',
-                 hessians='no_hessians',
-                 **kwargs):
+    def __init__(
+        self,
+        responses="response_functions",
+        response_descriptors=(),
+        gradients="no_gradients",
+        hessians="no_hessians",
+        **kwargs
+    ):
         """Create a default response.
 
         Parameters
@@ -58,5 +60,5 @@ class ResponsesBase(object):
 
     def __str__(self):
         """Define the responses block of a Dakota input file."""
-        s = 'responses\n'
-        return(s)
+        s = "responses\n"
+        return s

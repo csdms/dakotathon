@@ -59,18 +59,16 @@ March 2017
 
 from .base import MethodBase
 
-classname = 'PsuadeMoat'
+classname = "PsuadeMoat"
+
 
 class PsuadeMoat(MethodBase):
 
     """Define parameters for a Dakota PSUADE MOAT study."""
 
-    def __init__(self,
-                samples=12,
-                seed=500,
-                partitions=5,
-                model_pointer=None,
-                 **kwargs):
+    def __init__(
+        self, samples=12, seed=500, partitions=5, model_pointer=None, **kwargs
+    ):
         """Create a new Dakota PSUADE MOAT study.
         
         Parameters
@@ -94,7 +92,7 @@ class PsuadeMoat(MethodBase):
 
         """
         MethodBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
         self._partitions = partitions
         self._model_pointer = model_pointer
 
@@ -126,7 +124,7 @@ class PsuadeMoat(MethodBase):
     def partitions(self):
         """Number partitions of each parameter dimension."""
         return self._partitions
-    
+
     @partitions.setter
     def partitions(self, value):
         """Set value of partitions.
@@ -145,7 +143,7 @@ class PsuadeMoat(MethodBase):
     def samples(self):
         """Number of samples."""
         return self._samples
-    
+
     @samples.setter
     def samples(self, value):
         """Set value of samples.
@@ -164,7 +162,7 @@ class PsuadeMoat(MethodBase):
     def seed(self):
         """Seed value."""
         return self._seed
-    
+
     @seed.setter
     def seed(self, value):
         """Set value of seed.
@@ -191,9 +189,9 @@ class PsuadeMoat(MethodBase):
         if self._model_pointer is None:
             pass
         else:
-            s += '    model_pointer = {} \n'.format(self._model_pointer)
-        s += '    partitions = {} \n'.format(self.partitions)
-        s += '    samples = {} \n'.format(self.samples)
-        s += '    seed = {} \n'.format(self.seed)
-        s += '\n'
-        return(s)
+            s += "    model_pointer = {} \n".format(self._model_pointer)
+        s += "    partitions = {} \n".format(self.partitions)
+        s += "    samples = {} \n".format(self.samples)
+        s += "    seed = {} \n".format(self.seed)
+        s += "\n"
+        return s

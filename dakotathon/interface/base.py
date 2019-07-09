@@ -3,6 +3,7 @@
 from abc import ABCMeta, abstractmethod
 import os
 
+
 class InterfaceBase(object):
 
     """Describe features common to all Dakota interfaces."""
@@ -10,17 +11,19 @@ class InterfaceBase(object):
     __metaclass__ = ABCMeta
 
     @abstractmethod
-    def __init__(self,
-                 interface='direct',
-                 id_interface='CSDMS',
-                 analysis_driver='rosenbrock',
-                 asynchronous=False,
-                 evaluation_concurrency=2,
-                 work_directory=os.getcwd(),
-                 work_folder='run',
-                 parameters_file='params.in',
-                 results_file='results.out',
-                 **kwargs):
+    def __init__(
+        self,
+        interface="direct",
+        id_interface="CSDMS",
+        analysis_driver="rosenbrock",
+        asynchronous=False,
+        evaluation_concurrency=2,
+        work_directory=os.getcwd(),
+        work_folder="run",
+        parameters_file="params.in",
+        results_file="results.out",
+        **kwargs
+    ):
 
         """Create a default interface.
 
@@ -100,14 +103,17 @@ class InterfaceBase(object):
 
     def __str__(self):
         """Define the interface block of a Dakota input file."""
-        s = 'interface\n' \
-            + '  id_interface = {!r}\n'.format(self.id_interface) \
-            + '  {}\n'.format(self.interface) \
-            + '  analysis_driver = {!r}'.format(self.analysis_driver)
+        s = (
+            "interface\n"
+            + "  id_interface = {!r}\n".format(self.id_interface)
+            + "  {}\n".format(self.interface)
+            + "  analysis_driver = {!r}".format(self.analysis_driver)
+        )
         if self.asynchronous:
-            s += '\n' \
-                 + '  asynchronous'
-            s += '\n' \
-                 + '  evaluation_concurrency =' \
-                 + ' {}'.format(self.evaluation_concurrency)
-        return(s)
+            s += "\n" + "  asynchronous"
+            s += (
+                "\n"
+                + "  evaluation_concurrency ="
+                + " {}".format(self.evaluation_concurrency)
+            )
+        return s

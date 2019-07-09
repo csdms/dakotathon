@@ -4,18 +4,20 @@ from .base import ResponsesBase
 from ..utils import to_iterable
 
 
-classname = 'ResponseFunctions'
+classname = "ResponseFunctions"
 
 
 class ResponseFunctions(ResponsesBase):
 
     """Define attributes for Dakota response functions."""
 
-    def __init__(self,
-                 response_descriptors=('y1',),
-                 response_files=(),
-                 response_statistics=('mean',),
-                 **kwargs):
+    def __init__(
+        self,
+        response_descriptors=("y1",),
+        response_files=(),
+        response_statistics=("mean",),
+        **kwargs
+    ):
         """Create a response using response functions.
 
         Parameters
@@ -37,7 +39,7 @@ class ResponseFunctions(ResponsesBase):
 
         """
         ResponsesBase.__init__(self, **kwargs)
-        self.responses = self.__module__.rsplit('.')[-1]
+        self.responses = self.__module__.rsplit(".")[-1]
         self._response_descriptors = response_descriptors
         self._response_files = response_files
         self._response_statistics = response_statistics
@@ -94,11 +96,9 @@ class ResponseFunctions(ResponsesBase):
         """
         descriptors = to_iterable(self.response_descriptors)
         s = ResponsesBase.__str__(self)
-        s += '  response_functions = {}\n'.format(len(descriptors))
-        s += '    response_descriptors ='
+        s += "  response_functions = {}\n".format(len(descriptors))
+        s += "    response_descriptors ="
         for rd in descriptors:
-            s += ' {!r}'.format(rd)
-        s += '\n' \
-             + '  {}\n'.format(self.gradients) \
-             + '  {}\n'.format(self.hessians)
-        return(s)
+            s += " {!r}".format(rd)
+        s += "\n" + "  {}\n".format(self.gradients) + "  {}\n".format(self.hessians)
+        return s

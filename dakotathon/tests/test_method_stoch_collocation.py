@@ -1,13 +1,18 @@
 """Tests for the dakotathon.method.stoch_collocation module."""
 
-from nose.tools import (raises, assert_is_instance, assert_true,
-                        assert_equal, assert_is_none)
+from nose.tools import (
+    raises,
+    assert_is_instance,
+    assert_true,
+    assert_equal,
+    assert_is_none,
+)
 from dakotathon.method.stoch_collocation import StochasticCollocation
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global x
     x = StochasticCollocation()
 
@@ -25,7 +30,7 @@ def test_init_no_params():
 
 def test_method_attr():
     """Test the value of the method attribute."""
-    assert_equal(x.method, 'stoch_collocation')
+    assert_equal(x.method, "stoch_collocation")
 
 
 def test_get_basis_polynomial_family():
@@ -36,7 +41,7 @@ def test_get_basis_polynomial_family():
 def test_set_basis_polynomial_family():
     """Test setting the basis_polynomial_family property."""
     m = StochasticCollocation()
-    p = 'piecewise'
+    p = "piecewise"
     m.basis_polynomial_family = p
     assert_equal(m.basis_polynomial_family, p)
 
@@ -44,7 +49,7 @@ def test_set_basis_polynomial_family():
 @raises(TypeError)
 def test_basis_polynomial_family_fails_if_unknown_type():
     """Test that setting basis_polynomial_family to an unknown type fails."""
-    value = 'foobar'
+    value = "foobar"
     x.basis_polynomial_family = value
 
 
@@ -77,7 +82,7 @@ def test_get_dimension_preference():
 def test_set_dimension_preference():
     """Test setting the dimension_preference property."""
     m = StochasticCollocation()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         m.dimension_preference = items
         assert_equal(m.dimension_preference, items)
 
@@ -106,7 +111,7 @@ def test_dimension_preference_sets_quadrature_order2():
 def test_dimension_preference_sets_quadrature_order3():
     """Test that dimension_preference sets quadrature order."""
     m = StochasticCollocation(dimension_preference=[3, 4, 5])
-    m.quadrature_order=42
+    m.quadrature_order = 42
     assert_equal(m.quadrature_order, max(m.dimension_preference))
 
 

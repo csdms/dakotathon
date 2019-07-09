@@ -4,7 +4,7 @@
 from .base import UncertaintyQuantificationBase
 
 
-classname = 'StochasticCollocation'
+classname = "StochasticCollocation"
 
 
 class StochasticCollocation(UncertaintyQuantificationBase):
@@ -28,12 +28,14 @@ class StochasticCollocation(UncertaintyQuantificationBase):
 
     """
 
-    def __init__(self,
-                 coefficient_estimation_approach='quadrature_order_sequence',
-                 quadrature_order=2,
-                 dimension_preference=(),
-                 nested=False,
-                 **kwargs):
+    def __init__(
+        self,
+        coefficient_estimation_approach="quadrature_order_sequence",
+        quadrature_order=2,
+        dimension_preference=(),
+        nested=False,
+        **kwargs
+    ):
         """Create a new Dakota stochastic collocation study.
 
         Parameters
@@ -56,7 +58,7 @@ class StochasticCollocation(UncertaintyQuantificationBase):
 
         """
         UncertaintyQuantificationBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
         self.coefficient_estimation_approach = coefficient_estimation_approach
         self._quadrature_order = quadrature_order
         self._dimension_preference = dimension_preference
@@ -75,9 +77,8 @@ class StochasticCollocation(UncertaintyQuantificationBase):
         The polynomial type.
 
         """
-        if value not in ('extended', 'askey', 'wiener', 'piecewise'):
-            msg = 'Polynomial type must be extended, askey, ' \
-                  + 'piecewise, or wiener'
+        if value not in ("extended", "askey", "wiener", "piecewise"):
+            msg = "Polynomial type must be extended, askey, " + "piecewise, or wiener"
             raise TypeError(msg)
         self._basis_polynomial_family = value
 
@@ -171,16 +172,16 @@ class StochasticCollocation(UncertaintyQuantificationBase):
 
         """
         s = UncertaintyQuantificationBase.__str__(self)
-        if self.coefficient_estimation_approach == 'quadrature_order_sequence':
-            s += '    quadrature_order = {}\n'.format(self.quadrature_order)
+        if self.coefficient_estimation_approach == "quadrature_order_sequence":
+            s += "    quadrature_order = {}\n".format(self.quadrature_order)
             if len(self.dimension_preference) > 0:
-                s += '    dimension_preference ='
+                s += "    dimension_preference ="
                 for item in self.dimension_preference:
-                    s += ' {}'.format(item)
-                s += '\n'
+                    s += " {}".format(item)
+                s += "\n"
             if self.nested:
-                s += '    nested\n'
+                s += "    nested\n"
             else:
-                s += '    non_nested\n'
-        s += '\n'
-        return(s)
+                s += "    non_nested\n"
+        s += "\n"
+        return s

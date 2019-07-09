@@ -2,8 +2,7 @@
 import sys
 
 from nose.tools import raises, assert_true, assert_equal, assert_is_none
-from dakotathon.method.base import (UncertaintyQuantificationBase,
-                                      _print_levels)
+from dakotathon.method.base import UncertaintyQuantificationBase, _print_levels
 
 
 class Concrete(UncertaintyQuantificationBase):
@@ -16,7 +15,7 @@ class Concrete(UncertaintyQuantificationBase):
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = Concrete()
 
@@ -34,7 +33,7 @@ def test_instantiate():
     else:
         # abstract base class type error not raised
         # in python 3.
-        raise(TypeError)
+        raise (TypeError)
 
 
 def test_get_basis_polynomial_family():
@@ -44,7 +43,7 @@ def test_get_basis_polynomial_family():
 
 def test_set_basis_polynomial_family():
     """Test setting the basis_polynomial_family property."""
-    m = 'askey'
+    m = "askey"
     c.basis_polynomial_family = m
     assert_equal(c.basis_polynomial_family, m)
 
@@ -52,7 +51,7 @@ def test_set_basis_polynomial_family():
 @raises(TypeError)
 def test_basis_polynomial_family_fails_if_unknown_type():
     """Test that setting basis_polynomial_family to an unknown type fails."""
-    value = 'foobar'
+    value = "foobar"
     c.basis_polynomial_family = value
 
 
@@ -64,7 +63,7 @@ def test_get_probability_levels():
 def test_set_probability_levels():
     """Test setting the probability_levels property."""
     m = Concrete()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         m.probability_levels = items
         assert_equal(m.probability_levels, items)
 
@@ -85,7 +84,7 @@ def test_get_response_levels():
 def test_set_response_levels():
     """Test setting the response_levels property."""
     m = Concrete()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         m.response_levels = items
         assert_equal(m.response_levels, items)
 
@@ -121,13 +120,13 @@ def test_set_samples_fails_if_float():
 
 def test_get_sample_type():
     """Test getting the sample_type property."""
-    assert_true(c.sample_type == 'random' or c.sample_type == 'lhs')
+    assert_true(c.sample_type == "random" or c.sample_type == "lhs")
 
 
 def test_set_sample_type():
     """Test setting the sample_type property."""
     m = Concrete()
-    sample_type = 'lhs'
+    sample_type = "lhs"
     m.sample_type = sample_type
     assert_equal(m.sample_type, sample_type)
 
@@ -136,7 +135,7 @@ def test_set_sample_type():
 def test_set_sample_type_fails_if_not_lhs_or_random():
     """Test that the sample_type property fails with unknown type."""
     m = Concrete()
-    sample_type = 'mcmc'
+    sample_type = "mcmc"
     m.sample_type = sample_type
 
 
@@ -219,10 +218,12 @@ def test_str_length_with_nonzero_seed_value():
 
 def test_str_length_with_options():
     """Test the length of __str__ with optional props set."""
-    x = Concrete(seed=42,
-                 probability_levels=list(range(3)),
-                 response_levels=list(range(3)),
-                 variance_based_decomp=True)
+    x = Concrete(
+        seed=42,
+        probability_levels=list(range(3)),
+        response_levels=list(range(3)),
+        variance_based_decomp=True,
+    )
     s = str(x)
     n_lines = len(s.splitlines())
     assert_equal(n_lines, 8)
@@ -230,13 +231,13 @@ def test_str_length_with_options():
 
 def test_print_levels1():
     """Test _print_levels with list and tuple."""
-    for item in [[0,1], (0,1)]:
+    for item in [[0, 1], (0, 1)]:
         s = _print_levels(item)
         assert_true(type(s) is str)
 
 
 def test_print_levels2():
     """Test _print_levels with list of tuples."""
-    items = [(1,2,3), (4,5,6)]
+    items = [(1, 2, 3), (4, 5, 6)]
     s = _print_levels(items)
     assert_true(type(s) is str)

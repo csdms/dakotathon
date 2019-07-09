@@ -8,18 +8,20 @@ class Experiment(object):
 
     """An aggregate of control blocks that define a Dakota input file."""
 
-    blocks = ('environment', 'method', 'variables', 'interface', 'responses')
+    blocks = ("environment", "method", "variables", "interface", "responses")
     """The named control blocks of a Dakota input file."""
 
-    def __init__(self,
-                 component=None,
-                 plugin=None,
-                 environment='environment',
-                 method='vector_parameter_study',
-                 variables='continuous_design',
-                 interface='direct',
-                 responses='response_functions',
-                 **kwargs):
+    def __init__(
+        self,
+        component=None,
+        plugin=None,
+        environment="environment",
+        method="vector_parameter_study",
+        variables="continuous_design",
+        interface="direct",
+        responses="response_functions",
+        **kwargs
+    ):
         """Create the set of control blocks for a Dakota experiment.
 
         Called with no parameters, a Dakota experiment with basic defaults
@@ -69,36 +71,36 @@ class Experiment(object):
         self.plugin = plugin
 
         if (self.component and self.plugin) is not None:
-            err_msg = 'The component and plugin attributes are exclusive.'
+            err_msg = "The component and plugin attributes are exclusive."
             raise AttributeError(err_msg)
 
         if self.component is not None:
-            interface = 'fork'
+            interface = "fork"
             try:
-                kwargs['analysis_driver']
+                kwargs["analysis_driver"]
             except KeyError:
-                kwargs['analysis_driver'] = 'dakota_run_component'
+                kwargs["analysis_driver"] = "dakota_run_component"
 
         if self.plugin is not None:
-            interface = 'fork'
+            interface = "fork"
             try:
-                kwargs['analysis_driver']
+                kwargs["analysis_driver"]
             except KeyError:
-                kwargs['analysis_driver'] = 'dakota_run_plugin'
+                kwargs["analysis_driver"] = "dakota_run_plugin"
 
-        if method == 'multidim_parameter_study':
+        if method == "multidim_parameter_study":
             try:
-                kwargs['lower_bounds']
+                kwargs["lower_bounds"]
             except KeyError:
-                kwargs['lower_bounds'] = (-2.0, -2.0)
+                kwargs["lower_bounds"] = (-2.0, -2.0)
             try:
-                kwargs['upper_bounds']
+                kwargs["upper_bounds"]
             except KeyError:
-                kwargs['upper_bounds'] = (2.0, 2.0)
-  
+                kwargs["upper_bounds"] = (2.0, 2.0)
+
         for section in Experiment.blocks:
             cls = self._import(section, eval(section), **kwargs)
-            attr = '_' + section
+            attr = "_" + section
             setattr(self, attr, cls)
 
     @property
@@ -207,10 +209,10 @@ class Experiment(object):
         self._responses = value
 
     def _get_subpackage_namespace(self, subpackage):
-        return os.path.splitext(self.__module__)[0] + '.' + subpackage
+        return os.path.splitext(self.__module__)[0] + "." + subpackage
 
     def _import(self, _subpackage, _module, **kwargs):
-        namespace = self._get_subpackage_namespace(_subpackage) + '.' + _module
+        namespace = self._get_subpackage_namespace(_subpackage) + "." + _module
         module = importlib.import_module(namespace)
         cls = getattr(module, module.classname)
         return cls(**kwargs)
@@ -251,7 +253,7 @@ class Experiment(object):
           no_hessians
         <BLANKLINE>
         """
-        s = '# Dakota input file\n'
+        s = "# Dakota input file\n"
         for section in self.blocks:
             s += str(getattr(self, section))
         return s

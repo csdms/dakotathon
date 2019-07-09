@@ -3,14 +3,14 @@
 from .base import EnvironmentBase
 
 
-classname = 'Environment'
+classname = "Environment"
 
 
 class Environment(EnvironmentBase):
 
     """Describe Dakota environment."""
 
-    def __init__(self, data_file='dakota.dat', **kwargs):
+    def __init__(self, data_file="dakota.dat", **kwargs):
         """Define parameters for the Dakota environment.
 
         Parameters
@@ -27,6 +27,7 @@ class Environment(EnvironmentBase):
     def __str__(self):
         """Define the environment block of a Dakota input file."""
         s = EnvironmentBase.__str__(self)
-        s += '  tabular_data\n' \
-             + '    tabular_data_file = {!r}\n\n'.format(self.data_file)
-        return(s)
+        s += "  tabular_data\n" + "    tabular_data_file = {!r}\n\n".format(
+            self.data_file
+        )
+        return s
