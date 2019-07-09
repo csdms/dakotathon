@@ -1,3 +1,9 @@
+language: generic
+
+os:
+  - linux
+  - osx
+
 env:
   matrix:
     - TRAVIS_PYTHON_VERSION="2.7"
@@ -6,10 +12,6 @@ env:
   global:
     - MINICONDA_URL_BASE=" https://repo.continuum.io/miniconda/Miniconda3-latest"
     - secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
-
-os:
-  - linux
-  - osx
 
 before_install:
   - |
@@ -45,4 +47,4 @@ script:
   - nosetests --with-doctest --with-coverage --cover-package=dakotathon
 
 after_success:
-  - coveralls --verbose
+  - coveralls
