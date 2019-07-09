@@ -15,7 +15,7 @@ setup(name='dakotathon',
           'numpy',
           'pyyaml',
           'nose',
-          'basic-modeling-interface',
+          'bmipy',
       ],
       packages=find_packages(exclude=['*.tests']),
       entry_points={

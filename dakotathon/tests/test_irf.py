@@ -31,13 +31,13 @@ def test_component_name():
 
 def test_start_time():
     model = BmiDakota()
-    model.initialize()
+    model.initialize(None)
     assert_equal(model.get_start_time(), 0.0)
 
 
 def test_end_time():
     model = BmiDakota()
-    model.initialize()
+    model.initialize(None)
     assert_equal(model.get_end_time(), 1.0)
 
 
@@ -54,7 +54,7 @@ def test_time_step():
 @with_setup(setup, teardown)
 def test_initialize_defaults():
     model = BmiDakota()
-    model.initialize()
+    model.initialize(None)
     assert_true(os.path.exists(dakota_files['input']))
 
 
@@ -85,7 +85,7 @@ def test_initialize_from_file():
 def test_update():
     if is_dakota_installed():
         model = BmiDakota()
-        model.initialize()
+        model.initialize(None)
         model.update()
         assert_true(os.path.exists(dakota_files['input']))
         assert_true(os.path.exists(dakota_files['output']))
@@ -95,6 +95,6 @@ def test_update():
 def test_finalize():
     if is_dakota_installed():
         model = BmiDakota()
-        model.initialize()
+        model.initialize(None)
         model.update()
         model.finalize()

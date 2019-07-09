@@ -30,7 +30,7 @@ before_install:
   - conda config --set always_yes yes --set changeps1 no
   - conda create -n test python=$TRAVIS_PYTHON_VERSION
   - source activate test
-  - conda install nose numpy pyyaml coveralls basic-modeling-interface -c csdms-stack
+  - conda install nose numpy pyyaml coveralls bmipy -c conda-forge
 
 install:
   - python setup.py install
