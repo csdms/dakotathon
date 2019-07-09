@@ -2,9 +2,9 @@
 [![Code Health](https://landscape.io/github/csdms/dakota/master/landscape.svg?style=flat)](https://landscape.io/github/csdms/dakota/master)
 [![Coverage Status](https://coveralls.io/repos/csdms/dakota/badge.svg?branch=master)](https://coveralls.io/r/csdms/dakota?branch=master)
 [![Documentation Status](https://readthedocs.org/projects/csdms-dakota/badge/?version=latest)](https://readthedocs.org/projects/csdms-dakota/?badge=latest)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/version.svg)](https://anaconda.org/csdms/dakotathon)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/installer/conda.svg)](https://conda.anaconda.org/csdms)
-[![Anaconda-Server Badge](https://anaconda.org/csdms/dakotathon/badges/downloads.svg)](https://anaconda.org/csdms/dakotathon)
+[![Anaconda-Server Badge](https://anaconda.org/csdms-stack/dakotathon/badges/version.svg)](https://anaconda.org/csdms-stack/dakotathon)
+[![Anaconda-Server Badge](https://anaconda.org/csdms-stack/dakotathon/badges/platforms.svg)](https://anaconda.org/csdms-stack/dakotathon)
+[![Anaconda-Server Badge](https://anaconda.org/csdms-stack/dakotathon/badges/downloads.svg)](https://anaconda.org/csdms-stack/dakotathon)
 
 # Dakotathon
 
@@ -35,8 +35,8 @@ Install Dakotathon into an Anaconda Python distribution with
 
 or install from source with
 
-	$ git clone https://github.com/csdms/dakota.git
-	$ cd dakota
+	$ git clone https://github.com/csdms/dakotathon.git
+	$ cd dakotathon
 	$ python setup.py install
 
 Dakotathon requires Dakota 6.1 or greater.
@@ -92,7 +92,7 @@ in your session before calling the `run` method with:
 >>> add_dyld_library_path()
 ```
 
-See https://github.com/csdms/dakota/issues/17 for more information.
+See https://github.com/csdms/dakotathon/issues/17 for more information.
 
 ## Execution: in PyMT
 

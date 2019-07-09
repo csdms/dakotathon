@@ -1,39 +1,50 @@
-env:
-  matrix:
-    - TRAVIS_PYTHON_VERSION="2.7"
-    - TRAVIS_PYTHON_VERSION="3.*"
-  global:
-    secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
+language: generic
 
 os:
   - linux
   - osx
 
-sudo: required
+env:
+  matrix:
+    - TRAVIS_PYTHON_VERSION="2.7"
+    - TRAVIS_PYTHON_VERSION="3.6"
+    - TRAVIS_PYTHON_VERSION="3.7"
+  global:
+    - MINICONDA_URL_BASE=" https://repo.continuum.io/miniconda/Miniconda3-latest"
+    - secure: gsF0tK0qZ1jFk/fjBdwYDMmAmedXFxd0jtFlroEU2vpozsR+a9VKtTCBMOfbP9sLPIDNpoKCbYdfGw91rH4+27fen1o5AIvomTeLcyGbsMxmfDEr0o/WCcx144EWZHi/x5D1QTr0ph3c0QOG8RfJCaWjjKc7cR3MAWVGEjko8og=
 
 before_install:
-  - echo "Build on $TRAVIS_OS_NAME"
-  - if [[ "$TRAVIS_TAG" == v* ]]; then export BUILD_STR=""; else export BUILD_STR="dev"; fi
-  - source .ci/travis/install_python.sh
-  - conda install --file requirements.txt
-  - conda install -c csdms-stack basic-modeling-interface
-  - conda info -a
-  - conda build -q -c csdms-stack .conda --old-build-string
-  - conda install coveralls
+  - |
+    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
+      OS="MacOSX-x86_64"
+      brew remove --force $(brew list)
+      brew cleanup -s
+      rm -rf $(brew --cache)
+    else
+      OS="Linux-x86_64"
+    fi
+  - curl $MINICONDA_URL_BASE-$OS.sh > $HOME/miniconda.sh
+  - bash $HOME/miniconda.sh -b -p $HOME/conda
+  - export PATH="$HOME/conda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no
+  - conda create -n test python=$TRAVIS_PYTHON_VERSION
+  - source activate test
+  - conda install nose numpy pyyaml coveralls basic-modeling-interface -c csdms-stack
+
+install:
+  - python setup.py install
+
+before_script:
   - |
     if [[ $TRAVIS_OS_NAME == "osx" ]]; then
       conda install openmpi=1.6
     fi
-  - conda install -c defaults -c csdms-stack -c conda-forge dakota
+  - conda install -c conda-forge -c csdms-stack dakota hydrotrend
   - dakota --version
-  - conda install -q -c csdms-stack hydrotrend
-
-install:
-  - conda install -q -c csdms-stack dakotathon --use-local
 
 script:
   - nosetests --with-doctest --with-coverage --cover-package=dakotathon
 
 after_success:
-  - coveralls --verbose
-  - bash .ci/travis/deploy_to_anaconda.sh
+  - coveralls
