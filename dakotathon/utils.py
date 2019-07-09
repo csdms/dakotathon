@@ -153,7 +153,7 @@ def deserialize(config_file):
 
     """
     with open(config_file, 'r') as fp:
-        return yaml.load(fp)
+        return yaml.safe_load(fp)
 
 
 def compute_statistic(statistic, array):

@@ -181,9 +181,9 @@ class Dakota(Experiment):
         config = {}
         if isinstance(file_like, str):
             with open(file_like, 'r') as fp:
-                config = yaml.load(fp.read())
+                config = yaml.safe_load(fp.read())
         else:
-            config = yaml.load(file_like)
+            config = yaml.safe_load(file_like)
         return cls(**config)
 
     def serialize(self, config_file=None):
