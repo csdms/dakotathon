@@ -20,7 +20,6 @@ import os
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../..'))
-sys.path.insert(0, os.path.abspath('../numpydoc'))
 
 # -- General configuration ------------------------------------------------
 
@@ -39,8 +38,7 @@ extensions = [
     'sphinx.ext.coverage',
     'sphinx.ext.mathjax',
     'sphinx.ext.ifconfig',
-    'sphinx.ext.viewcode',
-    'numpydoc'
+    'sphinx.ext.viewcode'
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -277,9 +275,6 @@ intersphinx_mapping = {'http://docs.python.org/': None}
 #
 # MP
 #
-
-# Turn off missing reference warnings.
-numpydoc_class_members_toctree = False
 
 # Use Eric's CSDMS CSS.
 html_style = 'csdms.css'
