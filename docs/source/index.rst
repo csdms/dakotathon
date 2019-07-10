@@ -3,13 +3,13 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-The CSDMS Dakota Interface
-==========================
+Dakotathon
+==========
 
 :Release: |release|
 :Date: |today|
 
-The CSDMS Dakota interface provides a Python API 
+Dakotathon provides a Python API and BMI
 for the `Dakota <https://dakota.sandia.gov/>`_
 iterative systems analysis toolkit.
 The interface follows the documentation
