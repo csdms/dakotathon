@@ -7,7 +7,7 @@ from dakotathon.environment.environment import Environment
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global e
     e = Environment()
 
@@ -30,7 +30,7 @@ def test_str_special():
 
 def test_data_file_attribute():
     """Test value of the data_file attribute."""
-    assert_equal(e.data_file, 'dakota.dat')
+    assert_equal(e.data_file, "dakota.dat")
 
 
 def test_str_length():

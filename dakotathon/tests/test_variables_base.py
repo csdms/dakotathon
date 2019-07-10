@@ -15,7 +15,7 @@ class Concrete(VariablesBase):
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = Concrete()
 
@@ -29,11 +29,11 @@ def teardown_module():
 def test_instantiate():
     """Test whether VariablesBase instantiates."""
     if sys.version[0] == 2:
-         b = VariablesBase()
+        b = VariablesBase()
     else:
         # abstract base class type error not raised
         # in python 3.
-        raise(TypeError)
+        raise (TypeError)
 
 
 def test_str_special():
@@ -44,7 +44,7 @@ def test_str_special():
 
 def test_variables():
     """Test getting the default variables property."""
-    assert_equal(c.variables, 'continuous_design')
+    assert_equal(c.variables, "continuous_design")
 
 
 def test_get_descriptors():
@@ -54,7 +54,7 @@ def test_get_descriptors():
 
 def test_set_descriptors():
     """Test setting the descriptors property."""
-    for desc in [['x1'], ('x1',)]:
+    for desc in [["x1"], ("x1",)]:
         c.descriptors = desc
         assert_equal(c.descriptors, desc)
 
@@ -68,7 +68,7 @@ def test_set_descriptors_fails_if_scalar():
 
 def test_set_descriptors_string_to_tuple():
     """Test that a string is converted to a tuple."""
-    desc = 'x1'
+    desc = "x1"
     c.descriptors = desc
     assert_true(type(c.descriptors) is tuple)
 

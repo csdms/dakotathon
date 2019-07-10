@@ -15,7 +15,7 @@ from dakotathon.method.vector_parameter_study import VectorParameterStudy
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global v
     v = VectorParameterStudy()
 
@@ -23,6 +23,7 @@ def setup_module():
 def teardown_module():
     """Called after all tests have completed."""
     pass
+
 
 # Tests ----------------------------------------------------------------
 
@@ -35,7 +36,7 @@ def test_init_no_params():
 
 def test_method_attr():
     """Test the value of the method attribute."""
-    assert_equal(v.method, 'vector_parameter_study')
+    assert_equal(v.method, "vector_parameter_study")
 
 
 def test_get_final_point():

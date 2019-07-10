@@ -5,8 +5,8 @@ import importlib
 from .utils import get_configuration_file, deserialize
 
 
-plugin_script = 'dakota_run_plugin'
-_plugins_path = 'dakotathon.plugins.'
+plugin_script = "dakota_run_plugin"
+_plugins_path = "dakotathon.plugins."
 
 
 def run_plugin(params_file, results_file):
@@ -50,12 +50,12 @@ def run_plugin(params_file, results_file):
     config_file = get_configuration_file(params_file)
     config = deserialize(config_file)
 
-    _module = importlib.import_module(_plugins_path + config['plugin'])
+    _module = importlib.import_module(_plugins_path + config["plugin"])
     if _module.is_installed():
         _class = getattr(_module, _module.classname)
         model = _class()
     else:
-        raise NameError('Model cannot be created.')
+        raise NameError("Model cannot be created.")
 
     # Set up the simulation, call the model, calculate the response
     # statistic for the simulation, write the output to the Dakota
@@ -72,16 +72,17 @@ def main():
     from . import __version__
 
     parser = argparse.ArgumentParser(
-        description="A generic analysis driver for a Dakota experiment.")
-    parser.add_argument("parameters_file",
-                        help="parameters file from Dakota")
-    parser.add_argument("results_file",
-                        help="results file to Dakota")
-    parser.add_argument('--version', action='version',
-                        version=plugin_script + ' ' + __version__)
+        description="A generic analysis driver for a Dakota experiment."
+    )
+    parser.add_argument("parameters_file", help="parameters file from Dakota")
+    parser.add_argument("results_file", help="results file to Dakota")
+    parser.add_argument(
+        "--version", action="version", version=plugin_script + " " + __version__
+    )
     args = parser.parse_args()
 
     run_plugin(args.parameters_file, args.results_file)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

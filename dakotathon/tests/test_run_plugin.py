@@ -10,6 +10,7 @@
 import os
 import sys
 import shutil
+
 # import filecmp
 # import tempfile
 # import numpy as np
@@ -24,18 +25,18 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-local_config_file = 'dakota.yaml'
+local_config_file = "dakota.yaml"
 config_file = os.path.join(data_dir, local_config_file)
-local_params_file = 'params.in'
+local_params_file = "params.in"
 params_file = os.path.join(data_dir, local_params_file)
-results_file = 'results.out'
+results_file = "results.out"
 
 # Fixtures -------------------------------------------------------------
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
 
 
 def setup():
@@ -57,6 +58,7 @@ def teardown():
 def teardown_module():
     """Called after all tests have completed."""
     pass
+
 
 # Tests ----------------------------------------------------------------
 
@@ -80,7 +82,7 @@ def test_run_plugin_unknown_config_file():
 @with_setup(setup, teardown)
 def test_run_plugin_unknown_module():
     """Tests run_plugin() fails with unknown module."""
-    d.plugin = 'foo'
+    d.plugin = "foo"
     d.serialize(local_config_file)
     run_plugin(params_file, results_file)
 
@@ -90,7 +92,7 @@ def test_run_plugin_unknown_module():
 def test_run_plugin_uninstalled_module():
     """Tests run_plugin() fails with module that's not installed."""
     d.serialize(local_config_file)
-    os.environ['PATH'] = '.'
+    os.environ["PATH"] = "."
     run_plugin(params_file, results_file)
 
 

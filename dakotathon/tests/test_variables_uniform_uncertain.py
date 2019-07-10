@@ -7,7 +7,7 @@ from dakotathon.variables.uniform_uncertain import UniformUncertain
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = UniformUncertain()
 
@@ -31,13 +31,13 @@ def test_str_special():
 def test_variables():
     """Test the variables attribute."""
     value = c.variables
-    assert_equal(value, 'uniform_uncertain')
+    assert_equal(value, "uniform_uncertain")
 
 
 def test_descriptors():
     """Test getting the default descriptors property."""
     value = c.descriptors
-    assert_equal(value, ('x1', 'x2'))
+    assert_equal(value, ("x1", "x2"))
 
 
 def test_get_initial_point():
@@ -47,7 +47,7 @@ def test_get_initial_point():
 
 def test_set_initial_point():
     """Test setting the initial_point property."""
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         c.initial_point = items
         assert_equal(c.initial_point, items)
 
@@ -66,7 +66,7 @@ def test_get_lower_bounds():
 
 def test_set_lower_bounds():
     """Test setting the lower_bounds property."""
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         c.lower_bounds = items
         assert_equal(c.lower_bounds, items)
 
@@ -85,7 +85,7 @@ def test_get_upper_bounds():
 
 def test_set_upper_bounds():
     """Test setting the upper_bounds property."""
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         c.upper_bounds = items
         assert_equal(c.upper_bounds, items)
 

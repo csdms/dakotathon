@@ -7,7 +7,7 @@ from dakotathon.utils import is_dakota_installed
 from . import dakota_files
 
 
-config_val = {'method': 'vector_parameter_study', 'component': 'hydrotrend'}
+config_val = {"method": "vector_parameter_study", "component": "hydrotrend"}
 
 
 def setup():
@@ -25,19 +25,19 @@ def teardown():
 def test_component_name():
     model = BmiDakota()
     name = model.get_component_name()
-    assert_equal(name, 'Dakota')
+    assert_equal(name, "Dakota")
     assert_is(model.get_component_name(), name)
 
 
 def test_start_time():
     model = BmiDakota()
-    model.initialize()
+    model.initialize(None)
     assert_equal(model.get_start_time(), 0.0)
 
 
 def test_end_time():
     model = BmiDakota()
-    model.initialize()
+    model.initialize(None)
     assert_equal(model.get_end_time(), 1.0)
 
 
@@ -54,47 +54,47 @@ def test_time_step():
 @with_setup(setup, teardown)
 def test_initialize_defaults():
     model = BmiDakota()
-    model.initialize()
-    assert_true(os.path.exists(dakota_files['input']))
+    model.initialize(None)
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file_like():
     from io import BytesIO
-    
-    config = BytesIO(yaml.dump(config_val, encoding=('utf-8')))
+
+    config = BytesIO(yaml.dump(config_val, encoding=("utf-8")))
     model = BmiDakota()
     model.initialize(config)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file():
     import tempfile
 
-    with tempfile.NamedTemporaryFile('w', delete=False) as fp:
+    with tempfile.NamedTemporaryFile("w", delete=False) as fp:
         fp.write(yaml.dump(config_val))
         fname = fp.name
 
     model = BmiDakota()
     model.initialize(fname)
     os.remove(fname)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 def test_update():
     if is_dakota_installed():
         model = BmiDakota()
-        model.initialize()
+        model.initialize(None)
         model.update()
-        assert_true(os.path.exists(dakota_files['input']))
-        assert_true(os.path.exists(dakota_files['output']))
-        assert_true(os.path.exists(dakota_files['data']))
+        assert_true(os.path.exists(dakota_files["input"]))
+        assert_true(os.path.exists(dakota_files["output"]))
+        assert_true(os.path.exists(dakota_files["data"]))
 
 
 def test_finalize():
     if is_dakota_installed():
         model = BmiDakota()
-        model.initialize()
+        model.initialize(None)
         model.update()
         model.finalize()

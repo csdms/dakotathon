@@ -12,16 +12,18 @@ class Dakota(Experiment):
 
     """Controller for configuring and running a Dakota experiment."""
 
-    def __init__(self,
-                 run_directory=os.getcwd(),
-                 configuration_file='dakota.yaml',
-                 input_file='dakota.in',
-                 output_file='dakota.out',
-                 run_log='run.log',
-                 error_log='stderr.log',
-                 template_file=None,
-                 auxiliary_files=(),
-                 **kwargs):
+    def __init__(
+        self,
+        run_directory=os.getcwd(),
+        configuration_file="dakota.yaml",
+        input_file="dakota.in",
+        output_file="dakota.out",
+        run_log="run.log",
+        error_log="stderr.log",
+        template_file=None,
+        auxiliary_files=(),
+        **kwargs
+    ):
         """Initialize a Dakota experiment.
 
         Called with no parameters, a Dakota experiment with basic defaults
@@ -66,12 +68,16 @@ class Dakota(Experiment):
         >>> d = Dakota(method='vector_parameter_study')
 
         """
-        Experiment.__init__(self,
-                            run_directory=run_directory,
-                            configuration_file=configuration_file,
-                            **kwargs)
-        configuration_file = os.path.abspath(os.path.join(run_directory, configuration_file))
-        
+        Experiment.__init__(
+            self,
+            run_directory=run_directory,
+            configuration_file=configuration_file,
+            **kwargs
+        )
+        configuration_file = os.path.abspath(
+            os.path.join(run_directory, configuration_file)
+        )
+
         self._run_directory = run_directory
         self._configuration_file = configuration_file
         self.input_file = input_file
@@ -116,7 +122,7 @@ class Dakota(Experiment):
         if not os.path.isabs(value):
             value = os.path.abspath(value)
         self._configuration_file = value
-        if self.interface.interface == 'fork':
+        if self.interface.interface == "fork":
             self.interface._configuration_file = value
 
     @property
@@ -180,10 +186,10 @@ class Dakota(Experiment):
         """
         config = {}
         if isinstance(file_like, str):
-            with open(file_like, 'r') as fp:
-                config = yaml.load(fp.read())
+            with open(file_like, "r") as fp:
+                config = yaml.safe_load(fp.read())
         else:
-            config = yaml.load(file_like)
+            config = yaml.safe_load(file_like)
         return cls(**config)
 
     def serialize(self, config_file=None):
@@ -210,7 +216,7 @@ class Dakota(Experiment):
 
         props = get_attributes(self)
 
-        removed_blocks = set(Experiment.blocks)-set(self.blocks)
+        removed_blocks = set(Experiment.blocks) - set(self.blocks)
         for removed_block in removed_blocks:
             temp = props.pop(removed_block)
             del temp
@@ -219,7 +225,7 @@ class Dakota(Experiment):
             section_props = get_attributes(props.pop(section))
             props = dict(list(props.items()) + list(section_props.items()))
 
-        with open(self.configuration_file, 'w') as fp:
+        with open(self.configuration_file, "w") as fp:
             yaml.safe_dump(props, fp, default_flow_style=False)
 
     def write_input_file(self, input_file=None):
@@ -244,13 +250,14 @@ class Dakota(Experiment):
         if input_file is not None:
             self.input_file = input_file
 
-        input_file_path = os.path.abspath(os.path.join(self.run_directory,
-                                                       self.input_file))
-        
+        input_file_path = os.path.abspath(
+            os.path.join(self.run_directory, self.input_file)
+        )
+
         if os.path.exists(os.path.abspath(self.run_directory)) == False:
             os.mkdir(os.path.abspath(self.run_directory))
-        
-        with open(input_file_path, 'w') as fp:
+
+        with open(input_file_path, "w") as fp:
             fp.write(str(self))
 
     def setup(self):
@@ -278,8 +285,8 @@ class Dakota(Experiment):
 
         with open(self.run_log, "w") as file_out:
             with open(self.error_log, "w") as error_out:
-                subprocess.call(['dakota',
-                                 '-i', self.input_file,
-                                 '-o', self.output_file],
-                                stdout=file_out,
-                                stderr=error_out)
+                subprocess.call(
+                    ["dakota", "-i", self.input_file, "-o", self.output_file],
+                    stdout=file_out,
+                    stderr=error_out,
+                )

@@ -8,8 +8,7 @@
 import os, sys
 import filecmp
 from nose.tools import raises, assert_is_none, assert_true
-from dakotathon.plugins.base import (PluginBase, write_dflt_file,
-                                       write_dtmpl_file)
+from dakotathon.plugins.base import PluginBase, write_dflt_file, write_dtmpl_file
 from . import start_dir, data_dir
 
 # Helpers --------------------------------------------------------------
@@ -37,12 +36,13 @@ class Concrete(PluginBase):
     def write(self):
         return PluginBase.write(self, None, None)
 
+
 # Fixtures -------------------------------------------------------------
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = Concrete()
 
@@ -50,6 +50,7 @@ def setup_module():
 def teardown_module():
     """Called after all tests have completed."""
     pass
+
 
 # Tests ----------------------------------------------------------------
 
@@ -62,7 +63,7 @@ def test_instantiate():
     else:
         # abstract base class type error not raised
         # in python 3.
-        raise(TypeError)
+        raise (TypeError)
 
 
 def test_setup():
@@ -97,9 +98,9 @@ def test_write():
 
 def test_write_dflt_file():
     """Test the 'write_dflt_file' function versus a known dflt file."""
-    known_dflt_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
-    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
-    parameters_file = os.path.join(data_dir, 'parameters.yaml')
+    known_dflt_file = os.path.join(data_dir, "HYDRO.IN.defaults")
+    tmpl_file = os.path.join(data_dir, "hydrotrend.in.tmpl")
+    parameters_file = os.path.join(data_dir, "parameters.yaml")
     dflt_file = write_dflt_file(tmpl_file, parameters_file)
     assert_true(len(known_dflt_file), len(dflt_file))
     os.remove(dflt_file)
@@ -107,13 +108,10 @@ def test_write_dflt_file():
 
 def test_write_dtmpl_file():
     """Test the 'write_dtmpl_file' function against a known dtmpl file."""
-    known_dtmpl_file = os.path.join(data_dir, 'HYDRO.IN.dtmpl')
-    tmpl_file = os.path.join(data_dir, 'hydrotrend.in.tmpl')
-    base_input_file = os.path.join(data_dir, 'HYDRO.IN.defaults')
-    parameter_names = ['starting_mean_annual_temperature',
-                       'total_annual_precipitation']
-    dtmpl_file = write_dtmpl_file(tmpl_file,
-                                  base_input_file,
-                                  parameter_names)
+    known_dtmpl_file = os.path.join(data_dir, "HYDRO.IN.dtmpl")
+    tmpl_file = os.path.join(data_dir, "hydrotrend.in.tmpl")
+    base_input_file = os.path.join(data_dir, "HYDRO.IN.defaults")
+    parameter_names = ["starting_mean_annual_temperature", "total_annual_precipitation"]
+    dtmpl_file = write_dtmpl_file(tmpl_file, base_input_file, parameter_names)
     assert_true(filecmp.cmp(known_dtmpl_file, dtmpl_file))
     os.remove(dtmpl_file)

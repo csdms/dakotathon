@@ -5,17 +5,14 @@ from .base import MethodBase
 from ..utils import to_iterable
 
 
-classname = 'CenteredParameterStudy'
+classname = "CenteredParameterStudy"
 
 
 class CenteredParameterStudy(MethodBase):
 
     """Define parameters for a Dakota centered parameter study."""
 
-    def __init__(self,
-                 steps_per_variable=(5, 4),
-                 step_vector=(0.4, 0.5),
-                 **kwargs):
+    def __init__(self, steps_per_variable=(5, 4), step_vector=(0.4, 0.5), **kwargs):
         """Create a new Dakota centered parameter study.
 
         Parameters
@@ -33,7 +30,7 @@ class CenteredParameterStudy(MethodBase):
 
         """
         MethodBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
         self._steps_per_variable = steps_per_variable
         self._step_vector = step_vector
 
@@ -86,12 +83,11 @@ class CenteredParameterStudy(MethodBase):
         s = MethodBase.__str__(self)
         steps_per_variable = to_iterable(self.steps_per_variable)
         step_vector = to_iterable(self.step_vector)
-        s += '    steps_per_variable ='
+        s += "    steps_per_variable ="
         for step in steps_per_variable:
-            s += ' {}'.format(step)
-        s += '\n' \
-            + '    step_vector ='
+            s += " {}".format(step)
+        s += "\n" + "    step_vector ="
         for step in step_vector:
-            s += ' {}'.format(step)
-        s += '\n\n'
-        return(s)
+            s += " {}".format(step)
+        s += "\n\n"
+        return s

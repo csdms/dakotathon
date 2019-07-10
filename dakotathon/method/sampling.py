@@ -4,7 +4,7 @@
 from .base import UncertaintyQuantificationBase
 
 
-classname = 'Sampling'
+classname = "Sampling"
 
 
 class Sampling(UncertaintyQuantificationBase):
@@ -22,7 +22,7 @@ class Sampling(UncertaintyQuantificationBase):
 
         """
         UncertaintyQuantificationBase.__init__(self, **kwargs)
-        self.method = self.__module__.rsplit('.')[-1]
+        self.method = self.__module__.rsplit(".")[-1]
 
     def __str__(self):
         """Define the method block for a sampling experiment.
@@ -33,5 +33,5 @@ class Sampling(UncertaintyQuantificationBase):
 
         """
         s = UncertaintyQuantificationBase.__str__(self)
-        s += '\n'
-        return(s)
+        s += "\n"
+        return s

@@ -14,7 +14,7 @@ class Concrete(EnvironmentBase):
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = Concrete()
 
@@ -32,7 +32,7 @@ def test_instantiate():
     else:
         # abstract base class type error not raised
         # in python 3.
-        raise(TypeError)
+        raise (TypeError)
 
 
 def test_str_special():

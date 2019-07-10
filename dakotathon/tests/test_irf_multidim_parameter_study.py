@@ -7,8 +7,11 @@ from dakotathon.utils import is_dakota_installed
 from . import dakota_files
 
 
-config_val = {'method': 'multidim_parameter_study',
-              'lower_bounds':[-2,-2], 'upper_bounds':[2,2]}
+config_val = {
+    "method": "multidim_parameter_study",
+    "lower_bounds": [-2, -2],
+    "upper_bounds": [2, 2],
+}
 
 
 def setup():
@@ -26,7 +29,7 @@ def teardown():
 def test_component_name():
     model = MultidimParameterStudy()
     name = model.get_component_name()
-    assert_equal(name, 'MultidimParameterStudy')
+    assert_equal(name, "MultidimParameterStudy")
     assert_is(model.get_component_name(), name)
 
 
@@ -56,31 +59,31 @@ def test_time_step():
 def test_initialize_defaults():
     model = MultidimParameterStudy()
     model.initialize()
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file_like():
     from io import BytesIO
-    
-    config = BytesIO(yaml.dump(config_val, encoding=('utf-8')))
+
+    config = BytesIO(yaml.dump(config_val, encoding=("utf-8")))
     model = MultidimParameterStudy()
     model.initialize(config)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 @with_setup(setup, teardown)
 def test_initialize_from_file():
     import tempfile
 
-    with tempfile.NamedTemporaryFile('w', delete=False) as fp:
+    with tempfile.NamedTemporaryFile("w", delete=False) as fp:
         fp.write(yaml.dump(config_val))
         fname = fp.name
 
     model = MultidimParameterStudy()
     model.initialize(fname)
     os.remove(fname)
-    assert_true(os.path.exists(dakota_files['input']))
+    assert_true(os.path.exists(dakota_files["input"]))
 
 
 def test_update():
@@ -88,9 +91,9 @@ def test_update():
         model = MultidimParameterStudy()
         model.initialize()
         model.update()
-        assert_true(os.path.exists(dakota_files['input']))
-        assert_true(os.path.exists(dakota_files['output']))
-        assert_true(os.path.exists(dakota_files['data']))
+        assert_true(os.path.exists(dakota_files["input"]))
+        assert_true(os.path.exists(dakota_files["output"]))
+        assert_true(os.path.exists(dakota_files["data"]))
 
 
 def test_finalize():

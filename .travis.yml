@@ -30,7 +30,7 @@ before_install:
   - conda config --set always_yes yes --set changeps1 no
   - conda create -n test python=$TRAVIS_PYTHON_VERSION
   - source activate test
-  - conda install nose numpy pyyaml coveralls basic-modeling-interface -c csdms-stack
+  - conda install --file requirements.txt -c conda-forge
 
 install:
   - python setup.py install
@@ -40,7 +40,7 @@ before_script:
     if [[ $TRAVIS_OS_NAME == "osx" ]]; then
       conda install openmpi=1.6
     fi
-  - conda install -c conda-forge -c csdms-stack dakota hydrotrend
+  - conda install -c conda-forge -c csdms-stack dakota hydrotrend coveralls
   - dakota --version
 
 script:

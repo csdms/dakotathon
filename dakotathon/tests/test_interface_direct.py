@@ -8,7 +8,7 @@ from .test_interface_base import default_str_lines
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global d
     d = Direct()
 
@@ -31,7 +31,7 @@ def test_str_special():
 
 def test_interface_attribute():
     """Test value of the interface attribute."""
-    assert_equal(d.interface, 'direct')
+    assert_equal(d.interface, "direct")
 
 
 def test_str_length():

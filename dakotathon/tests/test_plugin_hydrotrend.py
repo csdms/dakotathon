@@ -22,17 +22,17 @@ from . import start_dir, data_dir
 # Global variables -----------------------------------------------------
 
 run_dir = os.getcwd()
-config_file = os.path.join(data_dir, 'dakota.yaml')
-params_file = os.path.join(data_dir, 'params.in')
-known_results_file = os.path.join(data_dir, 'results.out')
-results_file = 'results.out'
+config_file = os.path.join(data_dir, "dakota.yaml")
+params_file = os.path.join(data_dir, "params.in")
+known_results_file = os.path.join(data_dir, "results.out")
+results_file = "results.out"
 
 # Fixtures -------------------------------------------------------------
 
 
 def setup_module():
     """Called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
 
 
 def setup():
@@ -56,6 +56,7 @@ def teardown_module():
     """Called after all tests have completed."""
     pass
 
+
 # Tests ----------------------------------------------------------------
 
 
@@ -63,16 +64,16 @@ def teardown_module():
 def test_setup_files():
     """Tests setup_files() against the sample configuration file."""
     r = h.setup_files(config)
-    assert_is(h.input_template, config['template_file'])
-    assert_is(h.hypsometry_file, config['auxiliary_files'][0])
-    assert_is(h.output_files, config['response_files'])
-    assert_is(h.output_statistics, config['response_statistics'])
+    assert_is(h.input_template, config["template_file"])
+    assert_is(h.hypsometry_file, config["auxiliary_files"][0])
+    assert_is(h.output_files, config["response_files"])
+    assert_is(h.output_statistics, config["response_statistics"])
 
 
 @with_setup(setup, teardown)
 def test_setup_directories():
     """Tests setup_directories() against the sample configuration file."""
-    config['run_directory'] = run_dir
+    config["run_directory"] = run_dir
     r = h.setup_directories(config)
     assert_true(os.path.exists(h.input_dir))
     assert_true(os.path.exists(h.output_dir))
@@ -89,8 +90,8 @@ def test_call_without_setup():
 @with_setup(setup, teardown)
 def test_load():
     """Tests load() with a text file."""
-    with tempfile.NamedTemporaryFile('w', delete=False) as fp:
-        fp.write('h1\nh2\n0\n1\n2\n')
+    with tempfile.NamedTemporaryFile("w", delete=False) as fp:
+        fp.write("h1\nh2\n0\n1\n2\n")
         output_file = fp.name
     r = h.load(output_file)
     assert_almost_equal(r, np.arange(3, dtype=float))
@@ -107,7 +108,7 @@ def test_load_zero_arguments():
 @with_setup(setup, teardown)
 def test_load_does_not_exist():
     """Tests load() when a nonexistent output file is defined."""
-    r = h.load('vfnqeubnuen.f')
+    r = h.load("vfnqeubnuen.f")
     assert_is(r, None)
 
 

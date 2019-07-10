@@ -7,7 +7,7 @@ from dakotathon.variables.continuous_design import ContinuousDesign
 
 def setup_module():
     """Fixture called before any tests are performed."""
-    print('\n*** ' + __name__)
+    print("\n*** " + __name__)
     global c
     c = ContinuousDesign()
 
@@ -31,13 +31,13 @@ def test_str_special():
 def test_variables():
     """Test the variables attribute."""
     value = c.variables
-    assert_equal(value, 'continuous_design')
+    assert_equal(value, "continuous_design")
 
 
 def test_descriptors():
     """Test getting the default descriptors property."""
     value = c.descriptors
-    assert_equal(value, ('x1', 'x2'))
+    assert_equal(value, ("x1", "x2"))
 
 
 def test_get_initial_point():
@@ -48,7 +48,7 @@ def test_get_initial_point():
 def test_set_initial_point():
     """Test setting the initial_point property."""
     x = ContinuousDesign()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.initial_point = items
         assert_equal(x.initial_point, items)
 
@@ -69,7 +69,7 @@ def test_get_lower_bounds():
 def test_set_lower_bounds():
     """Test setting the lower_bounds property."""
     x = ContinuousDesign()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.lower_bounds = items
         assert_equal(x.lower_bounds, items)
 
@@ -90,7 +90,7 @@ def test_get_upper_bounds():
 def test_set_upper_bounds():
     """Test setting the upper_bounds property."""
     x = ContinuousDesign()
-    for items in [[0,1], (0,1)]:
+    for items in [[0, 1], (0, 1)]:
         x.upper_bounds = items
         assert_equal(x.upper_bounds, items)
 
