@@ -1,1 +1,4 @@
-setuptools>=18.0
+numpy
+pyyaml
+nose
+bmipy

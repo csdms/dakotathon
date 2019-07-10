@@ -4,6 +4,20 @@ from dakotathon.run_plugin import plugin_script
 from dakotathon.run_component import component_script
 
 
+def read_requirements():
+    import os
+
+    path = os.path.dirname(os.path.abspath(__file__))
+    requirements_file = os.path.join(path, "requirements.txt")
+    try:
+        with open(requirements_file, "r") as req_fp:
+            requires = req_fp.read().split()
+    except IOError:
+        return []
+    else:
+        return [require.split() for require in requires]
+
+
 setup(
     name="dakotathon",
     version=__version__,
@@ -12,7 +26,7 @@ setup(
     license="MIT",
     description="A Python API for the Dakota systems analysis toolkit",
     long_description=open("README.md").read(),
-    install_requires=["numpy", "pyyaml", "nose", "bmipy"],
+    setup_requires=["setuptools"],
     packages=find_packages(exclude=["*.tests"]),
     entry_points={
         "console_scripts": [
