@@ -3,4 +3,4 @@ from .dakota import Dakota
 
 
 __all__ = ["Dakota"]
-__version__ = "0.4.1"
+__version__ = "0.5"
