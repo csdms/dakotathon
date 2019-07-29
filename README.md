@@ -179,3 +179,12 @@ For more in-depth examples of using Dakotathon with PyMT,
 see the Python scripts
 in the [examples](./examples) directory
 of this repository.
+
+## Contributing
+
+Dakotathon is open source software,
+released under an [MIT license](https://opensource.org/licenses/MIT).
+[Contributions](./CONTRIBUTING.rst) are welcome.
+Please note that this project is released with a
+[Contributor Code of Conduct](./CODE-OF-CONDUCT.rst).
+By participating in this project you agree to abide by its terms.
