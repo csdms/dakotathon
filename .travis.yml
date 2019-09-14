@@ -44,7 +44,15 @@ before_script:
   - conda install -c conda-forge coveralls hydrotrend
 
 script:
-  - nosetests --with-doctest --with-coverage --cover-package=dakotathon
+  - |
+    if [[ $TRAVIS_OS_NAME != "osx" ]]; then
+      nosetests --with-doctest --with-coverage --cover-package=dakotathon
+    else
+      nosetests --with-doctest
+    fi
 
 after_success:
-  - coveralls
+  - |
+    if [[ $TRAVIS_OS_NAME != "osx" ]]; then
+      coveralls
+    fi
