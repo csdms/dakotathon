@@ -218,23 +218,24 @@ def test_changing_parameter_names():
     configuration_file = "an_excellent_yaml.yaml"
     run_log = "run_output_here.log"
     error_log = "no_errors_here.log"
-    k = Dakota(
-        method="vector_parameter_study",
-        run_directory=run_directory,
-        configuration_file=configuration_file,
-        run_log=run_log,
-        error_log=error_log,
-    )
-    k.write_input_file()
-    k.serialize()
-    k.run()
+    if is_dakota_installed():
+        k = Dakota(
+            method="vector_parameter_study",
+            run_directory=run_directory,
+            configuration_file=configuration_file,
+            run_log=run_log,
+            error_log=error_log,
+        )
+        k.write_input_file()
+        k.serialize()
+        k.run()
 
-    os.remove(configuration_file)
-    os.remove(run_log)
-    os.remove(error_log)
-    teardown_module()
-    os.chdir("..")
-    os.rmdir(run_directory)
+        os.remove(configuration_file)
+        os.remove(run_log)
+        os.remove(error_log)
+        teardown_module()
+        os.chdir("..")
+        os.rmdir(run_directory)
 
 
 @nottest
