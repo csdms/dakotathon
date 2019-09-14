@@ -37,14 +37,17 @@ install:
 
 before_script:
   - |
-    if [[ $TRAVIS_OS_NAME == "osx" ]]; then
-      conda install openmpi=1.6
+    if [[ $TRAVIS_OS_NAME != "osx" ]]; then
+      conda install -c conda-forge -c csdms-stack dakota
+      dakota --version
     fi
-  - conda install -c conda-forge -c csdms-stack dakota hydrotrend coveralls
-  - dakota --version
+  - conda install -c conda-forge coveralls hydrotrend
 
 script:
   - nosetests --with-doctest --with-coverage --cover-package=dakotathon
 
 after_success:
-  - coveralls
+  - |
+    if [[ $TRAVIS_OS_NAME != "osx" ]]; then
+      coveralls
+    fi
