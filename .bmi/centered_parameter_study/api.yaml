@@ -1,5 +1,0 @@
-name: CenteredParameterStudy
-language: python
-package: dakotathon.bmi
-class: CenteredParameterStudy
-initialize_args: "dakota.yaml"

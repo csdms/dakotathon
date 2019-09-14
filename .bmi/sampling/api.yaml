@@ -1,5 +1,0 @@
-name: Sampling
-language: python
-package: dakotathon.bmi
-class: Sampling
-initialize_args: "dakota.yaml"
