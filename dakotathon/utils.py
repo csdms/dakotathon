@@ -119,11 +119,13 @@ def get_attributes(obj):
 
     """
     attrs = obj.__dict__.copy()
+
+    attrs_fmtd = {}
     for key in attrs:
-        if key.startswith("_"):
-            new_key = key.lstrip("_")
-            attrs[new_key] = attrs.pop(key)
-    return attrs
+        key_fmtd = key.lstrip("_")
+        attrs_fmtd[key_fmtd] = attrs[key]
+
+    return attrs_fmtd
 
 
 def get_configuration_file(params_file):
